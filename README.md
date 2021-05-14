@@ -1,4 +1,29 @@
+# Demo App
 
+This is a sample app created following the steps in [Workshop: Enterprise Angular applications with NgRx and Nx](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/2-creating-an-nx-workspace).
+
+## 2 - Creating an Nx Workspace
+
+### 1. Create a new Nx workspace in your workshop folder
+
+npx create-nx-workspace@latest
+cd demo-app
+
+### 3. Create a new app
+
+```txt
+nx generate @nrwl/angular:app --help
+npm install @nrwl/angular
+nx generate @nrwl/angular:app customer-portal --routing
+nx serve customer-portal
+git add .
+git commit -m "generated customer-portal Angular app"
+nx generate @nrwl/angular:lib auth --routing
+nx generate @nrwl/angular:component containers/login --project=auth
+nx generate @nrwl/angular:component components/login-form --project=auth
+```
+
+Update the auth.module.ts, app.component.html and app.module.ts files as shown.
 
 # DemoApp
 

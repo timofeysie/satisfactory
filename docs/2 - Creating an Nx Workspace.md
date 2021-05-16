@@ -3,7 +3,7 @@
 ## 1. Create a new Nx workspace in your workshop folder
 
 ```txt
-> npx create-nx-workspace@latest
+>npx create-nx-workspace@latest
 Need to install the following packages:
   create-nx-workspace@latest
 Ok to proceed? (y) y
@@ -29,7 +29,7 @@ Now we have the following packages installed in the package.json:
 ## 3. Create a new app
 
 ```txt
-> nx generate @nrwl/angular:app --help
+>nx generate @nrwl/angular:app --help
 nx generate @nrwl/angular:app [name] [options,...]
 
 Options:
@@ -58,7 +58,7 @@ Options:
 This command needs to come first.
 
 ```txt
-> npm install @nrwl/angular
+>npm install @nrwl/angular
 npm WARN EBADENGINE Unsupported engine {
 npm WARN EBADENGINE   package: '@angular-devkit/schematics@12.0.0',
 npm WARN EBADENGINE   required: {
@@ -101,7 +101,7 @@ found 0 vulnerabilities
 ```
 
 ```txt
-> nx generate @nrwl/angular:app customer-portal --routing
+>nx generate @nrwl/angular:app customer-portal --routing
 √ Which stylesheet format would you like to use? · scss
 √ Packages installed successfully.
 npm WARN EBADENGINE Unsupported engine {
@@ -738,3 +738,4 @@ Build at: 2021-05-14T21:17:55.216Z - Hash: dc015c899f4c5b4f43c4 - Time: 1269ms
 √ Compiled successfully.
 ```
 
+Branch name: step-2-Creating-an-Nx-Workspace

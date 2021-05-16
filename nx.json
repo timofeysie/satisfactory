@@ -25,6 +25,12 @@
     "customer-portal-e2e": {
       "tags": [],
       "implicitDependencies": ["customer-portal"]
+    },
+    "auth": {
+      "tags": []
+    },
+    "data-models": {
+      "tags": []
     }
   }
 }

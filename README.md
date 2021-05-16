@@ -2,6 +2,77 @@
 
 This is a sample app created following the steps in [Workshop: Enterprise Angular applications with NgRx and Nx](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/2-creating-an-nx-workspace).
 
+## Workflow
+
+nx serve customer-portal
+
+## Current versions
+
+```txt
+ng --version
+
+     _                      _                 ____ _     ___
+    / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+   / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
+  / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
+ /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
+                |___/
+
+
+Angular CLI: 8.3.9
+Node: 16.0.0
+OS: win32 x64
+Angular: 12.0.0
+... animations, common, compiler, compiler-cli, core, forms
+... language-service, platform-browser, platform-browser-dynamic
+... router
+
+Package                           Version
+-----------------------------------------------------------
+@angular-devkit/architect         0.1200.0
+@angular-devkit/build-angular     12.0.0
+@angular-devkit/build-optimizer   0.1200.0
+@angular-devkit/build-webpack     0.1200.0
+@angular-devkit/core              12.0.0
+@angular-devkit/schematics        12.0.0
+@ngtools/webpack                  12.0.0
+@schematics/angular               12.0.0
+@schematics/update                0.803.9 (cli-only)
+rxjs                              6.6.7
+typescript                        4.2.4
+webpack                           5.36.2
+```
+
+npm i -g @angular/cli@latest
+
+```txt
+>ng --version
+...
+Angular CLI: 12.0.0
+Node: 16.0.0
+Package Manager: npm 7.10.0
+OS: win32 x64
+
+Angular: 12.0.0
+... animations, common, compiler, compiler-cli, core, forms
+... language-service, platform-browser, platform-browser-dynamic
+... router
+
+Package                         Version
+---------------------------------------------------------
+@angular-devkit/architect       0.1200.0
+@angular-devkit/build-angular   12.0.0
+@angular-devkit/core            12.0.0
+@angular-devkit/schematics      12.0.0
+@schematics/angular             12.0.0
+rxjs                            6.6.7
+typescript                      4.2.4
+```
+
+## A Cheat sheet of commands and changes made for the course
+
+This should be a concise list of commands and changes that are done in each step.
+
 ## 2 - Creating an Nx Workspace
 
 ### 1. Create a new Nx workspace in your workshop folder
@@ -18,6 +89,7 @@ nx generate @nrwl/angular:app customer-portal --routing
 nx serve customer-portal
 git add .
 git commit -m "generated customer-portal Angular app"
+nx g lib --help
 nx generate @nrwl/angular:lib auth --routing
 nx generate @nrwl/angular:component containers/login --project=auth
 nx generate @nrwl/angular:component components/login-form --project=auth
@@ -25,7 +97,31 @@ nx generate @nrwl/angular:component components/login-form --project=auth
 
 Update the auth.module.ts, app.component.html and app.module.ts files as shown.
 
-# DemoApp
+Update the login.component.html, login.component.ts as shown.
+
+Make a folder called 'data-models', add types and export the interface:
+libs/data-models/src/authenticate.d.ts
+libs/data-models/index.ts
+libs/auth/src/lib/components/login-form/login-form.component.html
+libs/auth/src/lib/components/login-form/login-form.component.ts
+
+Add change detection.
+libs/auth/src/lib/containers/login/login.component.ts
+
+### Questions about changes made
+
+Remove empty functions: constructor() {} ngOnInit() {}?
+Mor maybe add console logs for ones that will be filled out later?
+
+Avoid using any such as login(authenticate: any)?
+
+App prefixes require app name.
+
+@Output() submit = new EventEmitter<Authenticate>() causes the error "The output property should not be named or renamed as a native event eslint(@angular-eslint/no-output-native)".  Note this used to be just a warning.
+
+Creating the lib module with the nx cli.  Where to put the file?libs\data-models\src\lib\data-models.module.ts
+
+## Original DemoApp Readme
 
 This project was generated using [Nx](https://nx.dev).
 

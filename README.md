@@ -124,6 +124,8 @@ libs/auth/src/lib/components/login-form/login-form.component.ts
 Add change detection.
 libs/auth/src/lib/containers/login/login.component.ts
 
+I think now a list like this is not needed.  It's best to just follow the steps and paste in the code as shown.  Each step can be confirmed and changes applied to the tutorial.
+
 ### Questions about changes made
 
 Remove empty functions: constructor() {} ngOnInit() {}?

@@ -1,4 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Authenticate } from '@demo-app/data-models';
 
 @Component({
   selector: 'demo-app-login',
@@ -6,8 +8,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
-  login(authenticate: any) {
-    console.log(authenticate);
+export class LoginComponent implements OnInit {
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    console.log('remove');
+  }
+
+  login(authenticate: Authenticate): void {
+    this.authService.login(authenticate).subscribe();
   }
 }

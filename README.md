@@ -4,7 +4,24 @@ This is a sample app created following the steps in [Workshop: Enterprise Angula
 
 ## Workflow
 
-nx serve customer-portal
+```txt
+npm run server // start the server up
+nx serve customer-portal // serve the front end Angular app
+nx test auth // test the Angular app
+```
+
+Currently the only route that shows anything is here: http://localhost:4200/auth/login
+
+Login with the following info from the server/db.json:
+
+```json
+      "id": 1,
+      "username": "duncan",
+      "country": "australia",
+      "password": "123"
+```
+
+After login, you should see the same JSON returned with the addition of a token property.
 
 ## Current versions
 

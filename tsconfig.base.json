@@ -17,7 +17,8 @@
     "paths": {
       "@demo-app/auth": ["libs/auth/src/index.ts"],
       "@demo-app/data-models": ["libs/data-models/src/index.ts"],
-      "@demo-app/material": ["libs/material/src/index.ts"]
+      "@demo-app/material": ["libs/material/src/index.ts"],
+      "@demo-app/layout": ["libs/layout/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

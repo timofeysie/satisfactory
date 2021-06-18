@@ -126,6 +126,137 @@ libs/auth/src/lib/containers/login/login.component.ts
 
 I think now a list like this is not needed.  It's best to just follow the steps and paste in the code as shown.  Each step can be confirmed and changes applied to the tutorial.
 
+## 8 - Layout Lib and BehaviorSubjects
+
+Branch: step-8-Layout-Lib-and-BehaviorSubjects
+
+```txt
+nx generate @nrwl/angular:lib layout
+```
+
+This time, there is not choice for sass.
+
+```txt
+nx generate @nrwl/angular:component containers/layout --project=layout
+```
+
+Does the AuthService need to be exported if the module is already exported?
+
+```js
+export * from './lib/auth.module';
+export { AuthService } from './lib/services/auth.service';
+```
+
+Need to confirm this.
+
+Next, in the "9. Add a material tool bar logic" step, this line is causing a VSCode error:
+
+```html
+<span *ngIf="!(user$ | async)">
+```
+
+```err
+Async pipe results should not be negated. Use (observable | async) === (false || null || undefined) to check its value instead
+
+eslint@angular-eslint/template/no-negated-async
+(property) LayoutComponent.user$: Observable<User>
+```
+
+There were some extra styles in the app.component.scss like this:
+
+apps\customer-portal\src\app\app.component.scss
+
+```scss
+/*
+ * Remove template code below
+ */
+:host {
+  display: block;
+  font-family: sans-serif;
+  min-width: 300px;
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.gutter-left {
+  margin-left: 9px;
+}
+```
+
+The margin: 50px line in particular will push down the entire app layout, so it's a good idea to just remove everything in this file.
+
+### Fixing the tests
+
+After the changes in step 8, it's a good idea to run all the tests and at least fix the issues.
+
+Here is what the auth tests look like:
+
+```txt
+> nx test auth
+> nx run auth:test
+ PASS   auth  libs/auth/src/lib/services/auth.service.spec.ts (6.43 s)
+ PASS   auth  libs/auth/src/lib/components/login-form/login-form.component.spec.ts (6.437 s)
+  ● Console
+    console.error
+      NG0304: 'mat-card' is not a known element:
+      1. If 'mat-card' is an Angular component, then verify that it is part of this module.
+      2. If 'mat-card' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress 
+this message.
+      at logUnknownElementError (../../../packages/core/src/render3/instructions/element.ts:220:15)
+```
+
+So although the tests are all passing, the output is not great.
+
+But actually, running the tests again with watch, as well as all the console errors like the above, there is one failure:
+
+```txt
+ FAIL   auth  libs/auth/src/lib/components/login-form/login-form.component.spec.ts (5.078 s)
+  ● LoginFormComponent › should create
+    Found the synthetic property @transitionMessages. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.
+```
+
+Looking at the addendum file 8a from the forked repository, there were more failed test there.
+
+Here are the details shown there:
+
+
+Since @transitionMessages is not found in the project, it must be part of material which we just imported above. Stopping and starting the tests and closing and opening VSCode fixes this. Or, fixes one of them. Now the only test failing is the @transitionMessages one.
+
+We have BrowserAnimationsModule imported in the app.module.ts file. [This issue](https://github.com/angular/angular/issues/18751) is still open on the Angular GitHub.
+
+The solution from [this blog](https://onlyangular5.blogspot.com/2018/02/complete-angular-5-tutorial-for.html): _Use (submit) instead of (ngSubmit)._
+
+We don't have a submit in the login form component. We do have this however:
+
+```js
+@Output() submit = new EventEmitter<Authenticate>();
+```
+
+There is a TypeScript warning on this: _In the class "LoginFormComponent", the output property "submit" should not be named or renamed as a native event (no-output-native)tslint(1)_
+
+That was noticed before. Changed submit to submitLogin and the warning is gone. Also imported these in the login.component.spec.ts file, same as the form, and added them to the imports array.
+
+```js
+import { MaterialModule } from '@clades/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+```
+
+Now the login component has this failure:
+
+```bash
+NullInjectorError: No provider for HttpClient!
+```
+
+This requires the testing module imported and added to the array:
+
+```js
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+```
+
+Now both login and login-form component specs are failing with the _Found the synthetic property @transitionMessages._.
+
+Import both MaterialModule and BrowserAnimationsModule in both failing specs and the tests pass!
+
 ### Questions about changes made
 
 Remove empty functions: constructor() {} ngOnInit() {}?
@@ -133,7 +264,7 @@ Mor maybe add console logs for ones that will be filled out later?
 
 Avoid using any such as login(authenticate: any)?
 
-App prefixes require app name.
+App prefixes require app name.  So I have changed for example 'app-layout' to 'demo-app-layout' where appropriate.
 
 @Output() submit = new EventEmitter<Authenticate>() causes the error "The output property should not be named or renamed as a native event eslint(@angular-eslint/no-output-native)".  Note this used to be just a warning.
 
@@ -217,8 +348,6 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
 
 ## ☁ Nx Cloud
 

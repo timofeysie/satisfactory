@@ -7,7 +7,10 @@ This is a sample app created following the steps in [Workshop: Enterprise Angula
 ```txt
 npm run server // start the server up
 nx serve customer-portal // serve the front end Angular app
-nx test auth // test the Angular app
+nx test auth // test the auth lib
+nx test layout // test the layout lib
+nx test customer-portal // test the customer-portal app
+nx e2e customer-portal-e2e // run the end-to-end tests
 ```
 
 Currently the only route that shows anything is here: http://localhost:4200/auth/login
@@ -217,8 +220,9 @@ But actually, running the tests again with watch, as well as all the console err
 
 Looking at the addendum file 8a from the forked repository, there were more failed test there.
 
-Here are the details shown there:
+Here are the details shown there in the below section.
 
+### Previous notes on fixing the tests
 
 Since @transitionMessages is not found in the project, it must be part of material which we just imported above. Stopping and starting the tests and closing and opening VSCode fixes this. Or, fixes one of them. Now the only test failing is the @transitionMessages one.
 
@@ -256,6 +260,109 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 Now both login and login-form component specs are failing with the _Found the synthetic property @transitionMessages._.
 
 Import both MaterialModule and BrowserAnimationsModule in both failing specs and the tests pass!
+
+### Fixing the tests again for this project
+
+The submit @Input has already been updated here, so I'm not sure what is causing the synthetic error now.
+
+The error again:
+
+```txt
+ FAIL   auth  libs/auth/src/lib/components/login-form/login-form.component.spec.ts
+  ● LoginFormComponent › should create
+    Found the synthetic property @transitionMessages. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.
+```
+
+Another concern is that the material tags like ```<mat-card>``` in the login-form.component.html file are all showing errors like this:
+
+```txt
+'mat-card-title' is not a known element:
+1. If 'mat-card-title' is an Angular component, then verify that it is part of this module.
+2. If 'mat-card-title' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.ngtsc(-998001)
+```
+
+After including the material.module in the imports of the login-form.component.spec and the layout.component.spec, and then running the tests in a separate command prompt terminal (not in the VSCode terminal) all the tests are passing.  Byt there are still these messages on every test being run:
+
+```txt
+  console.error
+    NG0304: 'demo-app-layout' is not a known element:
+```
+
+It looks like there is an [open issue on the Angular GitHub](https://github.com/angular/angular-cli/issues/18177) for this right now.  Have to keep an eye on that.
+
+### Fixing the end-to-end tests
+
+This time we are going to be adding the end-to-end tests of the customer-portal app.
+
+To run those, use this command: nx e2e customer-portal-e2e.
+
+You will see an output like this:
+
+```txt
+>nx e2e customer-portal-e2e
+> nx run customer-portal-e2e:e2e
+- Generating browser application bundles...
+√ Browser application bundle generation complete.
+...
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+√ Compiled successfully.
+It looks like this is your first time using Cypress: 6.9.1
+[11:44:08]  Verifying Cypress can run C:\Users\timof\AppData\Local\Cypress\Cache\6.9.1\Cypress [started]
+[11:44:18]  Verified Cypress! C:\Users\timof\AppData\Local\Cypress\Cache\6.9.1\Cypress [title changed]
+[11:44:18]  Verified Cypress! C:\Users\timof\AppData\Local\Cypress\Cache\6.9.1\Cypress [completed]
+...
+  customer-portal
+    1) should display welcome message
+  0 passing (5s)
+  1 failing
+  1) customer-portal
+       should display welcome message:
+     AssertionError: Timed out retrying after 4000ms: Expected to find element: `h1`, but never found it.
+      at getGreeting (http://localhost:4200/__cypress/tests?p=src\integration\app.spec.ts:6:30)
+```
+
+The failing tests are in this file:
+
+apps\customer-portal-e2e\src\integration\app.spec.ts
+
+```js
+import { getGreeting } from '../support/app.po';
+describe('customer-portal', () => {
+  beforeEach(() => cy.visit('/'));
+  it('should display welcome message', () => {
+    // Custom command example, see `../support/commands.ts` file
+    cy.login('my-email@something.com', 'myPassword');
+    // Function helper example, see `../support/app.po.ts` file
+    getGreeting().contains('Welcome to customer-portal!');
+  });
+});
+```
+
+apps\customer-portal-e2e\src\support\app.po.ts
+
+```js
+export const getGreeting = () => cy.get('h1');
+```
+
+If we change 'h1' to '.title', adding a title class to the layout.component.html
+
+```html
+<span class="title">Customer Portal</span>
+```
+
+And update the string in the contains function of the app.spec.ts file like this:
+
+```js
+getGreeting().contains('Customer Portal');
+```
+
+Then that test will pass.
+
+When login is working, we can come back here and make a test for that to show that the login routing works, etc.
+
+Right now, the server reports either an "unknown error" if the server is not running, "Unauthorized" if the email/password are wrong, and a JSON response with a fictional user-token at the moment.
+
+That will be updated in the next section, step 9 - Route Guards and Products Lib.
 
 ### Questions about changes made
 

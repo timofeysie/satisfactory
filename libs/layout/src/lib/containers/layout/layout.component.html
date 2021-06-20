@@ -2,12 +2,23 @@
   <span class="title">Customer Portal</span>
   <div class="right-nav">
     <span *ngIf="user$ | async as user">
-      <button mat-button>{{(user$ | async)?.username}}</button>
-      <button mat-button [routerLink]="['/products']" routerLinkActive="router-link-active">Products</button>
+      <button mat-button>{{ (user$ | async)?.username }}</button>
+      <button
+        mat-button
+        [routerLink]="['/products']"
+        routerLinkActive="router-link-active"
+      >
+        Products
+      </button>
       <button mat-button>Logout</button>
     </span>
     <span *ngIf="(user$ | async) === (false || null || undefined)">
-      <span mat-button [routerLink]="['/auth/login']" routerLinkActive="router-link-active">Login</span>
+      <span
+        mat-button
+        [routerLink]="['/auth/login']"
+        routerLinkActive="router-link-active"
+        >Login</span
+      >
     </span>
   </div>
 </mat-toolbar>

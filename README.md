@@ -498,7 +498,6 @@ Error: libs/auth/src/lib/containers/login/login.component.ts:2:29 - error TS2307
 
 2 import { AuthService } from '../../services/auth.service';
                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 Error: libs/auth/src/lib/guards/auth/auth.guard.ts:9:29 - error TS2307: Cannot find module '../../services/auth.service' or its corresponding type declarations.
 9 import { AuthService } from '../../services/auth.service';
                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -514,6 +513,43 @@ libs/auth/src/index.ts
 
 As long as the tutorial all have the correct path, I'm not too worried about the branches for now.
 
+### 11 - Adding NgRx to Nx App
+
+Branch: step-11-Adding-NgRx-to-Nx-App
+
+Create a products store as the root state without a facet.
+
+```txt
+nx g @nrwl/angular:ngrx --module=apps/customer-portal/src/app/app.module.ts  --minimal true
+? What name would you like to use for the NgRx feature state? An example would be "users". products
+? Is this the root state of the application? Yes
+? Would you like to use a Facade with your NgRx state? No
+✔ Packages installed successfully.
+UPDATE apps/customer-portal/src/app/app.module.ts
+UPDATE package.json
+```
+
+Add NgRx Auth lib making it a state state
+
+```text
+nx g @nrwl/angular:ngrx --module=libs/auth/src/lib/auth.module.ts --minimal false
+? What name would you like to use for the NgRx feature state? An example would be "users". auth
+? Is this the root state of the application? No
+? Would you like to use a Facade with your NgRx state? No
+CREATE libs/auth/src/lib/+state/auth.actions.ts
+CREATE libs/auth/src/lib/+state/auth.effects.spec.ts
+CREATE libs/auth/src/lib/+state/auth.effects.ts
+CREATE libs/auth/src/lib/+state/auth.models.ts
+CREATE libs/auth/src/lib/+state/auth.reducer.spec.ts
+CREATE libs/auth/src/lib/+state/auth.reducer.ts
+CREATE libs/auth/src/lib/+state/auth.selectors.spec.ts
+CREATE libs/auth/src/lib/+state/auth.selectors.ts
+UPDATE libs/auth/src/lib/auth.module.ts
+UPDATE libs/auth/src/index.ts
+```
+
+The current tutorial only has action, state and reducer classes with spec tests created.  As you can see from above, there is also model and reducers along with a module and index not shown in the current image.  I have an updated image for this.
+
 ### Questions about changes made
 
 Remove empty functions: constructor() {} ngOnInit() {}?
@@ -526,6 +562,10 @@ App prefixes require app name.  So I have changed for example 'app-layout' to 'd
 @Output() submit = new EventEmitter<Authenticate>() causes the error "The output property should not be named or renamed as a native event eslint(@angular-eslint/no-output-native)".  Note this used to be just a warning.
 
 Creating the lib module with the nx cli.  Where to put the file?libs\data-models\src\lib\data-models.module.ts
+
+Replace the file system picture from the New Nx Lib with State folder at gitbook/assets/image%20%2823%29.png.
+
+Propose putting the unit test and e2e sections at the bottom of their respective steps instead of in unused files.
 
 ## Original DemoApp Readme
 

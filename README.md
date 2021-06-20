@@ -554,6 +554,23 @@ The current tutorial only has action, state and reducer classes with spec tests 
 
 Branch: step-12-Strong-Typing-the-State-and-Actions
 
+1. Add Login Action Creators
+
+The create reducer function has some issues out of the box:
+
+```js
+const authReducer = createReducer(
+  initialState,
+  on(AuthActions.init, (state) => ({ ...state, loaded: false, error: null })),
+  on(AuthActions.loadAuthSuccess, (state, { auth }) =>
+    authAdapter.setAll(auth, { ...state, loaded: true })
+  ),
+  on(AuthActions.loadAuthFailure, (state, { error }) => ({ ...state, error }))
+);
+```
+
+The functions init(), loadAuthSuccess(), and loadAuthFailure() don't exist on AuthActions.
+
 ### Questions about changes made
 
 Remove empty functions: constructor() {} ngOnInit() {}?

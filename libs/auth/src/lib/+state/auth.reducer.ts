@@ -3,6 +3,7 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import * as AuthActions from './auth.actions';
 import { AuthEntity } from './auth.models';
+import { User } from '@demo-app/data-models';
 
 export const AUTH_FEATURE_KEY = 'auth';
 
@@ -16,6 +17,25 @@ export interface AuthPartialState {
   readonly [AUTH_FEATURE_KEY]: State;
 }
 
+/**
+ * Interface for the 'Auth' data used in
+ *  - AuthState, and
+ *  - authReducer
+ */
+export interface AuthData {
+  loading: boolean;
+  user: User;
+  error: Error
+}
+
+/**
+ * Interface to the part of the Store containing AuthState
+ * and other information related to AuthData.
+ */
+export interface AuthState {
+  readonly auth: AuthData;
+}
+
 export const authAdapter: EntityAdapter<AuthEntity> = createEntityAdapter<AuthEntity>();
 
 export const initialState: State = authAdapter.getInitialState({
@@ -25,11 +45,17 @@ export const initialState: State = authAdapter.getInitialState({
 
 const authReducer = createReducer(
   initialState,
-  on(AuthActions.init, (state) => ({ ...state, loaded: false, error: null })),
-  on(AuthActions.loadAuthSuccess, (state, { auth }) =>
-    authAdapter.setAll(auth, { ...state, loaded: true })
-  ),
-  on(AuthActions.loadAuthFailure, (state, { error }) => ({ ...state, error }))
+  on(AuthActions.login, (state) => ({ ...state, loading: true })),
+  on(AuthActions.loginSuccess, (state) => ({
+    ...state,
+    user: AuthActions.loginSuccess,
+    loading: false,
+  })),
+  on(AuthActions.loginFailure, (state) => ({
+    ...state,
+    user: null,
+    loading: false,
+  }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

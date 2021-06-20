@@ -550,6 +550,10 @@ UPDATE libs/auth/src/index.ts
 
 The current tutorial only has action, state and reducer classes with spec tests created.  As you can see from above, there is also model and reducers along with a module and index not shown in the current image.  I have an updated image for this.
 
+### 12 - Strong Typing the State and Actions
+
+Branch: step-12-Strong-Typing-the-State-and-Actions
+
 ### Questions about changes made
 
 Remove empty functions: constructor() {} ngOnInit() {}?

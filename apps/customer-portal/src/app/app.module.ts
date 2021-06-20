@@ -4,8 +4,9 @@ import { AppComponent } from './app.component';
 import { NxModule } from '@nrwl/nx';
 import { RouterModule } from '@angular/router';
 import { authRoutes, AuthModule } from '@demo-app/auth';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Added
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@demo-app/layout';
+import { AuthGuard } from '@demo-app/auth'; // added
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,14 +16,15 @@ import { LayoutModule } from '@demo-app/layout';
     NxModule.forRoot(),
     RouterModule.forRoot(
       [
-        { path: '', pathMatch: 'full', redirectTo: 'products' }, // added
+        { path: '', pathMatch: 'full', redirectTo: 'products' },
         { path: 'auth', children: authRoutes },
         {
           path: 'products',
           loadChildren: () =>
             import('@demo-app/products').then(
-              (mod) => mod.ProductsModule // added
+              (module) => module.ProductsModule
             ),
+          canActivate: [AuthGuard],      // added
         },
       ],
       {

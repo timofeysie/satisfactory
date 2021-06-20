@@ -5,5 +5,6 @@ module.exports = {
     '<rootDir>/libs/data-models',
     '<rootDir>/libs/material',
     '<rootDir>/libs/layout',
+    '<rootDir>/libs/products',
   ],
 };

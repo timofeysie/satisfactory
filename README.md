@@ -9,6 +9,7 @@ npm run server // start the server up
 nx serve customer-portal // serve the front end Angular app
 nx test auth // test the auth lib
 nx test layout // test the layout lib
+nx test products // test the products lib
 nx test customer-portal // test the customer-portal app
 nx e2e customer-portal-e2e // run the end-to-end tests
 ```
@@ -363,6 +364,74 @@ When login is working, we can come back here and make a test for that to show th
 Right now, the server reports either an "unknown error" if the server is not running, "Unauthorized" if the email/password are wrong, and a JSON response with a fictional user-token at the moment.
 
 That will be updated in the next section, step 9 - Route Guards and Products Lib.
+
+### Step 9 - Route Guards and Products Lib
+
+Branch: step-9-Route-Guards-and-Products-Lib
+
+Steps.
+
+1. Add a lazy loaded lib Products with routing
+2. Add a products container component to the lib
+3. Update the RouterModule.forRoot array in apps\customer-portal\src\app\app.module.ts
+4. Add ProductsModule route
+
+```txt
+nx generate @nrwl/angular:lib products --routing --lazy --parent-module=apps/customer-portal/src/app/app.module.ts
+...
+CREATE libs/products/README.md
+CREATE libs/products/tsconfig.lib.json
+CREATE libs/products/src/index.ts
+CREATE libs/products/src/lib/products.module.ts
+CREATE libs/products/tsconfig.json
+CREATE libs/products/jest.config.js
+CREATE libs/products/src/test-setup.ts
+CREATE libs/products/tsconfig.spec.json
+CREATE libs/products/.eslintrc.json
+UPDATE package.json
+UPDATE workspace.json
+UPDATE nx.json
+UPDATE tsconfig.base.json
+UPDATE .vscode/extensions.json
+UPDATE jest.config.js
+UPDATE apps/customer-portal/src/app/app.module.ts
+UPDATE apps/customer-portal/tsconfig.app.json
+```
+
+```txt
+nx g @nrwl/angular:component containers/products --project=products
+CREATE libs/products/src/lib/containers/products/products.component.html
+CREATE libs/products/src/lib/containers/products/products.component.spec.ts
+CREATE libs/products/src/lib/containers/products/products.component.ts     
+CREATE libs/products/src/lib/containers/products/products.component.scss   
+UPDATE libs/products/src/lib/products.module.ts
+```
+
+Error: Cannot find module '@demo-app/products'
+    at $_lazy_route_resources|lazy|groupOptions: {}|namespace object:5
+
+After updating the RouterModule.forRoot array and adding the ProductsModule route in the products.module.ts, it's time to run the app.
+
+The instructions are: "Login again to check the routing is correctly configured by trying to click the 'products' button in the main menu."
+
+However, we are getting this runtime error:
+
+```txt
+Error: Uncaught (in promise): Error: Cannot find module '@demo-app/products'
+Error: Cannot find module '@demo-app/products'
+    at $_lazy_route_resources|lazy|groupOptions: {}|namespace object:5
+```
+
+Try with new syntax of module imports:
+
+```js
+loadChildren: () =>
+  import('@demo-app/products').then(
+    (mod) => mod.ProductsModule // added
+  ),
+```
+
+This works.  Time to update the course which shows source from the end of the section, not the source as it should be in-progress so that the source shown at this point in the section will run.
 
 ### Questions about changes made
 

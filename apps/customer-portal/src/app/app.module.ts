@@ -13,9 +13,22 @@ import { LayoutModule } from '@demo-app/layout';
     BrowserModule,
     BrowserAnimationsModule,
     NxModule.forRoot(),
-    RouterModule.forRoot([{ path: 'auth', children: authRoutes }], {
-      initialNavigation: 'enabled',
-    }),
+    RouterModule.forRoot(
+      [
+        { path: '', pathMatch: 'full', redirectTo: 'products' }, // added
+        { path: 'auth', children: authRoutes },
+        {
+          path: 'products',
+          loadChildren: () =>
+            import('@demo-app/products').then(
+              (mod) => mod.ProductsModule // added
+            ),
+        },
+      ],
+      {
+        initialNavigation: 'enabled',
+      }
+    ),
     AuthModule,
     LayoutModule,
   ],

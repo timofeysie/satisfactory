@@ -571,6 +571,26 @@ const authReducer = createReducer(
 
 The functions init(), loadAuthSuccess(), and loadAuthFailure() don't exist on AuthActions.
 
+libs/auth/src/lib/+state/products.selectors.ts
+
+At the end of this step, there will be errors in the auth.effects.ts file because the default created actions no longer exist:
+
+```ts
+AuthActions.init),
+AuthActions.loadAuthSuccess({ auth: [] });
+AuthActions.loadAuthFailure
+```
+
+One solution would be to leave the old actions there until the new ones are done.
+We could leave a not at the end pointing this out.
+Or just move on to the next.
+
+### 14 - NgRx Selectors
+
+Branch: step-14-NgRx-Selectors
+
+1. Add selector file
+
 ### Questions about changes made
 
 Remove empty functions: constructor() {} ngOnInit() {}?

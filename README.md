@@ -585,11 +585,68 @@ One solution would be to leave the old actions there until the new ones are done
 We could leave a not at the end pointing this out.
 Or just move on to the next.
 
-### 14 - NgRx Selectors
+### 14 - NgRx Selectors & 15 - Add Products NgRx Feature Module
 
 Branch: step-14-NgRx-Selectors
 
+Right at the start there is something strange.  There is already a selector file:
+libs\auth\src\lib\+state\auth.selectors.ts
+
+The instructions then say:
+
 1. Add selector file
+
+Add a file called index.ts to the +state folder of your auth state lib
+
+libs/auth/src/lib/+state/products.selectors.ts
+
+```js
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { ProductsState, ProductsData } from './products.reducer';
+import * as fromProduct from './products.reducer';
+
+const getProductsState = createFeatureSelector<ProductsData>('products');
+
+const getProducts = createSelector(
+  getProductsState,
+  state => state.products
+);
+
+export const productsQuery = {
+  getProducts,
+};
+```
+
+So we need *another* selector file?  Shouldn't this be going into the products lib?
+
+My notes from last year say: *it seems to me that section 14 should be in section 15 after the products lib is created. I would like to introduce the product modules scaffolding command in section 14, talking about a selector there, and then working on the rest of the product module in section 15.*
+
+Duncan agreed with this idea, so it's time to move the scaffolding for products into step 14.
+
+The only other item in step 14 is: Use selector in Layout component
+
+This will have to be moved somewhere into 15.
+
+The old scaffolding command was:
+
+ng generate ngrx products --module=libs/products/src/lib/products.module.ts
+
+```txt
+> nx g @nrwl/angular:ngrx --module=libs/products/src/lib/products.module.ts --minimal false
+√ What name would you like to use for the NgRx feature state? An example would be "users". · products
+√ Is this the root state of the application? (y/N) · false
+√ Would you like to use a Facade with your NgRx state? (y/N) · false
+CREATE libs/products/src/lib/+state/products.actions.ts
+CREATE libs/products/src/lib/+state/products.effects.spec.ts
+CREATE libs/products/src/lib/+state/products.effects.ts
+CREATE libs/products/src/lib/+state/products.models.ts
+CREATE libs/products/src/lib/+state/products.reducer.spec.ts
+CREATE libs/products/src/lib/+state/products.reducer.ts
+CREATE libs/products/src/lib/+state/products.selectors.spec.ts
+CREATE libs/products/src/lib/+state/products.selectors.ts
+UPDATE libs/products/src/lib/products.module.ts
+UPDATE libs/products/src/index.ts
+```
 
 ### Questions about changes made
 

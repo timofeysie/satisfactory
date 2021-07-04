@@ -28,7 +28,6 @@ describe('Auth Reducer', () => {
       };
       const action = AuthActions.login({ payload: auth });
       const result: State = reducer(initialState, action);
-      console.log('result-----------------', result);
       expect(result.loaded).toBe(false);
     });
   });

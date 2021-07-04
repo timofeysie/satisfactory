@@ -102,7 +102,9 @@ Test Suites: 5 failed, 2 passed, 7 total
 Tests:       3 failed, 5 passed, 8 total
 ```
 
-Here they are:
+### First up, the auth.reducer.spec.ts
+
+Right at the top of the list, a tough one.
 
 ```txt
  FAIL   auth  libs/auth/src/lib/+state/auth.reducer.spec.ts
@@ -110,6 +112,71 @@ Here they are:
     libs/auth/src/lib/+state/auth.reducer.spec.ts:20:34 - error TS2339: Property 'loadAuthSuccess' does not exist on type 'typeof import("C:/Users/timof/repos/timofeysie/angular/demo-app/libs/auth/src/lib/+state/auth.actions")'.
     20       const action = AuthActions.loadAuthSuccess({ auth });
 ```
+
+This line in the spec needs to be updated:
+
+```txt
+const action = AuthActions.login({ auth });
+```
+
+Currently, there is this Typescript error:
+
+Argument of type '{ auth: AuthEntity[]; }' is not assignable to parameter of type '{ payload: Authenticate; }'.
+
+Object literal may only specify known properties, and 'auth' does not exist in type '{ payload: Authenticate; }'.ts(2345)
+(property) auth: AuthEntity[]
+
+The login component dispatches this action: authActions.login({ payload: authenticate })
+
+The authenticate is typed, so we know what to change it to:
+
+```js
+export interface Authenticate {
+  username: string;
+  password: string;
+}
+```
+
+Change the auth object to create the above and then updated the action payload:
+
+```js
+const action = AuthActions.login({ payload: auth });
+```
+
+And by the way, you can run a single test file like this:
+
+```txt
+nx test --test-file auth.reducer.spec.ts
+```
+
+There is still to go with this test, because the expectations don't match what we have.
+
+```js
+      expect(result.loaded).toBe(true);
+      expect(result.ids.length).toBe(2);
+```
+
+We are relying on the Store here, but ngrx has mock store we should be using:
+
+```js
+import { provideMockStore } from '@ngrx/store/testing';
+beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [provideMockStore({})],
+    });
+  });
+```
+
+You can define a specific state and pass it as method parameter.
+
+But there is still more to go with the NgRx and the login.  Right now, let's just get the tests to pass and get on with steps 14 and 15, then come back then.
+
+### The auth.effect.spec.ts test
+
+Power to the people.  Next up.  
+A similar situation with the reducer test, the effect also needs to use the actual objects being used.
+
+There is no AuthActions.init() function.
 
 ```txt
  FAIL   auth  libs/auth/src/lib/+state/auth.effects.spec.ts
@@ -125,7 +192,41 @@ Here they are:
                             ~~~~~
 ```
 
-```txt
+I'm going to be honest here and admit I have never seen a test like this before:
+
+```js
+  describe('init$', () => {
+    it('should work', () => {
+      const auth: Authenticate = {
+        username: 'zzz',
+        password: 'xxx',
+      };
+      actions = hot('-a-|', { a: AuthActions.init() });
+      const expected = hot('-a-|', {
+        a: AuthActions.loginSuccess({ payload: auth}),
+      });
+      expect(effects.init$).toBeObservable(expected);
+    });
+  });
+```
+
+So this will be a learning experience for all of us.  First of all, we have no init$ effect.
+But if we fix up the obvious errors, then the effects at the is undefined.  The createEffect function returns an Observable.   A hot Observable, to be exact.  So that seems like all this is testing.  Not a very meaningful test.  We should look at some other effect specs to figure out what is a decent thing to test.
+
+After basic change our effects object is undefined.  This is being injected by the test bed, so not sure what to do about that either.
+
+```js
+  let effects: AuthEffects;
+  beforeEach(() => {
+    ...
+    effects = TestBed.inject(AuthEffects);
+```
+
+### No provider errors
+
+Moving on, the "No provider!" errors are a welcome relief as we know how to fix these.
+
+```s
  FAIL   auth  libs/auth/src/lib/guards/auth/auth.guard.spec.ts (14.566 s)
   ● AuthGuard › should be created
     NullInjectorError: R3InjectorError(DynamicTestModule)[AuthGuard -> Router -> Router]:
@@ -133,12 +234,24 @@ Here they are:
       at NullInjector.Object.<anonymous>.NullInjector.get (../../../packages/core/src/di/null_injector.ts:16:21)
 ```
 
-```txt
+For routing, and http, the test has to import special testing modules RouterTestingModule & HttpClientTestingModule.  It's a bit of a pain that it just can't just rely on the same as the component, but that's the kind of world we live in.
+
+```shell
  FAIL   auth  libs/auth/src/lib/containers/login/login.component.spec.ts (14.536 s)
   ● LoginComponent › should create
     NullInjectorError: R3InjectorError(DynamicTestModule)[Store -> Store]:
       NullInjectorError: No provider for Store!
 ```
+
+For Store, this is also a special case.
+
+```js
+import { provideMockStore } from '@ngrx/store/testing';
+...
+providers: [provideMockStore({})],
+```
+
+The next one, you might remember was because the 'submit' keyword was used for the output, and changing it to 'onSubmit' fixed the error.
 
 ```txt
  FAIL   auth  libs/auth/src/lib/components/login-form/login-form.component.spec.ts (15.661 s)
@@ -147,9 +260,32 @@ Here they are:
       at checkNoSyntheticProp (../../../packages/platform-browser/src/dom/dom_renderer.ts:278:11)
 ```
 
+The fix here is actually quite similar.  Change '(click)="login()"' to '(onClick)="login()"' and Bob is a very close family relative of yours.
+
+The result in the reducer spec looks like this:
+
+```txt
+        ids: [],
+        entities: {},
+        action: {
+          AuthActionTypes: {
+            Login: '[Auth Page] Login',
+            LoginSuccess: '[Auth API] Login Success',
+            LoginFail: '[Auth API] Login Fail'
+          },
+          login: [Function (anonymous)],
+          loginSuccess: [Function (anonymous)],
+          loginFailure: [Function (anonymous)]
+        },
+        loaded: false,
+        loading: true
+```
+
+We don't have a fully functioning login using NgRx yet, so as mentioned before, we will just get all the tests to pass now and come back later and make some meaningful login tests.  It would be nice to do some TDD here, but that would require already knowing well how to test NgRx features, which I'm still a bit weak at.  So leave that for later.
+
 ## Old notes on @Effect vs. createEffect()
 
-Here are some notes from the clades project from the last time we got stuck on this.
+Here are some notes from the clades project from the last time we got stuck on this section before.
 
 The automatically generated effects by Nrwl 9 use fetch:
 

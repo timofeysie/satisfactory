@@ -14,7 +14,7 @@ export class AuthEffects {
       ofType(AuthActionTypes.Login),
       fetch({
         run: (action) => {
-          this.authService.login(action);
+          return AuthActions.loginSuccess(action);
         },
         onError: (action, error) => {
           return AuthActions.loginFailure(error);

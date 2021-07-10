@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Product } from '@demo-app/data-models';
 
 export enum ProductsActionTypes {
   LoadProducts = '[Products Page] Load Products',
@@ -7,16 +8,15 @@ export enum ProductsActionTypes {
 }
 
 export const loadProducts = createAction(
-  ProductsActionTypes.LoadProducts,
-  props<any>()
+  ProductsActionTypes.LoadProducts
 );
 
 export const loadProductsSuccess = createAction(
   ProductsActionTypes.LoadProductsSuccess,
-  props<{ payload: any }>()
+  props<{ payload: Product [] }>()
 );
 
-export const loadProductsFail = createAction(
+export const loadProductsFailure = createAction(
   ProductsActionTypes.LoadProductsFail,
-  props<{ payload: any }>()
+  props<{ error: any }>()
 );

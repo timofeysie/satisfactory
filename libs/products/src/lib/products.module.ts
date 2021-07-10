@@ -13,7 +13,7 @@ import { ProductsEffects } from './+state/products.effects';
     RouterModule.forChild([{ path: '', component: ProductsComponent }]),
     StoreModule.forFeature(
       fromProducts.PRODUCTS_FEATURE_KEY,
-      fromProducts.reducer
+      fromProducts.productsReducer
     ),
     EffectsModule.forFeature([ProductsEffects]),
   ],

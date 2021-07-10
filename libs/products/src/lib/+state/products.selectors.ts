@@ -1,45 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import {
-  PRODUCTS_FEATURE_KEY,
-  State,
-  ProductsPartialState,
-  productsAdapter,
-} from './products.reducer';
+import { ProductsData } from './products.reducer';
 
-// Lookup the 'Products' feature state managed by NgRx
-export const getProductsState = createFeatureSelector<
-  ProductsPartialState,
-  State
->(PRODUCTS_FEATURE_KEY);
+const getProductsState = createFeatureSelector<ProductsData>('products');
 
-const { selectAll, selectEntities } = productsAdapter.getSelectors();
+const getProducts = createSelector(getProductsState, (state) => state.products);
 
-export const getProductsLoaded = createSelector(
-  getProductsState,
-  (state: State) => state.loaded
-);
-
-export const getProductsError = createSelector(
-  getProductsState,
-  (state: State) => state.error
-);
-
-export const getAllProducts = createSelector(getProductsState, (state: State) =>
-  selectAll(state)
-);
-
-export const getProductsEntities = createSelector(
-  getProductsState,
-  (state: State) => selectEntities(state)
-);
-
-export const getSelectedId = createSelector(
-  getProductsState,
-  (state: State) => state.selectedId
-);
-
-export const getSelected = createSelector(
-  getProductsEntities,
-  getSelectedId,
-  (entities, selectedId) => selectedId && entities[selectedId]
-);
+export const productsQuery = {
+  getProducts,
+};

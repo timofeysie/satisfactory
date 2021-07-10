@@ -349,3 +349,69 @@ Well, it should be empty at least, and not an error.  But there are products in 
 So we're getting close here.  In the redux dev tools, I can see the products in the payload.
 
 Oh.  The products feature key still said 'auth'.  Now, no error, but there is an empty array on the products page.  A little bit closer.
+
+There are two parts missing from the boiler plate heaved reducer.  If we look at the complete auth reducer, it has these features:
+
+https://github.com/timofeysie/nx-12-demo-app/blob/master/libs/auth/src/lib/%2Bstate/auth.reducer.ts 
+
+```js
+export const AUTH_FEATURE_KEY = 'auth'; 
+export interface AuthData { }
+export interface AuthState { }
+export interface State extends EntityState<
+> { }
+export interface AuthPartialState { }
+export const authAdapter: EntityAdapter<AuthEntity> = createEntityAdapter<AuthEntity>();
+export const initialState: State = authAdapter.getInitialState({ });
+const authReducer = createReducer( );
+export function reducer(state: State | undefined, action: Action) { }
+```
+
+See what I mean about boiler plate?  That's nine separate plates to boil.
+
+In case anyone is wondering what the auth entity is, it looks like this:
+
+```js
+export interface AuthEntity {
+  id: string | number; // Primary ID
+}
+```
+
+For products to catch up to that we need a productsAdapter and need to export the function reducer as is done in the auth reducer.
+
+After adding those two, there is an error in the productsReducer state arg.
+
+```js
+export function reducer(state: State | undefined, action: Action) {
+  return productsReducer(state, action);
+}
+```
+
+```txt
+Argument of type 'State' is not assignable to parameter of type 'ProductsData'.
+  Type 'State' is missing the following properties from type 'ProductsData': loading, productsts(2345)
+(parameter) state: State
+```
+
+The initial state was all messed up.  Looking at the auth initial state helped clear that up:
+
+```js
+export const initialState: State = productsAdapter.getInitialState({
+  action: ProductsActions,
+  loaded: false,
+});
+```
+
+Even then, there are no products.  Yes, the products are there in the Redux tab.  Now there is no empty array.  No error, but no products.  Sometimes an error is better.  Now there is nothing left to do except review *everything*!
+
+OK, stop whining.  This is about learning.  If you don't get it, start from the beginning and step through it all.  It's true that the payload has been added where it was inconsitently applied before.
+
+It turns out, that was the last issue.  If we replace paylod with products here, then we get out list and can move on to the next step:
+
+```js
+  on(ProductsActions.loadProductsSuccess, (state, { payload: products }) => ({
+    ...state,
+    payload: products,
+    loaded: true,
+  })),
+```

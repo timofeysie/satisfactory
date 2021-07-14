@@ -6,5 +6,6 @@ module.exports = {
     '<rootDir>/libs/material',
     '<rootDir>/libs/layout',
     '<rootDir>/libs/products',
+    '<rootDir>/apps/nest-demo',
   ],
 };

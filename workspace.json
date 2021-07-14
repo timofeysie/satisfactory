@@ -1,6 +1,33 @@
 {
   "version": 2,
   "projects": {
+    "auth": {
+      "projectType": "library",
+      "root": "libs/auth",
+      "sourceRoot": "libs/auth/src",
+      "prefix": "demo-app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/auth"
+          ],
+          "options": {
+            "jestConfig": "libs/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth/src/**/*.ts",
+              "libs/auth/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "customer-portal": {
       "projectType": "application",
       "root": "apps/customer-portal",
@@ -68,7 +95,10 @@
               "browserTarget": "customer-portal:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "apps/customer-portal/proxy.conf.json"
+          }
         },
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -125,33 +155,6 @@
         }
       }
     },
-    "auth": {
-      "projectType": "library",
-      "root": "libs/auth",
-      "sourceRoot": "libs/auth/src",
-      "prefix": "demo-app",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/auth"
-          ],
-          "options": {
-            "jestConfig": "libs/auth/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/auth/src/**/*.ts",
-              "libs/auth/src/**/*.html"
-            ]
-          }
-        }
-      }
-    },
     "data-models": {
       "projectType": "library",
       "root": "libs/data-models",
@@ -174,6 +177,33 @@
             "lintFilePatterns": [
               "libs/data-models/src/**/*.ts",
               "libs/data-models/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "layout": {
+      "projectType": "library",
+      "root": "libs/layout",
+      "sourceRoot": "libs/layout/src",
+      "prefix": "demo-app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/layout"
+          ],
+          "options": {
+            "jestConfig": "libs/layout/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/layout/src/**/*.ts",
+              "libs/layout/src/**/*.html"
             ]
           }
         }
@@ -206,29 +236,60 @@
         }
       }
     },
-    "layout": {
-      "projectType": "library",
-      "root": "libs/layout",
-      "sourceRoot": "libs/layout/src",
-      "prefix": "demo-app",
+    "nest-demo": {
+      "root": "apps/nest-demo",
+      "sourceRoot": "apps/nest-demo/src",
+      "projectType": "application",
       "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
+        "build": {
+          "executor": "@nrwl/node:build",
           "outputs": [
-            "coverage/libs/layout"
+            "{options.outputPath}"
           ],
           "options": {
-            "jestConfig": "libs/layout/jest.config.js",
-            "passWithNoTests": true
+            "outputPath": "dist/apps/nest-demo",
+            "main": "apps/nest-demo/src/main.ts",
+            "tsConfig": "apps/nest-demo/tsconfig.app.json",
+            "assets": [
+              "apps/nest-demo/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/nest-demo/src/environments/environment.ts",
+                  "with": "apps/nest-demo/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "nest-demo:build"
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/layout/src/**/*.ts",
-              "libs/layout/src/**/*.html"
+              "apps/nest-demo/**/*.ts"
             ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/nest-demo"
+          ],
+          "options": {
+            "jestConfig": "apps/nest-demo/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

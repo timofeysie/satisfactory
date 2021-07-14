@@ -19,6 +19,9 @@
     }
   },
   "projects": {
+    "auth": {
+      "tags": []
+    },
     "customer-portal": {
       "tags": []
     },
@@ -26,16 +29,16 @@
       "tags": [],
       "implicitDependencies": ["customer-portal"]
     },
-    "auth": {
+    "data-models": {
       "tags": []
     },
-    "data-models": {
+    "layout": {
       "tags": []
     },
     "material": {
       "tags": []
     },
-    "layout": {
+    "nest-demo": {
       "tags": []
     },
     "products": {

@@ -10,7 +10,8 @@ server.use(jsonServer.bodyParser);
 
 server.post('/login', (req, res, next) => {
   const users = readUsers();
-
+  console.log('req.body.username', req.body.username);
+  console.log('req.body.password', req.body.password);
   const user = users.filter(
     (u) => u.username === req.body.username && u.password === req.body.password
   )[0];

@@ -89,10 +89,6 @@ rxjs                            6.6.7
 typescript                      4.2.4
 ```
 
-## A Cheat sheet of commands and changes made for the course
-
-This should be a concise list of commands and changes that are done in each step.
-
 ## 2 - Creating an Nx Workspace
 
 ### 1. Create a new Nx workspace in your workshop folder
@@ -584,6 +580,10 @@ AuthActions.loadAuthFailure
 One solution would be to leave the old actions there until the new ones are done.
 We could leave a not at the end pointing this out.
 Or just move on to the next.
+
+After this, section notes were created in the docs directory.  The idea was to create a bare bones list of scaffolding commands and changes made to allow for a fast upgrade next time.  The scaffolding commands are an easy part, but the changes made to the files to create all the functionality is not really worth it.  The course already does that.
+
+The scaffolding commands could be used when for example doing a technical test where a mature framework must be quickly setup to then address some key business logic.
 
 ### 14 - NgRx Selectors & 15 - Add Products NgRx Feature Module
 

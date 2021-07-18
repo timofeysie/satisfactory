@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
-import { map, tap } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { map, tap, mergeMap, catchError } from 'rxjs/operators';
 import { AuthActionTypes } from './auth.actions';
 import * as AuthActions from './auth.actions';
+import { AuthService } from './../services/auth/auth.service';
 
 @Injectable()
 export class AuthEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActionTypes.Login),
-      fetch({
-        run: (action) => {
-          return AuthActions.loginSuccess(action);
-        },
-        onError: (action, error) => {
-          return AuthActions.loginFailure(error);
-        },
-      })
+      mergeMap((action) =>
+        this.authService.login(action).pipe(
+          map(
+            (user) => ({ type: AuthActionTypes.LoginSuccess, payload: user }),
+          ),
+          catchError((error) => {
+              return of(AuthActions.loginFailure(error))
+            })
+        )
+      )
     )
   );
 
@@ -34,6 +37,7 @@ export class AuthEffects {
 
   constructor(
     private actions$: Actions,
+    private authService: AuthService,
     private router: Router
   ) {}
 }

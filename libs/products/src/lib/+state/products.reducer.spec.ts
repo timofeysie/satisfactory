@@ -17,7 +17,7 @@ describe('Products Reducer', () => {
         createProductsEntity('PRODUCT-AAA'),
         createProductsEntity('PRODUCT-zzz'),
       ];
-      const action = ProductsActions.loadProductsSuccess({ products });
+      const action = ProductsActions.loadProductsSuccess({ paylod: products });
 
       const result: State = reducer(initialState, action);
 

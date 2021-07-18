@@ -4,19 +4,24 @@ import { RouterModule } from '@angular/router';
 import { ProductsComponent } from './containers/products/products.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import * as fromProducts from './+state/products.reducer';
+import {
+  productsReducer,
+  initialState as productsInitialState,
+} from './+state/products.reducer';
 import { ProductsEffects } from './+state/products.effects';
-
+import { ProductListComponent } from './containers/product-list/product-list.component';
+import { MaterialModule } from '@demo-app/material';
 @NgModule({
   imports: [
     CommonModule,
+    MaterialModule,
     RouterModule.forChild([{ path: '', component: ProductsComponent }]),
-    StoreModule.forFeature(
-      fromProducts.PRODUCTS_FEATURE_KEY,
-      fromProducts.productsReducer
-    ),
+    StoreModule.forFeature('products', productsReducer, {
+      initialState: productsInitialState,
+    }),
     EffectsModule.forFeature([ProductsEffects]),
   ],
-  declarations: [ProductsComponent],
+  declarations: [ProductsComponent, ProductListComponent],
+  providers: [ProductsEffects],
 })
 export class ProductsModule {}

@@ -1,6 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { ProductsEntity } from './products.models';
 import * as ProductsActions from './products.actions';
 import { Product } from '@demo-app/data-models';
 
@@ -35,7 +34,6 @@ export interface ProductsPartialState {
   readonly [PRODUCTS_FEATURE_KEY]: State;
 }
 
-//export const productsAdapter: EntityAdapter<ProductsEntity> = createEntityAdapter<ProductsEntity>();
 export const productsAdapter: EntityAdapter<Product> = createEntityAdapter<Product>({});
 
 export const initialState: ProductsData = productsAdapter.getInitialState({
@@ -54,7 +52,7 @@ export const {
   // select the dictionary of Products entities
   selectEntities: selectProductEntities,
 
-  // select the array of Productss
+  // select the array of Products
   selectAll: selectAllProducts,
 
   // select the total Products count

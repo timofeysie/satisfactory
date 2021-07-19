@@ -11,7 +11,6 @@ import { getAuthError } from './../../+state/auth.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
-  //authError$ = this.store.select(getAuthError.toString);
   constructor(private store: Store<AuthState>) {}
   login(authenticate: Authenticate) {
     this.store.dispatch(authActions.login({ payload: authenticate }));

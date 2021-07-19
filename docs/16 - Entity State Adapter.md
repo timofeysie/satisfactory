@@ -372,8 +372,7 @@ The scaffolding command gave us the fetch usage.  Trying to use the same approac
         this.authService.login(action).pipe(
           map(
             (user) => ({ type: AuthActionTypes.LoginSuccess, payload: user }),
-            catchError((error) => of(AuthActions.logi
-            nFailure(error)))
+            catchError((error) => of(AuthActions.loginFailure(error)))
           )
         )
       )

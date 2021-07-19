@@ -25,7 +25,8 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "postinstall": "ngcc --properties es2015 browser module main",
-    "server": "ts-node ./server/server.ts"
+    "server": "ts-node ./server/server.ts",
+    "bundle-report-customer-portal": "webpack-bundle-analyzer dist/apps/customer-portal/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -82,6 +83,7 @@
     "prettier": "2.2.1",
     "ts-jest": "26.5.5",
     "ts-node": "^9.1.1",
-    "typescript": "~4.2.4"
+    "typescript": "~4.2.4",
+    "webpack-bundle-analyzer": "^4.4.2"
   }
 }

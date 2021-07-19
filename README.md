@@ -12,20 +12,23 @@ nx test layout // test the layout lib
 nx test products // test the products lib
 nx test customer-portal // test the customer-portal app
 nx e2e customer-portal-e2e // run the end-to-end tests
+nx build customer-portal
+nx build --prod customer-portal --stats-json   
+npm run bundle-report-customer-portal
 ```
 
-Currently the only route that shows anything is here: http://localhost:4200/auth/login
+Run the server and then the customer-portal and the app will be served at: http://localhost:4200
 
-Login with the following info from the server/db.json:
+You can also go directly to login: http://localhost:4200/auth/login
+
+Use the following info from the server/db.json:
 
 ```json
-      "id": 1,
-      "username": "duncan",
-      "country": "australia",
-      "password": "123"
+"username": "duncan",
+"password": "123"
 ```
 
-After login, you should see the same JSON returned with the addition of a token property.
+After login, you should see the same JSON returned with the addition of a token property in the network tab.
 
 ## Current versions
 

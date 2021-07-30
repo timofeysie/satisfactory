@@ -163,7 +163,7 @@ After this the single test passes.  This is all we need for the layout unit test
 ## Unit tests for Products
 
 ```txt
-nx test products
+nx test products --watch
 Test Suites: 5 failed, 1 passed, 6 total
 Tests:       2 failed, 1 passed, 3 total
 ```
@@ -276,6 +276,14 @@ this message.
 
 ### products.effects.spec.ts
 
+As with the auth.effects, instead of using marbles, a more readable way to test the effect is the following.
+
+1. create a mock service
+2. use a mock action and mock store and use a spy
+3. pat yourself on the back
+
+Here are the errors with the current marble testing that we wont be fixing.
+
 ```txt
  FAIL   products  libs/products/src/lib/+state/products.effects.spec.ts
   ● Test suite failed to run
@@ -308,6 +316,32 @@ assignable to parameter of type '{ payload: Product[]; }'.
       <anonymous>.Zone.run (../../node_modules/zone.js/bundles/zone-testing-bundle.umd.js:167:47)
       at Object.wrappedFunc (../../node_modules/zone.js/bundles/zone-testing-bundle.umd.js:4250:34)
 ```
+
+For completeness, here is what we will be replacing:
+
+```js
+  describe('init$', () => {
+    it('should work', () => {
+      actions = hot('-a-|', { a: ProductsActions.init() });
+      const expected = hot('-a-|', {
+        a: ProductsActions.loadProductsSuccess({ products: [] }),
+      });
+      expect(effects.init$).toBeObservable(expected);
+    });
+  });
+```
+
+What we want to test is the loadFilteredProducts function.  I'm curious though, what is the init function that is not there anymore?  Worth looking into actually.  It would be good to understand what the scaffolding commands create out of the box for us, and then why we don't use them?
+
+After all, much of the material in the course has gone out of date, so why not also some of the ways it refactors the default setup?
+
+So this is in the product actions.  First, look for the cli command that created the default.  Then go back to the last commit before that, run it again and look at the output.
+
+The command is run at the start of [15 - Add Products NgRx Feature Module](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/15-add-products-ngrx-feature-module).
+
+So grab the state at the end of step 14 and run that command again and report back here.
+
+### The products.component.spec.ts unit test failures
 
 ```txt
  FAIL   products  libs/products/src/lib/containers/products/products.component.spec.ts

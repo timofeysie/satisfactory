@@ -32,11 +32,9 @@ describe('ProductsEffects', () => {
   describe('init$', () => {
     it('should work', () => {
       actions = hot('-a-|', { a: ProductsActions.init() });
-
       const expected = hot('-a-|', {
         a: ProductsActions.loadProductsSuccess({ products: [] }),
       });
-
       expect(effects.init$).toBeObservable(expected);
     });
   });

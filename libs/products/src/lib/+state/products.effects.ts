@@ -11,6 +11,22 @@ import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
 
 @Injectable()
 export class ProductsEffects {
+  init$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductsActionTypes.Init),
+      mergeMap(() =>
+        this.productService.getProducts().pipe(
+          map((products: Product[]) =>
+            ProductActions.loadProductsSuccess({ payload: products })
+          ),
+          catchError((error) =>
+            of(ProductActions.loadProductsFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductsActionTypes.LoadProducts),
@@ -27,26 +43,26 @@ export class ProductsEffects {
     )
   );
 
-  
-  loadFilteredProducts$ = createEffect(() => this.actions$.pipe(
-    ofType(ROUTER_NAVIGATION),
-    filter((r: RouterNavigationAction) =>
-      r.payload.routerState.url.startsWith('/products')
-    ),
-    map(
-      (r: RouterNavigationAction) =>
-        r.payload.routerState.root.queryParams['category']
-    ),
-    mergeMap((category: string) =>
-      this.productService.getProducts(category).pipe(
-        map(
-          (products: Product[]) =>
+  loadFilteredProducts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ROUTER_NAVIGATION),
+      filter((r: RouterNavigationAction) =>
+        r.payload.routerState.url.startsWith('/products')
+      ),
+      map(
+        (r: RouterNavigationAction) =>
+          r.payload.routerState.root.queryParams['category']
+      ),
+      mergeMap((category: string) =>
+        this.productService.getProducts(category).pipe(
+          map((products: Product[]) =>
             ProductActions.loadProductsSuccess({ payload: products })
-        ),
-        catchError((error) => of(ProductActions.loadProductsFailure(error)))
+          ),
+          catchError((error) => of(ProductActions.loadProductsFailure(error)))
+        )
       )
     )
-  ));
+  );
 
   constructor(
     private actions$: Actions,

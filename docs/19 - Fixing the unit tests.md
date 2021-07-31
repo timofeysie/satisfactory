@@ -179,7 +179,7 @@ Tests:       2 failed, 1 passed, 3 total
                            ~~~~~~
 ```
 
-'paylod'?  It's not the only silly thing in the products.reduce.
+'paylod'?  It's not the only silly thing in the products.reducer.
 
 ```js
 beforeEach(() => {});
@@ -340,6 +340,93 @@ So this is in the product actions.  First, look for the cli command that created
 The command is run at the start of [15 - Add Products NgRx Feature Module](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/15-add-products-ngrx-feature-module).
 
 So grab the state at the end of step 14 and run that command again and report back here.
+
+Here is the initial action created:
+
+```js
+export const init = createAction('[Products Page] Init');
+export const loadProductsSuccess = createAction(
+  '[Products/API] Load Products Success',
+  props<{ products: ProductsEntity[] }>()
+);
+export const loadProductsFailure = createAction(
+  '[Products/API] Load Products Failure',
+  props<{ error: any }>()
+);
+```
+
+The init function is used in the effect like this:
+
+```js
+init$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(ProductsActions.init),
+    fetch({
+      run: (action) => {
+        // Your custom service 'load' logic goes here. For now just return a success action...
+        return ProductsActions.loadProductsSuccess({ products: [] });
+      },
+
+      onError: (action, error) => {
+        console.error('Error', error);
+        return ProductsActions.loadProductsFailure({ error });
+      },
+  })
+)
+```
+
+Again with the fetch!  It's back to haunt us.  I know Duncan questioned the use here, but it's time to figure this out now.
+
+For starters, trying to use that action and effect in the current code results in a big red error block with the message:
+
+```txt
+Type 'Observable<unknown>' is not assignable to type 'EffectResult<Action>'.
+  Type 'Observable<unknown>' is not assignable to type 'Observable<Action>'.
+    Property 'type' is missing in type '{}' but required in type 'Action'.ts(2322)
+models.d.ts(2, 5): 'type' is declared here.
+effect_creator.d.ts(42, 161): The expected type comes from the return type of this signature.
+```
+
+There are a bunch of quick fixes recommended for it, but none seem to work.
+
+As an exercise, I decided to put the original init action back, and the the effect to use it, then see if I could get that test to pass.  Most of that is easy, but there is one error now.
+
+In the test, this line is causing the following error:
+
+```js
+a: ProductsActions.loadProductsSuccess({ payload: Product[] }),
+```
+
+```txt
+'Product' only refers to a type, but is being used as a value here.ts(2693)
+Parsing error: An element access expression should take an argument.eslint
+```
+
+I've seen that error plenty of times: 'X" only refers to a type, but is being used as a value here.ts(2693)
+
+But suprisingly, given all the notes for this project, there is no mention of it.  So will be good to get the solution on record.  A quick google of the second part of the error provided [the solution](https://stackoverflow.com/questions/52368118/an-element-access-expression-should-take-an-argument) to "An element access expression should take an argument.eslint", which is instead of using "Product []", just use "[]".
+
+Try the tests again: nx test products
+
+The effect has this error now:
+
+```js
+ FAIL   products  libs/products/src/lib/+state/products.effects.spec.ts
+  ● Test suite failed to run
+    libs/products/src/lib/+state/products.reducer.spec.ts:18:60 - error TS2322: Type 'ProductsEntity[]' is not assignable to type 'Product[]'.
+      Type 'ProductsEntity' is missing the following properties from type 'Product': name, category
+    18       const action = ProductsActions.loadProductsSuccess({ payload: products });
+                                                                  ~~~~~~~
+      libs/products/src/lib/+state/products.actions.ts:17:11
+        17   props<{ payload: Product [] }>()
+                     ~~~~~~~
+        The expected type comes from property 'payload' which is declared here on type '{ payload: Product[]; }'      
+    libs/products/src/lib/+state/products.reducer.spec.ts:22:21 - error TS2339: Property 'loaded' does not exist on type 'State'.
+    22       expect(result.loaded).toBe(true);
+                           ~~~~~~
+```
+
+So the ProductEntity needs to be involved here.  In step 16 I wrote: "This will be fixed in the next step, which is named 17 - Router Store for some reason.".  So the answer might be somewhere in step 17, but that's not very specific.  Time to get more specific with the answers to this question also.
 
 ### The products.component.spec.ts unit test failures
 

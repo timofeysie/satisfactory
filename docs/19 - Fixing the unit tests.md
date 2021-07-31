@@ -428,6 +428,17 @@ The effect has this error now:
 
 So the ProductEntity needs to be involved here.  In step 16 I wrote: "This will be fixed in the next step, which is named 17 - Router Store for some reason.".  So the answer might be somewhere in step 17, but that's not very specific.  Time to get more specific with the answers to this question also.
 
+Speaking of errors, when merging the work from this branch into master and coming back here, git had this to say:
+
+```txt
+PS C:\Users\timof\repos\timofeysie\nx\nx-12-demo-app> git checkout step-19-fixing-the-unit-tests
+Switched to branch 'step-19-fixing-the-unit-tests'
+Your branch is based on 'origin/step-19-fixing-the-unit-tests', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+```
+
+But actually, as I read that message, that branch is [still there](https://github.com/timofeysie/nx-12-demo-app/tree/step-19-fixing-the-unit-tests), so git my friend, what are you actually trying to say?
+
 ### The products.component.spec.ts unit test failures
 
 ```txt

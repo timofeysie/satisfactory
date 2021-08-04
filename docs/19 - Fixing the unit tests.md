@@ -439,6 +439,17 @@ Your branch is based on 'origin/step-19-fixing-the-unit-tests', but the upstream
 
 But actually, as I read that message, that branch is [still there](https://github.com/timofeysie/nx-12-demo-app/tree/step-19-fixing-the-unit-tests), so git my friend, what are you actually trying to say?
 
+To test this, I committed the above comment, and pushed it.  Seemed to work OK, but now the message is:
+
+```txt
+To https://github.com/timofeysie/nx-12-demo-app.git
+   101e6b4..c24fe70  step-19-fixing-the-unit-tests -> step-19-fixing-the-unit-tests
+error: update_ref failed for ref 'refs/remotes/origin/step-19-fixing-the-unit-tests': cannot lock ref 'refs/remotes/origin/step-19-fixing-the-unit-tests': unable to resolve reference 'refs/remotes/origin/step-19-fixing-the-unit-tests': 
+reference broken
+```
+
+That's interesting.  And coincidentally, I had a refs issue at work during the week, which really ruined a branch that I was relying on and had to do some last minute work to move the code to another branch and then merge it at the last minute for some code that would be going into production the next day.  Scary stuff.  Luckily it was code that was easy to verify as a simple a11y issue.
+
 ### The products.component.spec.ts unit test failures
 
 ```txt

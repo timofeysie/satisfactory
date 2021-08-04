@@ -389,7 +389,7 @@ export function reducer(state: State | undefined, action: Action) {
 
 ```txt
 Argument of type 'State' is not assignable to parameter of type 'ProductsData'.
-  Type 'State' is missing the following properties from type 'ProductsData': loading, productsts(2345)
+  Type 'State' is missing the following properties from type 'ProductsData': loading, products.ts(2345)
 (parameter) state: State
 ```
 

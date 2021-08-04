@@ -12,20 +12,23 @@ nx test layout // test the layout lib
 nx test products // test the products lib
 nx test customer-portal // test the customer-portal app
 nx e2e customer-portal-e2e // run the end-to-end tests
+nx build customer-portal
+nx build --prod customer-portal --stats-json   
+npm run bundle-report-customer-portal
 ```
 
-Currently the only route that shows anything is here: http://localhost:4200/auth/login
+Run the server and then the customer-portal and the app will be served at: http://localhost:4200
 
-Login with the following info from the server/db.json:
+You can also go directly to login: http://localhost:4200/auth/login
+
+Use the following info from the server/db.json:
 
 ```json
-      "id": 1,
-      "username": "duncan",
-      "country": "australia",
-      "password": "123"
+"username": "duncan",
+"password": "123"
 ```
 
-After login, you should see the same JSON returned with the addition of a token property.
+After login, you should see the same JSON returned with the addition of a token property in the network tab.
 
 ## Current versions
 
@@ -88,10 +91,6 @@ Package                         Version
 rxjs                            6.6.7
 typescript                      4.2.4
 ```
-
-## A Cheat sheet of commands and changes made for the course
-
-This should be a concise list of commands and changes that are done in each step.
 
 ## 2 - Creating an Nx Workspace
 
@@ -584,6 +583,10 @@ AuthActions.loadAuthFailure
 One solution would be to leave the old actions there until the new ones are done.
 We could leave a not at the end pointing this out.
 Or just move on to the next.
+
+After this, section notes were created in the docs directory.  The idea was to create a bare bones list of scaffolding commands and changes made to allow for a fast upgrade next time.  The scaffolding commands are an easy part, but the changes made to the files to create all the functionality is not really worth it.  The course already does that.
+
+The scaffolding commands could be used when for example doing a technical test where a mature framework must be quickly setup to then address some key business logic.
 
 ### 14 - NgRx Selectors & 15 - Add Products NgRx Feature Module
 

@@ -9,15 +9,13 @@ describe('Products Reducer', () => {
       name: name || `name-${id}`,
     } as ProductsEntity);
 
-  beforeEach(() => {});
-
   describe('valid Products actions', () => {
     it('loadProductsSuccess should return set the list of known Products', () => {
       const products = [
         createProductsEntity('PRODUCT-AAA'),
         createProductsEntity('PRODUCT-zzz'),
       ];
-      const action = ProductsActions.loadProductsSuccess({ products });
+      const action = ProductsActions.loadProductsSuccess({ payload: products });
 
       const result: State = reducer(initialState, action);
 

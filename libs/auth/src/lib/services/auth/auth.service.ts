@@ -19,9 +19,9 @@ export class AuthService {
       this.userSubject$.next(JSON.parse(user));
     }
   }
-  login(authenticate: Authenticate): Observable<User> {
+  login(action: any): Observable<User> {
     return this.httpClient
-      .post<User>('http://localhost:3000/login', authenticate)
+      .post<User>('http://localhost:3000/login', action.payload)
       .pipe(
         tap((user: User) => {
           this.userSubject$.next(user);

@@ -1,19 +1,34 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { NxModule, DataPersistence } from '@nrwl/angular';
-import { hot } from '@nrwl/angular/testing';
 import { AuthEffects } from './auth.effects';
-import * as AuthActions from './auth.actions';
 import { User } from '@demo-app/data-models';
 import { Authenticate } from '@demo-app/data-models';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AuthService } from './../services/auth/auth.service';
+import { of } from 'rxjs';
+import * as authActions from './auth.actions';
+
+const user: User = {
+  username: 'duncan',
+  id: 1,
+  country: 'australia',
+  token: '123',
+  role: 'whatever',
+};
+class MockUserService {
+  login() {
+    return of(user);
+    }
+  }
 
 describe('AuthEffects', () => {
   let actions: Observable<any>;
   let effects: AuthEffects;
+  let httpService: AuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,26 +38,27 @@ describe('AuthEffects', () => {
         DataPersistence,
         provideMockActions(() => actions),
         provideMockStore({}),
+        { provide: AuthService, useClass: MockUserService },
       ],
     });
 
     effects = TestBed.inject(AuthEffects);
+    httpService = TestBed.inject(AuthService);
   });
 
-  describe('login$', () => {
-    it('should work', () => {
+  describe('onFetchUsers$', () => void
+    it('should fire if users is null', (done) => {
       const auth: Authenticate = {
-        username: 'zzz', password: 'xxx',
+        username: 'duncan',
+        password: '123',
       };
-      const user: User = {
-        username: 'xxx', id: 1,
-        country: 'aus', token: '123x', role: 'what',
-      };
-      actions = hot('-a-|', { a: AuthActions.login({ payload: auth }) });
-      const expected = hot('-a-|', {
-        a: AuthActions.loginSuccess({ payload: user}),
+      const spy = spyOn(httpService, 'login').and.callThrough();
+      actions = of(authActions.login({ payload: auth }));
+      effects.login$.subscribe((res) => {
+        expect(res).toEqual(authActions.loginSuccess({ payload: user }));
+        expect(spy).toHaveBeenCalledTimes(1);
+        done();
       });
-      expect(effects.login$).toBeObservable(expected);
-    });
-  });
+    })
+  );
 });

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MaterialModule } from '@demo-app/material';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LayoutComponent } from './layout.component';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -11,6 +12,7 @@ describe('LayoutComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [LayoutComponent],
       imports: [MaterialModule, HttpClientTestingModule],
+      providers: [provideMockStore({})],
     }).compileComponents();
   });
 

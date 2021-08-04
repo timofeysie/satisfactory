@@ -6,6 +6,7 @@ This is a sample app created following the steps in [Workshop: Enterprise Angula
 
 ```txt
 npm run server // start the server up
+nx serve nest-demo // start the nest server
 nx serve customer-portal // serve the front end Angular app
 nx test auth // test the auth lib
 nx test layout // test the layout lib

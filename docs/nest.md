@@ -13,6 +13,7 @@ nx generate @nrwl/nest:application nest-demo --frontendProject customer-portal
 nx build nest-demo
 nx generate @nrwl/nest:library nest-lib
 nx generate @nrwl/nest:library <nest-lib> [--controller] [--service] [--global]
+nx generate @nestjs/schematics:resource login --sourceRoot apps/nest-demo/src/app
 ```
 
 ## Scaffolding the app

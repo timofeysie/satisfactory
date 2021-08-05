@@ -320,6 +320,33 @@
           }
         }
       }
+    },
+    "trends": {
+      "projectType": "library",
+      "root": "libs/trends",
+      "sourceRoot": "libs/trends/src",
+      "prefix": "demo-app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/trends"
+          ],
+          "options": {
+            "jestConfig": "libs/trends/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/trends/src/**/*.ts",
+              "libs/trends/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

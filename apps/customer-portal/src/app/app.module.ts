@@ -29,6 +29,12 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store'; // added
             import('@demo-app/products').then(
               (module) => module.ProductsModule
             ),
+          canActivate: [AuthGuard],
+        },
+        {
+          path: 'trends',
+          loadChildren: () =>
+            import('@demo-app/trends').then((module) => module.TrendsModule),
           canActivate: [AuthGuard], // added
         },
       ],

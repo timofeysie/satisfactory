@@ -1,8 +1,15 @@
 <mat-toolbar color="primary" fxLayout="row">
-  <span class="title">Customer Portal</span>
+  <span class="title">Trend Factory</span>
   <div class="right-nav">
     <span *ngIf="user$ | async as user">
       <button mat-button>{{ (user$ | async)?.username }}</button>
+      <button
+        mat-button
+        [routerLink]="['/trends']"
+        routerLinkActive="router-link-active"
+      >
+        Trends
+      </button>
       <button
         mat-button
         [routerLink]="['/products']"

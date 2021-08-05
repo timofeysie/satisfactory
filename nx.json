@@ -43,6 +43,9 @@
     },
     "products": {
       "tags": []
+    },
+    "trends": {
+      "tags": []
     }
   }
 }

@@ -17,7 +17,8 @@
       >
         Products
       </button>
-      <button mat-button>Logout</button>
+      <button mat-button (click)="logout()"
+        [routerLink]="['/auth/login']">Logout</button>
     </span>
     <span *ngIf="(user$ | async) === (false || null || undefined)">
       <span

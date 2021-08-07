@@ -71,7 +71,94 @@ But we need to add this to apps\customer-portal\src\app\app.module.ts
 canActivate: [AuthGuard],
 ```
 
-### Extras to do
+## Extras
 
 1. Add logout functionality
 2. Add angular interceptor
+
+### Logout
+
+We already have a logout button, but it currently does nothing.
+
+There are some brief instructions for this:
+
+- Done - Add logout button to main menu
+- Call service and logout the user by clearing the behavior subject
+- Navigate to login page
+
+But, we don't actually have container and presentational components for layout.  It just routes directly to the pages, so no emitter to a container is used yet.
+
+The extras from step 8 were:
+
+1. Convert Layout component into a pure container component
+2. Add a toolbar presentational component.
+3. Pass user into presentational component via inputs.
+
+Since we're impatient now, not going to do this yet.  If this project turns out to be worth while and pays for itself, by all means, make it happen.
+
+For now, just make the logout work.  Luckily, we already did that in the Clades project.
+
+```html
+      <button mat-button (click)="logout()"
+        [routerLink]="['/auth/login']">Logout</button>
+```
+
+```js
+logout() {
+  this.authService.logout();
+  this.user$ = this.authService.user$;
+  // TODO:  Was part of 9 extra credit originally
+  // this.store.dispatch(AuthActions.logout();
+  // this.user$ = this.store.select(getUser);
+  // will update this as part of 14 - selectors.
+}
+```
+
+And in the AuthService:
+
+```js
+logout() {
+    localStorage.setItem('user', null);
+    this.userSubject$ = new BehaviorSubject<User>(null);
+    this.user$ = this.userSubject$.asObservable();
+  }
+```
+
+Who's Bob?
+
+## Step 11
+
+[Step 11 - Adding NgRx to Nx App](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/11-adding-ngrx-to-nx-app)
+
+Do we need to do this for trends or wait for step 15?
+
+```txt
+nx g @nrwl/angular:ngrx --module=apps/customer-portal/src/app/app.module.ts  --minimal false
+? What name would you like to use for the NgRx feature state? An example would be "users". products
+? Is this the root state of the application? No
+? Would you like to use a Facade with your NgRx state? No
+```
+
+[Step 14 - NgRx Selectors](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/14-ngrx-selectors)
+
+1. Add selector file
+
+Add a file called index.ts to the +state folder of your auth state lib
+
+libs/auth/src/lib/+state/products.selectors.ts
+
+[Step 15 - Add Products NgRx Feature Module](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/15-add-products-ngrx-feature-module).
+
+Still not sure about this for trends as seen in step 11:
+
+nx g @nrwl/angular:ngrx --module=apps/customer-portal/src/app/app.module.ts  --minimal false
+
+This one is from step 15:
+
+nx g @nrwl/angular:ngrx --module=libs/products/src/lib/trends.module.ts --minimal false
+
+The trends version would be:
+
+nx g @nrwl/angular:ngrx --module=libs/trends/src/lib/trends.module.ts --minimal false
+
+Lets just go with that for now.

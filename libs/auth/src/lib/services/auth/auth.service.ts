@@ -19,6 +19,7 @@ export class AuthService {
       this.userSubject$.next(JSON.parse(user));
     }
   }
+  
   login(action: any): Observable<User> {
     return this.httpClient
       .post<User>('http://localhost:3000/login', action.payload)
@@ -30,4 +31,11 @@ export class AuthService {
         })
       );
   }
+
+  logout() {
+    localStorage.setItem('user', null);
+    this.userSubject$ = new BehaviorSubject<User>(null);
+    this.user$ = this.userSubject$.asObservable();
+  }
+
 }

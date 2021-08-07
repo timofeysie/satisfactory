@@ -404,7 +404,7 @@ Parsing error: An element access expression should take an argument.eslint
 
 I've seen that error plenty of times: 'X" only refers to a type, but is being used as a value here.ts(2693)
 
-But suprisingly, given all the notes for this project, there is no mention of it.  So will be good to get the solution on record.  A quick google of the second part of the error provided [the solution](https://stackoverflow.com/questions/52368118/an-element-access-expression-should-take-an-argument) to "An element access expression should take an argument.eslint", which is instead of using "Product []", just use "[]".
+But surprisingly, given all the notes for this project, there is no mention of it.  So will be good to get the solution on record.  A quick google of the second part of the error provided [the solution](https://stackoverflow.com/questions/52368118/an-element-access-expression-should-take-an-argument) to "An element access expression should take an argument.eslint", which is instead of using "Product []", just use "[]".
 
 Try the tests again: nx test products
 

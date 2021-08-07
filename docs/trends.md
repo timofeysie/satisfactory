@@ -126,9 +126,9 @@ logout() {
 
 Who's Bob?
 
-## Step 11
+Might leave the auth.interceptor.ts for later.
 
-[Step 11 - Adding NgRx to Nx App](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/11-adding-ngrx-to-nx-app)
+## [Step 11 - Adding NgRx to Nx App](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/11-adding-ngrx-to-nx-app)
 
 Do we need to do this for trends or wait for step 15?
 
@@ -139,15 +139,18 @@ nx g @nrwl/angular:ngrx --module=apps/customer-portal/src/app/app.module.ts  --m
 ? Would you like to use a Facade with your NgRx state? No
 ```
 
-[Step 14 - NgRx Selectors](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/14-ngrx-selectors)
+## [Step 14 - NgRx Selectors](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/14-ngrx-selectors)
 
 1. Add selector file
+2. Use selector in Layout component
 
 Add a file called index.ts to the +state folder of your auth state lib
 
 libs/auth/src/lib/+state/products.selectors.ts
 
-[Step 15 - Add Products NgRx Feature Module](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/15-add-products-ngrx-feature-module).
+## [Step 15 - Add Products NgRx Feature Module](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/15-add-products-ngrx-feature-module)
+
+1. Add NgRx Products lib making it a state state
 
 Still not sure about this for trends as seen in step 11:
 
@@ -162,3 +165,86 @@ The trends version would be:
 nx g @nrwl/angular:ngrx --module=libs/trends/src/lib/trends.module.ts --minimal false
 
 Lets just go with that for now.
+
+```txt
+PS C:\Users\timof\repos\hits> nx g @nrwl/angular:ngrx --module=libs/trends/src/lib/trends.module.ts --minimal false
+√ What name would you like to use for the NgRx feature state? An example would be "users". · trends
+√ Is this the root state of the application? (y/N) · false
+√ Would you like to use a Facade with your NgRx state? (y/N) · false
+CREATE libs/trends/src/lib/+state/trends.actions.ts
+CREATE libs/trends/src/lib/+state/trends.effects.spec.ts
+CREATE libs/trends/src/lib/+state/trends.effects.ts
+CREATE libs/trends/src/lib/+state/trends.models.ts
+CREATE libs/trends/src/lib/+state/trends.reducer.spec.ts
+CREATE libs/trends/src/lib/+state/trends.reducer.ts
+CREATE libs/trends/src/lib/+state/trends.selectors.spec.ts
+CREATE libs/trends/src/lib/+state/trends.selectors.ts
+UPDATE libs/trends/src/lib/trends.module.ts
+UPDATE libs/trends/src/index.ts
+```
+
+2. Add Products Action Creators
+
+3. Add default state and interface
+
+4. Make new Product interface
+
+5. Make new ProductsService in products module
+
+```txt
+nx generate @nrwl/angular:service --project=trends
+services/trends/trends
+```
+
+This the url to call from the NestJS backend:
+
+http://localhost:3333/api/trends
+
+7. Add reducer logic
+
+This is wrong:
+
+```js
+import { loadProducts } from './../../+state/products.actions';
+...
+this.store.dispatch(loadProducts());
+```
+
+And after all that, this is the error from the effects:
+
+```js
+Type 'Observable<unknown>' is not assignable to type 'EffectResult<Action>'.
+  Type 'Observable<unknown>' is not assignable to type 'Observable<Action>'.
+    Property 'type' is missing in type '{}' but required in type 'Action'.ts(2322)
+```
+
+That's the error we got in step 19 for fixing the unit tests when trying to use the init action in the test.
+
+The solution there was:
+
+instead of using "Product []", just use "[]".
+
+That is not the situation here.  Another [StackOverflow answer](https://stackoverflow.com/questions/57247613/ngrx-effects-type-observableunknown-is-not-assignable-to-type-observable) to the rescue:
+
+```txt
+comment out createEffect(() =>,
+fix errors that your IDE (VSCode) flags up,
+add createEffect(() => back in.
+```
+
+The error is that the service was still getProducts().  Change that to getTrends() and the error is gone.
+
+Next, dump out the trends result.  Run the server, run the app, and our api has this in the network tab:
+
+```txt
+Referrer Policy: strict-origin-when-cross-origin
+```
+
+The answer to that is [here](https://docs.nestjs.com/security/cors):
+
+```js
+const app = await NestFactory.create(AppModule);
+app.enableCors();
+```
+
+Add the enable cors line and, voila, who's Bob?

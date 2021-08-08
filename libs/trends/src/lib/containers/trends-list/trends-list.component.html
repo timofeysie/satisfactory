@@ -1,5 +1,34 @@
-<mat-card>
+<mat-card *ngIf="!trendDetails">
   <mat-nav-list>
-    <a mat-list-item *ngFor="let trend of trends">{{ trend.formattedTraffic }} {{trend.title.query}}</a>
+    <a mat-list-item *ngFor="let trend of trends">
+      <span (click)="seeTrend(trend)">
+        {{ trend.formattedTraffic }} {{ trend.title.query }}
+      </span>
+    </a>
   </mat-nav-list>
+</mat-card>
+<!-- detail -->
+<mat-card *ngIf="trendDetails">
+  <h1>
+    <mat-icon
+      (click)="backToList()"
+      svgIcon="back"
+      aria-hidden="false"
+      aria-label="Example thumbs up SVG icon"
+    ></mat-icon>
+    {{ trendDetails.formattedTraffic }} {{ trendDetails.title.query }}
+  </h1>
+  <mat-card class="home-card" *ngFor="let article of trendDetails.articles">
+    <mat-card-content class="home-card-content">
+      <img src="{{ article.image.imageUrl }}" mat-card-image />
+      <div class="content">
+        <div>
+          {{ article.timeAgo }}
+          <a href="{{ article.image.newsUrl }}"> {{ article.title }}</a>
+        </div>
+        <div>{{ article.source }}</div>
+        <div>{{ article.snippet }}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </mat-card>

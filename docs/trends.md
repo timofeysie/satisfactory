@@ -352,18 +352,18 @@ CREATE libs/products/src/lib/containers/product-list/product-list.component.scss
 
 That should be:
 
-```
+```txt
 nx generate @nrwl/angular:component containers/product-list --project=products
 ```
 
-```
+```txt
 CREATE libs/products/src/lib/containers/product-list/product-list.component.html
 CREATE libs/products/src/lib/containers/product-list/product-list.component.spec.ts
 CREATE libs/products/src/lib/containers/product-list/product-list.component.ts
 CREATE libs/products/src/lib/containers/product-list/product-list.component.scss
 ```
 
-```
+```txt
 nx generate @nrwl/angular:component containers/trends-list --project=trends
 ```
 
@@ -374,3 +374,7 @@ We don't really care about searching it.  It's just a temporary list.
 Reverting these changes and going back to the basic API working from yesterday.
 
 Will need to re-do the tends-list at least and the nest service.
+
+Next I suppose is added another route for the google image search.
+
+Or, just, like, a details of the existing trend info?

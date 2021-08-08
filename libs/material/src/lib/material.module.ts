@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     MatTableModule,
     MatSelectModule,
+    MatGridListModule,
   ],
   exports: [
     FlexLayoutModule,
@@ -40,6 +42,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     MatTableModule,
     MatSelectModule,
+    MatGridListModule,
   ],
 })
 export class MaterialModule {}

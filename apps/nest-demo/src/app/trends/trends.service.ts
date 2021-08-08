@@ -19,7 +19,14 @@ export class TrendsService {
         if (err) {
           return err;
         } else {
-          return results;
+          // {"default":{"trendingSearchesDays":[{"date":"20210807",
+          const defaultObj = JSON.parse(Object(results)).default
+            .trendingSearchesDays[0].trendingSearches;
+          if (defaultObj) {
+            return defaultObj;
+          } else {
+            return results;
+          }
         }
       }
     );

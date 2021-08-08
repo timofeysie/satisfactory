@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-form-field>
+    <mat-select placeholder="Category" (selectionChange)="onFilter($event.value)">
+      <mat-option [value]="'title'">Title</mat-option>
+      <mat-option [value]="'formattedTraffic'">formattedTraffic</mat-option>
+    </mat-select>
+  </mat-form-field>
+  {{ trends | json}}
+  <mat-nav-list>
+    <a mat-list-item *ngFor="let trend of trends">{{trend}}</a>
+  </mat-nav-list>
+</mat-card>

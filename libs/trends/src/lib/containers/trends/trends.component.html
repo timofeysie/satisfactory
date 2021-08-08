@@ -1,2 +1,6 @@
-<p>trends works!</p>
-{{trends$ | async | json}}
+<div fxLayout="row"  fxFlexLayout="center center">
+  <demo-app-trends-list 
+    [trends]="trends$ | async"
+    (filter)="updateUrlFilters($event)"
+  ></demo-app-trends-list>
+</div>

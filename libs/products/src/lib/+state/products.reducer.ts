@@ -5,21 +5,12 @@ import { Product } from '@demo-app/data-models';
 
 export const PRODUCTS_FEATURE_KEY = 'products';
 
-/**
- * Interface for the 'Products' data used in
- *  - ProductsState, and
- *  - productsReducer
- */
 export interface ProductsData extends EntityState<Product> {
   selectedProductId?: string | number;
   loading: boolean;
   error?: string | null;
 }
 
-/**
- * Interface to the part of the Store containing ProductsState
- * and other information related to ProductsData.
- */
 export interface ProductsState {
   readonly products: ProductsData;
 }
@@ -46,16 +37,12 @@ export const getSelectedProductId = (state: ProductsData) =>
   state.selectedProductId;
 
 export const {
-  // select the array of user ids
   selectIds: selectProductIds,
 
-  // select the dictionary of Products entities
   selectEntities: selectProductEntities,
 
-  // select the array of Products
   selectAll: selectAllProducts,
 
-  // select the total Products count
   selectTotal: selectProductsTotal
 } = productsAdapter.getSelectors();
 

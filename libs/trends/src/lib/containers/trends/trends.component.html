@@ -1,2 +1,3 @@
-<p>trends works!</p>
-{{trends$ | async | json}}
+<div fxLayout="row"  fxFlexLayout="center center">
+  <demo-app-trends-list [trends]="trends$ | async"></demo-app-trends-list>
+</div>

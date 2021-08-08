@@ -19,7 +19,9 @@ export class TrendsService {
         if (err) {
           return err;
         } else {
-          return results;
+          const defaultObj = JSON.parse(Object(results)).default
+            .trendingSearchesDays[0].trendingSearches;
+          return defaultObj;
         }
       }
     );

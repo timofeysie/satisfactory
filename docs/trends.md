@@ -248,3 +248,129 @@ app.enableCors();
 ```
 
 Add the enable cors line and, voila, who's Bob?
+
+The output is something like this:
+
+```json
+"default":{
+  "trendingSearchesDays":[
+    {
+      "date":"20210804",
+      "formattedDate":"Wednesday, August 4, 2021",
+      "trendingSearches":[
+        {
+          "title":{
+            "query":"Verzuz",
+            "exploreLink":"/trends/explore?q=Verzuz&date=now+7-d&geo=US"
+          },
+          "formattedTraffic":"20K+",
+          "relatedQueries":[
+          ],
+          "image":{
+            "newsUrl":"https://www.tomsguide.com/news/how-to-watch-verzuz-the-lox-vs-dipset-on-instagram-live-and-triller",
+            "source":"Tom's Guide",
+            "imageUrl":"https://t0.gstatic.com/images?q=tbn:ANd9GcSO408JTF6mZnkA1xWG654XYf54lnLFdADpcy8SCxjygytBy4yQ6QyQQ3rnk5oi6UjYDGiuNvdV"
+          },
+          "articles":[
+            {
+              "title":"How to watch Verzuz: The LOX vs Dipset on Instagram Live and Triller",
+              "timeAgo":"7h ago",
+              "source":"Tom's Guide",
+              "image":{
+                "newsUrl":"https://www.tomsguide.com/news/how-to-watch-verzuz-the-lox-vs-dipset-on-instagram-live-and-triller",
+                "source":"Tom's Guide",
+                "imageUrl":"https://t0.gstatic.com/images?q=tbn:ANd9GcSO408JTF6mZnkA1xWG654XYf54lnLFdADpcy8SCxjygytBy4yQ6QyQQ3rnk5oi6UjYDGiuNvdV"
+              },
+              "url":"https://www.tomsguide.com/news/how-to-watch-verzuz-the-lox-vs-dipset-on-instagram-live-and-triller",
+              "snippet":"New York will definitely in the building when we watch Verzuz: The Lox vs Dipset live stream tonight. Yes, the iconic rap groups are taking to the stage at MSG ..."
+            },
+            {
+              "title":"The LOX announces tour with Dipset ahead of Verzuz battle",
+              "timeAgo":"13h ago",
+              "source":"REVOLT TV",
+              "image":{
+                "newsUrl":"https://www.revolt.tv/news/2021/8/3/22608261/the-lox-announces-tour-with-dipset",
+                "source":"REVOLT TV",
+                "imageUrl":"https://t2.gstatic.com/images?q=tbn:ANd9GcRj_marJGJ8Fs6oly4msViSHHLw4TsFZM4WLRyW5O5tMTMB3VugFfmADng1gSV-4bH4ymIjkalp"
+              },
+              "url":"https://www.revolt.tv/news/2021/8/3/22608261/the-lox-announces-tour-with-dipset",
+              "snippet":"According to Sheek Louch, the tour is slated to start this fall."
+            },
+          ],
+          "shareUrl":"https://trends.google.com/trends/trendingsearches/daily?geo=US&tt=Verzuz#Verzuz"
+        }
+      ]
+    },
+  ]
+}
+```
+
+We have configured the backed to just send the result, but maybe we should do this:
+
+```js
+const defaultObj = JSON.parse(Object(results)).default
+  .trendingSearchesDays[0].trendingSearches;
+```
+
+This will miss out on the previous days results:
+
+{"default":{"trendingSearchesDays":[{"date":"20210807", ...
+
+Since we don't have a plan for that yet, it's not such a big deal.
+
+## 16 - Entity State Adapter
+
+There is some funny stuff going on in this step also.
+
+For example, this code example is split in between the file path and code:
+
+4. Add selector methods to bottom of reducer
+
+Same with the next step:
+
+2. Add material module to Products module
+
+Also need the file path for this:
+
+```html
+<div fxLayout="row"  fxFlexLayout="center center">
+  <demo-app-product-list [products]="products$ | async"></demo-app-product-list>
+</div>
+```
+
+### 17 - Router Store
+
+Everywhere we see the scaffolding command and the output, we need to remove it so that the copy functionality just copies the cli command, not the output.
+
+```txt
+nx generate @nrwl/angular:component containers/product-list --project=products
+CREATE libs/products/src/lib/containers/product-list/product-list.component.html
+CREATE libs/products/src/lib/containers/product-list/product-list.component.spec.ts
+CREATE libs/products/src/lib/containers/product-list/product-list.component.ts
+CREATE libs/products/src/lib/containers/product-list/product-list.component.scss
+```
+
+That should be:
+
+```
+nx generate @nrwl/angular:component containers/product-list --project=products
+```
+
+```
+CREATE libs/products/src/lib/containers/product-list/product-list.component.html
+CREATE libs/products/src/lib/containers/product-list/product-list.component.spec.ts
+CREATE libs/products/src/lib/containers/product-list/product-list.component.ts
+CREATE libs/products/src/lib/containers/product-list/product-list.component.scss
+```
+
+```
+nx generate @nrwl/angular:component containers/trends-list --project=trends
+```
+
+I'm changing my mind about using the entity adapter for the trends.
+
+We don't really care about searching it.  It's just a temporary list.
+
+Reverting these changes and going back to the basic API working from yesterday.
+
+Will need to re-do the tends-list at least and the nest service.

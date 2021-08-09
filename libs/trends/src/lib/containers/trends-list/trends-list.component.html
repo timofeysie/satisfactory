@@ -1,4 +1,11 @@
 <mat-card *ngIf="!trendDetails">
+  <mat-form-field>
+    <mat-select placeholder="Country" (selectionChange)="onFilter($event.value)">
+      <mat-option *ngFor="let country of countries" [value]="country.value">{{
+        country.label
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-nav-list>
     <a mat-list-item *ngFor="let trend of trends">
       <span (click)="seeTrend(trend)">

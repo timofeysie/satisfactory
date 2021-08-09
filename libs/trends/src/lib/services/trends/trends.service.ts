@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class TrendsService {
   constructor(private httpClient: HttpClient) {}
 
-  getTrends(): Observable<Trend[]> {
-    return this.httpClient.get<Trend[]>('http://localhost:3333/api/trends');
+  getTrends(event: any): Observable<Trend[]> {
+    return this.httpClient.get<Trend[]>('http://localhost:3333/api/trends/'+event.payload);
   }
 }

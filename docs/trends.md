@@ -378,3 +378,11 @@ Will need to re-do the tends-list at least and the nest service.
 Next I suppose is added another route for the google image search.
 
 Or, just, like, a details of the existing trend info?
+
+But first, update the load trends functions to take a country name and use that in the api.
+
+The [country code list](https://github.com/datasets/country-codes/blob/master/data/country-codes.csv) are listed here, but for now, just the US and Australia will do.  Apparently, SEO should be done by country, and it's to be determined how the app can be deployed by country to achieve this.
+
+This part of the app doesn't have to be by country of course, but the result of it should.
+
+I think we will need a new effect for the trend by country.  Currently there is only $login.

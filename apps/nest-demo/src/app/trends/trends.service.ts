@@ -27,8 +27,23 @@ export class TrendsService {
     );
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} trend`;
+  findOne(id: string) {
+    return googleTrends.dailyTrends(
+      {
+        trendDate: new Date(),
+        geo: id,
+      },
+      function (err, results) {
+        if (err) {
+          console.log('err', err);
+          return err;
+        } else {
+          const defaultObj = JSON.parse(Object(results)).default
+            .trendingSearchesDays[0].trendingSearches;
+          return defaultObj;
+        }
+      }
+    );
   }
 
   update(id: number, updateTrendDto: UpdateTrendDto) {

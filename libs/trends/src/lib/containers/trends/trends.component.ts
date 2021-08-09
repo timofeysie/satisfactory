@@ -11,13 +11,17 @@ import * as TrendsActions from '../../+state/trends.actions';
   styleUrls: ['./trends.component.scss'],
 })
 export class TrendsComponent implements OnInit {
-
   trends$: Observable<Trend[]>;
 
   constructor(private store: Store<TrendsState>) {}
 
   ngOnInit() {
-    this.store.dispatch(TrendsActions.loadTrends());
+    this.store.dispatch(TrendsActions.loadTrends({payload: 'US'}));
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
+  }
+
+  updateCountry(category: any): void {
+    console.log('cat', category);
+    this.store.dispatch(TrendsActions.loadTrends({payload: category}));
   }
 }

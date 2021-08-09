@@ -12,8 +12,8 @@ export class TrendsEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TrendsActionTypes.LoadTrends),
-      mergeMap(() =>
-        this.trendsService.getTrends().pipe(
+      mergeMap((payload: string) =>
+        this.trendsService.getTrends(payload).pipe(
           map((trends: Trend[]) =>
             TrendsActions.loadTrendsSuccess({ payload: trends })
           ),

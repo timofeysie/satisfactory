@@ -7,7 +7,10 @@ export enum TrendsActionTypes {
   LoadTrendsFail = '[Trends API] LoadTrends Fail',
 }
 
-export const loadTrends = createAction(TrendsActionTypes.LoadTrends);
+export const loadTrends = createAction(
+  TrendsActionTypes.LoadTrends,
+  props<{ payload: string }>()
+);
 
 export const loadTrendsSuccess = createAction(
   TrendsActionTypes.LoadTrendsSuccess,

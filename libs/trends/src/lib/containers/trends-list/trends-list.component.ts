@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Trend } from '@demo-app/data-models';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -53,7 +53,12 @@ const BACK_ICON = `
 })
 export class TrendsListComponent implements OnInit {
   @Input() trends: Trend[];
+  @Output() country = new EventEmitter<string>();
   trendDetails: any;
+  countries = [
+    { value: 'US', label: 'US' },
+    { value: 'AU', label: 'Australia' },
+  ];
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     // `iconRegistry.addSvgIcon('thumbs-up', sanitizer.bypassSecurityTrustResourceUrl('icon.svg'));`
@@ -65,6 +70,10 @@ export class TrendsListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('works');
+  }
+
+  onFilter(event: string) {
+    this.country.emit(event);
   }
 
   seeTrend(trend: any): void {

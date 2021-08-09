@@ -19,7 +19,7 @@ export class TrendsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.trendsService.findOne(+id);
+    return this.trendsService.findOne(id);
   }
 
   @Patch(':id')

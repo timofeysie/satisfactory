@@ -21,7 +21,6 @@ export class TrendsComponent implements OnInit {
   }
 
   updateCountry(category: any): void {
-    console.log('cat', category);
     this.store.dispatch(TrendsActions.loadTrends({payload: category}));
   }
 }

@@ -2,10 +2,14 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
+import { GeneratorService } from '../../services/generator/generator/generator.service';
 
 @Controller('images')
 export class ImagesController {
-  constructor(private readonly imagesService: ImagesService) {}
+  constructor(
+    private readonly imagesService: ImagesService,
+    private generatorService: GeneratorService
+  ) {}
 
   @Post()
   create(@Body() createImageDto: CreateImageDto) {
@@ -20,6 +24,8 @@ export class ImagesController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const results = await this.imagesService.findOne(id);
+    this.generatorService.setData(results + '');
+    // tbd what to return.  This will kick off the model training and generation for now
     return results;
   }
 

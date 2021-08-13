@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
-//import * as dotenv from 'dotenv';
 import * as request from 'request';
 
 @Injectable()
@@ -34,12 +33,13 @@ export class ImagesService {
     return new Promise((resolve) => {
       request(info, function (error, response, body) {
         const searchResponse = JSON.parse(body);
+        let data = '';
         if (searchResponse.webPages) {
           for (let i = 0; i < searchResponse.webPages.value.length; ++i) {
             const webPage = searchResponse.webPages.value[i];
-            console.log('name: ' + webPage.name + ' ' + webPage.snippet);
+            data = data + ('name: ' + webPage.name + ' ' + webPage.snippet);
           }
-          resolve(searchResponse);
+          resolve(data);
         } else {
           return resolve(error);
         }

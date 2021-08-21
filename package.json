@@ -52,6 +52,7 @@
     "@ngrx/store": "^12.0.0",
     "@nrwl/angular": "^12.3.3",
     "@nrwl/nx": "^7.8.7",
+    "fs": "0.0.1-security",
     "google-search-results-nodejs": "^2.0.1",
     "google-trends-api": "^4.9.2",
     "reflect-metadata": "^0.1.13",

@@ -3,7 +3,7 @@ import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { GeneratorService } from '../../services/generator/generator/generator.service';
-
+import * as fs from 'fs';
 @Controller('images')
 export class ImagesController {
   constructor(
@@ -23,10 +23,28 @@ export class ImagesController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const results = await this.imagesService.findOne(id);
-    this.generatorService.setData(results + '');
-    // tbd what to return.  This will kick off the model training and generation for now
-    return results;
+    const promises = [];
+    for (let offset = 0; offset < 15; offset++) {
+      const results = this.imagesService.offsetSearch(id, offset);
+      results.then((data) => {
+        this.generatorService.setData(data);
+      });
+      promises.push(results);
+    }
+    Promise.all(promises).then((values) => {
+      console.log('promises', values);
+      const file = fs.createWriteStream('array.txt');
+      file.on('error', function (err) {
+        /* error handling */
+      });
+      values.forEach((value) => {
+        value.forEach((v) => {
+        file.write(v + '\n');
+      });
+    });
+      file.end();
+      return values
+    });
   }
 
   @Patch(':id')

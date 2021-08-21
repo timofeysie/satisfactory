@@ -386,3 +386,128 @@ The [country code list](https://github.com/datasets/country-codes/blob/master/da
 This part of the app doesn't have to be by country of course, but the result of it should.
 
 I think we will need a new effect for the trend by country.  Currently there is only $login.
+
+### Calls limit
+
+When trying to get multiple calls done, I ran into a limit.  I paid for the first paid tier but now have the issue of the subscription key and API endpoints to use for that.
+
+The account was not upgraded as I thought would happen to allow the current settings to perform more searches per second.
+
+trend-group-resource
+
+custom-search-instance has "Custom Configuration ID": 82200724-d9ea-42dc-bb0e-a95fc751f447
+
+https://www.customsearch.ai/application/4916b346-f8c3-46cf-93f3-c61f5b5d0d01/prod/endpoint
+
+That's what I am using for the customConfigId.
+
+Now what is the subscriptionKey I should be using along with that?
+
+There was a discussion about that in the image-search.md file.
+
+'Ocp-Apim-Subscription-Key': subscriptionKey,
+
+In the trends-resource group:
+https://portal.azure.com/#home
+
+There is Have four resources, all with api keys:
+trend-group (a resource group the is the umbrella for the next three)
+trend-group-resource
+image-search ...68e
+trends ... 8a6
+
+subscriptionKey1="...8a6"
+
+Ocp-Apim-Subscription-Key = The subscription key that you received when you signed up for this service in Cognitive Services.
+
+In my Subscriptions portal tab
+There is a Pay-As-You-Go active.
+
+Using the imageSearch SubscriptionKey
+
+  error: {
+    code: '401',
+    message: 'The Search Operation under Custom Web Search API is not supported with the current subscription key and pricing tier Bing.Bundle.F1.'
+  }
+
+Using the trends SubscriptionKey seems to work.
+
+But after four searches, we get the a message.
+
+trendGroupSubscriptionKey
+
+  error: {
+    code: '429',
+    message: 'Requests to the Search Operation under Custom Web Search API have exceeded rate limit of your current Bing.CustomSearch F0 pricing tier. Please retry after 1 second. To increase your rate limit switch to a paid tier.'
+  }
+
+I did pay for something last night.  I clicked the "Click to issue paid tier key" in the production tab of the Custom Search app:
+https://www.customsearch.ai/application/4916b346-f8c3-46cf-93f3-c61f5b5d0d01/prod/endpoint
+
+The F1 resource sounds higher, but why the error?
+
+YutongTie-MSFT · Jul 11 2021 at 9:29 AM
+*Hello, Thanks for reaching out to us. I think the error that is caused in this case is because of the bing search resource that is used for this call. Bing resources migrated from cognitive services to bing in october 2020 and if you are using a key of the instance that is created previously such error could be seen. You can try to create a new custom search resource by using the issue paid key option from the screen shot or try out a free trial key if you are eligible. Trying out a new key worked for me because my older resources of bing were under a different pricing plan as the resources were created under cognitive services namespace.*
+
+What?
+
+Due to the bing search resource that is used for this call.
+Bing resources migrated from cognitive services to bing in october 2020 and if you are using a key of the instance that is created previously such error could be seen.
+
+I have created these resources all recently.
+
+You can try to create a new custom search resource by
+using the issue paid key option from the screen shot or try out a free trial key if you are eligible.
+
+The exact same text was used to reply to another user. by romungi-MSFT answered • Apr 13 2021 at 12:02 AM
+
+Great service there Bing.
+
+Anyhow, using the trendGroupResource SubscriptionKey
+
+  error: {
+    code: '401',
+    message: 'The Search Operation under Custom Web Search API is not supported with the current subscription key and pricing tier Bing.Bundle.S1.'
+  }
+
+trendGroupResource: pricing tier Bing.Bundle.F1
+trendGroupResourceSubscriptionKey: pricing tier Bing.Bundle.S1
+trendGroupSubscriptionKey: Bing.CustomSearch F0 pricing tier
+
+trend-group-resource ...b85
+image-search ...68e
+trends ... 8a6
+
+Looks like all the bases are covered there.
+
+What is the difference between S1 and F1?
+
+Standard S1 is 100 calls per second.  So defo we want to use that one.  We will need that.  Otherwise it's time to cancel the account and just do our own scraping with cheerio.
+
+Using that S2 key still results in this:
+
+```json
+{
+  error: {
+    code: '401',
+    message: 'The Search Operation under Custom Web Search API is not supported with the current subscription key and pricing tier Bing.Bundle.S1.'
+  }
+```
+
+[This answer](https://docs.microsoft.com/en-us/answers/questions/265258/bing-custom-search-not-supported-with-current-subs.html): *the url needed to include '/custom', and I also needed to pass in customConfig and mkt in the params.*
+
+But we already have custom in our search:
+
+```json
+info {
+  url: 'https://api.bing.microsoft.com/v7.0/custom/search?q=Kylie%20Jenner&customconfig=82200724-d9ea-42dc-bb0e-a95fc751f447&offset=0',
+}
+```
+
+Ironically, if custom is removed, then the search works, and our file gets written!
+
+Kylie Jenner with five iterations results in 247 lines of text.
+
+Bumping that up to 15 searches gives us 738 lines of text.  Time to give that a run through the training.
+
+Also have to test out using just the hemingway text via training to see if that works as well as the previously trained model, as a kind of control group.

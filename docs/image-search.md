@@ -185,10 +185,6 @@ I had difficulty again with the RxJs version, so falling back to the old ways wi
 
 The image search is yet to work.  But we do need a text search.  I propose a new api called text or search or something, as it doesn't look good to have an api called images that returns text.
 
-## Image search
-
-Could use Azure, or do it manually.
-
 ## SerpApi search
 
 npm i google-search-results-nodejs
@@ -482,3 +478,7 @@ There is also some good discussion on [this StackOverflow](https://stackoverflow
 Rolling back this idea.  For now we will just add a service to the app and forego the extra lib.
 
 nx generate @nrwl/nest:service services/generator/generator --project=nest-demo
+
+## training the LSTMs
+
+The training code for this tutorial is based on char-rnn-tensorflow which in turn was inspired from Andrej Karpathy's char-rnn.

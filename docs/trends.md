@@ -511,3 +511,11 @@ Kylie Jenner with five iterations results in 247 lines of text.
 Bumping that up to 15 searches gives us 738 lines of text.  Time to give that a run through the training.
 
 Also have to test out using just the hemingway text via training to see if that works as well as the previously trained model, as a kind of control group.
+
+There was no raw data for that file.  I added the Wikipedia page for Kylie which we will be able to get, and this was the output:
+
+Input :Kylie and "what Jenner of lying of is in August 10 bealicy tolest of a big new adventure choose your own path."
+
+That will do, that will do!
+
+So we will have to bump up the iteration to as much as we can get, add a Wikipedia parse, and then, it's off to the races with the image generation!

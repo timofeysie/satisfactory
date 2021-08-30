@@ -18,6 +18,8 @@ nx build --prod customer-portal --stats-json
 npm run bundle-report-customer-portal
 ```
 
+http://localhost:3333/api
+
 Run the server and then the customer-portal and the app will be served at: http://localhost:4200
 
 You can also go directly to login: http://localhost:4200/auth/login

@@ -10,12 +10,9 @@ Ok to proceed? (y) y
 √ Workspace name (e.g., org name)     · demo-app
 √ What to create in the new workspace · empty
 √ Use Nx Cloud? (It's free and doesn't require registration.) · No
-
 >  NX  Nx is creating your workspace.
-
   To make sure the command works reliably in all environments, and that the preset is applied correctly,
   Nx will run "npm install" several times. Please wait.
-
 >  NX   SUCCESS  Nx has successfully created the workspace.
 ```
 
@@ -31,7 +28,6 @@ Now we have the following packages installed in the package.json:
 ```txt
 >nx generate @nrwl/angular:app --help
 nx generate @nrwl/angular:app [name] [options,...]
-
 Options:
   --name                  The name of the application.
   --directory             The directory of the new application.
@@ -53,7 +49,7 @@ Options:
   --dryRun                Runs through and reports activity without writing to disk.
   --skip-nx-cache         Skip the use of Nx cache.
   --help                  Show available options for project target.
-  ```
+```
 
 This command needs to come first.
 
@@ -91,12 +87,9 @@ npm WARN deprecated har-validator@5.1.5: this library is no longer supported
 npm WARN deprecated resolve-url@0.2.1: https://github.com/lydell/resolve-url#deprecated
 npm WARN deprecated chokidar@2.1.8: Chokidar 2 will break on node v14+. Upgrade to chokidar 3 with 15x less dependencies.
 npm WARN deprecated debug@4.1.1: Debug versions >=3.2.0 <3.2.7 || >=4 <4.3.1 have a low-severity ReDos regression when used in a Node.js environment. It is recommended you upgrade to 3.2.7 or 4.3.1. (https://github.com/visionmedia/debug/issues/797)  
-
 added 742 packages, and audited 947 packages in 32s
-
 61 packages are looking for funding
   run `npm fund` for details
-
 found 0 vulnerabilities
 ```
 

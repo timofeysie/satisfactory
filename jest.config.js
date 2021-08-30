@@ -8,5 +8,6 @@ module.exports = {
     '<rootDir>/libs/products',
     '<rootDir>/apps/nest-demo',
     '<rootDir>/libs/trends',
+    '<rootDir>/apps/trendy',
   ],
 };

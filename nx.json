@@ -46,6 +46,16 @@
     },
     "trends": {
       "tags": []
+    },
+    "trendy": {
+      "tags": []
+    },
+    "trendy-e2e": {
+      "tags": [],
+      "implicitDependencies": ["trendy"]
+    },
+    "trendy-ssr": {
+      "tags": []
     }
   }
 }

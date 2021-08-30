@@ -58,7 +58,7 @@ nx generate @nrwl/angular:app customer-portal --routing
 
 Going with this:
 
-```hs
+```sh
 nx generate @nrwl/angular:app trendy --routing
 ```
 
@@ -67,26 +67,166 @@ This brings up the difference between CamelCase or snake-case (also called kebab
 What is the Angular Express Engine?  It's for SSR.  Don't overthink it.  There is a lot to get through.
 
 ```sh
-npx ng add @nguniversal/express-engine --clientProject my-app
+npx ng add @nguniversal/express-engine --clientProject trendy
 ```
 
-Step 4: “apps” was dropped from the path. We will add that back in
+This would be the nx method?
 
-Step 5: Inside of the generated server.ts file (apps > my-app > server.ts) we need to add “apps” to the distFolder  
+```sh
+nx add @nguniversal/express-engine --clientProject my-app
+```
 
-Step 5:  
+[This article](https://blog.nrwl.io/nx-workspace-schematics-server-side-rendering-ssr-with-angular-universal-afc04ead55) by
+Benjamin Cabanes shows using a specific schematic for it.
+
+```sh
+yarn add @nguniversal/express-engine @nguniversal/module-map-ngfactory-loader
+```
+
+```sh
+ng generate @schematics/angular:universal --clientProject=tuskdesk
+```
+
+The second article includes provideModuleMap.  This is used for the server which will serve the app.  Are we serving the app?  That remains to be seen?  I thought NodeJS was not suited for serving large things like an Angular app, but only for small API requests?
+
+The official [docs](https://angular.io/start/start-deployment) say:
+
+*Copy the contents of the dist/my-project-name folder to your web server. Because these files are static, you can host them on any web server capable of serving files; such as Node.js, Java, .NET, or any backend such as Firebase, Google Cloud, or App Engine. For more information, see Building & Serving and Deployment.*
+
+There are three links to Google there.  I guess they developed Angular, so that makes sense.  But we want the free option.  How about the Heroku solution?  But wait, we are trying to optimize for a Google image search.  Would they give a slight edge to hosting on their server?  Good point.  I might have a use for that Google Cloud account I created and then walked away from when I saw the monthly cost of a ML backed Jupyter notebook instance.
+
+There is actually a [community plugin](https://www.npmjs.com/package/@simondotm/nx-firebase) for firebase.  It should work for hosting.  I'm sorry it's not an official plugin, but I get that they can't support everything.
+
+The is also [Nxtend](https://nxtend.dev/docs/firebase/getting-started/) which looks more mature, given they have Ionic/Capacitor plugins and a website.
+
+Here are the [docs for firebase hosting](https://firebase.google.com/docs/hosting).  I'm thinking this will tick a box for Google, and there are lots of boxes to tick for SEO.
+
+So going with this for now:
+
+```sh
+npm i @nguniversal/express-engine @nguniversal/module-map-ngfactory-loader
+```
+
+Next:
+
+```sh
+nx generate @schematics/angular:universal --clientProject=trendy
+```
+
+*'clientProject' is not found in schema*
+
+Using ng instead of nx results in this error:
+
+*The generate command requires to be run in an Angular project, but a project definition could not be found.*
+
+Maybe it should be --project=trendy?  Seems to work:
+
+```sh
+PS C:\Users\timof\repos\satisfactory> nx generate @schematics/angular:universal --project=trendy      
+✔ Packages installed successfully.
+CREATE apps/trendy/src/main.server.ts
+CREATE apps/trendy/src/app/app.server.module.ts
+CREATE apps/trendy/tsconfig.server.json
+UPDATE package.json
+UPDATE workspace.json
+UPDATE apps/trendy/src/main.ts
+UPDATE apps/trendy/src/app/app.module.ts
+```
+
+#### Updating build paths
+
+There is no angular.json in our project, as we have a generic workspace.json.
+
+```json
+"outputPath": "dist/apps/trendy/browser",
+```
+
+Do we really need the "Creating our NodeJS server" from the Helgevold article?  How about just the Christensen?  Lets try without it using the extra node server.
+
+There are some differences in the different approaches.
 
 npm run build:ssr
-
-This command will start up the server.
-
 npm run serve:ssr
 
-view your app in a browser at  http://localhost:4000/
+You can now view your app in a browser at http://localhost:4000/
+
+From the Benjamin Cabanes article:
+
+nx run trendy:build --configuration=production
+
+nx run trendy:server --configuration=production
+
+The Christensen has this:
+
+```sh
+npm run serve:ssr
+npm ERR! missing script: serve:ssr
+```
+
+In "Step 5: Update server distFolder" Inside of the generated server.ts file (apps > my-app > server.ts) we have no such file.  There is a main.server.ts, but it looks nothing like the one in the article.
+
+So, back to another server.
+
+nx generate @nrwl/node:application trendy-ssr
+
+The code shown has this issue:
+
+```err
+Require statement not part of import statement.eslint@typescript-eslint/no-var-requires
+var require: NodeRequire
+(id: string) => any
+```
+
+Changed the require statement to an import thanks to the quick fix suggestion:
+
+```js
+import { AppServerModuleNgFactory, LAZY_MODULE_MAP } from '../../../dist/trendy/server/main';
+```
+
+Then the workflow:
+
+nx run trendy:build --configuration=production
+nx run trendy:server --configuration=production
+nx run trendy-ssr:serve
+
+```txt
+ERROR in ./apps/trendy-ssr/src/main.ts
+Module not found: Error: Can't resolve '../../../dist/apps/trendy/server/main' in 'C:\Users\timof\repos\satisfactory\apps\trendy-ssr\src'
+There was an error with the build. See above.
+```
+
+After fixing that require situation, this is a bigger error:
+
+```err
+ERROR in ./dist/trendy/server/main.js 4527:84
+Module parse failed: 'with' in strict mode (4527:84)
+File was processed with these loaders:
+ * ./node_modules/ts-loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|                 return !0;
+|         } while (test.sel); return !1; };
+>     }, 2422: module => { module.exports = { Window_run: function _run(code, file) { with (file && (code += "\n//@ sourceURL=" + file), this)
+|             eval(code); }, EventHandlerBuilder_build: function build() { try {
+|             with (this.document.defaultView || Object.create(null))
+There was an error with the build. See above.
+```
+
+*change the module target to commonjs Set the module to commonjs in your tsconfig.server.json, this however has the drawback of disabling lazy-loading on the server.*
+
+```err
+> nx run trendy:server:production 
+error TS6046: Argument for '--target' option must be: 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext'.
+```
+
+*set domino as an external dependency. In angular.json under server.options add "externalDependencies": ['domino'], this will cause domino not to be included in your server bundle, and it will be required during runtime.*
+
+What is domino?  And we have no server.options.
 
 ### Deploy
 
-https://www.thisdot.co/blog/deploying-nx-workspace-based-angular-and-nestjs-apps-to-heroku 
+The first idea was to deploy to Heroku with [this guide](https://www.thisdot.co/blog/deploying-nx-workspace-based-angular-and-nestjs-apps-to-heroku).  But then realizing that Google might like it more if we used Firebase (still free hopefully) then [this Nxtend doc page is the guide for that](https://nxtend.dev/docs/firebase/getting-started/)
+
+
 
 ### AsSense
 

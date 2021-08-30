@@ -18,7 +18,11 @@ nx build --prod customer-portal --stats-json
 npm run bundle-report-customer-portal
 ```
 
-http://localhost:3333/api
+A trend search for the nest-demo looks like this:
+
+```url
+http://localhost:3333/api/images/Christina%20Applegate
+```
 
 Run the server and then the customer-portal and the app will be served at: http://localhost:4200
 

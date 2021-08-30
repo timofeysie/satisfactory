@@ -9,9 +9,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/auth"
-          ],
+          "outputs": ["coverage/libs/auth"],
           "options": {
             "jestConfig": "libs/auth/jest.config.js",
             "passWithNoTests": true
@@ -47,9 +45,7 @@
               "apps/customer-portal/src/favicon.ico",
               "apps/customer-portal/src/assets"
             ],
-            "styles": [
-              "apps/customer-portal/src/styles.scss"
-            ],
+            "styles": ["apps/customer-portal/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -117,9 +113,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/customer-portal"
-          ],
+          "outputs": ["coverage/apps/customer-portal"],
           "options": {
             "jestConfig": "apps/customer-portal/jest.config.js",
             "passWithNoTests": true
@@ -148,9 +142,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/customer-portal-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/customer-portal-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -163,9 +155,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/data-models"
-          ],
+          "outputs": ["coverage/libs/data-models"],
           "options": {
             "jestConfig": "libs/data-models/jest.config.js",
             "passWithNoTests": true
@@ -190,9 +180,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/layout"
-          ],
+          "outputs": ["coverage/libs/layout"],
           "options": {
             "jestConfig": "libs/layout/jest.config.js",
             "passWithNoTests": true
@@ -217,9 +205,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/material"
-          ],
+          "outputs": ["coverage/libs/material"],
           "options": {
             "jestConfig": "libs/material/jest.config.js",
             "passWithNoTests": true
@@ -243,16 +229,12 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/nest-demo",
             "main": "apps/nest-demo/src/main.ts",
             "tsConfig": "apps/nest-demo/tsconfig.app.json",
-            "assets": [
-              "apps/nest-demo/src/assets"
-            ]
+            "assets": ["apps/nest-demo/src/assets"]
           },
           "configurations": {
             "production": {
@@ -277,16 +259,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/nest-demo/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/nest-demo/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/nest-demo"
-          ],
+          "outputs": ["coverage/apps/nest-demo"],
           "options": {
             "jestConfig": "apps/nest-demo/jest.config.js",
             "passWithNoTests": true
@@ -302,9 +280,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/products"
-          ],
+          "outputs": ["coverage/libs/products"],
           "options": {
             "jestConfig": "libs/products/jest.config.js",
             "passWithNoTests": true
@@ -329,9 +305,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/trends"
-          ],
+          "outputs": ["coverage/libs/trends"],
           "options": {
             "jestConfig": "libs/trends/jest.config.js",
             "passWithNoTests": true
@@ -344,6 +318,197 @@
               "libs/trends/src/**/*.ts",
               "libs/trends/src/**/*.html"
             ]
+          }
+        }
+      }
+    },
+    "trendy": {
+      "projectType": "application",
+      "root": "apps/trendy",
+      "sourceRoot": "apps/trendy/src",
+      "prefix": "demo-app",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/trendy/browser",
+            "index": "apps/trendy/src/index.html",
+            "main": "apps/trendy/src/main.ts",
+            "polyfills": "apps/trendy/src/polyfills.ts",
+            "tsConfig": "apps/trendy/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["apps/trendy/src/favicon.ico", "apps/trendy/src/assets"],
+            "styles": ["apps/trendy/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/trendy/src/environments/environment.ts",
+                  "with": "apps/trendy/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "trendy:build:production"
+            },
+            "development": {
+              "browserTarget": "trendy:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "trendy:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/trendy/src/**/*.ts",
+              "apps/trendy/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/trendy"],
+          "options": {
+            "jestConfig": "apps/trendy/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "server": {
+          "executor": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/trendy/server",
+            "main": "apps/trendy/src/main.server.ts",
+            "tsConfig": "apps/trendy/tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "apps/trendy/src/environments/environment.ts",
+                  "with": "apps/trendy/src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    },
+    "trendy-e2e": {
+      "root": "apps/trendy-e2e",
+      "sourceRoot": "apps/trendy-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/trendy-e2e/cypress.json",
+            "tsConfig": "apps/trendy-e2e/tsconfig.e2e.json",
+            "devServerTarget": "trendy:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "trendy:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/trendy-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "trendy-ssr": {
+      "root": "apps/trendy-ssr",
+      "sourceRoot": "apps/trendy-ssr/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/trendy-ssr",
+            "main": "apps/trendy-ssr/src/main.ts",
+            "tsConfig": "apps/trendy-ssr/tsconfig.app.json",
+            "assets": ["apps/trendy-ssr/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/trendy-ssr/src/environments/environment.ts",
+                  "with": "apps/trendy-ssr/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "trendy-ssr:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/trendy-ssr/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/trendy-ssr"],
+          "options": {
+            "jestConfig": "apps/trendy-ssr/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

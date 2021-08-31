@@ -9,5 +9,7 @@ module.exports = {
     '<rootDir>/apps/nest-demo',
     '<rootDir>/libs/trends',
     '<rootDir>/apps/trendy',
+    '<rootDir>/libs/pictures',
+    '<rootDir>/libs/trendy-layout',
   ],
 };

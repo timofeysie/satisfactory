@@ -561,6 +561,60 @@
           }
         }
       }
+    },
+    "pictures": {
+      "projectType": "library",
+      "root": "libs/pictures",
+      "sourceRoot": "libs/pictures/src",
+      "prefix": "demo-app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/pictures"
+          ],
+          "options": {
+            "jestConfig": "libs/pictures/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/pictures/src/**/*.ts",
+              "libs/pictures/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "trendy-layout": {
+      "projectType": "library",
+      "root": "libs/trendy-layout",
+      "sourceRoot": "libs/trendy-layout/src",
+      "prefix": "demo-app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/trendy-layout"
+          ],
+          "options": {
+            "jestConfig": "libs/trendy-layout/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/trendy-layout/src/**/*.ts",
+              "libs/trendy-layout/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

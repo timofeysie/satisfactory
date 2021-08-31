@@ -20,7 +20,9 @@
       "@demo-app/layout": ["libs/layout/src/index.ts"],
       "@demo-app/material": ["libs/material/src/index.ts"],
       "@demo-app/products": ["libs/products/src/index.ts"],
-      "@demo-app/trends": ["libs/trends/src/index.ts"]
+      "@demo-app/trends": ["libs/trends/src/index.ts"],
+      "@demo-app/pictures": ["libs/pictures/src/index.ts"],
+      "@demo-app/trendy-layout": ["libs/trendy-layout/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

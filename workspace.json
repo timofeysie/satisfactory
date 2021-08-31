@@ -9,7 +9,9 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/auth"],
+          "outputs": [
+            "coverage/libs/auth"
+          ],
           "options": {
             "jestConfig": "libs/auth/jest.config.js",
             "passWithNoTests": true
@@ -45,7 +47,9 @@
               "apps/customer-portal/src/favicon.ico",
               "apps/customer-portal/src/assets"
             ],
-            "styles": ["apps/customer-portal/src/styles.scss"],
+            "styles": [
+              "apps/customer-portal/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -113,7 +117,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/customer-portal"],
+          "outputs": [
+            "coverage/apps/customer-portal"
+          ],
           "options": {
             "jestConfig": "apps/customer-portal/jest.config.js",
             "passWithNoTests": true
@@ -142,7 +148,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/customer-portal-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/customer-portal-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -155,7 +163,9 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/data-models"],
+          "outputs": [
+            "coverage/libs/data-models"
+          ],
           "options": {
             "jestConfig": "libs/data-models/jest.config.js",
             "passWithNoTests": true
@@ -180,7 +190,9 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/layout"],
+          "outputs": [
+            "coverage/libs/layout"
+          ],
           "options": {
             "jestConfig": "libs/layout/jest.config.js",
             "passWithNoTests": true
@@ -205,7 +217,9 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/material"],
+          "outputs": [
+            "coverage/libs/material"
+          ],
           "options": {
             "jestConfig": "libs/material/jest.config.js",
             "passWithNoTests": true
@@ -229,12 +243,16 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/nest-demo",
             "main": "apps/nest-demo/src/main.ts",
             "tsConfig": "apps/nest-demo/tsconfig.app.json",
-            "assets": ["apps/nest-demo/src/assets"]
+            "assets": [
+              "apps/nest-demo/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -259,12 +277,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/nest-demo/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/nest-demo/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/nest-demo"],
+          "outputs": [
+            "coverage/apps/nest-demo"
+          ],
           "options": {
             "jestConfig": "apps/nest-demo/jest.config.js",
             "passWithNoTests": true
@@ -280,7 +302,9 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/products"],
+          "outputs": [
+            "coverage/libs/products"
+          ],
           "options": {
             "jestConfig": "libs/products/jest.config.js",
             "passWithNoTests": true
@@ -305,7 +329,9 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/trends"],
+          "outputs": [
+            "coverage/libs/trends"
+          ],
           "options": {
             "jestConfig": "libs/trends/jest.config.js",
             "passWithNoTests": true
@@ -337,8 +363,13 @@
             "polyfills": "apps/trendy/src/polyfills.ts",
             "tsConfig": "apps/trendy/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["apps/trendy/src/favicon.ico", "apps/trendy/src/assets"],
-            "styles": ["apps/trendy/src/styles.scss"],
+            "assets": [
+              "apps/trendy/src/favicon.ico",
+              "apps/trendy/src/assets"
+            ],
+            "styles": [
+              "apps/trendy/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -403,7 +434,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/trendy"],
+          "outputs": [
+            "coverage/apps/trendy"
+          ],
           "options": {
             "jestConfig": "apps/trendy/jest.config.js",
             "passWithNoTests": true
@@ -434,6 +467,12 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "firebase": {
+          "executor": "@nxtend/firebase:firebase",
+          "options": {
+            "cmd": "--help"
+          }
         }
       }
     },
@@ -458,7 +497,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/trendy-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/trendy-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -470,12 +511,16 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/trendy-ssr",
             "main": "apps/trendy-ssr/src/main.ts",
             "tsConfig": "apps/trendy-ssr/tsconfig.app.json",
-            "assets": ["apps/trendy-ssr/src/assets"]
+            "assets": [
+              "apps/trendy-ssr/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -500,12 +545,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/trendy-ssr/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/trendy-ssr/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/trendy-ssr"],
+          "outputs": [
+            "coverage/apps/trendy-ssr"
+          ],
           "options": {
             "jestConfig": "apps/trendy-ssr/jest.config.js",
             "passWithNoTests": true

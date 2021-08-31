@@ -185,9 +185,11 @@ import { AppServerModuleNgFactory, LAZY_MODULE_MAP } from '../../../dist/trendy/
 
 Then the workflow:
 
+```sh
 nx run trendy:build --configuration=production
 nx run trendy:server --configuration=production
-nx run trendy-ssr:serve
+nx run trendy-ssr:serve // doesn't work
+```
 
 ```txt
 ERROR in ./apps/trendy-ssr/src/main.ts
@@ -226,9 +228,52 @@ What is domino?  And we have no server.options.
 
 The first idea was to deploy to Heroku with [this guide](https://www.thisdot.co/blog/deploying-nx-workspace-based-angular-and-nestjs-apps-to-heroku).  But then realizing that Google might like it more if we used Firebase (still free hopefully) then [this Nxtend doc page is the guide for that](https://nxtend.dev/docs/firebase/getting-started/)
 
+Outside the project, run this:
 
+npm install -g firebase-tools
 
-### AsSense
+firebase projects:list
+
+```sh
+npm install --save-dev --exact @nxtend/firebase
+nx generate @nxtend/firebase:init
+Unable to resolve @nxtend/firebase:init.
+Cannot find generator 'init' in C:\Users\timof\repos\satisfactory\node_modules\@nxtend\firebase\collection.json.
+nx generate @nxtend/firebase:firebase-project --project trendy
+```
+
+Workflow:
+
+```txt
+nx run trendy:firebase --cmd init
+? Please select an option: Create a new project
+i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project.
+? Please specify a unique project id (warning: cannot be modified afterward) [6-30 characters]:
+ trendy2022
+? What would you like to call your project? (defaults to your project ID) trendy
+√ Creating Google Cloud Platform project
+nx run trendy:firebase --cmd deploy
+```
+
+```txt
+=== Hosting Setup
+
+Your public directory is the folder (relative to your project directory) that
+will contain Hosting assets to be uploaded with firebase deploy. If you
+have a build process for your assets, use your build's output directory.
+
+? What do you want to use as your public directory? dist\apps\trendy
+? Configure as a single-page app (rewrite all urls to /index.html)? No
+? Set up automatic builds and deploys with GitHub? No
++  Wrote dist\apps\trendy/index.html
+
+Project Console: https://console.firebase.google.com/project/trendy2022/overview
+Hosting URL: https://trendy2022.web.app
+```
+
+I had to move the firebase.json, .firebase/, and .firebaserc artifacts outside to the root directory to get the hosting to work.  Now we are in action, but had to add /index.html to that hosting url above.
+
+### AdSense
 
 1. Ni1. Create space for a leaderboard top banner.
 2. Have a sidebar for a rectangular or skyscraper banner.

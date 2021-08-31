@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/apps/trendy/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

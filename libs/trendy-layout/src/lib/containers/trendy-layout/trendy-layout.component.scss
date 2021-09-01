@@ -1,3 +1,23 @@
+
 .right-nav {
     margin-left: auto;
+     overflow: hidden; 
+}
+
+mat-sidenav {
+    margin: 16px;
+    width: 200px;
+    border-right: none;
+    border-radius: 4px;
+    padding: 16px;
+    text-align: center;
+}
+
+.nav-open {
+    margin-right: 216px !important;
+}
+
+.content {
+    box-shadow: none;
+    font-size: 2rem;
 }

@@ -35,8 +35,9 @@ Just add our own panel on the right and use that.
 
 In mobile view, the panel should disappear and the footer should appear (or grow).
 
-
 ## Git issue
+
+Git fatal: failed to resolve HEAD as a valid ref.
 
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
@@ -57,3 +58,7 @@ libs/trendy-layout/src/lib/containers/trendy-layout/trendy-layout.component.ts
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
         apps/trendy/src/assets/pictures/mike-richards/transitioncat-mike-richards-452-316.jpg
+
+The solution was to re-clone the project in a new directory and move the files to that to make the commit.  This is the second time this has happened to a repo on this hp laptop.  I'm concerned about the hard drive.
+
+Best to keep everything backed up on other peoples computers (the cloud).  Thanks to the cloud.

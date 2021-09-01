@@ -1,22 +1,25 @@
 <mat-toolbar color="primary" fxLayout="row">
   <h1>BREAKING ART</h1>
-  <div class="right-nav">Paintings</div>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav
     class="mat-elevation-z8"
     mode="side"
     position="end"
-    [opened]="(isHandset$ | async) === (false)"
+    [opened]="(isHandset$ | async) === false"
     md-theme="default"
   >
     <button mat-button class="menu-button">
-      <mat-icon>home</mat-icon>
-      <span>Home</span>
+      <span>Ad</span>
     </button>
   </mat-sidenav>
-  <mat-sidenav-content class="content mat-elevation-z8"
-  [ngClass]="{'nav-open': (isHandset$ | async) === (false)}">
+  <mat-sidenav-content
+    class="content mat-elevation-z8"
+    [ngClass]="{ 'nav-open': (isHandset$ | async) === false }"
+  >
     <ng-content></ng-content>
+    <mat-toolbar color="primary" class="footer" *ngIf="(isHandset$ | async) === true">
+      <span>Footer ad</span>
+    </mat-toolbar>
   </mat-sidenav-content>
 </mat-sidenav-container>

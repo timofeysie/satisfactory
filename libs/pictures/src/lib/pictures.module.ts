@@ -15,9 +15,15 @@ export const picturesRoutes: Route[] = [];
     MaterialModule,
     RouterModule.forChild([
       { path: '', component: PicturesComponent },
+      { path: 'home', component: PicturesComponent },
       { path: 'Mike Richards', component: MikeRichardsComponent },
     ]),
   ],
-  declarations: [PicturesComponent, MikeRichardsComponent, ToonifyMikeRichardsComponent, TransitioncatMikeRichardsComponent],
+  declarations: [
+    PicturesComponent,
+    MikeRichardsComponent,
+    ToonifyMikeRichardsComponent,
+    TransitioncatMikeRichardsComponent,
+  ],
 })
 export class PicturesModule {}

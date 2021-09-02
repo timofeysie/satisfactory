@@ -145,8 +145,10 @@ Do we really need the "Creating our NodeJS server" from the Helgevold article?  
 
 There are some differences in the different approaches.
 
+```txt
 npm run build:ssr
 npm run serve:ssr
+```
 
 You can now view your app in a browser at http://localhost:4000/
 

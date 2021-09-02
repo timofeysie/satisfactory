@@ -16,6 +16,20 @@
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
+    },
+    "prerender": {
+      "builder": "@nguniversal/express-engine:prerender",
+      "output": ["dist/apps/trendy/browser"],
+      "options": {
+        "browserTarget": "trendy:build",
+        "serverTarget": "trendy:server",
+        "guessRoutes": true,
+        "routes": [
+              "/", 
+              "/home",
+              "/Mike%20Richards"
+            ]
+      }
     }
   },
   "projects": {

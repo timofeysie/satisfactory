@@ -54,6 +54,31 @@ nx g @nrwl/angular:component  containers/picture-cards/picture-cards --project=p
 nx g @nrwl/angular:component  components/picture-card/picture-card --project=pictures
 ```
 
+The picture-cards can get the data from a service.
+The picture-card gets its info from the picture-cards container.
+
+This way we can just add a new data model to the source, and it will end up as a route?
+
+Not sure how that part is going to work.  Maybe we just add an entry in the service and make sure to add a route for each entry.  That could work.  Worth a try for our first effort.
+
+The status demo:
+
+```js
+{ path: 'Mike Richards', component: MikeRichardsComponent },
+```
+
+The first idea:
+
+```js
+{ path: 'picture/Mike Richards', component: PictureCardsComponent },
+```
+
+Then in PictureCardsComponent, we look at the path and use the data for that picture.  Not sure about all this, but it actually works.
+
+I thought it would be a good idea to create a topic about something which has not search results.  So enter:
+
+http://localhost:4200/topic/Qivit%20Tittysure
+
 ## Git issue
 
 Git fatal: failed to resolve HEAD as a valid ref.

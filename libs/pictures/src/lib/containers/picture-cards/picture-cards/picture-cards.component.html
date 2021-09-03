@@ -1,0 +1,14 @@
+<article class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="50%">
+      <demo-app-picture-card [picture]="trend.one"></demo-app-picture-card>
+    </div>
+    <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="50%">
+      <demo-app-picture-card [picture]="trend.two"></demo-app-picture-card>
+    </div>
+  </div>
+  <p class="info">
+    {{ trend.description }}
+    <a href="{{ trend.linkUrl }}">{{ trend.linkLabel }}</a>
+  </p>
+</article>

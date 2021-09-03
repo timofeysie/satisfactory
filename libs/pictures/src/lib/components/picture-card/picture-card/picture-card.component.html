@@ -1,0 +1,19 @@
+<mat-card class="mat-elevation-z4">
+  <mat-card-header>
+    <mat-card-title>{{ picture.title }}</mat-card-title>
+  </mat-card-header>
+  <img
+    mat-card-image
+    alt="{{ picture.altText }}"
+    src="{{ picture.imageSrc }}"
+  />
+  <mat-card-content>
+    <p>
+      {{ picture.description }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>

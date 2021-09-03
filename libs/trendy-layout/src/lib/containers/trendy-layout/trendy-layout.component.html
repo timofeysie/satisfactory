@@ -1,5 +1,22 @@
 <mat-toolbar color="primary" fxLayout="row">
   <h1>BREAKING ART</h1>
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5982203067051759"
+    crossorigin="anonymous"
+  ></script>
+  <!-- Header ad -->
+  <ins
+    class="adsbygoogle"
+    style="display: block"
+    data-ad-client="ca-pub-5982203067051759"
+    data-ad-slot="4193264093"
+    data-ad-format="auto"
+    data-full-width-responsive="true"
+  ></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav
@@ -9,17 +26,54 @@
     [opened]="(isHandset$ | async) === false"
     md-theme="default"
   >
-    <button mat-button class="menu-button">
-      <span>Ad</span>
+    <button mat-button color="primary" class="menu-button">
+      <span><a class="nav-link" href="/home">Home</a></span>
     </button>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5982203067051759"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Skyscraper ad -->
+    <ins
+      class="adsbygoogle"
+      style="display: block"
+      data-ad-client="ca-pub-5982203067051759"
+      data-ad-slot="1339870047"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    ></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </mat-sidenav>
   <mat-sidenav-content
     class="content mat-elevation-z8"
     [ngClass]="{ 'nav-open': (isHandset$ | async) === false }"
   >
     <ng-content></ng-content>
-    <mat-toolbar color="primary" class="footer" *ngIf="(isHandset$ | async) === true">
-      <span>Footer ad</span>
+    <mat-toolbar
+      color="primary"
+      class="footer"
+      *ngIf="(isHandset$ | async) === true"
+    >
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5982203067051759"
+        crossorigin="anonymous"
+      ></script>
+      <!-- Footer ad -->
+      <ins
+        class="adsbygoogle"
+        style="display: block"
+        data-ad-client="ca-pub-5982203067051759"
+        data-ad-slot="7254541707"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </mat-toolbar>
   </mat-sidenav-content>
 </mat-sidenav-container>

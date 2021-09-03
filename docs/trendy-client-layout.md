@@ -35,6 +35,25 @@ Just add our own panel on the right and use that.
 
 In mobile view, the panel should disappear and the footer should appear (or grow).
 
+## Re-usable container and presentational components
+
+Containers are smart
+Components are dumb and just have input/output and layout
+
+This is how it was done for auth.
+
+```txt
+>nx generate @nrwl/angular:component containers/login --project=auth
+>nx generate @nrwl/angular:component components/login-form --project=auth
+```
+
+This is how we can do it for cards.
+
+```txt
+nx g @nrwl/angular:component  containers/picture-cards/picture-cards --project=pictures
+nx g @nrwl/angular:component  components/picture-card/picture-card --project=pictures
+```
+
 ## Git issue
 
 Git fatal: failed to resolve HEAD as a valid ref.

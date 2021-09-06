@@ -1,5 +1,11 @@
 # Trendy SEO
 
+Todo
+
+SEO test:
+
+https://www.sureoak.com/seo-tools/page-analyzer?websiteId=-260
+
 Here are the links collected.
 
 https://yoast.com/image-seo/

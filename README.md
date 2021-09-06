@@ -11,7 +11,10 @@ nx serve trendy // trendy frontend
 nx run trendy:server --configuration=production
 nx run trendy:build:SSR
 nx run trendy:serve:SSR
+nx run trendy:build:prerender --configuration=production
+nx run trendy:server:prerender --configuration=production
 nx run trendy:firebase --cmd deploy // deploy to firebase
+nx run trendy:firebase --cmd serve // test deployment
 npm run server // start the customer portal server
 nx serve customer-portal // serve the front end Angular app
 nx test auth // test the auth lib

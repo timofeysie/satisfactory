@@ -20,6 +20,7 @@ export const picturesRoutes: Route[] = [];
       { path: 'home', component: PicturesComponent },
       { path: 'Mike Richards', component: MikeRichardsComponent },
       { path: 'topic/Qivit Tittysure', component: PictureCardsComponent },
+      { path: 'topic/Kylie Jenner', component: PictureCardsComponent },
     ]),
   ],
   declarations: [

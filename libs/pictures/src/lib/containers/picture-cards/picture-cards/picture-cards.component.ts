@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'demo-app-picture-cards',
   templateUrl: './picture-cards.component.html',
   styleUrls: ['./picture-cards.component.scss'],
 })
-export class PictureCardsComponent implements OnInit {
+export class PictureCardsComponent {
   currentRoute: string;
   trend;
 
   trends = {
     Qivit_Tittysure: {
+      pageTitle: 'Qivit Tittysure',
+      author: 'Transition Cat, Toonify, Henry Curchod',
+      keywords: 'Qivit Tittysure, portrait, artwork',
       description:
         'Qivit Tittysure is the soft, dense, light-brown woolly undercoat of the quoll and a small quantity of left over fluff.',
       linkUrl: 'https://en.wikipedia.org/wiki/Quoll',
@@ -30,8 +34,10 @@ export class PictureCardsComponent implements OnInit {
       },
     },
     Kylie_Jenner: {
-      description:
-        `In April 2017, Jenner was first seen with Travis Scott at Coachella. 
+      pageTitle: 'Kylie Jenner',
+      author: 'Transition Cat, Toonify, Henry Curchod',
+      keywords: 'Kylie Jenner, portrait, artwork',
+      description: `In April 2017, Jenner was first seen with Travis Scott at Coachella. 
         On February 1, 2018, Jenner gave birth to their daughter, Stormi Webster.
         Jenner appeared in the music video for "Stop Trying to Be God", 
         from Scott's third studio album Astroworld. 
@@ -58,13 +64,30 @@ export class PictureCardsComponent implements OnInit {
     },
   };
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private meta: Meta,
+    private title: Title
+  ) {
     const currentRoute = router.url;
     const slash = currentRoute.lastIndexOf('/');
     const lastPart = currentRoute.substring(slash + 1, currentRoute.length);
     const topic = lastPart.replace('%20', '_');
     this.trend = this.trends[topic];
+    this.meta.addTags([
+      { name: 'description', content: this.trend.description },
+      { name: 'author', content: this.trend.author },
+      { name: 'keywords', content: this.trend.keywords },
+      { name: 'twitter:card', content: this.trend.pageTitle },
+      { name: 'og:url', content: '/' },
+      { name: 'og:title', content: this.trend.pageTitle },
+      { name: 'og:description', content: this.trend.description },
+      { name: 'og:image', content: this.trend.two.imageSrc },
+    ]);
+    this.setTitle(this.trend.pageTitle);
   }
 
-  ngOnInit(): void {}
+  public setTitle(newTitle: string) {
+    this.title.setTitle(newTitle);
+  }
 }

@@ -417,6 +417,39 @@
           },
           "defaultConfiguration": "development"
         },
+        "server-ssr": {
+          "executor": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "trendy:build:development",
+              "serverTarget": "trendy:server:development"
+            },
+            "production": {
+              "browserTarget": "trendy:build:production",
+              "serverTarget": "trendy:server:production"
+            },
+            "defaultConfiguration": "development"
+          },
+          "prerender": {
+            "builder": "@nguniversal/builders:prerender",
+            "options": {
+              "routes": [
+                "/"
+              ]
+            },
+            "configurations": {
+              "production": {
+                "browserTarget": "trendy:build:production",
+                "serverTarget": "trendy:server:production"
+              },
+              "development": {
+                "browserTarget": "trendy:build:development",
+                "serverTarget": "trendy:server:development"
+              }
+            },
+            "defaultConfiguration": "production"
+          }
+        },
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",
           "options": {

@@ -27,7 +27,9 @@
         "routes": [
               "/", 
               "/home",
-              "/Mike%20Richards"
+              "/Mike%20Richards",
+              "topic/Qivit Tittysure",
+              "topic/Kylie Jenner"
             ]
       }
     }

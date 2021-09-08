@@ -9,7 +9,7 @@ import { TrendyLayoutModule } from '@demo-app/trendy-layout';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({ appId: 'trendy' }),
     RouterModule.forRoot(
       [
         { path: '', children: picturesRoutes },

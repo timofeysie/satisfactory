@@ -6,6 +6,8 @@
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
+    "build:functions": "nx run --prefix functions build",
+    "build:all": "nx run build:ssr && npm run build:functions",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",

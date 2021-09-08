@@ -377,3 +377,30 @@ The Dipesh Bhoir article shows doing this:
 ```
 
 Funny that that rewrites section was completely removed by the init and replaced with a functions section.  Guess we need both?
+
+Then finish the steps to copy the dist for the functions, and run the nx version of npm run build:all
+
+```txt
+nx run trendy:build:all
+```
+
+But that's not going to work.  That is the build section in the workspace trendy section, not from the package.json which the article assumes.  This will take some more work.
+
+Going to stash this work in a ssr-dipesh-bhoir-method branch.
+
+Worth looking at [this article](https://medium.com/mean-fire/nx-nrwl-firebase-functions-98f96f514055) "Nx Nrwl Firebase Functions" by Damian Bielecki.
+
+It's 2019, and a 3 minute read which means it should take me about three days to get through at my meticulous rate.
+
+*The problem: When you initialize Firebase Functions with firebase init it creates functions subdirectory with its own package.json and node_modules. That is not good.*
+
+Yeah, I know.  I finally got that sucker installed.
+
+It calls for more than the firebase cli apparently:
+
+```txt
+yarn add firebase firebase-admin firebase-functions
+```
+
+It's recommended that we understand what Firebase Functions are.  Sorry about that one.  I don't do pay walls well.  The AWS CDK is more my style.  Maybe someday.
+

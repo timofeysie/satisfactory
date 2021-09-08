@@ -334,10 +334,46 @@ Here are some notes about SSR.
 - events other than routerLink clicks aren't supported. You must wait for the full client application to bootstrap and run,
 - Any web server technology can serve a Universal application as long as it can call Universal's renderModule() function.
 - Universal applications use the Angular platform-server package (as opposed to platform-browser), which provides server implementations of the DOM, XMLHttpRequest, and other low-level features that don't rely on a browser.
-- passes client requests for application pages to the NgUniversal ngExpressEngine. Under the hood, this calls Universal's renderModule() function, while providing caching and other helpful utilities. 
+- passes client requests for application pages to the NgUniversal ngExpressEngine. Under the hood, this calls Universal's renderModule() function, while providing caching and other helpful utilities.
 - The renderModule() function takes as inputs a template HTML page (usually index.html), an Angular module containing components, and a route that determines which components to display. The route comes from the client's request to the server.
 - The ngExpressEngine() function is a wrapper around Universal's renderModule()
 - Angular provides some injectable abstractions over these objects, such as Location or DOCUMENT; it may substitute adequately for these APIs
 - server-side applications can't reference browser-only global objects such as window, document, navigator, or location.
 
 So we need something to call the renderModule() function.  Going to try the Deploy to Firebase using Functions and Hosting step from [this article](https://dipesious.medium.com/angular-11-universal-firebase-deployment-300047b988aa) by Dipesh Bhoir
+
+Before, functions was not an option because it was behind a paywall.  Since that wall has been breached, its time to go there.
+
+That means running firebase init again.  The files such as firebase.json had to be moved from the app/trendy directory last time to work, so will have to do that again.  The command for nx will be.
+
+nx run trendy:firebase --cmd=init
+
+When it asks this question:
+
+```txt
+? Configure as a single-page app (rewrite all urls to /index.html)?
+```
+
+According to [a SO answer]() *if you would like to have Server-Side Rendering (SSR), type No and set up your rewrites as follow:*
+
+```js
+"rewrites": [
+  {
+    "function": "angularUniversalFunction",
+    "source": "**"
+  }
+]
+```
+
+The Dipesh Bhoir article shows doing this:
+
+```js
+"rewrites": [
+  {
+    "source": "**",
+    "function": "ssr"
+  }
+]
+```
+
+Funny that that rewrites section was completely removed by the init and replaced with a functions section.  Guess we need both?

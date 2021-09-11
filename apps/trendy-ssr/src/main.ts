@@ -13,7 +13,11 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist/apps/trendy');
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-import { AppServerModuleNgFactory, LAZY_MODULE_MAP } from '../../../dist/trendy/server/main';
+const {
+  AppServerModuleNgFactory,
+  LAZY_MODULE_MAP,
+} = require('../../../dist/trendy/server/main');
+//'../../../dist/apps/trendy/browser/main.55651155b747d7fc81fc';
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine(
   'html',

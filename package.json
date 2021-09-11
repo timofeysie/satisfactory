@@ -2,6 +2,10 @@
   "name": "demo-app",
   "version": "0.0.0",
   "license": "MIT",
+  "main": "dist/apps/functions/main.js",
+  "engines": {
+    "node": "10"
+  },
   "scripts": {
     "nx": "nx",
     "start": "nx serve",
@@ -28,9 +32,12 @@
     "server": "ts-node ./server/server.ts",
     "bundle-report-customer-portal": "webpack-bundle-analyzer dist/apps/customer-portal/stats.json",
     "dev:ssr": "ng run trendy:serve-ssr",
-    "serve:ssr": "node apps/dist/trendy/server/main.js",
-    "build:ssr": "ng build && ng run trendy:server",
-    "prerender": "ng run trendy:prerender"
+    "serve:ssr": "node dist/apps/functions/main.js",
+    "build:ssr": "nx trendy:build && nx run trendy:server",
+    "prerender": "nx run trendy:prerender",
+    "firebase:serve": "concurrently --kill-others \"npm run build functions --watch\" \"firebase serve --only functions\"",
+    "firebase:shell": "concurrently --kill-others \"npm run build functions --watch\" \"firebase functions:shell\" --raw",
+    "firebase:deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
@@ -60,13 +67,16 @@
     "@nrwl/angular": "^12.3.3",
     "@nrwl/nx": "^7.8.7",
     "express": "^4.15.2",
-    "firebase": "^8.2.2",
+    "firebase": "^8.10.0",
+    "firebase-admin": "^9.11.1",
+    "firebase-functions": "^3.15.5",
     "fs": "0.0.1-security",
     "google-search-results-nodejs": "^2.0.1",
     "google-trends-api": "^4.9.2",
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.2",
     "rxjs": "~6.6.0",
+    "ts-loader": "^9.2.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
@@ -97,6 +107,7 @@
     "@types/node": "14.14.33",
     "@typescript-eslint/eslint-plugin": "4.19.0",
     "@typescript-eslint/parser": "4.19.0",
+    "concurrently": "^6.2.1",
     "cypress": "^6.0.1",
     "dotenv": "8.2.0",
     "eslint": "7.22.0",

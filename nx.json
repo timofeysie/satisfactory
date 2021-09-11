@@ -25,12 +25,12 @@
         "serverTarget": "trendy:server",
         "guessRoutes": true,
         "routes": [
-              "/", 
-              "/home",
-              "/Mike%20Richards",
-              "topic/Qivit Tittysure",
-              "topic/Kylie Jenner"
-            ]
+          "/",
+          "/home",
+          "/Mike%20Richards",
+          "topic/Qivit Tittysure",
+          "topic/Kylie Jenner"
+        ]
       }
     }
   },
@@ -48,6 +48,9 @@
     "data-models": {
       "tags": []
     },
+    "functions": {
+      "tags": []
+    },
     "layout": {
       "tags": []
     },
@@ -55,6 +58,9 @@
       "tags": []
     },
     "nest-demo": {
+      "tags": []
+    },
+    "pictures": {
       "tags": []
     },
     "products": {
@@ -70,13 +76,10 @@
       "tags": [],
       "implicitDependencies": ["trendy"]
     },
-    "trendy-ssr": {
-      "tags": []
-    },
-    "pictures": {
-      "tags": []
-    },
     "trendy-layout": {
+      "tags": []
+    },
+    "trendy-ssr": {
       "tags": []
     }
   }

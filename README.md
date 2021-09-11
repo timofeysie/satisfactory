@@ -11,6 +11,7 @@ nx serve trendy // trendy frontend
 nx run trendy:server --configuration=production
 nx run trendy:build:SSR
 nx run trendy:serve:SSR
+nx run trendy:server-ssr
 nx run trendy:build:prerender --configuration=production
 nx run trendy:server:prerender --configuration=production
 nx run trendy:firebase --cmd deploy // deploy to firebase

@@ -6,7 +6,14 @@ SEO test:
 
 https://www.sureoak.com/seo-tools/page-analyzer?websiteId=-260
 
-Here are the links collected.
+More tools:
+
+- [Google Search Console](https://search.google.com/search-console/about)
+- [Page Speed Insights](https://developers.google.com/speed/pagespeed/insights/)
+- [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/sharing/)
+- [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/inspect/)
+
+Here are the links collected from the initial notes:
 
 https://yoast.com/image-seo/
 
@@ -296,3 +303,5 @@ This is getting old now.  Try and test after deployment and come back here later
 https://yoast.com/structured-data-schema-ultimate-guide/
 
 robot.txt investigation.
+
+*generate a sitemap.xml file that contains a list of every page on the site and register it in Google Search Console and robots.txt file.*

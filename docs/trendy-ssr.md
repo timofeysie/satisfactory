@@ -377,3 +377,305 @@ The Dipesh Bhoir article shows doing this:
 ```
 
 Funny that that rewrites section was completely removed by the init and replaced with a functions section.  Guess we need both?
+
+Then finish the steps to copy the dist for the functions, and run the nx version of npm run build:all
+
+```txt
+nx run trendy:build:all
+```
+
+But that's not going to work.  That is the build section in the workspace trendy section, not from the package.json which the article assumes.  This will take some more work.
+
+Going to stash this work in a ssr-dipesh-bhoir-method branch.
+
+## "Nx Nrwl Firebase Functions" by Damian Bielecki
+
+Worth looking at [this article](https://medium.com/mean-fire/nx-nrwl-firebase-functions-98f96f514055) "Nx Nrwl Firebase Functions" by Damian Bielecki.
+
+It's 2019, and a 3 minute read which means it should take me about three days to get through at my meticulous rate.
+
+*The problem: When you initialize Firebase Functions with firebase init it creates functions subdirectory with its own package.json and node_modules. That is not good.*
+
+Yeah, I know.  I finally got that sucker installed.
+
+```txt
+ng g @nrwl/node:application functions
+```
+
+It calls for more than the firebase cli apparently:
+
+```txt
+yarn add firebase firebase-admin firebase-functions
+```
+
+It's recommended that we understand what Firebase Functions are.  Sorry about that one.  I don't do pay walls well.  The AWS CDK is more my style.  Maybe someday.
+
+Next, firebase.json currently has this:
+
+```json
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint",
+      "npm --prefix \"$RESOURCE_DIR\" run build"
+    ]
+  }
+```
+
+The Damian Bielecki calls for this:
+
+```json
+  "functions": {
+    "predeploy": [
+      "yarn lint functions",
+      "yarn build functions --prod"
+    ],
+    "source": "/"
+  }
+```
+
+*Serving Firebase Functions is a little more complicated than typical node app.*
+
+```txt
+npm install concurrently --save-dev
+```
+
+But there is no example of how to test or deploy this method.
+
+```txt
+nx run functions:serve
+```
+
+Doesn't seem to do anything.
+
+```txt
+nx run functions:firebase
+```
+
+Since there is no change shown to the workspace.json/angular.json, how is it used?
+
+And, the functions app simply has this:
+
+```js
+export const helloWorld = functions.https.onRequest((request, response) => {
+  response.send('Hello from Firebase!');
+});
+```
+
+Doesn't look like it's serving an ssr deployment to me.
+
+Oh right, the title is only: Nx Nrwl Firebase Functions.
+
+That would be up to me.
+
+## Back to basics
+
+- A server program needs to call Universal's renderModule() function.
+
+- Universal applications use the Angular platform-server package (as opposed to platform-browser), which provides server implementations of the DOM, XMLHttpRequest, and other low-level features that don't rely on a browser.  The ngExpressEngine() function is a wrapper around Universal's renderModule()
+
+We have neither of those functions in our app at the moment.
+
+The platform-server is in the main.server.ts file.
+
+export { renderModule, renderModuleFactory } from '@angular/platform-server';
+
+## The articles tried so far
+
+The Benjamin Cabanes approach that resulted in the trendy-ssr app that doesn't work due to the error: Module parse failed: 'with' in strict mode: https://blog.nrwl.io/nx-workspace-schematics-server-side-rendering-ssr-with-angular-universal-afc04ead55
+
+The Gregor Srdic article about his Ibex hiking website development: https://medium.com/@gregor.srdic/using-server-side-rendering-ssr-with-angular-6-universal-and-firebase-7f3206618907
+
+The above points to this 2018 article:
+https://hackernoon.com/deploying-angular-universal-v6-with-firebase-c86381ddd445
+
+The copy dist method: https://bapittu.medium.com/angular-9-universal-ssr-with-firebase-and-deployment-in-cloud-function-54867020a656
+
+The ganatan example
+https://www.ganatan.com/tutorials/server-side-rendering-with-angular-universal
+
+## The tuskdesk example
+
+Anyhow, back to a the SSR build, it was the [Benjamin Cabanes](https://blog.nrwl.io/nx-workspace-schematics-server-side-rendering-ssr-with-angular-universal-afc04ead55) that we tried to implement with the trendy-ssr server that didn't work:
+
+Instead of tuskdesk we use trendy, and nx instead of ng.
+
+```txt
+nx run trendy:build --configuration=production
+nx run trendy:server --configuration=production
+nx run trendy-ssr:serve
+```
+
+The main problem with that code is:
+
+```js
+import { AppServerModuleNgFactory, LAZY_MODULE_MAP } from '../../../dist/trendy/browser/main';
+```
+
+```txt
+ERROR in ./apps/trendy-ssr/src/main.ts
+Module not found: Error: Can't resolve '../../../dist/trendy/browser/main' in 'C:\Users\timof\repos\timofeysie\satisfactory\apps\trendy-ssr\src'
+```
+
+There is a dist\apps\trendy\browser\main.55651155b747d7fc81fc.js file.
+
+So this should work:
+
+```js
+import {
+  AppServerModuleNgFactory,
+  LAZY_MODULE_MAP,
+} from '../../../dist/apps/trendy/browser/main.55651155b747d7fc81fc';
+```
+
+Not very scalable, but there is a huge output now:
+
+```txt
+...
+t.addEventListener("DOMContentLoaded",()=>{wu().bootstrapModule(Vx).catch(t=>console.error(t))})}},t=>{"use strict";t(t.s=268)}]);
+^
+ReferenceError: self is not defined
+    at Object../dist/apps/trendy/browser/main.55651155b747d7fc81fc.js (C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\trendy-ssr\webpack:\dist\apps\trendy\browser\main.55651155b747d7fc81fc.js:1:1)
+```
+
+But actually, it's not in the dist/app/trendy/browers directory, but here:
+
+dist\trendy\server\main.js
+
+There is no 'app' in there, which seems like a mistake.  But then we are back to this error which made us give up last time:
+
+```txt
+ERROR in ./dist/trendy/server/main.js 4527:84
+Module parse failed: 'with' in strict mode (4527:84)
+File was processed with these loaders:
+ * ./node_modules/ts-loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|                 return !0;
+|         } while (test.sel); return !1; };
+>     }, 2422: module => { module.exports = { Window_run: function _run(code, file) { with (file && (code += "\n//@ sourceURL=" + file), this)
+|             eval(code); }, EventHandlerBuilder_build: function build() { try {
+|             with (this.document.defaultView || Object.create(null))
+There was an error with the build. See above.
+```
+
+One solution mentioned here is to use the target commonjs in tsconfig.server.json.
+
+That doesn't work for us.  Maybe update "ts-loader": "version": "5.4.5",
+
+npm i ts-loader
+
++ ts-loader@9.2.5
+
+Replaced the old version in package-lock by hand, and still that error.
+
+Deleted node_modules and the lock, same error.
+
+Because ERROR in ./dist/trendy/server/main.js 4527:84, that's the generated ssr server.
+
+Can't really fix that.  This ssr mess is getting worse the deeper I get.
+
+The copy dist method: https://bapittu.medium.com/angular-9-universal-ssr-with-firebase-and-deployment-in-cloud-function-54867020a656
+
+## The ganatan example
+
+Not specific to Nx, but it's a long list of files to double check against what we have.
+
+https://www.ganatan.com/tutorials/server-side-rendering-with-angular-universal
+
+### Install the new dependencies in package.json
+
+npm install --save @angular/platform-server
+npm install --save @nguniversal/express-engine
+npm install --save express
+npm install --save @nguniversal/builders
+npm install --save @types/express
+
+## nx run trendy:server-ssr
+
+Getting clear on what commands we have and what they do here.
+
+```txt
+ > nx run trendy:server-ssr 
+Required property 'browserTarget' is missing
+>  NX   ERROR  Running target "trendy:server-ssr" failed
+```
+
+```txt
+> nx run trendy:server-ssr:development
+Compiled successfully.
+>  NX   ERROR  Running target "trendy:server-ssr" failed
+  Failed tasks:
+  - trendy:server-ssr:development
+```
+
+```txt
+> nx run trendy:server:production 
+✔ Server application bundle generation complete.
+Initial Chunk Files | Names         |    Size
+main.js             | main          | 2.54 MB
+Build at: 2021-09-11T04:08:07.626Z - Hash: b102fa39b4d8161fab41 - Time: 20638ms
+>  NX   SUCCESS  Running target "server" succeeded
+```
+
+"serve:ssr": "node apps/dist/trendy/server/main.js",
+
+should be
+
+"serve:ssr": "node dist/apps/trendy/server/main.js",
+
+```txt
+PS C:\Users\timof\repos\timofeysie\satisfactory> node dist/server/main.js
+internal/modules/cjs/loader.js:905
+  throw err;
+  ^
+Error: Cannot find module 'C:\Users\timof\repos\timofeysie\satisfactory\dist\server\main.js'
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)
+    at internal/main/run_main_module.js:17:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+```
+
+## Functions function
+
+apps\functions\src\main.ts
+
+```js
+import * as functions from 'firebase-functions';
+const universal = require(`${process.cwd()}/dist/server`).app();
+const universal = require(`${process.cwd()}/dist/apps/trendy/browser`).app();
+export const ssr = functions.https.onRequest(universal);
+```
+
+Shouldn't that path be /dist/apps/trendy/browser?
+
+Even then,
+
+```txt
+> npm run serve:ssr
+> demo-app@0.0.0 serve:ssr C:\Users\timof\repos\timofeysie\satisfactory
+> node dist/apps/functions/main.js
+{"severity":"WARNING","message":"Warning, FIREBASE_CONFIG and GCLOUD_PROJECT environment variables are missing. Initializing firebase-admin will fail"}
+```
+
+## Dev.to articles with @angular/fire
+
+https://dev.to/ankitprajapati/implement-angular-server-side-rendering-and-deploy-angular-universal-app-to-firebase-with-schematics-4nin
+
+https://dev.to/jdgamble555/deploy-angular-universal-app-to-firebase-functions-49mm
+
+ng add @angular/fire might not work for nx, right?
+
+That "ng add" was a big problem with @nguniversal/express-engine, in that it had to be done manually.
+
+## nx run trendy:firebase --cmd serve
+
+This works to serve the app locally.
+
+The links don't work.  So is this a pre-render issue or what?
+
+If we could get the links to work at this point, then we are in business.
+
+The function is working: http://localhost:5001/trendy2022/us-central1/helloWorld
+
+Maybe the copy method is the best way to go?  Wait, why don't the links works?

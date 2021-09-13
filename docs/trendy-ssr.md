@@ -537,7 +537,7 @@ ReferenceError: self is not defined
     at Object../dist/apps/trendy/browser/main.55651155b747d7fc81fc.js (C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\trendy-ssr\webpack:\dist\apps\trendy\browser\main.55651155b747d7fc81fc.js:1:1)
 ```
 
-But actually, it's not in the dist/app/trendy/browers directory, but here:
+But actually, it's not in the dist/app/trendy/browser directory, but here:
 
 dist\trendy\server\main.js
 
@@ -679,3 +679,153 @@ If we could get the links to work at this point, then we are in business.
 The function is working: http://localhost:5001/trendy2022/us-central1/helloWorld
 
 Maybe the copy method is the best way to go?  Wait, why don't the links works?
+
+The copy dist method: https://bapittu.medium.com/angular-9-universal-ssr-with-firebase-and-deployment-in-cloud-function-54867020a656
+
+It requires this copy method:
+
+```json
+  "scripts": {
+    "build": "node cp-angular && tsc"
+  }
+```
+
+(node:1200) UnhandledPromiseRejectionWarning: Error: ENOENT: no such file or directory, lstat 'C:\Users\timof\repos\timofeysie\dist\apps\trendy'
+
+And, it deletes the build dist directory each time.  Can fix that, but what about this:
+
+!  Error: Cannot find module 'C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\functions\main.js'. Please verify that the package.json has a valid "main" entry
+
+That's coming from the package.json:
+
+"main": "dist/apps/functions/main.js",
+
+functions\dist\browser\main.ad76947d0b678368d263.js
+
+Try this:
+  "main": "functions/dist/browser/main.ad76947d0b678368d263.js",
+
+```txt
+!  We were unable to load your functions code. (see above)
+   - You may be able to run "npm run build" in your functions directory to resolve this.
+!  ReferenceError: self is not defined
+```
+
+## The @angular/fire option
+
+So keep looking.  It's 3:56 am.  Week two.
+
+```txt
+> nx list @angular/fire
+>  NX   NOTE  @angular/fire is not currently installed
+  Use "npm install -D @angular/fire" to install the plugin.
+  After that, use "npx nx g @angular/fire:init" to add the required peer deps and initialize the plugin.
+```
+
+So run the command to install the plugin: npm install -D @angular/fire
+
+```txt
+> nx list @angular/fire
+>  NX  Capabilities in @angular/fire:
+  GENERATORS
+  ng-add : Add firebase deploy schematic
+  ng-add-setup-project : Setup ng deploy
+  EXECUTORS/BUILDERS
+  deploy : Deploy builder
+```
+
+npx nx g @angular/fire:init
+
+### [Deploying your Universal application on Cloud Functions for Firebase](https://github.com/angular/angularfire/blob/HEAD/docs/universal/cloud-functions.md)
+
+Regarding the deployment, the rewrites looks like this:
+
+```json
+    "rewrites": [
+      { "source": "**", "function": "universal" }
+    ]
+```
+
+Previously we had this:
+
+```json
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "ssr"
+      }
+    ]
+```
+
+And the copying will be done like this (notice the two package.json files):
+
+*package.json to build for Cloud Functions:*
+
+```json
+"scripts": {
+  // ... omitted
+  "build": "ng build && npm run copy:hosting && npm run build:ssr && npm run build:functions",
+  "copy:hosting": "cp -r ./dist/YOUR_PROJECT_NAME/* ./public && rm ./public/index.html",
+  "build:functions": "npm run --prefix functions build"
+},
+```
+
+*Change the build script in your functions/package.json to the following:*
+
+```json
+"scripts": {
+    // ... omitted
+    "build": "rm -r ./dist && cp -r ../dist . && tsc",
+}
+```
+
+Would the first one go in the workspace.json?  We already have a build in main package.json which is used for all the projects.
+
+We could re-use this:
+
+"build:ssr": "nx trendy:build && nx run trendy:server",
+
+Still not sure if that ever gets called.  Something we really need to figure out.
+
+nx run project:target --args='--wait=100'
+
+## Test ssr
+
+In a regular Angular project, this would work: npm run dev:ssr
+
+We want to confirm angular universal implementation by looking into the page source and find rendered HTML in the page source.
+
+In an Nx workspace, this might do it:
+
+```txt
+> nx run trendy:server-ssr 
+Required property 'browserTarget' is missing
+———————————————————————————————————————————————
+>  NX   ERROR  Running target "trendy:server-ssr" failed
+  Failed tasks:
+  - trendy:server-ssr
+```
+
+```txt
+    "dev:ssr": "ng run trendy:serve-ssr",
+    "serve:ssr": "node dist/apps/functions/main.js",
+    "build:ssr": "nx trendy:build && nx run trendy:server",
+    "prerender": "nx run trendy:prerender",
+```
+
+nx run trendy:serve:ssr
+
+Error: Cannot match any routes. URL Segment: 'Mike%2520Richards'
+
+*The common space character is encoded as %20 as you noted yourself. The % character is encoded as %25 . The way you get %2520 is when your url already has a %20 in it, and gets urlencoded again, which transforms the %20 to %2520.*
+
+```html
+<a routerLink="/Mike%20Richards">
+```
+
+Remove the %20, and then the firebase test works.  But now, our function is blowing the deploy.  That was working in the previous commit.  Another stashed branch?
+
+In workspace, this needs to be changed again.
+"outputPath": "dist/apps/trendy/server",
+
+And removing the %20 our of /Mike%20Richards.

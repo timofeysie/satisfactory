@@ -518,7 +518,7 @@
         "server": {
           "executor": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/trendy/server",
+            "outputPath": "dist/apps/trendy/server",
             "main": "apps/trendy/src/main.server.ts",
             "tsConfig": "apps/trendy/tsconfig.server.json",
             "inlineStyleLanguage": "scss"

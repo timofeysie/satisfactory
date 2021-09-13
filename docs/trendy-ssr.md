@@ -537,7 +537,7 @@ ReferenceError: self is not defined
     at Object../dist/apps/trendy/browser/main.55651155b747d7fc81fc.js (C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\trendy-ssr\webpack:\dist\apps\trendy\browser\main.55651155b747d7fc81fc.js:1:1)
 ```
 
-But actually, it's not in the dist/app/trendy/browers directory, but here:
+But actually, it's not in the dist/app/trendy/browser directory, but here:
 
 dist\trendy\server\main.js
 
@@ -679,3 +679,223 @@ If we could get the links to work at this point, then we are in business.
 The function is working: http://localhost:5001/trendy2022/us-central1/helloWorld
 
 Maybe the copy method is the best way to go?  Wait, why don't the links works?
+
+The copy dist method: https://bapittu.medium.com/angular-9-universal-ssr-with-firebase-and-deployment-in-cloud-function-54867020a656
+
+It requires this copy method:
+
+```json
+  "scripts": {
+    "build": "node cp-angular && tsc"
+  }
+```
+
+(node:1200) UnhandledPromiseRejectionWarning: Error: ENOENT: no such file or directory, lstat 'C:\Users\timof\repos\timofeysie\dist\apps\trendy'
+
+And, it deletes the build dist directory each time.  Can fix that, but what about this:
+
+!  Error: Cannot find module 'C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\functions\main.js'. Please verify that the package.json has a valid "main" entry
+
+That's coming from the package.json:
+
+"main": "dist/apps/functions/main.js",
+
+functions\dist\browser\main.ad76947d0b678368d263.js
+
+Try this:
+  "main": "functions/dist/browser/main.ad76947d0b678368d263.js",
+
+```txt
+!  We were unable to load your functions code. (see above)
+   - You may be able to run "npm run build" in your functions directory to resolve this.
+!  ReferenceError: self is not defined
+```
+
+## The @angular/fire option
+
+So keep looking.  It's 3:56 am.  Week two.
+
+```txt
+> nx list @angular/fire
+>  NX   NOTE  @angular/fire is not currently installed
+  Use "npm install -D @angular/fire" to install the plugin.
+  After that, use "npx nx g @angular/fire:init" to add the required peer deps and initialize the plugin.
+```
+
+So run the command to install the plugin: npm install -D @angular/fire
+
+```txt
+> nx list @angular/fire
+>  NX  Capabilities in @angular/fire:
+  GENERATORS
+  ng-add : Add firebase deploy schematic
+  ng-add-setup-project : Setup ng deploy
+  EXECUTORS/BUILDERS
+  deploy : Deploy builder
+```
+
+npx nx g @angular/fire:init
+
+### [Deploying your Universal application on Cloud Functions for Firebase](https://github.com/angular/angularfire/blob/HEAD/docs/universal/cloud-functions.md)
+
+Regarding the deployment, the rewrites looks like this:
+
+```json
+    "rewrites": [
+      { "source": "**", "function": "universal" }
+    ]
+```
+
+Previously we had this:
+
+```json
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "ssr"
+      }
+    ]
+```
+
+And the copying will be done like this (notice the two package.json files):
+
+*package.json to build for Cloud Functions:*
+
+```json
+"scripts": {
+  // ... omitted
+  "build": "ng build && npm run copy:hosting && npm run build:ssr && npm run build:functions",
+  "copy:hosting": "cp -r ./dist/YOUR_PROJECT_NAME/* ./public && rm ./public/index.html",
+  "build:functions": "npm run --prefix functions build"
+},
+```
+
+*Change the build script in your functions/package.json to the following:*
+
+```json
+"scripts": {
+    // ... omitted
+    "build": "rm -r ./dist && cp -r ../dist . && tsc",
+}
+```
+
+Would the first one go in the workspace.json?  We already have a build in main package.json which is used for all the projects.
+
+We could re-use this:
+
+"build:ssr": "nx trendy:build && nx run trendy:server",
+
+Still not sure if that ever gets called.  Something we really need to figure out.
+
+nx run project:target --args='--wait=100'
+
+## Test ssr
+
+In a regular Angular project, this would work: npm run dev:ssr
+
+We want to confirm angular universal implementation by looking into the page source and find rendered HTML in the page source.
+
+In an Nx workspace, this might do it:
+
+```txt
+> nx run trendy:server-ssr 
+Required property 'browserTarget' is missing
+———————————————————————————————————————————————
+>  NX   ERROR  Running target "trendy:server-ssr" failed
+  Failed tasks:
+  - trendy:server-ssr
+```
+
+```txt
+    "dev:ssr": "ng run trendy:serve-ssr",
+    "serve:ssr": "node dist/apps/functions/main.js",
+    "build:ssr": "nx trendy:build && nx run trendy:server",
+    "prerender": "nx run trendy:prerender",
+```
+
+nx run trendy:serve:ssr
+
+Error: Cannot match any routes. URL Segment: 'Mike%2520Richards'
+
+*The common space character is encoded as %20 as you noted yourself. The % character is encoded as %25 . The way you get %2520 is when your url already has a %20 in it, and gets urlencoded again, which transforms the %20 to %2520.*
+
+```html
+<a routerLink="/Mike%20Richards">
+```
+
+Remove the %20, and then the firebase test works.  But now, our function is blowing the deploy.  That was working in the previous commit.  Another stashed branch?
+
+In workspace, this needs to be changed again.
+"outputPath": "dist/apps/trendy/server",
+
+And removing the %20 our of /Mike%20Richards.
+
+Now, back to the firebase server.
+
+```txt
+nx run trendy:firebase --cmd serve
+...
++  hosting: Local server: http://localhost:5000
+!  Error: Cannot find module 'C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\functions\main.js'. Please verify that the package.json has a valid "main" entry
+```
+
+OK.  Routes work.  Try deploy:
+
+```txt
+> nx run trendy:firebase --cmd deploy
+"BuilderProgressSchema" schema is using the keyword "id" which its support is deprecated. Use "$id" for schema ID.
+=== Deploying to 'trendy2022'...
+i  deploying functions, hosting
+Running command: npm lint functions
+Usage: npm <command>
+where <command> is one of:
+    access, adduser, audit, bin, bugs, c, cache, ci, cit,
+    clean-install, clean-install-test, completion, config,
+    create, ddp, dedupe, deprecate, dist-tag, docs, doctor,
+    edit, explore, fund, get, help, help-search, hook, i, init,
+    install, install-ci-test, install-test, it, link, list, ln,
+    login, logout, ls, org, outdated, owner, pack, ping, prefix,
+    profile, prune, publish, rb, rebuild, repo, restart, root,
+    run, run-script, s, se, search, set, shrinkwrap, star,
+    stars, start, stop, t, team, test, token, tst, un,
+    uninstall, unpublish, unstar, up, update, v, version, view,
+    whoami
+npm <command> -h  quick help on <command>
+npm -l            display full usage info
+npm help <term>   search for help on <term>
+npm help npm      involved overview
+Specify configs in the ini-formatted file:
+    C:\Users\timof\.npmrc
+or on the command line via: npm <command> --key value
+Config info can be viewed via: npm help config
+npm@6.14.13 C:\Users\timof\AppData\Roaming\nvm\v14.17.3\node_modules\npm
+Did you mean one of these?
+    link
+    list
+    bin
+events.js:352
+      throw er; // Unhandled 'error' event
+      ^
+Error: spawn npm lint functions ENOENT
+    at notFoundError (C:\Users\timof\AppData\Roaming\nvm\v14.17.3\node_modules\firebase-tools\node_modules\cross-env\node_modules\cross-spawn\lib\enoent.js:6:26)
+    at verifyENOENT (C:\Users\timof\AppData\Roaming\nvm\v14.17.3\node_modules\firebase-tools\node_modules\cross-env\node_modules\cross-spawn\lib\enoent.js:40:16)
+    at ChildProcess.cp.emit (C:\Users\timof\AppData\Roaming\nvm\v14.17.3\node_modules\firebase-tools\node_modules\cross-env\node_modules\cross-spawn\lib\enoent.js:27:25)
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:277:12)
+Emitted 'error' event on ChildProcess instance at:
+    at ChildProcess.cp.emit (C:\Users\timof\AppData\Roaming\nvm\v14.17.3\node_modules\firebase-tools\node_modules\cross-env\node_modules\cross-spawn\lib\enoent.js:30:37)
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:277:12) {
+  code: 'ENOENT',
+  errno: 'ENOENT',
+  syscall: 'spawn npm lint functions',
+  path: 'npm lint functions',
+  spawnargs: []
+}
+Error: functions predeploy error: Command terminated with non-zero exit code1
+ERROR: Something went wrong in @nrwl/run-commands - Command failed: firebase deploy
+———————————————————————————————————————————————
+>  NX   ERROR  Running target "trendy:firebase" failed
+  Failed tasks:
+  - trendy:firebase
+```
+
+OK.  Fair enough.  We don't need the function for the test right now.  I just want to confirm the fix for the extra %20.  Go back up a branch to no functions.

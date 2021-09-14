@@ -920,3 +920,17 @@ And how did the functions directory get there in the first place?  What was the 
 Undo that change and move up to the main branch.  I'm happy to say, that then the deployments to firebase have working links.
 
 I'm sorry to say that there is only one link now.  The other two links are tied up with the ssr/functions branches.  Repair?  Why not.  On a separate branch.  Since that was all failing, and we were about to start over with the angularfire package, couldn't hurt.
+
+Now, we have a branch named master-repaired.  Do we merge that with master?  That would cause conflicts if we then want to merge any of the previous (failed) ssr and functions work.  I'm worried about my lack of attention to detail, in that I must have missed the links having the doubled-up space character %2520 in the url.  How did I not try the direct link with a regular space?
+
+But that's water under the bridge now.  We have a not so useful demo that can be deployed.  It's still regular Angular.  We have a lot of trial and error learning about the ssr world, and how the choice of Nx and an agnostic workspace.json instead of an Angular based angular.json monorepo complicates everything.  I hope someone creates a React app in this project to make that decision worth-while at some point. I'm going to delay the decision to merge this work into the master branch for now, but I'm guessing, that starting over is not the end of the world.
+
+Some things that were missing from the README workflow section:
+
+```txt
+nx run trendy:server-ssr
+nx run trendy:build:prerender --configuration=production
+nx run trendy:server:prerender --configuration=production
+nx run trendy:firebase --cmd deploy // deploy to firebase
+nx run trendy:firebase --cmd serve // test deployment
+```

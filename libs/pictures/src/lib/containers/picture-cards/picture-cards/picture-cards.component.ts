@@ -14,28 +14,28 @@ export class PictureCardsComponent {
   trends = {
     Qivit_Tittysure: {
       pageTitle: 'Qivit Tittysure',
-      author: 'Transition Cat, Toonify, Henry Curchod',
+      author: 'Transition Cat, Toonify',
       keywords: 'Qivit Tittysure, portrait, artwork',
       description:
         'Qivit Tittysure is the soft, dense, light-brown woolly undercoat of the quoll and a small quantity of left over fluff.',
       linkUrl: 'https://en.wikipedia.org/wiki/Quoll',
       linkLabel: 'Wikipedia',
       one: {
-        title: 'One title',
+        title: 'Title One is on the left',
         altText: 'Same as title',
         imageSrc: './../assets/pictures/qivit-tittysure/qivit-tittysure-1.PNG',
-        description: 'This is a description of one',
+        description: 'This is a description of one.',
       },
       two: {
-        title: 'Two title',
+        title: 'Title Two is on the right',
         altText: 'Same as title',
         imageSrc: './../assets/pictures/qivit-tittysure/qivit-tittysure-2.PNG',
-        description: 'This is a description of two',
+        description: 'This is a description of two.',
       },
     },
     Kylie_Jenner: {
       pageTitle: 'Kylie Jenner',
-      author: 'Transition Cat, Toonify, Henry Curchod',
+      author: 'Transition Cat, Toonify',
       keywords: 'Kylie Jenner, portrait, artwork',
       description: `In April 2017, Jenner was first seen with Travis Scott at Coachella. 
         On February 1, 2018, Jenner gave birth to their daughter, Stormi Webster.
@@ -47,7 +47,7 @@ export class PictureCardsComponent {
       linkUrl: 'https://en.wikipedia.org/wiki/Kylie_Jenner',
       linkLabel: 'Wikipedia',
       one: {
-        pictureTitle: 'Kylie Jenner by Toonify',
+        title: 'Kylie Jenner by Toonify',
         altText: 'Kylie Jenner by Toonify',
         imageSrc:
           './../assets/pictures/kylie-jenner/kylie-jenner-by-toonify.jpg',
@@ -55,8 +55,8 @@ export class PictureCardsComponent {
           'Kylie Jenner is entrenched in the war can earn her crown as the highest rated youngest of the closest.',
       },
       two: {
-        pictureTitle: 'Kylie Jenner by Toonify',
-        altText: 'Kylie Jenner by Toonify',
+        title: 'Kylie Jenner by Transition Cat',
+        altText: 'Kylie Jenner by Transition Cat',
         imageSrc:
           './../assets/pictures/kylie-jenner/kylie-jenner-by-transitioncat.jpg',
         description: 'Sibling rivalry begins again.',

@@ -473,6 +473,32 @@
           "options": {
             "cmd": "--help"
           }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "trendy:build",
+            "serverTarget": "trendy:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "trendy:build:production",
+              "serverTarget": "trendy:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "trendy:build:production",
+            "serverTarget": "trendy:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
+          }
         }
       }
     },

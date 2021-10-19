@@ -6,14 +6,8 @@ This is a sample app created following the steps in [Workshop: Enterprise Angula
 
 ```txt
 nx serve nest-demo // start the nest server
-nx run trendy:build --configuration=production
-nx serve trendy // trendy frontend
-nx run trendy:server --configuration=production
-nx run trendy:build:SSR
-nx run trendy:serve:SSR
-nx run trendy:firebase --cmd deploy // deploy to firebase
 npm run server // start the customer portal server
-nx serve customer-portal // serve the front end Angular app
+nx serve customer-portal // serve the front end with trends
 nx test auth // test the auth lib
 nx test layout // test the layout lib
 nx test products // test the products lib

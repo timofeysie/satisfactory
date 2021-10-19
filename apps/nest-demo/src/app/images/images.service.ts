@@ -3,6 +3,20 @@ import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import * as request from 'request';
 
+function include(name: string) {
+    if (
+      name.indexOf('Mobile is the official app') === -1 &&
+      name.indexOf('Mobile keeps you connected') === -1 &&
+      name.indexOf('Google') === -1 &&
+      name.indexOf('Read more') === -1 &&
+      name.indexOf('Collapse') === -1
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 @Injectable()
 export class ImagesService {
   create(createImageDto: CreateImageDto) {
@@ -27,7 +41,12 @@ export class ImagesService {
               const snips = webPage.snippet.split('.');
               const result = [];
               names.forEach((name) => {
-                if (name.length > 3 && (name.indexOf('@') == -1) && (name.indexOf(' ') !== -1)) {
+                if (
+                  name.length > 3 &&
+                  name.indexOf('@') == -1 &&
+                  name.indexOf(' ') !== -1 &&
+                  include(name)
+                ) {
                   result.push(name.trim());
                 }
               });
@@ -35,7 +54,8 @@ export class ImagesService {
                 if (
                   snip.length > 3 &&
                   snip.indexOf('@') == -1 &&
-                  snip.indexOf(' ') !== -1
+                  snip.indexOf(' ') !== -1 &&
+                  include(snip)
                 ) {
                   result.push(snip.trim());
                 }

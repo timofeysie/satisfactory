@@ -1,5 +1,16 @@
 # Trends
 
+The Trendy front end was not able to be build an deployed as a SSR Angular Universal app, so was moved to a working solution in the Tundra app.  Here are the workflow commands.
+
+```hs
+nx run trendy:build --configuration=production
+nx serve trendy // trendy frontend
+nx run trendy:server --configuration=production
+nx run trendy:build:SSR
+nx run trendy:serve:SSR
+nx run trendy:firebase --cmd deploy // deploy to firebase
+```
+
 ## The backend
 
 This document describes setting up [google-trends-api](https://www.npmjs.com/package/google-trends-api#dailyTrends).

@@ -44,6 +44,10 @@ UPDATE jest.config.js
 UPDATE tsconfig.base.json
 ```
 
+This command was used to create the image search api:
+
+nx generate @nestjs/schematics:resource images --sourceRoot apps/nest-demo/src/app
+
 ## Nest Architecture
 
 - app.controller.ts: Controller file that will contain all the application routes.

@@ -24,6 +24,16 @@ A trend search for the nest-demo looks like this:
 http://localhost:3333/api/images/Christina%20Applegate
 ```
 
+A text search looks like this:
+
+/api/text/:id, GET
+
+```url
+http://localhost:3333/api/text/Christina%20Applegate
+```
+
+It will write a file: array.txt
+
 ```url
 Project Console: https://console.firebase.google.com/project/trendy2022/overview
 Hosting URL: https://trendy2022.web.app

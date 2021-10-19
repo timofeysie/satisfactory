@@ -22,29 +22,9 @@ export class ImagesController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const promises = [];
-    for (let offset = 0; offset < 15; offset++) {
-      const results = this.imagesService.offsetSearch(id, offset);
-      results.then((data) => {
-        this.generatorService.setData(data);
-      });
-      promises.push(results);
-    }
-    Promise.all(promises).then((values) => {
-      console.log('promises', values);
-      const file = fs.createWriteStream('array.txt');
-      file.on('error', function (err) {
-        /* error handling */
-      });
-      values.forEach((value) => {
-        value.forEach((v) => {
-        file.write(v + '\n');
-      });
-    });
-      file.end();
-      return values
-    });
+  findOne(@Param('id') id: string) {
+    console.log('id', id)
+    return this.imagesService.findOne(id);
   }
 
   @Patch(':id')

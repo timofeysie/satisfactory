@@ -24,7 +24,7 @@ export class ImagesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     console.log('id', id)
-    return this.imagesService.findOne(id);
+    return this.imagesService.search(id);
   }
 
   @Patch(':id')

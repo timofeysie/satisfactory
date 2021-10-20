@@ -377,7 +377,6 @@ nx generate @nestjs/schematics:resource text --sourceRoot apps/nest-demo/src/app
 > nx generate @nestjs/schematics:resource text --sourceRoot apps/nest-demo/src/app
 √ What transport layer do you use? · rest
 √ Would you like to generate CRUD entry points? (Y/n) · true
-
 "SchematicsNestResource" schema is using the keyword "id" which its support is deprecated. Use "$id" for schema ID.
 CREATE apps/nest-demo/src/app/text/text.controller.spec.ts
 CREATE apps/nest-demo/src/app/text/text.controller.ts

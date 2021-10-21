@@ -10,6 +10,16 @@ export class TrendsService {
   constructor(private httpClient: HttpClient) {}
 
   getTrends(event: any): Observable<Trend[]> {
-    return this.httpClient.get<Trend[]>('http://localhost:3333/api/trends/'+event.payload);
+    return this.httpClient.get<Trend[]>(
+      'http://localhost:3333/api/trends/' + event.payload
+    );
   }
+
+  getCommonsImages(trend: any): any {
+    console.log('loading', trend);
+    return this.httpClient.get<any>(
+      'http://localhost:3333/api/images/' + trend
+    );
+  }
+
 }

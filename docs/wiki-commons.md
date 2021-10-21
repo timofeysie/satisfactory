@@ -337,7 +337,7 @@ Results in this: {"warnings":{"main":{"*":"Unrecognized parameters: search, titl
 
 Anyhow, a formatted list of links is not bad for now.
 
-## Workflow
+## Current code
 
 This component loads the trends in its ngOnInit hook:
 
@@ -369,7 +369,11 @@ Create a new api to either:
 - A - name "text" to hold the text generating api currently in images
 - B - named "commons" to handle the commons image search.
 
-Either way, what's the command?
+We chose A.  The image route code was moved to a new text endpoint.
+
+Now, what's the scaffolding command?
+
+## Creating the backend image search endpoint
 
 nx generate @nestjs/schematics:resource text --sourceRoot apps/nest-demo/src/app
 
@@ -390,3 +394,329 @@ UPDATE apps/nest-demo/src/app/app.module.ts
 ```
 
 Move the text api work there.
+
+Next create a simplle parse function to return the images.  This might be a little too simple, but for now, this is what the endpoint returns:
+
+```js
+["<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Christina_Applegate_2%2C_2012.jpg/134px-Christina_Applegate_2%2C_2012.jpg\" data-src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Christina_Applegate_2%2C_2012.jpg/134px-Christina_Applegate_2%2C_2012.jpg\" alt=\"Christina Applegate 2, 2012.jpg\" loading=\"lazy\" class=\"sd-image\" style=\"height: 100% !important; max-width: 557px !important; max-height: 749px;\">",
+...
+```
+
+This type of thing is a security vulnerability for the man-in-the-middle attack.  But since this app is only a proof of concept to be used locally, shouldn't be a problem for now.  Next, the front end component.
+
+## Create the front end wikimedia image search component
+
+This component loads the trends in its ngOnInit hook:
+
+libs\trends\src\lib\containers\trends\trends.component.ts
+
+The service:
+
+libs\trends\src\lib\services\trends\trends.service.ts
+
+We will need a new store for this.
+
+Instead of creating a new lib, just add new store details for the images.
+
+In trends.actions.ts:
+LoadTrends -> LoadTrendImages
+
+Currently, the trend details are handled pretty poorly, within the list, the detail view is shown if a trendDetails is set:
+
+<mat-card *ngIf="trendDetails">
+
+This should be a component itself.  Then the container class can call the new images api when a trend is chosen, and display the trend details in one container, and the commons images in another new container.
+
+Create a component.
+
+nx g @nrwl/angular:component  components/commons/commons --project=trends
+
+libs\trends\src\lib\containers\trends\trends.component.ts
+
+Despite the trends-list.component being in the containers directory, it is the dumb component.
+
+trends.component is the container that receives the action when a trend is chosen.
+
+Since we don't have Redux setup for the commons media api results, we use the service directly in the trends.component.
+
+The TrendsService should be used in libs\trends\src\lib\+state\trends.effects.ts.
+
+However, loading the data outside the effect doesn't seem to work:
+
+```js
+this.trendsService.getCommonsImages(trendTitleQuery).pipe(
+  map((images: Trend[]) =>
+    console.log('commons image results', images)
+  ),
+  catchError((error) => of(TrendsActions.loadTrendsFailure({ error })))
+);
+```
+
+Just subscribing to the service works.  But the next issue is that a lot of trends wont have any results without some kind of help.
+
+For example, this trend:
+
+9h ago Timberwolves Cruise In Opener Over Houston by Drgnews in MINNEAPOLIS (AP) - "Anthony Edwards energized the first full-size home crowd of his nascent career with 29 poin..."
+
+Obviously this is not a story about the timber wolves animals.  This is a sports team.
+
+However, Wikimedia doesn't know this, and it might now work.  In this case it does:
+
+https://commons.wikimedia.org/w/index.php?search=Timberwolves&title=Special:MediaSearch&go=Go
+
+The results are returned here:
+
+Request URL: http://localhost:3333/api/images/Timberwolves
+
+Crown Jewel 2021 however is literally translated as the jewels, when in fact the search is a sports team again: "Big E will defend his newly won WWE Championship against Drew McIntyre in the sub-main event, while Goldberg returns to face Bobby Lashley in a SummerSlam&nbsp;..."
+
+https://commons.wikimedia.org/w/index.php?search=Crown Jewel 2021&title=Special:MediaSearch&go=Go
+
+## Old notes from trends.md (temporary)
+
+These might be needed if it's decided to put the temporary images results from the commons image search.  Since only the chosen trend is important, we don't really need to at this point.
+
+### [Step 11 - Adding NgRx to Nx App](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/11-adding-ngrx-to-nx-app)
+
+Do we need to do this for trends or wait for step 15?
+
+```txt
+nx g @nrwl/angular:ngrx --module=apps/customer-portal/src/app/app.module.ts  --minimal false
+? What name would you like to use for the NgRx feature state? An example would be "users". products
+? Is this the root state of the application? No
+? Would you like to use a Facade with your NgRx state? No
+```
+
+## [Step 14 - NgRx Selectors](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/14-ngrx-selectors)
+
+1. Add selector file
+2. Use selector in Layout component
+
+Add a file called index.ts to the +state folder of your auth state lib
+
+libs/auth/src/lib/+state/products.selectors.ts
+
+## [Step 15 - Add Products NgRx Feature Module](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/15-add-products-ngrx-feature-module)
+
+```txt
+PS C:\Users\timof\repos\hits> nx g @nrwl/angular:ngrx --module=libs/trends/src/lib/trends.module.ts --minimal false
+√ What name would you like to use for the NgRx feature state? An example would be "users". · trends
+√ Is this the root state of the application? (y/N) · false
+√ Would you like to use a Facade with your NgRx state? (y/N) · false
+CREATE libs/trends/src/lib/+state/trends.actions.ts
+CREATE libs/trends/src/lib/+state/trends.effects.spec.ts
+CREATE libs/trends/src/lib/+state/trends.effects.ts
+CREATE libs/trends/src/lib/+state/trends.models.ts
+CREATE libs/trends/src/lib/+state/trends.reducer.spec.ts
+CREATE libs/trends/src/lib/+state/trends.reducer.ts
+CREATE libs/trends/src/lib/+state/trends.selectors.spec.ts
+CREATE libs/trends/src/lib/+state/trends.selectors.ts
+UPDATE libs/trends/src/lib/trends.module.ts
+UPDATE libs/trends/src/index.ts
+```
+
+2. Add Products Action Creators
+
+3. Add default state and interface
+
+4. Make new Product interface
+
+5. Make new ProductsService in products module
+
+```txt
+nx generate @nrwl/angular:service --project=trends
+services/trends/trends
+```
+
+This the url to call from the NestJS backend:
+
+http://localhost:3333/api/trends
+
+7. Add reducer logic
+
+This is wrong:
+
+```js
+import { loadProducts } from './../../+state/products.actions';
+...
+this.store.dispatch(loadProducts());
+```
+
+And after all that, this is the error from the effects:
+
+```js
+Type 'Observable<unknown>' is not assignable to type 'EffectResult<Action>'.
+  Type 'Observable<unknown>' is not assignable to type 'Observable<Action>'.
+    Property 'type' is missing in type '{}' but required in type 'Action'.ts(2322)
+```
+
+That's the error we got in step 19 for fixing the unit tests when trying to use the init action in the test.
+
+The solution there was:
+
+instead of using "Product []", just use "[]".
+
+That is not the situation here.  Another [StackOverflow answer](https://stackoverflow.com/questions/57247613/ngrx-effects-type-observableunknown-is-not-assignable-to-type-observable) to the rescue:
+
+```txt
+comment out createEffect(() =>,
+fix errors that your IDE (VSCode) flags up,
+add createEffect(() => back in.
+```
+
+The error is that the service was still getProducts().  Change that to getTrends() and the error is gone.
+
+Next, dump out the trends result.  Run the server, run the app, and our api has this in the network tab:
+
+```txt
+Referrer Policy: strict-origin-when-cross-origin
+```
+
+The answer to that is [here](https://docs.nestjs.com/security/cors):
+
+```js
+const app = await NestFactory.create(AppModule);
+app.enableCors();
+```
+
+Add the enable cors line and, voila, who's Bob?
+
+The output is something like this:
+
+```json
+"default":{
+  "trendingSearchesDays":[
+    {
+      "date":"20210804",
+      "formattedDate":"Wednesday, August 4, 2021",
+      "trendingSearches":[
+        {
+          "title":{
+            "query":"Verzuz",
+            "exploreLink":"/trends/explore?q=Verzuz&date=now+7-d&geo=US"
+          },
+          "formattedTraffic":"20K+",
+          "relatedQueries":[
+          ],
+          "image":{
+            "newsUrl":"https://www.tomsguide.com/news/how-to-watch-verzuz-the-lox-vs-dipset-on-instagram-live-and-triller",
+            "source":"Tom's Guide",
+            "imageUrl":"https://t0.gstatic.com/images?q=tbn:ANd9GcSO408JTF6mZnkA1xWG654XYf54lnLFdADpcy8SCxjygytBy4yQ6QyQQ3rnk5oi6UjYDGiuNvdV"
+          },
+          "articles":[
+            {
+              "title":"How to watch Verzuz: The LOX vs Dipset on Instagram Live and Triller",
+              "timeAgo":"7h ago",
+              "source":"Tom's Guide",
+              "image":{
+                "newsUrl":"https://www.tomsguide.com/news/how-to-watch-verzuz-the-lox-vs-dipset-on-instagram-live-and-triller",
+                "source":"Tom's Guide",
+                "imageUrl":"https://t0.gstatic.com/images?q=tbn:ANd9GcSO408JTF6mZnkA1xWG654XYf54lnLFdADpcy8SCxjygytBy4yQ6QyQQ3rnk5oi6UjYDGiuNvdV"
+              },
+              "url":"https://www.tomsguide.com/news/how-to-watch-verzuz-the-lox-vs-dipset-on-instagram-live-and-triller",
+              "snippet":"New York will definitely in the building when we watch Verzuz: The Lox vs Dipset live stream tonight. Yes, the iconic rap groups are taking to the stage at MSG ..."
+            },
+            {
+              "title":"The LOX announces tour with Dipset ahead of Verzuz battle",
+              "timeAgo":"13h ago",
+              "source":"REVOLT TV",
+              "image":{
+                "newsUrl":"https://www.revolt.tv/news/2021/8/3/22608261/the-lox-announces-tour-with-dipset",
+                "source":"REVOLT TV",
+                "imageUrl":"https://t2.gstatic.com/images?q=tbn:ANd9GcRj_marJGJ8Fs6oly4msViSHHLw4TsFZM4WLRyW5O5tMTMB3VugFfmADng1gSV-4bH4ymIjkalp"
+              },
+              "url":"https://www.revolt.tv/news/2021/8/3/22608261/the-lox-announces-tour-with-dipset",
+              "snippet":"According to Sheek Louch, the tour is slated to start this fall."
+            },
+          ],
+          "shareUrl":"https://trends.google.com/trends/trendingsearches/daily?geo=US&tt=Verzuz#Verzuz"
+        }
+      ]
+    },
+  ]
+}
+```
+
+We have configured the backed to just send the result, but maybe we should do this:
+
+```js
+const defaultObj = JSON.parse(Object(results)).default
+  .trendingSearchesDays[0].trendingSearches;
+```
+
+This will miss out on the previous days results:
+
+{"default":{"trendingSearchesDays":[{"date":"20210807", ...
+
+Since we don't have a plan for that yet, it's not such a big deal.
+
+## 16 - Entity State Adapter
+
+There is some funny stuff going on in this step also.
+
+For example, this code example is split in between the file path and code:
+
+4. Add selector methods to bottom of reducer
+
+Same with the next step:
+
+2. Add material module to Products module
+
+Also need the file path for this:
+
+```html
+<div fxLayout="row"  fxFlexLayout="center center">
+  <demo-app-product-list [products]="products$ | async"></demo-app-product-list>
+</div>
+```
+
+### 17 - Router Store
+
+Everywhere we see the scaffolding command and the output, we need to remove it so that the copy functionality just copies the cli command, not the output.
+
+```txt
+nx generate @nrwl/angular:component containers/product-list --project=products
+CREATE libs/products/src/lib/containers/product-list/product-list.component.html
+CREATE libs/products/src/lib/containers/product-list/product-list.component.spec.ts
+CREATE libs/products/src/lib/containers/product-list/product-list.component.ts
+CREATE libs/products/src/lib/containers/product-list/product-list.component.scss
+```
+
+That should be:
+
+```txt
+nx generate @nrwl/angular:component containers/product-list --project=products
+```
+
+```txt
+CREATE libs/products/src/lib/containers/product-list/product-list.component.html
+CREATE libs/products/src/lib/containers/product-list/product-list.component.spec.ts
+CREATE libs/products/src/lib/containers/product-list/product-list.component.ts
+CREATE libs/products/src/lib/containers/product-list/product-list.component.scss
+```
+
+```txt
+nx generate @nrwl/angular:component containers/trends-list --project=trends
+```
+
+I'm changing my mind about using the entity adapter for the trends.
+
+We don't really care about searching it.  It's just a temporary list.
+
+Reverting these changes and going back to the basic API working from yesterday.
+
+Will need to re-do the tends-list at least and the nest service.
+
+Next I suppose is added another route for the google image search.
+
+Or, just, like, a details of the existing trend info?
+
+But first, update the load trends functions to take a country name and use that in the api.
+
+The [country code list](https://github.com/datasets/country-codes/blob/master/data/country-codes.csv) are listed here, but for now, just the US and Australia will do.  Apparently, SEO should be done by country, and it's to be determined how the app can be deployed by country to achieve this.
+
+This part of the app doesn't have to be by country of course, but the result of it should.
+
+I think we will need a new effect for the trend by country.  Currently there is only $login.
+
+

@@ -54,6 +54,7 @@ const BACK_ICON = `
 export class TrendsListComponent implements OnInit {
   @Input() trends: Trend[];
   @Output() country = new EventEmitter<string>();
+  @Output() trendSeen = new EventEmitter<string>();
   trendDetails: any;
   countries = [
     { value: 'US', label: 'US' },
@@ -77,6 +78,7 @@ export class TrendsListComponent implements OnInit {
   }
 
   seeTrend(trend: any): void {
+    this.trendSeen.emit(trend.title.query);
     this.trendDetails = trend;
   }
 

@@ -1,0 +1,4 @@
+<mat-card *ngIf="images">
+  <h5>Wikimedia Commons Images</h5>
+<span *ngFor="let image of images"><span [innerHTML]="image"></span></span>
+</mat-card>

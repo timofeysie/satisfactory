@@ -3,5 +3,7 @@
     [trends]="trends$ | async"
     (country)="updateCountry($event)"
     (trendSeen)="onTrendSeen($event)"
+    (commonImages)="commonImages"
   ></demo-app-trends-list>
+  <demo-app-common-images [images]="commonImages"></demo-app-common-images>
 </div>

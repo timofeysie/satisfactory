@@ -15,8 +15,9 @@
   </mat-nav-list>
 </mat-card>
 <!-- detail -->
-<mat-card *ngIf="trendDetails">
-  <h1>
+<div *ngIf="trendDetails">
+<mat-card>
+  <h5>
     <mat-icon
       (click)="backToList()"
       svgIcon="back"
@@ -24,10 +25,10 @@
       aria-label="Example thumbs up SVG icon"
     ></mat-icon>
     {{ trendDetails.formattedTraffic }} {{ trendDetails.title.query }}
-  </h1>
+  </h5>
   <mat-card class="home-card" *ngFor="let article of trendDetails.articles">
     <mat-card-content class="home-card-content">
-      <img src="{{ article.image.imageUrl }}" mat-card-image />
+      <img src="{{ article.image?.imageUrl }}" mat-card-image />
       <div class="content">
         <div>
           {{ article.timeAgo }}
@@ -39,3 +40,4 @@
     </mat-card-content>
   </mat-card>
 </mat-card>
+</div>

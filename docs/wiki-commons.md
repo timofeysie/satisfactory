@@ -429,7 +429,7 @@ This should be a component itself.  Then the container class can call the new im
 
 Create a component.
 
-nx g @nrwl/angular:component  components/commons/commons --project=trends
+nx g @nrwl/angular:component  components/common-images/common-images --project=trends
 
 libs\trends\src\lib\containers\trends\trends.component.ts
 

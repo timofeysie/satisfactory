@@ -15,7 +15,7 @@ import { of } from 'rxjs';
 })
 export class TrendsComponent implements OnInit {
   trends$: Observable<Trend[]>;
-
+  commonImages: string[];
   constructor(
     private store: Store<TrendsState>,
     private trendsService: TrendsService
@@ -28,7 +28,9 @@ export class TrendsComponent implements OnInit {
 
   onTrendSeen(trendTitleQuery: string) {
     console.log('trend.title.query', trendTitleQuery);
-    this.trendsService.getCommonsImages(trendTitleQuery).subscribe();
+    this.trendsService.getCommonsImages(trendTitleQuery).subscribe((result) => {
+      this.commonImages = result;
+    });
   }
 
   updateCountry(category: any): void {

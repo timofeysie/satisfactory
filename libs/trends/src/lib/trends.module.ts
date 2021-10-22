@@ -8,6 +8,7 @@ import * as fromTrends from './+state/trends.reducer';
 import { TrendsEffects } from './+state/trends.effects';
 import { TrendsListComponent } from './containers/trends-list/trends-list.component';
 import { MaterialModule } from '@demo-app/material';
+import { CommonImagesComponent } from './components/common-images/common-images/common-images.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { MaterialModule } from '@demo-app/material';
     StoreModule.forFeature(fromTrends.TRENDS_FEATURE_KEY, fromTrends.reducer),
     EffectsModule.forFeature([TrendsEffects]),
   ],
-  declarations: [TrendsComponent, TrendsListComponent],
+  declarations: [TrendsComponent, TrendsListComponent, CommonImagesComponent],
 })
 export class TrendsModule {}

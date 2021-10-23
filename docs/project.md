@@ -66,14 +66,10 @@ C:\Users\timof\repos\python\cartoonify\test_img
 
 Run the commands:
 
-python test.py
-
+python test.py (default)
 python test.py --style Hosoda --gpu 0
-
 python test.py --style Hayao --gpu 0
-
 python test.py --style Paprika --gpu 0
-
 python test.py --style Shinkai --gpu 0
 
 The created images will be put in  

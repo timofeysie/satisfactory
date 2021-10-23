@@ -161,7 +161,8 @@ OK, so we will have three data sources now and an form:
 1. The Google Trends brief results list
 2. The commons.wikimedia image results list
 3. The top of the Wikipedia page
-4. The description form: title, description, category, image content?
+4. AP articles link?
+5. The description form: title, description, category, image content?
 
 OK.  That gives us a good idea of what the UX should be.  No idea what it's going to look like yet.  First, I want the API for 2 and 3 done.  Than we can arrange and compose those results.
 
@@ -718,5 +719,3 @@ The [country code list](https://github.com/datasets/country-codes/blob/master/da
 This part of the app doesn't have to be by country of course, but the result of it should.
 
 I think we will need a new effect for the trend by country.  Currently there is only $login.
-
-

@@ -1,0 +1,24 @@
+<mat-card>
+  <h5>
+    <mat-icon
+      (click)="handleBackToList()"
+      svgIcon="back"
+      aria-hidden="false"
+      aria-label="Example thumbs up SVG icon"
+    ></mat-icon>
+    {{ trendDetails.formattedTraffic }} {{ trendDetails.title.query }}
+  </h5>
+  <mat-card class="home-card" *ngFor="let article of trendDetails.articles">
+    <mat-card-content class="home-card-content">
+      <img src="{{ article.image?.imageUrl }}" mat-card-image />
+      <div class="content">
+        <div>
+          {{ article.timeAgo }}
+          <a href="{{ article.image.newsUrl }}"> {{ article.title }}</a>
+        </div>
+        <div>{{ article.source }}</div>
+        <div>{{ article.snippet }}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</mat-card>

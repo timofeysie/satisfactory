@@ -1,10 +1,30 @@
 # Trend Form
 
+There are four areas proposed and a form section that could be shown on what is currently the trends.component.
+
 1. The Google Trends brief results list
 2. The commons.wikimedia image results list
 3. The top of the Wikipedia page
 4. AP articles link?
 5. The description form: title, description, category, image content?
+
+Each of the for sections can have controls which currently are envisioned as check-boxes ot other widgets:
+
+- Google Trend details list
+(select all text)
+
+- Wikimedia Commons image list
+(Chose image for ML)
+(disambiguation search)
+
+- Wikipedia description
+(Copy text to description)
+(Copy link for description)
+(disambiguation search)
+
+- AP News search
+(copy link to description)
+(copy text for description)
 
 ## The form
 
@@ -63,3 +83,9 @@ The description might also be different.  Right now, there is:
 ```
 
 So we need to add the type of image, and the type of description maybe also.
+
+## Organizing the form
+
+First we need to move the component for the details out of the trends-list container, as it should be a dumb component.
+
+nx g @nrwl/angular:component  components/trends-list-detail/trends-list-detail --project=trends

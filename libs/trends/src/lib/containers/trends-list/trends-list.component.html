@@ -1,6 +1,9 @@
 <mat-card *ngIf="!trendDetails">
   <mat-form-field>
-    <mat-select placeholder="Country" (selectionChange)="onFilter($event.value)">
+    <mat-select
+      placeholder="Country"
+      (selectionChange)="onFilter($event.value)"
+    >
       <mat-option *ngFor="let country of countries" [value]="country.value">{{
         country.label
       }}</mat-option>
@@ -16,5 +19,7 @@
 </mat-card>
 <!-- detail -->
 <div *ngIf="trendDetails">
-<demo-app-trends-list-detail [trendDetails]="trendDetails" (backToList)="backToList"></demo-app-trends-list-detail>
+  <demo-app-trends-list-detail
+    [trendDetails]="trendDetails"
+  ></demo-app-trends-list-detail>
 </div>

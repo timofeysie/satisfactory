@@ -89,3 +89,28 @@ So we need to add the type of image, and the type of description maybe also.
 First we need to move the component for the details out of the trends-list container, as it should be a dumb component.
 
 nx g @nrwl/angular:component  components/trends-list-detail/trends-list-detail --project=trends
+
+Currently, we have a bit of a mix-up of hierarchy
+
+```html
+<div fxLayout="row" fxFlexLayout="center center">
+  <demo-app-trends-list></demo-app-trends-list>
+  <demo-app-common-images [images]="commonImages"></demo-app-common-images>
+</div>
+```
+
+The trends list controls the toggle of the detail view, but really, that should be done in the trend component.  There should just be a boolean or something called detailChosen which then toggles the sub-components.  And as part of this, include the free front-awesome icons instead of the hacky back arrow that's going on right now.
+
+That back icon should be in the container, because it will control he back view for all it's children components, which are the elements on the trend form.  We can do that by lifting the back icon and it's click function out of the list and into the trends container.
+
+### Preview mode
+
+The trend form should also have a preview component, which will show the front end render of the json being developed to show the topic page.  This unfortunately is in another project.  If you read all the docs regarding ssr and Angular Universal struggles that happened here in this project, you will know that failed.  After weeks of work trying to understand ssr and deployment via Google cloud, a working repo from someone else was used to deploy to heroku.
+
+So now instead of being able to use that lib, we are not able to share those components.  We could copy all the work done here to there.  Or we could give the angular-fire another try.
+
+The three main sections of the for could be considered like this:
+
+1. trend detail search results
+2. pre-fill data and edit form
+3. preview what the post will look like

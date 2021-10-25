@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'demo-app-trends-list-detail',
@@ -7,9 +7,4 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class TrendsListDetailComponent {
   @Input() trendDetails: any;
-  @Output() backToList = new EventEmitter<any>();
-
-  handleBackToList() {
-    this.backToList.emit();
-  }
 }

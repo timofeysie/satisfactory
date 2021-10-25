@@ -21,7 +21,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store'; // added
     NxModule.forRoot(),
     RouterModule.forRoot(
       [
-        { path: '', pathMatch: 'full', redirectTo: 'products' },
+        { path: '', pathMatch: 'full', redirectTo: 'trends' },
         { path: 'auth', children: authRoutes },
         {
           path: 'products',

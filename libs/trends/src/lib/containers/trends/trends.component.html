@@ -1,9 +1,12 @@
+<mat-toolbar *ngIf="trendTitleSeen">
+  <span class="back" (click)="handleBackToList()">< Back to list</span>
+  <span class="menu-spacer">{{trendTitleSeen}}</span>
+</mat-toolbar>
 <div fxLayout="row" fxFlexLayout="center center">
   <demo-app-trends-list
     [trends]="trends$ | async"
     (country)="updateCountry($event)"
     (trendSeen)="onTrendSeen($event)"
-    (commonImages)="commonImages"
   ></demo-app-trends-list>
-  <demo-app-common-images [images]="commonImages"></demo-app-common-images>
+  <demo-app-common-images class="commons" [images]="commonImages"></demo-app-common-images>
 </div>

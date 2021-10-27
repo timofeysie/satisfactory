@@ -32,6 +32,10 @@ export class TrendsComponent implements OnInit {
   onTrendSeen(trendTitleQuery: string) {
     console.log('trend.title.query', trendTitleQuery);
     this.trendTitleSeen = trendTitleQuery;
+    this.getCommonsImages(trendTitleQuery);
+  }
+
+  getCommonsImages(trendTitleQuery) {
     this.trendsService.getCommonsImages(trendTitleQuery).subscribe((result) => {
       this.commonImages = result;
     });
@@ -45,5 +49,10 @@ export class TrendsComponent implements OnInit {
 
   updateCountry(category: any): void {
     this.store.dispatch(TrendsActions.loadTrends({ payload: category }));
+  }
+
+  onUpdateSearchTerm(newSearchTerm: string) {
+    console.log('newSearchTerm', newSearchTerm);
+    this.getCommonsImages(newSearchTerm);
   }
 }

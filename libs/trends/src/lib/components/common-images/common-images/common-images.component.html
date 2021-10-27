@@ -1,5 +1,14 @@
 <mat-card *ngIf="images">
-  <h5>Wikimedia Commons Images</h5>
+  <h5>Wikimedia Commons Images for</h5>
+  <span>
+    <input
+      type="text"
+      name="searchTerm"
+      [(ngModel)]="searchTerm"
+    />
+  </span>
+  <span><button type="submit" (click)="onSubmit()">update</button></span>
+  {{ myForm | json }}
   <span *ngFor="let image of images"
     ><span class="common-image" [innerHTML]="image"></span
   ></span>

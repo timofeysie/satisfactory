@@ -103,6 +103,13 @@ The trends list controls the toggle of the detail view, but really, that should 
 
 That back icon should be in the container, because it will control he back view for all it's children components, which are the elements on the trend form.  We can do that by lifting the back icon and it's click function out of the list and into the trends container.
 
+After making two components, there are still two containers.
+
+The trend-list.component is the container for the trend-list-detail.component.
+The trends.component is a parent for both of them and common-images.component.  It seems like there should be only one container and three components, but let's leave the refactoring for now.
+
+Instead of calling APIs and parsing the Wikipedia and AP News sites, lets just go with creating the links for now.  It could be a huge rabbit hole trying to do too much at this point.  The ads are still not working and neither is the seo, so the sooner we get back to those, the better.
+
 ### Preview mode
 
 The trend form should also have a preview component, which will show the front end render of the json being developed to show the topic page.  This unfortunately is in another project.  If you read all the docs regarding ssr and Angular Universal struggles that happened here in this project, you will know that failed.  After weeks of work trying to understand ssr and deployment via Google cloud, a working repo from someone else was used to deploy to heroku.

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TrendsComponent } from './containers/trends/trends.component';
@@ -14,6 +15,7 @@ import { TrendsListDetailComponent } from './components/trends-list-detail/trend
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     MaterialModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: TrendsComponent },

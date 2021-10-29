@@ -1,41 +1,15 @@
 <div *ngIf="trendTitleSeen">
   <mat-toolbar>
-    <span class="toolbar-item" (click)="handleBackToList()">< Back to list</span>
+    <span class="toolbar-item" (click)="handleBackToList()"
+      >< Back to list</span
+    >
     <span class="menu-spacer">{{ trendTitleSeen }}</span>
     <span class="toolbar-item" (click)="handleShowForm()">Create post ></span>
   </mat-toolbar>
-  <div class="links">
-    <mat-card>
-      <h5>AP News Search</h5>
-      <div>
-        <a href="https://apnews.com/hub/trending-news" target="_blank"
-          >https://apnews.com/hub/trending-news</a
-        >
-      </div>
-      <div>
-        <a href="https://apnews.com/hub/{{ trendTitleSeen }}" target="_blank"
-          >https://apnews.com/hub/{{ trendTitleSeen }}</a
-        >
-      </div>
-    </mat-card>
-    <mat-card>
-      <h5>Wikipedia links</h5>
-      <div>
-        <a
-          href="https://en.wikipedia.org/wiki/Portal:Current_events"
-          target="_blank"
-          >Current events</a
-        >
-      </div>
-      <div>
-        <a
-          href="https://en.wikipedia.org/wiki/{{ trendTitleSeen }}"
-          target="_blank"
-          >https://en.wikipedia.org/wiki/{{ trendTitleSeen }}</a
-        >
-      </div>
-    </mat-card>
-  </div>
+  <demo-app-trends-links
+    class="links"
+    [trendTitleSeen]="trendTitleSeen"
+  ></demo-app-trends-links>
 </div>
 <div fxLayout="row" fxFlexLayout="center center">
   <demo-app-trends-list

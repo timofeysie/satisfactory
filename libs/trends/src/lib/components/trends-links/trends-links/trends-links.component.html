@@ -1,0 +1,40 @@
+<mat-card class="news-links">
+  <h5>AP News Search</h5>
+  <div>
+    <a href="https://apnews.com/hub/trending-news" target="_blank"
+      >https://apnews.com/hub/trending-news</a
+    >
+  </div>
+  <div class="news-link">
+    <a
+      href="{{ newNewsLink }}" target="_blank">{{ newNewsLink }}</a>
+  </div>
+  <div>
+    <span>
+      <input
+        class="search-term"
+        type="text"
+        name="searchTerm"
+        placeholder="(find an article)"
+        [(ngModel)]="newNewsLink"
+      />
+    </span>
+  </div>
+</mat-card>
+<mat-card>
+  <h5>Wikipedia links</h5>
+  <div>
+    <a
+      href="https://en.wikipedia.org/wiki/Portal:Current_events"
+      target="_blank"
+      >Current events</a
+    >
+  </div>
+  <div>
+    <a
+      href="https://en.wikipedia.org/wiki/{{ newWikiSearchTerm }}"
+      target="_blank"
+      >https://en.wikipedia.org/wiki/{{ newWikiSearchTerm }}</a
+    >
+  </div>
+</mat-card>

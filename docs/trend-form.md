@@ -133,3 +133,23 @@ The big decision is if the form will be held in the trends.component or the tren
 Will go with the top level just because that's where the back button is, and we may need to add a cancel, and preview mode there, and the form mode could replace the simple toggle then.
 
 https://tomastrajan.medium.com/angular-reactive-sub-forms-type-safe-without-duplication-dbd24225e1e8
+
+Another component is needed to hold the news link sections.  These will also contain check boxes to include content as part of other form elements.
+
+nx g @nrwl/angular:component  components/trends-links/trends-links --project=trends
+
+### AP New Links
+
+I'm not sure where the idea came from that the hub link could contain a topic.
+
+AP TOP NEWS: https://apnews.com/hub/
+
+Trending News: https://apnews.com/hub/trending-news
+
+Not found: https://apnews.com/hub/comet's%20death%20dive
+
+This is how an article link should look:
+
+https://apnews.com/article/space-exploration-science-business-asteroids-9f1c3bda00e4d35bb89ff132ffcd340f
+
+So we should allow the user to find a link on AP news and set that as a link on their post.

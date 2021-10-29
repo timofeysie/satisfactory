@@ -6,7 +6,7 @@
       <div class="content">
         <div>
           {{ article.timeAgo }}
-          <a href="{{ article.image.newsUrl }}"> {{ article.title }}</a>
+          <a href="{{ article.image?.newsUrl }}"> {{ article.title }}</a>
         </div>
         <div>{{ article.source }}</div>
         <div>{{ article.snippet }}</div>

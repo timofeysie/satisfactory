@@ -1,3 +1,21 @@
 .common-image {
   margin: 3px;
 }
+
+.search-term {
+  border-width: 0px;
+  border: none;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: orange 5px auto;
+}
+
+.title {
+  display: flex;
+}

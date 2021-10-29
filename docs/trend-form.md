@@ -61,7 +61,7 @@ The description might also be different.  Right now, there is:
 ```js
   Champions_League: {
     pageTitle: 'UEFA Champions League',
-    author: 'Transition Cat, Toonify',
+    authors: 'Transition Cat, Toonify',
     keywords: 'UEFA Champions League, artwork',
     description: `...`,
     linkUrl: 'https://en.wikipedia.org/wiki/UEFA_Champions_League',
@@ -121,3 +121,15 @@ The three main sections of the for could be considered like this:
 1. trend detail search results
 2. pre-fill data and edit form
 3. preview what the post will look like
+
+## Getting started
+
+Angular has a few types of forms, but the basic two are template driven and reactive forms.  The latter are dynamic forms where you can add or remove controls at run time, which is what we need.
+
+Add the forms [from the docs](https://angular.io/guide/reactive-forms) like this:
+
+The big decision is if the form will be held in the trends.component or the trends-list.  I'm not sure what the presenter container component patterns says about Angular forms.  This module already seems messed up, so either way, it wont improve the situation.
+
+Will go with the top level just because that's where the back button is, and we may need to add a cancel, and preview mode there, and the form mode could replace the simple toggle then.
+
+https://tomastrajan.medium.com/angular-reactive-sub-forms-type-safe-without-duplication-dbd24225e1e8

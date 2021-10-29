@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TrendsComponent } from './containers/trends/trends.component';
@@ -16,6 +17,7 @@ import { TrendsListDetailComponent } from './components/trends-list-detail/trend
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: TrendsComponent },

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { TrendsState } from './../../+state/trends.reducer';
 import { Store, select } from '@ngrx/store';
 import { trendsQuery } from './../../+state/trends.selectors';
@@ -19,6 +20,23 @@ export class TrendsComponent implements OnInit {
   trends$: Observable<Trend[]>;
   commonImages: string[];
   trendTitleSeen: string;
+  topicForm = new FormGroup({
+    pageTitle: new FormControl(''),
+    authors: new FormControl(''),
+    keywords: new FormControl(''),
+    description: new FormControl(''),
+    linkUrl: new FormControl(''),
+    linkLabel: new FormControl(''),
+
+    useAPNewsLink: new FormControl(''),
+    addAPNewsContent: new FormControl(''),
+    userWikiLink: new FormControl(''),
+    addWikiLinkContent: new FormControl(''),
+
+    // image one form
+
+    // image two form
+  });
   constructor(
     private store: Store<TrendsState>,
     private trendsService: TrendsService
@@ -27,6 +45,10 @@ export class TrendsComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(TrendsActions.loadTrends({ payload: 'US' }));
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
+  }
+
+  handleShowForm() {
+    // show form
   }
 
   onTrendSeen(trendTitleQuery: string) {

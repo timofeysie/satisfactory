@@ -3,7 +3,12 @@
     <span class="toolbar-item" (click)="handleBackToList()"
       >< Back to list</span
     >
-    <span class="menu-spacer">{{ trendTitleSeen }}</span>
+    <span class="menu-spacer"
+      ><a target="_blank"
+        href="https://www.google.com/search?q={{ trendTitleSeen }}&sxsrf=AOaemvJf1T-duILeKDVtiLYiQ2-h3ERxOg:1635532481229&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi2lb-kofDzAhWJaCsKHTW9A-4Q_AUoAnoECAEQBA&biw=1280&bih=520&dpr=1"
+        >{{ trendTitleSeen }}</a
+      ></span
+    >
     <span class="toolbar-item" (click)="handleShowForm()">Create post ></span>
   </mat-toolbar>
   <demo-app-trends-links
@@ -13,12 +18,13 @@
 </div>
 <div fxLayout="row" fxFlexLayout="center center">
   <demo-app-trends-list
+    class="column"
     [trends]="trends$ | async"
     (country)="updateCountry($event)"
     (trendSeen)="onTrendSeen($event)"
   ></demo-app-trends-list>
   <demo-app-common-images
-    class="commons"
+    class="commons column"
     [images]="commonImages"
     [searchTerm]="trendTitleSeen"
     (updateSearchTerm)="onUpdateSearchTerm($event)"

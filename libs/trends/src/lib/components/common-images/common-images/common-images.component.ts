@@ -10,9 +10,15 @@ export class CommonImagesComponent implements OnInit {
   @Input() searchTerm: string;
   @Output() updateSearchTerm = new EventEmitter<string>();
   newSearch: string;
+  selectedCommonImage: any;
 
   ngOnInit() {
     this.newSearch = this.searchTerm;
+  }
+
+  selectCommonImage(image: any) {
+    console.log('image', image);
+    this.selectedCommonImage = image;
   }
 
   onSubmit() {

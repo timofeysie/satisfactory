@@ -1,20 +1,26 @@
-<div *ngIf="trendTitleSeen"  [formGroup]="topicForm">
+<div *ngIf="trendTitleSeen" [formGroup]="topicForm">
   <mat-toolbar>
     <span class="toolbar-item" (click)="handleBackToList()"
       >< Back to list</span
     >
     <span class="menu-spacer"
-      ><a target="_blank"
-        href="https://www.google.com/search?q={{ trendTitleSeen }}&sxsrf=AOaemvJf1T-duILeKDVtiLYiQ2-h3ERxOg:1635532481229&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi2lb-kofDzAhWJaCsKHTW9A-4Q_AUoAnoECAEQBA&biw=1280&bih=520&dpr=1"
+      ><a
+        target="_blank"
+        href="https://www.google.com/search?q={{
+          trendTitleSeen
+        }}&sxsrf=AOaemvJf1T-duILeKDVtiLYiQ2-h3ERxOg:1635532481229&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi2lb-kofDzAhWJaCsKHTW9A-4Q_AUoAnoECAEQBA&biw=1280&bih=520&dpr=1"
         >{{ trendTitleSeen }}</a
       ></span
     >
     <span class="toolbar-item" (click)="handleShowForm()">Create post ></span>
   </mat-toolbar>
-  <demo-app-trends-links
-    [trendTitleSeen]="trendTitleSeen"
-    [topicForm]="topicForm"
-  ></demo-app-trends-links>
+  <div class="links-row">
+    <demo-app-trends-links
+      [trendTitleSeen]="trendTitleSeen"
+      [topicForm]="topicForm"
+    ></demo-app-trends-links>
+    <demo-app-topic-form [topicForm]="topicForm"></demo-app-topic-form>
+  </div>
 </div>
 <div fxLayout="row" fxFlexLayout="center center">
   <demo-app-trends-list

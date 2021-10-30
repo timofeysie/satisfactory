@@ -38,6 +38,16 @@ export class TrendsComponent implements OnInit {
     }),
 
     // image one form
+    one: this.fb.group({
+      title: [''],
+      author: [''],
+      altText: [''],
+      imageSrc: [''],
+      srcset: [''],
+      description: [''],
+      tags: [''],
+      source: [''],
+    }),
 
     // image two form
   });

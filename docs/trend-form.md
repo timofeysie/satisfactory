@@ -205,3 +205,22 @@ https://www.nydailynews.com/resizer/b3CKjC6IX4-Gon-bRJX0xq3CWn0=/1200x0/top/clou
 We don't really know which kind of entry will be at first until the user tells us.  Not sure when to ask that.  I suppose, if we want to support all kinds, then we need to be careful here.
 
 If the user wants to create two ML images, both using different images, then how is that going to work?  We only have the ability to choose one commons image right now.
+
+The only idea I can come up with right now is to ask the user how many pictures they want on the post, and which type they are, and then somehow go through them one at a time to get as much data as possible.
+
+There are two or three basic types right now.  Given that there is no more automation set up yet, it's basically two:
+
+1. ML
+2. Artist
+
+The ML could be any of four types of models, but this is still a manual step, so it's the same thing: the user will have to manually generate the images using a Python script and then add the link to the generated image manually.  The description is the same story.
+
+The artist version requires that the artist provide the image, title and the description.
+
+Keywords?
+
+Anyhow, we need another card which can hold the basic info of type and pic used.  For that that can be set by the pic chosen when in add button action.  An artist version can have an extra input on add to choose the image that they want to use as their source material.  The main thing with this choice is that both pictures chosen, for now, should have the same aspect ration.  So we should give a hint if there is a portrait or landscape mismatch, for example.
+
+nx g @nrwl/angular:component  components/topic-form/topic-form --project=trends
+
+For some reason I thought that the format was dir/dir/comp name.  But it looks like it's dir/comp name, but just VSCode shows the first dir with more than one file in it, and so it can look like the first format.  Will have to do a commit to get rid of those extra directories.

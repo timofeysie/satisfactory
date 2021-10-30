@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FormGroup,
   FormGroupDirective,
@@ -13,9 +13,6 @@ import {
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],
 })
-export class TopicFormComponent implements OnInit {
+export class TopicFormComponent {
   @Input() topicForm: FormGroup;
-  constructor() {}
-
-  ngOnInit(): void {}
 }

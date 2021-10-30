@@ -224,3 +224,9 @@ Anyhow, we need another card which can hold the basic info of type and pic used.
 nx g @nrwl/angular:component  components/topic-form/topic-form --project=trends
 
 For some reason I thought that the format was dir/dir/comp name.  But it looks like it's dir/comp name, but just VSCode shows the first dir with more than one file in it, and so it can look like the first format.  Will have to do a commit to get rid of those extra directories.
+
+While we're at it, how about getting the trends toolbar out of the container and put it where it belongs in a component.
+
+So this time, no extra internal directory.
+
+nx g @nrwl/angular:component  components/trends-toolbar --project=trends

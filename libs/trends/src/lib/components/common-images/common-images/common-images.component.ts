@@ -9,6 +9,7 @@ export class CommonImagesComponent implements OnInit {
   @Input() images: string[];
   @Input() searchTerm: string;
   @Output() updateSearchTerm = new EventEmitter<string>();
+  @Output() selectedCommonsImage = new EventEmitter<any>();
   newSearch: string;
   selectedCommonImage: any;
 
@@ -17,8 +18,8 @@ export class CommonImagesComponent implements OnInit {
   }
 
   selectCommonImage(image: any) {
-    console.log('image', image);
     this.selectedCommonImage = image;
+    this.selectedCommonsImage.emit(image);
   }
 
   onSubmit() {

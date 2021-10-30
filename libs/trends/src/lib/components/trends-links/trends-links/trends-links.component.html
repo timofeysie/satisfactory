@@ -1,40 +1,60 @@
-<mat-card class="news-links">
-  <h5>AP News Search</h5>
-  <div>
-    <a href="https://apnews.com/hub/trending-news" target="_blank"
-      >https://apnews.com/hub/trending-news</a
-    >
-  </div>
-  <div class="news-link">
-    <a
-      href="{{ newNewsLink }}" target="_blank">{{ newNewsLink }}</a>
-  </div>
-  <div>
-    <span>
+<div formGroupName="links" class="links">
+  <mat-card class="news-links">
+    <h5>AP News Search</h5>
+    <div class="search-link">
+      <a href="https://apnews.com/hub/trending-news" target="_blank"
+        >Search trending AP news</a
+      >
+    </div>
+    <div class="news-link">
+      <a href="{{ newNewsLink }}" target="_blank">{{ newNewsLink }}</a>
+    </div>
+    <div class="links">
       <input
         class="search-term"
         type="text"
         name="searchTerm"
-        placeholder="(find an article)"
-        [(ngModel)]="newNewsLink"
+        formControlName="newsLink"
+        placeholder="(find an link)"
       />
-    </span>
-  </div>
-</mat-card>
-<mat-card>
-  <h5>Wikipedia links</h5>
-  <div>
-    <a
-      href="https://en.wikipedia.org/wiki/Portal:Current_events"
-      target="_blank"
-      >Current events</a
+      <button type="submit" (click)="onUpdatedNewsSearchTerm()">
+        (update)
+      </button>
+    </div>
+    <mat-checkbox class="example-margin" formControlName="useAPNewsLink"
+      >use link</mat-checkbox
     >
-  </div>
-  <div>
-    <a
-      href="https://en.wikipedia.org/wiki/{{ newWikiSearchTerm }}"
-      target="_blank"
-      >https://en.wikipedia.org/wiki/{{ newWikiSearchTerm }}</a
+  </mat-card>
+  <mat-card>
+    <h5>Wikipedia links</h5>
+    <div class="search-link">
+      <a
+        href="https://en.wikipedia.org/wiki/Portal:Current_events"
+        target="_blank"
+        >Search current events</a
+      >
+    </div>
+    <div>
+      <a
+        href="https://en.wikipedia.org/wiki/{{ newWikiSearchTerm }}"
+        target="_blank"
+        >https://en.wikipedia.org/wiki/{{ newWikiSearchTerm }}</a
+      >
+    </div>
+    <div class="links">
+      <input
+        class="search-term"
+        type="text"
+        name="searchTerm"
+        formControlName="wikiLink"
+        placeholder="(find an article)"
+      />
+      <button type="submit" (click)="onUpdatedWikiSearchTerm()">
+        (update)
+      </button>
+    </div>
+    <mat-checkbox class="example-margin" formControlName="useWikiLink"
+      >use link</mat-checkbox
     >
-  </div>
-</mat-card>
+  </mat-card>
+</div>

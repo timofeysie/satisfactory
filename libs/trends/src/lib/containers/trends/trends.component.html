@@ -1,4 +1,4 @@
-<div *ngIf="trendTitleSeen">
+<div *ngIf="trendTitleSeen"  [formGroup]="topicForm">
   <mat-toolbar>
     <span class="toolbar-item" (click)="handleBackToList()"
       >< Back to list</span
@@ -12,8 +12,8 @@
     <span class="toolbar-item" (click)="handleShowForm()">Create post ></span>
   </mat-toolbar>
   <demo-app-trends-links
-    class="links"
     [trendTitleSeen]="trendTitleSeen"
+    [topicForm]="topicForm"
   ></demo-app-trends-links>
 </div>
 <div fxLayout="row" fxFlexLayout="center center">
@@ -28,5 +28,6 @@
     [images]="commonImages"
     [searchTerm]="trendTitleSeen"
     (updateSearchTerm)="onUpdateSearchTerm($event)"
+    (selectedCommonsImage)="onSelectedCommonsImage($event)"
   ></demo-app-common-images>
 </div>

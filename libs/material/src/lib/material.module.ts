@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSelectModule,
     MatGridListModule,
     MatDividerModule,
+    MatCheckboxModule,
   ],
   exports: [
     FlexLayoutModule,
@@ -45,6 +47,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatTableModule,
     MatSelectModule,
     MatGridListModule,
+    MatCheckboxModule,
   ],
 })
 export class MaterialModule {}

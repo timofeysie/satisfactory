@@ -126,17 +126,19 @@ The three main sections of the for could be considered like this:
 
 Angular has a few types of forms, but the basic two are template driven and reactive forms.  The latter are dynamic forms where you can add or remove controls at run time, which is what we need.
 
-Add the forms [from the docs](https://angular.io/guide/reactive-forms) like this:
+Add the forms [from the docs](https://angular.io/guide/reactive-forms) using the FormBuilder service provides which convenient methods for generating controls.
+
+Might also look at [this article: The Best Way to build reactive sub-forms with Angular](https://tomastrajan.medium.com/angular-reactive-sub-forms-type-safe-without-duplication-dbd24225e1e8).
 
 The big decision is if the form will be held in the trends.component or the trends-list.  I'm not sure what the presenter container component patterns says about Angular forms.  This module already seems messed up, so either way, it wont improve the situation.
 
 Will go with the top level just because that's where the back button is, and we may need to add a cancel, and preview mode there, and the form mode could replace the simple toggle then.
 
-https://tomastrajan.medium.com/angular-reactive-sub-forms-type-safe-without-duplication-dbd24225e1e8
-
 Another component is needed to hold the news link sections.  These will also contain check boxes to include content as part of other form elements.
 
 nx g @nrwl/angular:component  components/trends-links/trends-links --project=trends
+
+That helps clean up the trends container.  Next, we need to pass down the form controls into the trends-link component.
 
 ### AP New Links
 
@@ -153,3 +155,53 @@ This is how an article link should look:
 https://apnews.com/article/space-exploration-science-business-asteroids-9f1c3bda00e4d35bb89ff132ffcd340f
 
 So we should allow the user to find a link on AP news and set that as a link on their post.
+
+## The Form Group
+
+This error is arising after using the form group and builder to create the sections of the form:
+
+```txt
+core.js:6456 ERROR Error: formGroupName must be used with a parent formGroup directive.  You'll want to add a formGroup
+      directive and pass it an existing FormGroup instance (you can create one in your class).
+      Example:
+    <div [formGroup]="myGroup">
+       <div formGroupName="person">
+          <input formControlName="firstName">
+       </div>
+    </div>
+
+    In your class:
+
+    this.myGroup = new FormGroup({
+       person: new FormGroup({ firstName: new FormControl() })
+    });
+    at Function.groupParentException (forms.js:1439)
+    ...
+    at TrendsLinksComponent_Template (trends-links.component.html:38)
+    at executeTemplate (core.js:9575)
+```
+
+Apparently it's coming from using [(ngModel)]="newNewsLink" with formControlName.  Or so I thought.  The solution was actually from [an answer on this SO](https://stackoverflow.com/questions/45822266/formcontrolname-must-be-used-with-a-parent-formgroup-directive) by using the viewProviders annotation.
+
+```js
+@Component({
+  selector: 'child',
+  templateUrl: './child.component.html',
+  styleUrls: ['./child.component.css'],
+  viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
+})
+```
+
+Actually, both solutions were needed.  We can also use ngModel in the form.  So they will have to be updated with onclick actions.
+
+### The image and type
+
+If the user is creating a ML image, then the source should be from the Wikimedia Commons, which is an image tag.
+
+If it's going to be a user created image, then it can be from anywhere, such as a Google images search which would look like this if you choose the image source:
+
+https://www.nydailynews.com/resizer/b3CKjC6IX4-Gon-bRJX0xq3CWn0=/1200x0/top/cloudfront-us-east-1.images.arcpublishing.com/tronc/QI6WP777KJC67G44KAI4EXKE54.jpg
+
+We don't really know which kind of entry will be at first until the user tells us.  Not sure when to ask that.  I suppose, if we want to support all kinds, then we need to be careful here.
+
+If the user wants to create two ML images, both using different images, then how is that going to work?  We only have the ability to choose one commons image right now.

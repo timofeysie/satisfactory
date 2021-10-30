@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { TrendsState } from './../../+state/trends.reducer';
 import { Store, select } from '@ngrx/store';
 import { trendsQuery } from './../../+state/trends.selectors';
@@ -20,18 +20,22 @@ export class TrendsComponent implements OnInit {
   trends$: Observable<Trend[]>;
   commonImages: string[];
   trendTitleSeen: string;
-  topicForm = new FormGroup({
-    pageTitle: new FormControl(''),
-    authors: new FormControl(''),
-    keywords: new FormControl(''),
-    description: new FormControl(''),
-    linkUrl: new FormControl(''),
-    linkLabel: new FormControl(''),
-
-    useAPNewsLink: new FormControl(''),
-    addAPNewsContent: new FormControl(''),
-    userWikiLink: new FormControl(''),
-    addWikiLinkContent: new FormControl(''),
+  selectedImage: any;
+  topicForm = this.fb.group({
+    pageTitle: [''],
+    authors: [''],
+    keywords: [''],
+    description: [''],
+    linkUrl: [''],
+    linkLabel: [''],
+    links: this.fb.group({
+      newsLink: [''],
+      useAPNewsLink: ['true'],
+      addAPNewsContent: [''],
+      wikiLink: [''],
+      useWikiLink: ['true'],
+      addWikiLinkContent: [''],
+    }),
 
     // image one form
 
@@ -39,7 +43,8 @@ export class TrendsComponent implements OnInit {
   });
   constructor(
     private store: Store<TrendsState>,
-    private trendsService: TrendsService
+    private trendsService: TrendsService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -49,6 +54,11 @@ export class TrendsComponent implements OnInit {
 
   handleShowForm() {
     // show form
+  }
+
+  onSelectedCommonsImage(image: any) {
+    console.log('image', image);
+    this.selectedImage = image;
   }
 
   onTrendSeen(trendTitleQuery: string) {

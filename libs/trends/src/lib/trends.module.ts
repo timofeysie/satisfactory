@@ -14,6 +14,7 @@ import { CommonImagesComponent } from './components/common-images/common-images/
 import { TrendsListDetailComponent } from './components/trends-list-detail/trends-list-detail/trends-list-detail.component';
 import { TrendsLinksComponent } from './components/trends-links/trends-links/trends-links.component';
 import { TopicFormComponent } from './components/topic-form/topic-form/topic-form.component';
+import { TrendsToolbarComponent } from './components/trends-toolbar/trends-toolbar.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,6 @@ import { TopicFormComponent } from './components/topic-form/topic-form/topic-for
     StoreModule.forFeature(fromTrends.TRENDS_FEATURE_KEY, fromTrends.reducer),
     EffectsModule.forFeature([TrendsEffects]),
   ],
-  declarations: [TrendsComponent, TrendsListComponent, CommonImagesComponent, TrendsListDetailComponent, TrendsLinksComponent, TopicFormComponent],
+  declarations: [TrendsComponent, TrendsListComponent, CommonImagesComponent, TrendsListDetailComponent, TrendsLinksComponent, TopicFormComponent, TrendsToolbarComponent],
 })
 export class TrendsModule {}

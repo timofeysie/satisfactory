@@ -1,0 +1,15 @@
+  <mat-toolbar>
+    <span class="toolbar-item" (click)="handleBackToList.emit()"
+      >< Back to list</span
+    >
+    <span class="menu-spacer"
+      ><a
+        target="_blank"
+        href="https://www.google.com/search?q={{
+          trendTitleSeen
+        }}&sxsrf=AOaemvJf1T-duILeKDVtiLYiQ2-h3ERxOg:1635532481229&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi2lb-kofDzAhWJaCsKHTW9A-4Q_AUoAnoECAEQBA&biw=1280&bih=520&dpr=1"
+        >{{ trendTitleSeen }}</a
+      ></span
+    >
+    <span class="toolbar-item" (click)="handleShowForm.emit()">Create post ></span>
+  </mat-toolbar>

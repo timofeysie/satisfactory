@@ -62,7 +62,7 @@ export class TrendsComponent implements OnInit {
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
   }
 
-  handleShowForm() {
+  onHandleShowForm() {
     // show form
   }
 
@@ -83,7 +83,7 @@ export class TrendsComponent implements OnInit {
     });
   }
 
-  handleBackToList() {
+  onHandleBackToList() {
     this.commonImages = null;
     this.trendTitleSeen = null;
     this.trendsListDetail.backToList();

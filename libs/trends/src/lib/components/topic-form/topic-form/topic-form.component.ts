@@ -15,4 +15,14 @@ import {
 })
 export class TopicFormComponent {
   @Input() topicForm: FormGroup;
+
+  onSelectionChange(selection) {
+    console.log('selection', selection);
+    this.topicForm.controls.one['controls']?.type?.setValue(selection);
+  }
+
+  onUpdatedGoogleImage(selection) {
+    console.log('selection', selection);
+    this.topicForm.controls.one['controls']?.googleImg?.setValue(selection);
+  }
 }

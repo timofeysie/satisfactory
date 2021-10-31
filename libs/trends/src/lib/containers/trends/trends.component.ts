@@ -20,7 +20,6 @@ export class TrendsComponent implements OnInit {
   trends$: Observable<Trend[]>;
   commonImages: string[];
   trendTitleSeen: string;
-  selectedImage: any;
   topicForm = this.fb.group({
     pageTitle: [''],
     authors: [''],
@@ -47,6 +46,10 @@ export class TrendsComponent implements OnInit {
       description: [''],
       tags: [''],
       source: [''],
+
+      type: ['AI'],
+      commonImg: [''],
+      googleImg: ['']
     }),
 
     // image two form
@@ -67,8 +70,9 @@ export class TrendsComponent implements OnInit {
   }
 
   onSelectedCommonsImage(image: any) {
-    console.log('image', image);
-    this.selectedImage = image;
+    this.topicForm.controls.one['controls']?.commonImg?.setValue(image);
+    console.log('image', this.topicForm.controls.one['controls'].commonImg);
+    this.topicForm.value.one.commonImg;
   }
 
   onTrendSeen(trendTitleQuery: string) {

@@ -1,11 +1,50 @@
 <div formGroupName="one" class="links">
-  <mat-card class="title-row"> 
-    <input id="title" type="text" formControlName="title" class="title-row-item">
-    <span class="separator">by</span>
-    <input id="author" type="text" formControlName="author" class="title-row-item">
+  <mat-card>
+    <mat-form-field class="selector">
+      <mat-select
+        #typeSelector
+        click="typeSelector.close()"
+        placeholder="Type"
+        (selectionChange)="onSelectionChange($event.value)"
+      >
+        <mat-option [value]="'AI'">A.I.</mat-option>
+        <mat-option [value]="'ARTIST'">Artist</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="title-row">
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        class="title-row-item no-style-input"
+      />
+      <span class="separator">by</span>
+      <input
+        id="author"
+        type="text"
+        formControlName="author"
+        class="title-row-item no-style-input"
+      />
+    </div>
+    <div *ngIf="topicForm.value.one.commonImg" class="common-image">
+      <span *ngIf="topicForm.value.one.type === 'AI'">{{
+        topicForm.value.one.commonImg
+      }}</span>
+    </div>
+    <div *ngIf="topicForm.value.one.type === 'ARTIST'" class="common-image">
+      {{ topicForm.value.one.googleImg }}
+      <input
+        class="no-style-input"
+        type="text"
+        name="googleImage"
+        formControlName="googleImage"
+        placeholder="(image url)"
+      />
+      <button type="submit" (click)="onUpdatedGoogleImage()">(update)</button>
+    </div>
   </mat-card>
 </div>
-      <!-- title: [''],
+<!-- title: [''],
       author: [''],
       altText: [''],
       imageSrc: [''],

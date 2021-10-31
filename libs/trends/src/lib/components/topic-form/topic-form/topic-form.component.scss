@@ -2,10 +2,24 @@
   display: flex;
 }
 
-.title-row-item {
+.selector {
+  font-size: small;
+}
+
+.common-image {
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .separator {
   margin-right: 6px;
   margin-left: 6px;
+}
+
+.no-style-input {
+  border-width: 0px;
+  border: none;
+  width: 100%;
 }

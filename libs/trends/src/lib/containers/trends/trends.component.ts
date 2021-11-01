@@ -18,6 +18,7 @@ export class TrendsComponent implements OnInit {
   @ViewChild(TrendsListComponent)
   private trendsListDetail: TrendsListComponent;
   trends$: Observable<Trend[]>;
+  trendDetails: any; // holds the trend selected part of trends$
   commonImages: string[];
   trendTitleSeen: string;
   trendTitleSeenBackup: string; // this is a code smell!
@@ -81,14 +82,32 @@ export class TrendsComponent implements OnInit {
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
   }
 
+  onTrendSeen(trend: any) {
+    this.trendTitleSeen = trend.title.query;
+    console.log('trend selected', trend);
+    this.trendDetails = trend;
+    this.completePostMode = false;
+    this.getCommonsImages(this.trendTitleSeen);
+  }
+
   onHandleShowForm() {
     this.completePostMode = true;
     this.trendTitleSeenBackup = this.trendTitleSeen;
   }
 
+  onHandleSubmitForm() {
+    // to implement
+  }
+
   onHandleBackToSetup() {
     this.completePostMode = false;
     this.trendTitleSeen = this.trendTitleSeenBackup;
+  }
+
+  onHandleBackToList() {
+    this.commonImages = null;
+    this.trendTitleSeen = null;
+     this.trendDetails = null;
   }
 
   onSelectedCommonsImage(image: any) {
@@ -97,24 +116,10 @@ export class TrendsComponent implements OnInit {
     this.topicForm.value.one.commonImg;
   }
 
-  onTrendSeen(trendTitleQuery: string) {
-    console.log('trend.title.query', trendTitleQuery);
-    this.trendTitleSeen = trendTitleQuery;
-    this.getCommonsImages(trendTitleQuery);
-  }
-
   getCommonsImages(trendTitleQuery) {
     this.trendsService.getCommonsImages(trendTitleQuery).subscribe((result) => {
       this.commonImages = result;
     });
-  }
-
-  onHandleBackToList() {
-    this.commonImages = null;
-    this.trendTitleSeen = null;
-    if (this.trendsListDetail) {
-      this.trendsListDetail.backToList();
-    }
   }
 
   updateCountry(category: any): void {
@@ -122,7 +127,6 @@ export class TrendsComponent implements OnInit {
   }
 
   onUpdateSearchTerm(newSearchTerm: string) {
-    console.log('newSearchTerm', newSearchTerm);
     this.getCommonsImages(newSearchTerm);
   }
 }

@@ -11,8 +11,6 @@ export class TrendsToolbarComponent {
   @Output() handleBackToList = new EventEmitter<any>();
   @Output() handleBackToSetup = new EventEmitter<any>();
   @Output() handleShowForm = new EventEmitter<any>();
+  @Output() handleSubmitForm = new EventEmitter<any>();
 
-  handleSubmitForm() {
-    // todo
-  }
 }

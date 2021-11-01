@@ -230,3 +230,43 @@ While we're at it, how about getting the trends toolbar out of the container and
 So this time, no extra internal directory.
 
 nx g @nrwl/angular:component  components/trends-toolbar --project=trends
+
+### The form modes
+
+These are getting pretty messy.  There is the 
+
+1. trend list mode
+2. trend detail selected mode (aka setup)
+3. the full form mode
+
+The list mode is triggered by the absence of a selected trend.  The next two are know by a boolean flag.  There is also the common images loading state on the details selected mode that is determined by a combination of variables.  So that's a mess caused by piling on modes without planning, and not keeping the common images results in the store.
+
+The messy part is also that the trend.list.component is a container, and is toggled by the peer container, trend.component.
+
+```js
+private trendsListDetail: TrendsListComponent;
+...
+  onHandleBackToList() {
+    this.commonImages = null;
+    this.trendTitleSeen = null;
+    if (this.trendsListDetail) {
+      this.trendsListDetail.backToList();
+    }
+  }
+```
+
+The peer trend.component will then call this function on the trend-list.component:
+
+```js
+  backToList() {
+    this.trendDetails = null;
+  }
+```
+
+But for some reason, after going to the form, and coming back to the trend selected setup mode, the trends list is shown, and not the selected trend, as if it has forgotten the trendDetails.
+
+What, the trend-list has been taken out of the DOM so this is lost?  So we need to move the control of that into trends.component.
+
+And ideally, we should put trends-list.component into the components directory and have only one container to avoid this mess.
+
+After the the first part of the above, everything works.  But save the refactoring to later, as it's time over for dev work today.

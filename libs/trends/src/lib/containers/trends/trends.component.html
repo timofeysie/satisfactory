@@ -1,10 +1,11 @@
 <div *ngIf="trendTitleSeen" [formGroup]="topicForm">
   <demo-app-trends-toolbar
     [trendTitleSeen]="trendTitleSeen"
+    [completePostMode]="completePostMode"
     (handleBackToList)="onHandleBackToList()"
     (handleBackToSetup)="onHandleBackToSetup()"
     (handleShowForm)="onHandleShowForm()"
-    (completePostMode)="completePostMode"
+    (handleSubmitForm)="onHandleSubmitForm()"
   ></demo-app-trends-toolbar>
   <div *ngIf="!completePostMode">
     <div class="links-row">
@@ -24,6 +25,7 @@
   <demo-app-trends-list
     class="column"
     [trends]="trends$ | async"
+    [trendDetails]="trendDetails"
     (country)="updateCountry($event)"
     (trendSeen)="onTrendSeen($event)"
   ></demo-app-trends-list>

@@ -8,9 +8,9 @@ import { Trend } from '@demo-app/data-models';
 })
 export class TrendsListComponent {
   @Input() trends: Trend[];
+  @Input() trendDetails: any;
   @Output() country = new EventEmitter<string>();
   @Output() trendSeen = new EventEmitter<string>();
-  trendDetails: any;
   countries = [
     { value: 'US', label: 'US' },
     { value: 'AU', label: 'Australia' },
@@ -21,12 +21,7 @@ export class TrendsListComponent {
   }
 
   seeTrend(trend: any): void {
-    this.trendSeen.emit(trend.title.query);
-    console.log('trend selected', trend);
-    this.trendDetails = trend;
+    this.trendSeen.emit(trend);
   }
 
-  backToList() {
-    this.trendDetails = null;
-  }
 }

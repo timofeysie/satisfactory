@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewInit } from '@angular/core';
 import {
   FormGroup,
   FormGroupDirective,
@@ -13,16 +13,32 @@ import {
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],
 })
-export class TopicFormComponent {
+export class TopicFormComponent implements AfterViewInit {
   @Input() topicForm: FormGroup;
+  @Input() trendTitleSeen: string;
 
-  onSelectionChange(selection) {
-    console.log('selection', selection);
-    this.topicForm.controls.one['controls']?.type?.setValue(selection);
+  ngAfterViewInit() {
+    this.topicForm.controls.one['controls']?.title?.setValue(
+      this.trendTitleSeen
+    );
+    this.topicForm.controls.two['controls']?.title?.setValue(
+      this.trendTitleSeen
+    );
   }
 
-  onUpdatedGoogleImage(selection) {
-    console.log('selection', selection);
-    this.topicForm.controls.one['controls']?.googleImg?.setValue(selection);
+  onTypeSelectionChange(selection, oneOrTwo) {
+    this.topicForm.controls[oneOrTwo]['controls']?.type?.setValue(selection);
+    this.topicForm.controls[oneOrTwo]['controls']?.author?.setValue(selection);
+  }
+
+  /**
+   * Probably don't need this as the filed should be applied just having
+   * formControlName="googleImg" in the template.
+   * @param oneOrTwo
+   */
+  onUpdatedGoogleImage(oneOrTwo) {
+    this.topicForm.controls[oneOrTwo]['controls']?.googleImg?.setValue(
+      this.topicForm.value[oneOrTwo].googleImg
+    );
   }
 }

@@ -1,7 +1,14 @@
   <mat-toolbar>
-    <span class="toolbar-item" (click)="handleBackToList.emit()"
+    <span *ngIf="completePostMode"
+      class="toolbar-item" (click)="handleBackToList.emit()"
       >< Back to list</span
     >
+
+    <span *ngIf="!completePostMode"
+      class="toolbar-item" (click)="handleBackToSetup.emit()"
+      >< Back to setup</span
+    >
+
     <span class="menu-spacer"
       ><a
         target="_blank"
@@ -11,5 +18,8 @@
         >{{ trendTitleSeen }}</a
       ></span
     >
-    <span class="toolbar-item" (click)="handleShowForm.emit()">Create post ></span>
+    <span *ngIf="!completePostMode"
+      class="toolbar-item" (click)="handleShowForm.emit()">Create post ></span>
+    <span *ngIf="completePostMode"
+      class="toolbar-item" (click)="handleSubmitForm()">Submit post</span>
   </mat-toolbar>

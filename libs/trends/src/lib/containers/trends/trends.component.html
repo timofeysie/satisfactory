@@ -2,17 +2,25 @@
   <demo-app-trends-toolbar
     [trendTitleSeen]="trendTitleSeen"
     (handleBackToList)="onHandleBackToList()"
+    (handleBackToSetup)="onHandleBackToSetup()"
     (handleShowForm)="onHandleShowForm()"
+    (completePostMode)="completePostMode"
   ></demo-app-trends-toolbar>
-  <div class="links-row">
-    <demo-app-trends-links
-      [trendTitleSeen]="trendTitleSeen"
-      [topicForm]="topicForm"
-    ></demo-app-trends-links>
-    <demo-app-topic-form [topicForm]="topicForm"></demo-app-topic-form>
+  <div *ngIf="!completePostMode">
+    <div class="links-row">
+      <demo-app-trends-links
+        [trendTitleSeen]="trendTitleSeen"
+        [topicForm]="topicForm"
+      ></demo-app-trends-links>
+      <demo-app-topic-form
+        [topicForm]="topicForm"
+        [trendTitleSeen]="trendTitleSeen"
+      ></demo-app-topic-form>
+    </div>
   </div>
 </div>
-<div fxLayout="row" fxFlexLayout="center center">
+<div  *ngIf="!completePostMode" 
+  fxLayout="row" fxFlexLayout="center center">
   <demo-app-trends-list
     class="column"
     [trends]="trends$ | async"
@@ -27,3 +35,6 @@
     (selectedCommonsImage)="onSelectedCommonsImage($event)"
   ></demo-app-common-images>
 </div>
+<div *ngIf="completePostMode">
+    full form body
+  </div>

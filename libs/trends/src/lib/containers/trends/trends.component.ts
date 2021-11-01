@@ -20,6 +20,8 @@ export class TrendsComponent implements OnInit {
   trends$: Observable<Trend[]>;
   commonImages: string[];
   trendTitleSeen: string;
+  trendTitleSeenBackup: string; // this is a code smell!
+  completePostMode = false;
   topicForm = this.fb.group({
     pageTitle: [''],
     authors: [''],
@@ -39,7 +41,7 @@ export class TrendsComponent implements OnInit {
     // image one form
     one: this.fb.group({
       title: [''],
-      author: [''],
+      author: ['AI'],
       altText: [''],
       imageSrc: [''],
       srcset: [''],
@@ -49,10 +51,24 @@ export class TrendsComponent implements OnInit {
 
       type: ['AI'],
       commonImg: [''],
-      googleImg: ['']
+      googleImg: [''],
     }),
 
     // image two form
+    two: this.fb.group({
+      title: [''],
+      author: ['ARTIST'],
+      altText: [''],
+      imageSrc: [''],
+      srcset: [''],
+      description: [''],
+      tags: [''],
+      source: [''],
+
+      type: ['ARTIST'],
+      commonImg: [''],
+      googleImg: [''],
+    }),
   });
   constructor(
     private store: Store<TrendsState>,
@@ -66,7 +82,13 @@ export class TrendsComponent implements OnInit {
   }
 
   onHandleShowForm() {
-    // show form
+    this.completePostMode = true;
+    this.trendTitleSeenBackup = this.trendTitleSeen;
+  }
+
+  onHandleBackToSetup() {
+    this.completePostMode = false;
+    this.trendTitleSeen = this.trendTitleSeenBackup;
   }
 
   onSelectedCommonsImage(image: any) {
@@ -90,7 +112,9 @@ export class TrendsComponent implements OnInit {
   onHandleBackToList() {
     this.commonImages = null;
     this.trendTitleSeen = null;
-    this.trendsListDetail.backToList();
+    if (this.trendsListDetail) {
+      this.trendsListDetail.backToList();
+    }
   }
 
   updateCountry(category: any): void {

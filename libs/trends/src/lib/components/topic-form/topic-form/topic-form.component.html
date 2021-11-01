@@ -5,7 +5,7 @@
         #typeSelector
         click="typeSelector.close()"
         placeholder="Type"
-        (selectionChange)="onSelectionChange($event.value)"
+        (selectionChange)="onTypeSelectionChange($event.value, 'one')"
       >
         <mat-option [value]="'AI'">A.I.</mat-option>
         <mat-option [value]="'ARTIST'">Artist</mat-option>
@@ -40,7 +40,54 @@
         formControlName="googleImage"
         placeholder="(image url)"
       />
-      <button type="submit" (click)="onUpdatedGoogleImage()">(update)</button>
+      <!-- <button (click)="onUpdatedGoogleImage('one')">(update)</button> -->
+    </div>
+  </mat-card>
+</div>
+
+<div formGroupName="two" class="links">
+  <mat-card>
+    <mat-form-field class="selector">
+      <mat-select
+        #typeSelector
+        click="typeSelector.close()"
+        placeholder="Type"
+        (selectionChange)="onTypeSelectionChange($event.value, 'two')"
+      >
+        <mat-option [value]="'AI'">A.I.</mat-option>
+        <mat-option [value]="'ARTIST'">Artist</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="title-row">
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        class="title-row-item no-style-input"
+      />
+      <span class="separator">by</span>
+      <input
+        id="author"
+        type="text"
+        formControlName="author"
+        class="title-row-item no-style-input"
+      />
+    </div>
+    <div *ngIf="topicForm.value.two.commonImg" class="common-image">
+      <span *ngIf="topicForm.value.two.type === 'AI'">{{
+        topicForm.value.two.commonImg
+      }}</span>
+    </div>
+    <div *ngIf="topicForm.value.two.type === 'ARTIST'" class="common-image">
+      {{ topicForm.value.two.googleImg }}
+      <input
+        class="no-style-input"
+        type="text"
+        name="googleImage"
+        formControlName="googleImg"
+        placeholder="(image url)"
+      />
+      <!-- <button (click)="onUpdatedGoogleImage('two')">(update)</button> -->
     </div>
   </mat-card>
 </div>

@@ -20,8 +20,7 @@
     </div>
   </div>
 </div>
-<div  *ngIf="!completePostMode" 
-  fxLayout="row" fxFlexLayout="center center">
+<div *ngIf="!completePostMode" fxLayout="row" fxFlexLayout="center center">
   <demo-app-trends-list
     class="column"
     [trends]="trends$ | async"
@@ -38,5 +37,8 @@
   ></demo-app-common-images>
 </div>
 <div *ngIf="completePostMode">
-    full form body
-  </div>
+  <demo-app-post-creation-form
+    [fullTopicForm]="topicForm"
+    [trendTitleSeen]="trendTitleSeen"
+  ></demo-app-post-creation-form>
+</div>

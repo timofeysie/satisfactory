@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> Complete post form </mat-card-title>
+  </mat-card-header>
+  <mat-card-content [formGroup]="fullTopicForm">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>title</mat-label>
+      <input matInput  value="pageTitle" formControlName="pageTitle" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>authors</mat-label>
+      <input matInput  value="authors" formControlName="authors" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>keywords</mat-label>
+      <input matInput  value="keywords" formControlName="keywords" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>description</mat-label>
+      <input matInput  value="description" formControlName="keywords" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>linkUrl</mat-label>
+      <input matInput  value="linkUrl" formControlName="linkUrl" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>linkLabel</mat-label>
+      <input matInput  value="linkLabel" formControlName="linkLabel" />
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+<!-- 
+pageTitle: [''], authors: [''], keywords: [''], description: [''], linkUrl: [''], linkLabel:
+[''], links: this.fb.group({ newsLink: [''], useAPNewsLink: ['true'],
+addAPNewsContent: [''], wikiLink: [''], useWikiLink: ['true'],
+addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
+[''], author: ['AI'], altText: [''], imageSrc: [''], srcset: [''], description:
+[''], tags: [''], source: [''], type: ['AI'], commonImg: [''], googleImg: [''],
+}), -->

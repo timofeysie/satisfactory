@@ -91,6 +91,7 @@ export class TrendsComponent implements OnInit {
   }
 
   onHandleShowForm() {
+    this.preFillForm();
     this.completePostMode = true;
     this.trendTitleSeenBackup = this.trendTitleSeen;
   }
@@ -107,13 +108,43 @@ export class TrendsComponent implements OnInit {
   onHandleBackToList() {
     this.commonImages = null;
     this.trendTitleSeen = null;
-     this.trendDetails = null;
+    this.trendDetails = null;
   }
 
   onSelectedCommonsImage(image: any) {
     this.topicForm.controls.one['controls']?.commonImg?.setValue(image);
     console.log('image', this.topicForm.controls.one['controls'].commonImg);
     this.topicForm.value.one.commonImg;
+  }
+
+  /**
+    keywords: [''],
+    description: [''],
+    linkUrl: [''],
+    linkLabel: [''],
+   */
+  preFillForm() {
+    this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
+    const authors =
+      '<' +
+      this.topicForm.controls['one']['controls']?.author?.value +
+      '>, ' +
+      '<' +
+      this.topicForm.controls['two']['controls']?.author?.value +
+      '>';
+    this.topicForm.controls.authors.setValue(authors);
+    const keywords = 'title + RELATED QUERIES';
+    this.getRelatedQueries();
+    this.topicForm.controls.authors.setValue(keywords);
+  }
+
+  /** Sort through the list and find the item who's title matches the trendTitleSeen
+   * and collect the query values from the array there.
+   */
+  getRelatedQueries() {
+    this.trends$.subscribe((result) => {
+      console.log('result', result);
+    })
   }
 
   getCommonsImages(trendTitleQuery) {

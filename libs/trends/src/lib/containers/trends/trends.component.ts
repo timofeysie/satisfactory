@@ -111,8 +111,6 @@ export class TrendsComponent implements OnInit {
 
   onSelectedCommonsImage(image: any) {
     this.topicForm.controls.one['controls']?.commonImg?.setValue(image);
-    console.log('image', this.topicForm.controls.one['controls'].commonImg);
-    this.topicForm.value.one.commonImg;
   }
 
   /**
@@ -134,7 +132,35 @@ addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
       '>';
     this.topicForm.controls.authors.setValue(authors);
     // this is a shit way to deal with async data needed for the from
+    // const commonsImgSource = this.getCommonsImgSource('one');
+    const commonsImgSourceOne = this.getCommonsImgSource('one');
+    this.topicForm.controls.one['controls']?.source?.setValue(commonsImgSourceOne);
+    // to do check AI or Artists!!!
+    const commonsImgSourceTwo = this.getCommonsImgSource('two');
+    this.topicForm.controls.one['controls']?.source?.setValue(commonsImgSourceTwo);
     this.getRelatedQueries();
+  }
+
+  /**
+   *
+   * The Commons image looks like this:
+   *```json
+   * "commonImg":"<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Harrison_Barnes_Klay_Thompson.jpg/240px-Harrison_Barnes_Klay_Thompson.jpg\" data-src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Harrison_Barnes_Klay_Thompson.jpg/240px-Harrison_Barnes_Klay_Thompson.jpg\" alt=\"Harrison Barnes Klay Thompson.jpg\" loading=\"lazy\" class=\"sd-image\" style=\"height: 100% !important; max-width: 4320px !important; max-height: 3240px;\">",
+   *```
+   *We want this from the above:
+   *https://commons.wikimedia.org/wiki/File:Harrison_Barnes_Klay_Thompson.jpg
+   *Find the .jpg file ending, and work backwards until the last /.
+   *The base url is this: "https://commons.wikimedia.org/wiki/File:"
+   */
+  getCommonsImgSource(type: string) {
+    const commonImg: string = this.topicForm.controls.one['controls'].commonImg.value;
+    const fileExt = commonImg.indexOf('.jpg');
+    const upTo = commonImg.substring(0, fileExt + 4);
+    const start = upTo.lastIndexOf('/');
+    const baseUrl = 'https://commons.wikimedia.org/wiki/File:';
+    const source = upTo.substring(start + 1, upTo.length);
+    this.topicForm.controls[type]['controls'].source.setValue(source);
+    return baseUrl + source;
   }
 
   /** Sort through the list and find the item who's title matches the trendTitleSeen

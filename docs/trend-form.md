@@ -433,6 +433,10 @@ data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgVFhYZGBgYHBwaH
 ...
 ```
 
+This is the start of an image for one of the "the Splash Brothers", or a three point king.
+
+### An AI picture source value
+
 The source tag is important for the Commons image, as it must be used with attribution.  Therefore we need to keep track of the link to the Wikimedia page.  This is what we have for the img tag:
 
 ```json
@@ -443,6 +447,16 @@ The page in question is this:
 
 https://commons.wikimedia.org/wiki/File:Harrison_Barnes_Klay_Thompson.jpg
 
-So we don't actually have that.  However, we know the base url will be:
+So we don't actually have that.  However, we know the base url will be: "https://commons.wikimedia.org/wiki/File:"
 
 And the part after file will be: "Harrison_Barnes_Klay_Thompson.jpg" which is shown three times in our tag.  Is that going to be a problem?  Not sure.
+
+Since this value is added as an input, it's possible for the user to change it.  Therefore, we may need an "other" category which would deal with getting the image, how it's used, and what the source link should be.  Seems like a lot of work for now, so leave that to later.
+
+## To do
+
+- Parse the img tag to create the source attribute (see above)
+
+- Add Wikipedia and news headlines to the page description.  We will need checkboxes on all these items for this.
+
+- Finish inputs for the rest of the one/two attributes.

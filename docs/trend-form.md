@@ -388,3 +388,61 @@ The result does include these when available:
   "exploreLink":"/trends/explore?q=Henry+Ruggs+III&date=now+7-d&geo=US"}
 ],
 ```
+
+## Individual Picture Data
+
+There are currently two hardwired images per post.  They should both contain the same data:
+
+```json
+    // Theses are used for the frontend post:
+      title: [''],
+      author: ['AI'],
+      altText: [''],
+      imageSrc: [''],
+      srcset: [''],
+      description: [''],
+      tags: [''],
+      source: [''],
+      // these don't appear in the frontend app post
+      type: ['AI'],
+      commonImg: [''],
+      googleImg: [''],
+```
+
+### The Images
+
+The Wikipedia Commons image is used as a inner html image on a span.
+
+The Google Image on the other hand is an img tag that needs a src attribute.
+
+Instead of using an href, we have to use the src and the base64 image string like this:
+
+<img src="{{ fullTopicForm.value.two.googleImg }}" />
+
+The instructions which I am always forgetting are:
+
+1. Click on the title to perform a Google image search.
+2. Right click on the image of choice and choose "copy image address"
+
+Probably should put that in a tool tip.
+
+It will be a long string that looks like this:
+
+```txt
+data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgVFhYZGBgYHBwaHBwaGBgaGBoaGBgaGhgcGBocIy4lHB4rIRoaJjgmKy8xNTU1GiQ7QDs0Py40NTEBDAw
+...
+```
+
+The source tag is important for the Commons image, as it must be used with attribution.  Therefore we need to keep track of the link to the Wikimedia page.  This is what we have for the img tag:
+
+```json
+ "commonImg":"<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Harrison_Barnes_Klay_Thompson.jpg/240px-Harrison_Barnes_Klay_Thompson.jpg\" data-src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Harrison_Barnes_Klay_Thompson.jpg/240px-Harrison_Barnes_Klay_Thompson.jpg\" alt=\"Harrison Barnes Klay Thompson.jpg\" loading=\"lazy\" class=\"sd-image\" style=\"height: 100% !important; max-width: 4320px !important; max-height: 3240px;\">",
+```
+
+The page in question is this:
+
+https://commons.wikimedia.org/wiki/File:Harrison_Barnes_Klay_Thompson.jpg
+
+So we don't actually have that.  However, we know the base url will be:
+
+And the part after file will be: "Harrison_Barnes_Klay_Thompson.jpg" which is shown three times in our tag.  Is that going to be a problem?  Not sure.

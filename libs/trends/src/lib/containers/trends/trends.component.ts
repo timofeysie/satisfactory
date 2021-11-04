@@ -92,8 +92,6 @@ export class TrendsComponent implements OnInit {
 
   onHandleShowForm() {
     this.preFillForm();
-    this.completePostMode = true;
-    this.trendTitleSeenBackup = this.trendTitleSeen;
   }
 
   onHandleSubmitForm() {
@@ -118,10 +116,12 @@ export class TrendsComponent implements OnInit {
   }
 
   /**
-    keywords: [''],
-    description: [''],
-    linkUrl: [''],
-    linkLabel: [''],
+
+    this.fb.group({ newsLink: [''], useAPNewsLink: ['true'],
+addAPNewsContent: [''], wikiLink: [''], useWikiLink: ['true'],
+addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
+[''], author: ['AI'], altText: [''], imageSrc: [''], srcset: [''], description:
+[''], tags: [''], source: [''], type: ['AI'], commonImg: [''], googleImg: [''],
    */
   preFillForm() {
     this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
@@ -133,18 +133,31 @@ export class TrendsComponent implements OnInit {
       this.topicForm.controls['two']['controls']?.author?.value +
       '>';
     this.topicForm.controls.authors.setValue(authors);
-    const keywords = 'title + RELATED QUERIES';
+    // this is a shit way to deal with async data needed for the from
     this.getRelatedQueries();
-    this.topicForm.controls.authors.setValue(keywords);
   }
 
   /** Sort through the list and find the item who's title matches the trendTitleSeen
    * and collect the query values from the array there.
    */
   getRelatedQueries() {
-    this.trends$.subscribe((result) => {
-      console.log('result', result);
-    })
+    this.trends$.subscribe((results) => {
+      const queries = [this.trendTitleSeen];
+      results.forEach((result) => {
+        if (result.title.query === this.trendTitleSeen) {
+          console.log('found', result);
+          result.relatedQueries.forEach((item) => {
+            // get all relatedQueries.query strings
+            console.log('add keyword', item.query);
+            queries.push(item.query);
+          });
+        }
+      });
+      this.topicForm.controls.keywords.setValue(queries.toString());
+      this.trendTitleSeenBackup = this.trendTitleSeen;
+      this.completePostMode = true;
+      return queries;
+    });
   }
 
   getCommonsImages(trendTitleQuery) {

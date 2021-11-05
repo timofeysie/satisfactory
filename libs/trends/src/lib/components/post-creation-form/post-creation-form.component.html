@@ -1,8 +1,8 @@
 <div [formGroup]="fullTopicForm">
   <mat-card>
-    <mat-card-header>
+    <!-- <mat-card-header>
       <mat-card-title> Complete post form </mat-card-title>
-    </mat-card-header>
+    </mat-card-header> -->
     <mat-card-content>
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>title</mat-label>
@@ -46,9 +46,27 @@
 
   <div class="row">
     <div class="column">
-      <mat-card class="full-width">
+      <mat-card class="full-width" [formGroup]="fullTopicForm.get('one')">
         <mat-card-header>
-          <mat-card-title> One </mat-card-title>
+          <mat-card-title>
+            <span class="title-row">
+              <span class="title-row-item no-style-input">
+                <input
+                  class="title-row-item no-style-input"
+                  matInput
+                  value="title"
+                  formControlName="title"
+                />
+              </span>
+              <span class="separator">by </span>
+              <input
+                class="title-row-item no-style-input"
+                matInput
+                value="author"
+                formControlName="author"
+              />
+            </span>
+          </mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <!-- This could be a sub-component to display either one or two/artist/ai images.mat-card-title
@@ -69,14 +87,46 @@
           >
             <img href="{{ fullTopicForm.value.one.googleImg }}" />
           </div>
+          <div class="source">
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>source</mat-label>
+              <input matInput value="source" formControlName="source" />
+            </mat-form-field>
+          </div>
+          <div class="picture-description">
+            <textarea
+              matInput
+              placeholder="description"
+              value="description"
+              formControlName="description"
+            ></textarea>
+          </div>
         </mat-card-content>
       </mat-card>
     </div>
 
     <div class="column">
-      <mat-card class="full-width">
+      <mat-card class="full-width" [formGroup]="fullTopicForm.get('two')">
         <mat-card-header>
-          <mat-card-title> Two </mat-card-title>
+          <mat-card-title>
+            <span class="title-row">
+              <span class="title-row-item no-style-input">
+                <input
+                  class="title-row-item no-style-input"
+                  matInput
+                  value="title"
+                  formControlName="title"
+                />
+              </span>
+              <span class="separator">by </span>
+              <input
+                class="title-row-item no-style-input"
+                matInput
+                value="author"
+                formControlName="author"
+              />
+            </span>
+          </mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <div
@@ -94,16 +144,44 @@
           >
             <img src="{{ fullTopicForm.value.two.googleImg }}" />
           </div>
+          <div class="source">
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>source</mat-label>
+              <input matInput value="source" formControlName="source" />
+            </mat-form-field>
+          </div>
+          <div class="picture-description">
+            <textarea
+              matInput
+              placeholder="description"
+              value="description"
+              formControlName="description"
+            ></textarea>
+          </div>
         </mat-card-content>
       </mat-card>
     </div>
   </div>
   =={{ fullTopicForm.value | json }}==
   <!-- 
- links: this.fb.group({ newsLink: [''], useAPNewsLink: ['true'],
-addAPNewsContent: [''], wikiLink: [''], useWikiLink: ['true'],
-addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
-[''], author: ['AI'], altText: [''], imageSrc: [''], srcset: [''], description:
-[''], tags: [''], source: [''], type: ['AI'], commonImg: [''], googleImg: [''],
-}), -->
+  links: this.fb.group({ 
+   newsLink: [''], 
+   useAPNewsLink: ['true'],
+    addAPNewsContent: [''], w
+    ikiLink: [''], 
+    useWikiLink: ['true'],
+    addWikiLinkContent: [''], }), // image one form 
+    one: this.fb.group({ 
+      title: [''], 
+      author: ['AI'], 
+      altText: [''], 
+      imageSrc: [''], 
+      srcset: [''], 
+      description:[''], 
+      tags: [''], 
+      source: [''], 
+      type: ['AI'], 
+      commonImg: [''], 
+      googleImg: [''],
+  }), -->
 </div>

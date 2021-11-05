@@ -362,9 +362,8 @@ Then, there are the missing ads and the failing SEO. Nice way to point out how m
 Anyhow, don't get ahead of ourselves. Here is the first input:
 
 ```html
-      <mat-label>title</mat-label>
-      <input matInput  value="pageTitle" formControlName="pageTitle" />
-    </mat-form-field>
+<mat-label>title</mat-label>
+<input matInput  value="pageTitle" formControlName="pageTitle" />
 ```
 
 Pre-filling the forms from the parent container is done like this:
@@ -433,6 +432,8 @@ data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgVFhYZGBgYHBwaH
 ...
 ```
 
+data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoGCBUVExcVFRUXFxcZGhoXGhoaGRoZGhkfGRoZGRkcGRkaISsjGhwoIBkZJDUkKCwxMjIyGSE3PDcxOysxMi4BCwsLDw4PHRERHDkhIygxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMf/A
+
 This is the start of an image for one of the "the Splash Brothers", or a three point king.
 
 ### An AI picture source value
@@ -452,6 +453,19 @@ So we don't actually have that.  However, we know the base url will be: "https:/
 And the part after file will be: "Harrison_Barnes_Klay_Thompson.jpg" which is shown three times in our tag.  Is that going to be a problem?  Not sure.
 
 Since this value is added as an input, it's possible for the user to change it.  Therefore, we may need an "other" category which would deal with getting the image, how it's used, and what the source link should be.  Seems like a lot of work for now, so leave that to later.
+
+## Form group within group
+
+In case anyone is wondering how to handle the formGroup for a nested section such as we have with the picture info.  Here is the solution:
+
+```html
+      <mat-card class="full-width" [formGroup]="fullTopicForm.get('one')">
+        ...
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>source</mat-label>
+          <input matInput value="source" formControlName="source" />
+        </mat-form-field>
+```
 
 ## To do
 

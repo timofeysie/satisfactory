@@ -14,7 +14,21 @@
 
 .column {
   display: flex;
-  // flex-direction: column;
-  // flex-basis: 100%;
   flex: 1;
+}
+
+.title-row {
+  display: flex;
+  font-size: smaller;
+}
+
+.separator {
+  margin-right: 6px;
+  margin-left: 6px;
+}
+
+.no-style-input {
+  border-width: 0px;
+  border: none;
+  width: 100%;
 }

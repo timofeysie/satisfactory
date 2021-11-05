@@ -131,14 +131,30 @@ addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
       this.topicForm.controls['two']['controls']?.author?.value +
       '>';
     this.topicForm.controls.authors.setValue(authors);
-    // this is a shit way to deal with async data needed for the from
-    // const commonsImgSource = this.getCommonsImgSource('one');
-    const commonsImgSourceOne = this.getCommonsImgSource('one');
-    this.topicForm.controls.one['controls']?.source?.setValue(commonsImgSourceOne);
-    // to do check AI or Artists!!!
-    const commonsImgSourceTwo = this.getCommonsImgSource('two');
-    this.topicForm.controls.one['controls']?.source?.setValue(commonsImgSourceTwo);
+    
+    this.setPictureSource();
     this.getRelatedQueries();
+  }
+
+  /**
+   * If the type of picture for one or two is AI, then the source should
+   * be a link to the Wikipedia Commons which are under a free to use and modify license.
+   * If the type is artist, then there should be another method for setting the source,
+   * such as let the artist plug their own site or Instagram account, bio or something.
+   */
+  setPictureSource() {
+    if (this.topicForm.value.one.type === 'AI') {
+      const commonsImgSourceOne = this.getCommonsImgSource('one');
+      this.topicForm.controls.one['controls']?.source?.setValue(
+        commonsImgSourceOne
+      );
+    }
+    if (this.topicForm.value.two.type === 'AI') {
+      const commonsImgSourceTwo = this.getCommonsImgSource('two');
+      this.topicForm.controls.two['controls']?.source?.setValue(
+        commonsImgSourceTwo
+      );
+    }
   }
 
   /**

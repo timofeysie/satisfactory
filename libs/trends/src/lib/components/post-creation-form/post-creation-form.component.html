@@ -101,6 +101,18 @@
               formControlName="description"
             ></textarea>
           </div>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>altText</mat-label>
+            <input matInput value="altText" formControlName="altText" />
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>srcset</mat-label>
+            <input matInput value="srcset" formControlName="srcset" />
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>tags</mat-label>
+            <input matInput value="tags" formControlName="tags" />
+          </mat-form-field>
         </mat-card-content>
       </mat-card>
     </div>
@@ -142,7 +154,7 @@
             *ngIf="fullTopicForm.value.two.type === 'ARTIST'"
             class="common-image"
           >
-            <img src="{{ fullTopicForm.value.two.googleImg }}" />
+            <img class="common-image" src="{{ fullTopicForm.value.two.googleImg }}" />
           </div>
           <div class="source">
             <mat-form-field class="full-width" appearance="fill">
@@ -158,30 +170,20 @@
               formControlName="description"
             ></textarea>
           </div>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>altText</mat-label>
+            <input matInput value="altText" formControlName="altText" />
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>srcset</mat-label>
+            <input matInput value="srcset" formControlName="srcset" />
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>tags</mat-label>
+            <input matInput value="tags" formControlName="tags" />
+          </mat-form-field>
         </mat-card-content>
       </mat-card>
     </div>
   </div>
-  =={{ fullTopicForm.value | json }}==
-  <!-- 
-  links: this.fb.group({ 
-   newsLink: [''], 
-   useAPNewsLink: ['true'],
-    addAPNewsContent: [''], w
-    ikiLink: [''], 
-    useWikiLink: ['true'],
-    addWikiLinkContent: [''], }), // image one form 
-    one: this.fb.group({ 
-      title: [''], 
-      author: ['AI'], 
-      altText: [''], 
-      imageSrc: [''], 
-      srcset: [''], 
-      description:[''], 
-      tags: [''], 
-      source: [''], 
-      type: ['AI'], 
-      commonImg: [''], 
-      googleImg: [''],
-  }), -->
 </div>

@@ -140,7 +140,7 @@ nx g @nrwl/angular:component components/trends-links/trends-links --project=tren
 
 That helps clean up the trends container. Next, we need to pass down the form controls into the trends-link component.
 
-### AP New Links
+### Custom AP News Links
 
 I'm not sure where the idea came from that the hub link could contain a topic.
 
@@ -467,10 +467,95 @@ In case anyone is wondering how to handle the formGroup for a nested section suc
         </mat-form-field>
 ```
 
-## To do
+## The WIkipedia description & link
 
-- Parse the img tag to create the source attribute (see above)
+Add Wikipedia and news headlines to the page description.  We will need checkboxes on all these items for this.
 
-- Add Wikipedia and news headlines to the page description.  We will need checkboxes on all these items for this.
+That was the todo item to finish before starting the post of a complete form.  But, I've having second thoughts about the news headlines.  We want to stay away from using that content or even linking to those sites.  A lot of them have pay walls and (despite this project showing ads) obnoxious popups and heavy handed tactics to try and get subscriptions.
 
-- Finish inputs for the rest of the one/two attributes.
+The Wikipedia link should be pushed for now.  Later, I think some social media posts like inline Twitter posts would be a good thing to automate.
+
+### The AP News link
+
+Sometimes there is a /hub/ link for the topic:
+
+https://apnews.com/hub/colin-powell
+
+https://apnews.com/article/videos-7ca6c9cd29f948c8b3a4ef38f1b159f5
+
+In a previous section up above in this file, this was our example that didn't work:
+
+Not found: https://apnews.com/hub/comet's%20death%20dive
+
+This is how an article link should look:
+
+https://apnews.com/article/space-exploration-science-business-asteroids-9f1c3bda00e4d35bb89ff132ffcd340f
+
+If there is a subject page, then we should be able to put the topic string on the hub base url.  But the problem is it's not a space, but a dash:
+
+Doesn't work: https://apnews.com/hub/colin%20powell
+
+Works: https://apnews.com/hub/colin-powell
+
+The user is going to have to click on both links to see if they exist, so for this reason, I think the default should be not to use the AP link.  The user can check the links, correct one if they want, and then check the checkbox.
+
+There might be more than one space needed:
+
+https://apnews.com/hub/odell-beckham%20jr
+
+https://apnews.com/hub/odell-beckham-jr
+
+We also will need two links, and link labels I suppose.  Or let the user have only one, either or.
+
+We already have the links group.  This was kind of a temporary thing, not used in the posts yet, but looks like the single link and label could go away and we will just have these moving forward.  Which means, add some labels there.  Or, just hard-wire the labels for now.
+
+There is also the use content field, which is not currently used:
+
+```js
+    links: this.fb.group({
+      newsLink: [''],
+      useAPNewsLink: [''],
+      addAPNewsContent: [''],
+      wikiLink: [''],
+      useWikiLink: ['true'],
+      addWikiLinkContent: [''],
+    }),
+```
+
+I think the idea was to maybe scrape the page and use the content for the ML description generation with the LSTM app.
+
+## Post the form
+
+- Post send form and selected trend section
+- show todo list of remaining work for post
+
+### Todo list after post0
+
+- identify dimensions of artist image
+- load raw data for lstm description generation
+
+### Backend
+
+- save json for post
+- download image
+- create route for post
+
+### Pythons scrips
+
+- lstm generate script
+- cartoonify image
+- copy images to dir
+- add description added to form
+
+### Todo
+
+- create api to return raw data for lstm model generation
+
+## Merge projects
+
+- upgrade Tundra to latest Angular (or version from Satisfactory)
+- Add Satisfaction apps and libs to Tundra
+- Add Python projects to Tundra
+- Automate create 10 descriptions for the user to choose from
+- Create api to let the user load the 10 descriptions in the front end
+- Create page to allow the user to select a description

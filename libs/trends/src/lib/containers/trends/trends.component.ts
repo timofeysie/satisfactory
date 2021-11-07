@@ -32,7 +32,7 @@ export class TrendsComponent implements OnInit {
     linkLabel: [''],
     links: this.fb.group({
       newsLink: [''],
-      useAPNewsLink: ['true'],
+      useAPNewsLink: [''],
       addAPNewsContent: [''],
       wikiLink: [''],
       useWikiLink: ['true'],

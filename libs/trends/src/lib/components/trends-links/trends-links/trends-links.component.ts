@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import {
   FormGroup,
   FormGroupDirective,
@@ -20,8 +20,10 @@ export class TrendsLinksComponent implements OnInit {
   newWikiSearchTerm: string;
 
   ngOnInit() {
-    this.newNewsLink = 'https://apnews.com/article/' + this.trendTitleSeen;
+    const dashTitle = this.trendTitleSeen.split(' ').join('-');
+    this.newNewsLink = 'https://apnews.com/hub/' + dashTitle;
     this.newWikiSearchTerm = this.trendTitleSeen;
+    this.topicForm.controls.linkUrl.setValue(this.newNewsLink);
   }
 
   onUpdatedWikiSearchTerm() {

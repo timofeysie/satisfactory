@@ -1,5 +1,6 @@
 .full-width {
   width: -webkit-fill-available;
+  width: 100%;
 }
 
 .row {
@@ -31,4 +32,8 @@
   border-width: 0px;
   border: none;
   width: 100%;
+}
+
+.topic-text-input {
+  height: 300px;
 }

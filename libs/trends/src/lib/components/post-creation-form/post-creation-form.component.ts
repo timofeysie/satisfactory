@@ -17,4 +17,10 @@ import {
 export class PostCreationFormComponent {
   @Input() fullTopicForm: FormGroup;
   @Input() trendTitleSeen: string;
+  textLines: number;
+
+  calculateLines() {
+    const text = this.fullTopicForm.controls.topicText.value;
+    this.textLines = text.match(/\n/g).length; 
+  }
 }

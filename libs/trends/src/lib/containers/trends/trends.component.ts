@@ -39,6 +39,9 @@ export class TrendsComponent implements OnInit {
       addWikiLinkContent: [''],
     }),
 
+    // text for description generation
+    topicText: [''],
+
     // image one form
     one: this.fb.group({
       title: [''],
@@ -84,10 +87,11 @@ export class TrendsComponent implements OnInit {
 
   onTrendSeen(trend: any) {
     this.trendTitleSeen = trend.title.query;
-    console.log('trend selected', trend);
+    // console.log('trend selected', trend.articles);
     this.trendDetails = trend;
     this.completePostMode = false;
     this.getCommonsImages(this.trendTitleSeen);
+    this.captureTrendDetailsText(trend.articles);
   }
 
   onHandleShowForm() {
@@ -114,6 +118,24 @@ export class TrendsComponent implements OnInit {
   }
 
   /**
+   * For this we loop through the selected json and add each of these to a text field:
+   * ```txt
+   * snippet: "The rapper says he is &quot;absolutely devastated&quot; by the deaths that occurred at his Astroworld festival."
+   * source: "BBC News"
+   * title: "Travis Scott &#39;devastated&#39; by Texas festival deaths"
+   * ```
+   * Probably don't need the source.
+   */
+  captureTrendDetailsText(text) {
+    let capturedText = '';
+    text.forEach((item) => {
+      capturedText = capturedText + item.title + '\n';
+      capturedText = capturedText + item.snippet + '\n';
+    });
+    this.topicForm.controls.topicText.setValue(capturedText);
+  }
+
+  /**
 
     this.fb.group({ newsLink: [''], useAPNewsLink: ['true'],
 addAPNewsContent: [''], wikiLink: [''], useWikiLink: ['true'],
@@ -131,7 +153,7 @@ addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
       this.topicForm.controls['two']['controls']?.author?.value +
       '>';
     this.topicForm.controls.authors.setValue(authors);
-    
+
     this.setPictureSource();
     this.getRelatedQueries();
   }
@@ -148,12 +170,17 @@ addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
       this.topicForm.controls.one['controls']?.source?.setValue(
         commonsImgSourceOne
       );
+      const altTagText = this.getCommonsImgAlt('one');
+      console.log('altTagText', altTagText);
+      this.topicForm.controls.one['controls']?.altText?.setValue(altTagText);
     }
     if (this.topicForm.value.two.type === 'AI') {
       const commonsImgSourceTwo = this.getCommonsImgSource('two');
       this.topicForm.controls.two['controls']?.source?.setValue(
         commonsImgSourceTwo
       );
+      const altTagText = this.getCommonsImgAlt('two');
+      this.topicForm.controls.two['controls']?.altText?.setValue(altTagText);
     }
   }
 
@@ -161,7 +188,8 @@ addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
    *
    * The Commons image looks like this:
    *```json
-   * "commonImg":"<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Harrison_Barnes_Klay_Thompson.jpg/240px-Harrison_Barnes_Klay_Thompson.jpg\" data-src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Harrison_Barnes_Klay_Thompson.jpg/240px-Harrison_Barnes_Klay_Thompson.jpg\" alt=\"Harrison Barnes Klay Thompson.jpg\" loading=\"lazy\" class=\"sd-image\" style=\"height: 100% !important; max-width: 4320px !important; max-height: 3240px;\">",
+   * "commonImg":"<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Harrison_Barnes_Klay_Thompson.jpg/240px-Harrison_Barnes_Klay_Thompson.jpg\" data-src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Harrison_Barnes_Klay_Thompson.jpg/240px-Harrison_Barnes_Klay_Thompson.jpg\"
+   *  alt=\"Harrison Barnes Klay Thompson.jpg\" loading=\"lazy\" class=\"sd-image\" style=\"height: 100% !important; max-width: 4320px !important; max-height: 3240px;\">",
    *```
    *We want this from the above:
    *https://commons.wikimedia.org/wiki/File:Harrison_Barnes_Klay_Thompson.jpg
@@ -169,14 +197,29 @@ addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
    *The base url is this: "https://commons.wikimedia.org/wiki/File:"
    */
   getCommonsImgSource(type: string) {
-    const commonImg: string = this.topicForm.controls.one['controls'].commonImg.value;
+    const commonImg: string = this.topicForm.controls[type]['controls']
+      .commonImg.value;
     const fileExt = commonImg.indexOf('.jpg');
     const upTo = commonImg.substring(0, fileExt + 4);
     const start = upTo.lastIndexOf('/');
     const baseUrl = 'https://commons.wikimedia.org/wiki/File:';
     const source = upTo.substring(start + 1, upTo.length);
-    this.topicForm.controls[type]['controls'].source.setValue(source);
+    // this.topicForm.controls[type]['controls'].source.setValue(source);
     return baseUrl + source;
+  }
+
+  /**
+   *   The alt can be captured as part of this function.
+   *  alt=\"Harrison Barnes Klay Thompson.jpg\"
+   */
+  getCommonsImgAlt(type: string) {
+    const commonImg: string = this.topicForm.controls[type]['controls']
+      .commonImg.value;
+    const altTagStart = commonImg.indexOf('alt');
+    const secondPart = commonImg.substring(altTagStart + 5, commonImg.length);
+    const altTagEnd = secondPart.indexOf('"');
+    const altTag = secondPart.substring(0, altTagEnd);
+    return altTag;
   }
 
   /** Sort through the list and find the item who's title matches the trendTitleSeen
@@ -187,10 +230,8 @@ addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
       const queries = [this.trendTitleSeen];
       results.forEach((result) => {
         if (result.title.query === this.trendTitleSeen) {
-          console.log('found', result);
           result.relatedQueries.forEach((item) => {
             // get all relatedQueries.query strings
-            console.log('add keyword', item.query);
             queries.push(item.query);
           });
         }

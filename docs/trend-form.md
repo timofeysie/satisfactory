@@ -524,6 +524,20 @@ There is also the use content field, which is not currently used:
 
 I think the idea was to maybe scrape the page and use the content for the ML description generation with the LSTM app.
 
+## Chosen trend text
+
+When a trend is chosen, we want to strip out the content that can be used to train the LSTM model which creates the description of the topic picture.
+
+For this we loop through the selected json and add each of these to a text field:
+
+```txt
+snippet: "The rapper says he is &quot;absolutely devastated&quot; by the deaths that occurred at his Astroworld festival."
+source: "BBC News"
+title: "Travis Scott &#39;devastated&#39; by Texas festival deaths"
+```
+
+Planning for future automation, at first we thought the backend should do a Bing search to get all this, and it would be added then.  But since we have this in the front end, it's easy to allow the user to use the links created and dump whatever they want into the text which will be posted to the server, and then the Bing search results can be merged with that later.
+
 ## Post the form
 
 - Post send form and selected trend section
@@ -549,7 +563,10 @@ I think the idea was to maybe scrape the page and use the content for the ML des
 
 ### Todo
 
-- create api to return raw data for lstm model generation
+- create api to return raw data for lstm model generation?
+- or allow editing and adding raw text from links before post?
+- show total lines
+- allow adding more content and
 
 ## Merge projects
 

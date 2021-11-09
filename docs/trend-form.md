@@ -543,7 +543,31 @@ Planning for future automation, at first we thought the backend should do a Bing
 - Post send form and selected trend section
 - show todo list of remaining work for post
 
-### Todo list after post0
+## Next commit
+
+- Added row and column styles for title and link inputs, handleNewWikiSearchTerm output and fillLinks function in the trends.component container
+
+## srcSet & altText fields
+
+Here is an example of what we currently have:
+
+```json
+altText: 'Champions League by Transition Cat',
+imageSrc:
+  './../assets/pictures/Champions-League/champions-league-by-transition-cat.jpg',
+srcset: `./../assets/pictures/Champions-League/champions-league-by-transition-cat-adjusted_300w.jpg,
+'./../assets/pictures/Champions-League/champions-league-by-transition-cat-adjusted_600w.jpg
+'./../assets/pictures/Champions-League/champions-league-by-transition-cat-adjusted_1800w.jpg`,
+description: 'A shiny trophies trophy',
+```
+
+## Todo before post form work
+
+- srcSet
+- tags for individual picture
+- make title/link input fields on the create post section fill their containers
+
+### Todo list after post
 
 - identify dimensions of artist image
 - load raw data for lstm description generation

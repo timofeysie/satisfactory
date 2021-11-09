@@ -4,20 +4,22 @@
       <mat-card-title> Complete post form </mat-card-title>
     </mat-card-header> -->
     <mat-card-content>
-      <mat-form-field class="example-full-width" appearance="fill">
+      <div class="row">
+      <mat-form-field class="column full-width" appearance="fill">
         <mat-label>title</mat-label>
         <input matInput value="pageTitle" formControlName="pageTitle" />
       </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="fill">
+      <mat-form-field class="column full-width" appearance="fill">
         <mat-label>authors</mat-label>
         <input matInput value="authors" formControlName="authors" />
       </mat-form-field>
-      <div class="keywords">
-        <mat-form-field class="example-full-width" appearance="fill">
+      </div>
+      <div class="keywords row">
+        <mat-form-field class="column full-width" appearance="fill">
           <mat-label>linkLabel</mat-label>
           <input matInput value="linkLabel" formControlName="linkLabel" />
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="column full-width" appearance="fill">
           <mat-label>linkUrl</mat-label>
           <input matInput value="linkUrl" formControlName="linkUrl" />
         </mat-form-field>

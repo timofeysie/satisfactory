@@ -3,6 +3,11 @@
   width: 100%;
 }
 
+.half-width {
+  width: -webkit-fill-available;
+  width: 100%;
+}
+
 .row {
   display: flex;
   flex-direction: row;

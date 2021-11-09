@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   FormGroup,
   FormGroupDirective,
@@ -16,6 +16,7 @@ import {
 export class TrendsLinksComponent implements OnInit {
   @Input() trendTitleSeen: string;
   @Input() topicForm: FormGroup;
+  @Output() handleNewWikiSearchTerm = new EventEmitter<any>();
   newNewsLink: string;
   newWikiSearchTerm: string;
 
@@ -28,9 +29,10 @@ export class TrendsLinksComponent implements OnInit {
 
   onUpdatedWikiSearchTerm() {
     this.newWikiSearchTerm = this.topicForm.value.links.wikiLink;
+    this.handleNewWikiSearchTerm.emit(this.newWikiSearchTerm);
   }
 
   onUpdatedNewsSearchTerm() {
-    this.newNewsLink = this.topicForm.value.links.newsLink;;
+    this.newNewsLink = this.topicForm.value.links.newsLink;
   }
 }

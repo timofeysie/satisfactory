@@ -23,6 +23,7 @@ export class TrendsComponent implements OnInit {
   trendTitleSeen: string;
   trendTitleSeenBackup: string; // this is a code smell!
   completePostMode = false;
+  newWikiSearchTerm: string;
   topicForm = this.fb.group({
     pageTitle: [''],
     authors: [''],
@@ -87,11 +88,13 @@ export class TrendsComponent implements OnInit {
 
   onTrendSeen(trend: any) {
     this.trendTitleSeen = trend.title.query;
+    this.newWikiSearchTerm = this.trendTitleSeen;
     // console.log('trend selected', trend.articles);
     this.trendDetails = trend;
     this.completePostMode = false;
     this.getCommonsImages(this.trendTitleSeen);
     this.captureTrendDetailsText(trend.articles);
+    this.fillLinks();
   }
 
   onHandleShowForm() {
@@ -117,6 +120,10 @@ export class TrendsComponent implements OnInit {
     this.topicForm.controls.one['controls']?.commonImg?.setValue(image);
   }
 
+  onHandleNewWikiSearchTerm(newValue: string) {
+    this.newWikiSearchTerm = newValue;
+  }
+
   /**
    * For this we loop through the selected json and add each of these to a text field:
    * ```txt
@@ -136,12 +143,6 @@ export class TrendsComponent implements OnInit {
   }
 
   /**
-
-    this.fb.group({ newsLink: [''], useAPNewsLink: ['true'],
-addAPNewsContent: [''], wikiLink: [''], useWikiLink: ['true'],
-addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
-[''], author: ['AI'], altText: [''], imageSrc: [''], srcset: [''], description:
-[''], tags: [''], source: [''], type: ['AI'], commonImg: [''], googleImg: [''],
    */
   preFillForm() {
     this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
@@ -153,9 +154,24 @@ addWikiLinkContent: [''], }), // image one form one: this.fb.group({ title:
       this.topicForm.controls['two']['controls']?.author?.value +
       '>';
     this.topicForm.controls.authors.setValue(authors);
-
+    this.fillLinks();
     this.setPictureSource();
     this.getRelatedQueries();
+  }
+
+  /**
+   * Create link and label for Wikipedia.
+   * https://en.wikipedia.org/wiki/{{ newWikiSearchTerm }}
+   */
+  fillLinks() {
+    if (this.topicForm.value.links.useWikiLink === 'true') {
+      this.topicForm.controls.linkUrl.setValue(
+        'https://en.wikipedia.org/wiki/' + this.newWikiSearchTerm
+      );
+      this.topicForm.controls.linkLabel.setValue(
+        this.trendTitleSeen + 'on Wikipedia'
+      );
+    }
   }
 
   /**

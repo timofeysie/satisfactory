@@ -155,7 +155,12 @@ export class TrendsComponent implements OnInit {
       '>';
     this.topicForm.controls.authors.setValue(authors);
     this.fillLinks();
-    this.setPictureSource();
+    if (this.topicForm.value.one.type === 'AI') {
+      this.setAIPictureNumberData('one');
+    }
+    if (this.topicForm.value.two.type === 'AI') {
+      this.setAIPictureNumberData('two');
+    }
     this.getRelatedQueries();
   }
 
@@ -180,24 +185,34 @@ export class TrendsComponent implements OnInit {
    * If the type is artist, then there should be another method for setting the source,
    * such as let the artist plug their own site or Instagram account, bio or something.
    */
-  setPictureSource() {
-    if (this.topicForm.value.one.type === 'AI') {
-      const commonsImgSourceOne = this.getCommonsImgSource('one');
-      this.topicForm.controls.one['controls']?.source?.setValue(
-        commonsImgSourceOne
-      );
-      const altTagText = this.getCommonsImgAlt('one');
-      console.log('altTagText', altTagText);
-      this.topicForm.controls.one['controls']?.altText?.setValue(altTagText);
-    }
-    if (this.topicForm.value.two.type === 'AI') {
-      const commonsImgSourceTwo = this.getCommonsImgSource('two');
-      this.topicForm.controls.two['controls']?.source?.setValue(
-        commonsImgSourceTwo
-      );
-      const altTagText = this.getCommonsImgAlt('two');
-      this.topicForm.controls.two['controls']?.altText?.setValue(altTagText);
-    }
+  setAIPictureNumberData(pictureNumber: string) {
+    const commonsImgSource = this.getCommonsImgSource(pictureNumber);
+    const altTagText = this.getCommonsImgAlt(pictureNumber);
+    const srcset = this.createSrcSet(this.trendTitleSeen, pictureNumber);
+    const altTagWithoutExt = this.removeFileExt(altTagText);
+    const tags =this.trendTitleSeen + ', '+ altTagWithoutExt;
+    this.topicForm.controls[pictureNumber]['controls']?.source?.setValue(
+      commonsImgSource
+    );
+    this.topicForm.controls[pictureNumber]['controls']?.altText?.setValue(
+      altTagText
+    );
+    this.topicForm.controls[pictureNumber]['controls']?.srcset?.setValue(
+      srcset
+    );
+    this.topicForm.controls[pictureNumber]['controls']?.tags?.setValue(tags);
+  }
+
+  removeFileExt(text: string) {
+    const dot = text.lastIndexOf('.');
+    const newText = text.substring(0, dot);
+    return newText;
+  }
+
+  createSrcSet(title: string, author: string) {
+    return `./../assets/pictures/${title}/${title} by ${author}_300w.jpg,
+      ./../assets/pictures/${title}/${title} by $author}_600w.jpg
+      ./../assets/pictures/${title}/${title} by ${author}_1800w.jpg`;
   }
 
   /**
@@ -220,7 +235,6 @@ export class TrendsComponent implements OnInit {
     const start = upTo.lastIndexOf('/');
     const baseUrl = 'https://commons.wikimedia.org/wiki/File:';
     const source = upTo.substring(start + 1, upTo.length);
-    // this.topicForm.controls[type]['controls'].source.setValue(source);
     return baseUrl + source;
   }
 
@@ -270,6 +284,7 @@ export class TrendsComponent implements OnInit {
   }
 
   onUpdateSearchTerm(newSearchTerm: string) {
+    this.commonImages = null;
     this.getCommonsImages(newSearchTerm);
   }
 }

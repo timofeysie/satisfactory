@@ -13,9 +13,31 @@
   text-overflow: ellipsis;
 }
 
-.separator {
-  margin-right: 6px;
-  margin-left: 6px;
+// Tried to removed the select underline style (and failed)
+// as well as tighten up the whole form so it takes up as little
+// vertical space as possible here
+
+.picture-post-card {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.picture-post-card-top {
+  margin-top: 0;
+  padding-bottom: 0;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding: 5px 0;
+}
+
+.mat-form-field-infix {
+    padding: 0;
+    border-top: 0;
 }
 
 .no-style-input {

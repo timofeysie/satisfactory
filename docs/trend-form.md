@@ -538,20 +538,11 @@ title: "Travis Scott &#39;devastated&#39; by Texas festival deaths"
 
 Planning for future automation, at first we thought the backend should do a Bing search to get all this, and it would be added then.  But since we have this in the front end, it's easy to allow the user to use the links created and dump whatever they want into the text which will be posted to the server, and then the Bing search results can be merged with that later.
 
-## Post the form
-
-- Post send form and selected trend section
-- show todo list of remaining work for post
-
-## Next commit
-
-- Added row and column styles for title and link inputs, handleNewWikiSearchTerm output and fillLinks function in the trends.component container
-
-## srcSet & altText fields
+## srcSet, tags & altText fields
 
 Here is an example of what we currently have:
 
-```json
+```js
 altText: 'Champions League by Transition Cat',
 imageSrc:
   './../assets/pictures/Champions-League/champions-league-by-transition-cat.jpg',
@@ -561,11 +552,55 @@ srcset: `./../assets/pictures/Champions-League/champions-league-by-transition-ca
 description: 'A shiny trophies trophy',
 ```
 
+The altText should be the title + artist.  Right now it is just the title of the Wikicommons image source, including the file extension.  What we need to do is slip the author in between the two (you wish!).
+
+The srcSet should be configurable, and maybe we want to add some input to let the user configure.  However, to get on with the show, this format will just be hardwired.  If this app turns out to be worthwhile, there will be plenty of time for improvements.
+
+```js
+./../assets/pictures/<title>/title + artist>.jpg
+./../assets/pictures/<title>/title + artist>_300w.jpg
+./../assets/pictures/<title>/<title + artist>_600w.jpg
+./../assets/pictures/<title>/<title + artist>_1800w.jpg
+```
+
+That is a nice look to it.
+
+The tags for each picture are similar to the keywords for the whole post.  They can also include the image alt text sans the file extension.
+
+This is an odd problem:
+
+```js
+    const tags = this.topicForm.controls.keywords.value;
+    this.topicForm.controls[pictureNumber]['controls']?tags?.setValue(tags);
+```
+
+The 'tags' has a red squiggly line under it with a mouseover error saying:
+
+```txt
+Parsing error: ':' expected.eslint
+const tags: any
+No quick fixes available
+```
+
+It's a silly mistake, but the error message doesn't help identify what is silly.
+
+In this case, there is a missing dot.  See if you can spot it.
+
+```js
+this.topicForm.controls[pictureNumber]['controls']?.tags?.setValue(tags);
+```
+
 ## Todo before post form work
 
-- srcSet
+- Timry Tenry group artist name
+- common images on-change loading message
 - tags for individual picture
 - make title/link input fields on the create post section fill their containers
+
+## Post the form
+
+- Post send form and selected trend section
+- show todo list of remaining work for post
 
 ### Todo list after post
 

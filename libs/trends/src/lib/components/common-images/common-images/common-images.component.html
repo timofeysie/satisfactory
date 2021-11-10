@@ -7,7 +7,7 @@
         name="searchTerm"
         [(ngModel)]="searchTerm"
       />
-    <button type="submit" (click)="onSubmit()">(update)</button>
+    <button type="button" (click)="onUpdate()">(update)</button>
   </h5>
   <span *ngFor="let image of images"
     ><span

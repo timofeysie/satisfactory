@@ -1,4 +1,9 @@
-import { Component, Input, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  AfterViewInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   FormGroup,
   FormGroupDirective,
@@ -12,6 +17,7 @@ import {
   viewProviders: [
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class TopicFormComponent implements AfterViewInit {
   @Input() topicForm: FormGroup;

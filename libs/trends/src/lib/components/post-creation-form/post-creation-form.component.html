@@ -5,14 +5,14 @@
     </mat-card-header> -->
     <mat-card-content>
       <div class="row">
-      <mat-form-field class="column full-width" appearance="fill">
-        <mat-label>title</mat-label>
-        <input matInput value="pageTitle" formControlName="pageTitle" />
-      </mat-form-field>
-      <mat-form-field class="column full-width" appearance="fill">
-        <mat-label>authors</mat-label>
-        <input matInput value="authors" formControlName="authors" />
-      </mat-form-field>
+        <mat-form-field class="column full-width" appearance="fill">
+          <mat-label>title</mat-label>
+          <input matInput value="pageTitle" formControlName="pageTitle" />
+        </mat-form-field>
+        <mat-form-field class="column full-width" appearance="fill">
+          <mat-label>authors</mat-label>
+          <input matInput value="authors" formControlName="authors" />
+        </mat-form-field>
       </div>
       <div class="keywords row">
         <mat-form-field class="column full-width" appearance="fill">
@@ -29,18 +29,6 @@
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>keywords</mat-label>
           <input matInput value="keywords" formControlName="keywords" />
-        </mat-form-field>
-      </div>
-      <div class="description">
-        <mat-form-field class="full-width" appearance="fill">
-          <mat-label>description</mat-label>
-          <textarea
-            matInput
-            value="description"
-            placeholder="Comment"
-            formControlName="description"
-          >
-          </textarea>
         </mat-form-field>
       </div>
     </mat-card-content>
@@ -95,21 +83,29 @@
               <input matInput value="source" formControlName="source" />
             </mat-form-field>
           </div>
-          <div class="picture-description">
+          <mat-form-field
+            class="full-width"
+            appearance="fill"
+          >
             <textarea
               matInput
               placeholder="description"
               value="description"
               formControlName="description"
             ></textarea>
-          </div>
+          </mat-form-field>
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>altText</mat-label>
             <input matInput value="altText" formControlName="altText" />
           </mat-form-field>
           <mat-form-field class="full-width" appearance="fill">
-            <mat-label>srcset</mat-label>
-            <input matInput value="srcset" formControlName="srcset" />
+            <textarea
+              matInput
+              rows="3"
+              placeholder="srcset"
+              value="srcset"
+              formControlName="srcset"
+            ></textarea>
           </mat-form-field>
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>tags</mat-label>
@@ -192,6 +188,19 @@
     </div>
   </div>
   <mat-card>
+    <div class="description">
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>description</mat-label>
+          <textarea
+            matInput
+            value="description"
+            formControlName="description"
+          >
+          </textarea>
+        </mat-form-field>
+      </div>
+  </mat-card>
+  <mat-card>
     <mat-card-header>
       <mat-card-title>Text used to create description model</mat-card-title>
     </mat-card-header>
@@ -206,7 +215,7 @@
             formControlName="topicText"
           ></textarea>
         </div>
-        <h5>Lines {{textLines}}</h5>
+        <h5>Lines {{ textLines }}</h5>
         <button (click)="calculateLines()">Calculate Lines</button>
       </mat-form-field>
     </mat-card-content>

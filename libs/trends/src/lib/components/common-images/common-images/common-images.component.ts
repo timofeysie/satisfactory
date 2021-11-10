@@ -23,7 +23,7 @@ export class CommonImagesComponent implements OnInit {
     this.selectedCommonsImage.emit(image);
   }
 
-  onSubmit() {
+  onUpdate() {
     this.updateSearchTerm.emit(this.searchTerm);
   }
 }

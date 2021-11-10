@@ -1,7 +1,8 @@
 <div formGroupName="one" class="links">
-  <mat-card>
-    <mat-form-field class="selector">
+  <mat-card class="picture-post-card">
+    <mat-form-field class="selector picture-post-card-top">
       <mat-select
+      appearance="none"
         #typeSelector
         click="typeSelector.close()"
         placeholder="Type"
@@ -40,15 +41,15 @@
         formControlName="googleImage"
         placeholder="(image url)"
       />
-      <!-- <button (click)="onUpdatedGoogleImage('one')">(update)</button> -->
     </div>
   </mat-card>
 </div>
 
 <div formGroupName="two" class="links">
-  <mat-card>
-    <mat-form-field class="selector">
+  <mat-card class="picture-post-card">
+    <mat-form-field class="selector picture-post-card-top">
       <mat-select
+      appearance="none"
         #typeSelector
         click="typeSelector.close()"
         placeholder="Type"

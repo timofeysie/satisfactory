@@ -15,11 +15,14 @@ export class TrendsService {
     );
   }
 
+  postTrendTopic(body: any): Observable<any> {
+    return this.httpClient.post<any>('http://localhost:3333/api/trends/', body);
+  }
+
   getCommonsImages(trend: any): any {
     console.log('loading', trend);
     return this.httpClient.get<any>(
       'http://localhost:3333/api/images/' + trend
     );
   }
-
 }

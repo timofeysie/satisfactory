@@ -8,7 +8,7 @@ export class TrendsController {
   constructor(private readonly trendsService: TrendsService) {}
 
   @Post()
-  create(@Body() createTrendDto: CreateTrendDto) {
+  create(@Body() createTrendDto: any) {
     return this.trendsService.create(createTrendDto);
   }
 

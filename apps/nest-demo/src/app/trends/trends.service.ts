@@ -6,6 +6,7 @@ import * as googleTrends from 'google-trends-api';
 @Injectable()
 export class TrendsService {
   create(createTrendDto: CreateTrendDto) {
+    console.log('got', createTrendDto);
     return 'This action adds a new trend';
   }
 

@@ -590,48 +590,42 @@ In this case, there is a missing dot.  See if you can spot it.
 this.topicForm.controls[pictureNumber]['controls']?.tags?.setValue(tags);
 ```
 
-## Todo before post form work
-
-- Timry Tenry group artist name
-- common images on-change loading message
-- tags for individual picture
-- make title/link input fields on the create post section fill their containers
-
 ## Post the form
+
+First, get the json from the form.  There might be some extra fields that can be removed.
+
+We probably don't need the links sub-form.
+
+Looking at the this.topicForm.value in the onHandleSubmitForm() function, it has a few "[[Prototype]]: Object" showing up at the end of the json:
+
+```json
+title: "Rivian stock"
+type: "AI"
+[[Prototype]]: Object
+```
+
+Not sure if that's going to be an issue yet.  Time to find out.  What is our endpoint now?  Check the next logs:
+
+[Nest] 2180   - 11/11/2021, 3:21:31 am   [RouterExplorer] Mapped {/api/trends, POST} route +13ms
+
+Oh, was I really up at 3:21 am?  Yes, I was.  It's 6:12 now and feeling it.  Should probably go back to bed.  Have to drive the daughter to school at 8.
 
 - Post send form and selected trend section
 - show todo list of remaining work for post
 
-### Todo list after post
+### remove special characters
 
-- identify dimensions of artist image
-- load raw data for lstm description generation
+Theses are some of the issues seen:
 
-### Backend
+&nbsp;
+&#39;
+&quot;
 
-- save json for post
-- download image
-- create route for post
+We might want to just un-encode them for the front-end, and let the back end un-encode them before saving the text.
 
-### Pythons scrips
+After this, it's time to move the below todo items somewhere else.  We have a todo file, but maybe we don't need that, and could just use the changelog.  Items from the todo list naturally get moved into done and released as part of a certain version.  At least something to think about.  For now, moving everything to the todo file.
 
-- lstm generate script
-- cartoonify image
-- copy images to dir
-- add description added to form
+## Todo
 
-### Todo
-
-- create api to return raw data for lstm model generation?
-- or allow editing and adding raw text from links before post?
-- show total lines
-- allow adding more content and
-
-## Merge projects
-
-- upgrade Tundra to latest Angular (or version from Satisfactory)
-- Add Satisfaction apps and libs to Tundra
-- Add Python projects to Tundra
-- Automate create 10 descriptions for the user to choose from
-- Create api to let the user load the 10 descriptions in the front end
-- Create page to allow the user to select a description
+- Post result message
+- clear form when going back to the trends list, or provide a clear button.

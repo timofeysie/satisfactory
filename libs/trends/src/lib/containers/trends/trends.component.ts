@@ -102,7 +102,7 @@ export class TrendsComponent implements OnInit {
   }
 
   onHandleSubmitForm() {
-    // to implement
+    this.trendsService.postTrendTopic(this.topicForm.value).subscribe();
   }
 
   onHandleBackToSetup() {
@@ -190,7 +190,7 @@ export class TrendsComponent implements OnInit {
     const altTagText = this.getCommonsImgAlt(pictureNumber);
     const srcset = this.createSrcSet(this.trendTitleSeen, pictureNumber);
     const altTagWithoutExt = this.removeFileExt(altTagText);
-    const tags =this.trendTitleSeen + ', '+ altTagWithoutExt;
+    const tags = this.trendTitleSeen + ', ' + altTagWithoutExt;
     this.topicForm.controls[pictureNumber]['controls']?.source?.setValue(
       commonsImgSource
     );
@@ -211,8 +211,8 @@ export class TrendsComponent implements OnInit {
 
   createSrcSet(title: string, author: string) {
     return `./../assets/pictures/${title}/${title} by ${author}_300w.jpg,
-      ./../assets/pictures/${title}/${title} by $author}_600w.jpg
-      ./../assets/pictures/${title}/${title} by ${author}_1800w.jpg`;
+./../assets/pictures/${title}/${title} by $author}_600w.jpg
+./../assets/pictures/${title}/${title} by ${author}_1800w.jpg`;
   }
 
   /**

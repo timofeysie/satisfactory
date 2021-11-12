@@ -2,11 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { CreateTrendDto } from './dto/create-trend.dto';
 import { UpdateTrendDto } from './dto/update-trend.dto';
 import * as googleTrends from 'google-trends-api';
+import * as fs from 'fs';
 
 @Injectable()
 export class TrendsService {
-  create(createTrendDto: CreateTrendDto) {
-    console.log('got', createTrendDto);
+  create(createTrendDto: any) {
+    const file = fs.createWriteStream('posts/post.json');
+    file.on('error', function (err) {
+      /* error handling */
+    });
+    file.write(JSON.stringify(createTrendDto));
+    file.end();
     return 'This action adds a new trend';
   }
 

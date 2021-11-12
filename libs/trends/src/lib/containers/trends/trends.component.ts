@@ -139,7 +139,15 @@ export class TrendsComponent implements OnInit {
       capturedText = capturedText + item.title + '\n';
       capturedText = capturedText + item.snippet + '\n';
     });
-    this.topicForm.controls.topicText.setValue(capturedText);
+    this.topicForm.controls.topicText.setValue(this.decode(capturedText));
+  }
+
+  decode(input) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = input;
+    const temp = txt.value.replace('<i>', '');
+    const output = temp.replace('</i>', '');
+    return output;
   }
 
   /**

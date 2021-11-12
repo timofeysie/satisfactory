@@ -6,10 +6,10 @@
       <div class="content">
         <div>
           {{ article.timeAgo }}
-          <a href="{{ article.image?.newsUrl }}"> {{ article.title }}</a>
+          <a href="{{ article.image?.newsUrl }}"> <span [innerHTML]="decode(article.title)"></span></a>
         </div>
-        <div>{{ article.source }}</div>
-        <div>{{ article.snippet }}</div>
+        <div [innerHTML]="decode(article.source)"></div>
+        <div [innerHTML]="decode(article.snippet)"></div>
       </div>
     </mat-card-content>
   </mat-card>

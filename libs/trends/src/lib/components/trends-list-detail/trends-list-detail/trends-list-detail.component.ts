@@ -7,4 +7,10 @@ import { Component, Input } from '@angular/core';
 })
 export class TrendsListDetailComponent {
   @Input() trendDetails: any;
+
+  decode(input) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = input;
+    return txt.value;
+  }
 }

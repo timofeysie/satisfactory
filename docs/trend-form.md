@@ -623,9 +623,34 @@ Theses are some of the issues seen:
 
 We might want to just un-encode them for the front-end, and let the back end un-encode them before saving the text.
 
-After this, it's time to move the below todo items somewhere else.  We have a todo file, but maybe we don't need that, and could just use the changelog.  Items from the todo list naturally get moved into done and released as part of a certain version.  At least something to think about.  For now, moving everything to the todo file.
+After a bit of reading about various solutions to this issue, a pipe with a function like this works OK:
+
+```js
+  decode(input) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = input;
+    const temp = txt.value.replace('<i>', '');
+    const output = temp.replace('</i>', '');
+    return output;
+  }
+```
+
+That's based on Rob W's (rep 322k) answer from 2012 to [this question on SO](https://stackoverflow.com/questions/7394748/whats-the-right-way-to-decode-a-string-that-has-special-html-entities-in-it/7394787).
+
+It didn't work for the italics, so I added that.  Then, I decided I wanted to preserve that, so took out the replace functions and used this also in the template.
+
+```html
+<span [innerHTML]="decode(article.title)">
+```
+
+So actually, a pipe is not going to work there, so just create a shared utility for this?  Seems like too small a function to need that.
+
+But then, for the topic text field, which gets used to train the LSTM model, we don't want that markup, so in the trends.component, we can use the one shown above.
 
 ## Todo
+
+- the description of the AI should be pre-filled with <AI-description> or something.
+- the artist description field on the form needs to be standard.
 
 - Post result message
 - clear form when going back to the trends list, or provide a clear button.

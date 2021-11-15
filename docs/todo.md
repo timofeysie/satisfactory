@@ -20,6 +20,7 @@ Loading spinner for Wikimedia Commons images doesn't work when choosing the upda
 - load raw data for lstm description generation
 - Timry Tenry or Him Hem or Hemithy group artist name
 - make title/link input fields on the create post section fill their containers
+- the AI type doesn't use srcset currently, so this should be optional
 
 ### Backend Todo
 
@@ -27,6 +28,7 @@ Loading spinner for Wikimedia Commons images doesn't work when choosing the upda
 - download image
 - save topicText for model creation
 - create route for post
+- show all sections of Google trends result, not just last day
 
 ### Pythons scrips Todo
 

@@ -654,3 +654,5 @@ But then, for the topic text field, which gets used to train the LSTM model, we 
 
 - Post result message
 - clear form when going back to the trends list, or provide a clear button.
+- wikiLink: ' Kosmos 1408 ', needs to be a link.
+- imageSrc needs full path './../assets/pictures/Champions-League/UEFA_Champions_League_Hosoda.jpg',

@@ -12,19 +12,26 @@ But really, very quickly we should remove the one/two hardwired approach and jus
 
 Loading spinner for Wikimedia Commons images doesn't work when choosing the update button.
 
-
 ### Frontend Todo
 
-- remove special characters from trend details and text used to create description model
+done - remove special characters from trend details and text used to create description model
+
 - identify dimensions of artist image
 - load raw data for lstm description generation
-- Timry Tenry or Him Hem or Hemithy group artist name
+- Timry Tenry or Him Hem or Hemithy group artist name (Josm Parchod, Tosh Carr)
 - make title/link input fields on the create post section fill their containers
 - the AI type doesn't use srcset currently, so this should be optional
+- wikiLink: ' Kosmos 1408 ', needs to be translated to full link
+- imageSrc needs full path like './../assets/pictures/Champions-League/UEFA_Champions_League_Hosoda.jpg',
+- add description type: paragraph | poem
 
 ### Backend Todo
 
-- save json for post
+done - save json for post
+
+- topicText and links need to be removed from the generated json
+- googleImage and commonsImage are also not used
+- Picture titles need to include author: one: { title: 'Belfast by AI', ...
 - download image
 - save topicText for model creation
 - create route for post

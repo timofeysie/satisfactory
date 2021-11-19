@@ -105,7 +105,7 @@ C:\Users\timof\repos\python\cartoonify\cartooned_img
 
 4.1 Add images to assets directory
 
-apps\my-app\src\assets\pictures\<topic>\<topic.jpg>
+apps\my-app\src\assets\pictures\<topic>\\<topic.jpg>
 
 4.2 Add the json created 1.4 to the data file:
 

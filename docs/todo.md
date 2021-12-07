@@ -10,12 +10,19 @@ But really, very quickly we should remove the one/two hardwired approach and jus
 
 ## Issues
 
-Loading spinner for Wikimedia Commons images doesn't work when choosing the update button.
+### Current
+
+- add three original meta-descriptions pre-filled using the description via a button.
+- actual description should be an array of sections representing paragraphs.
+- srcset should be prefilled for Artist pictures only
 
 ### Frontend Todo
 
 done - remove special characters from trend details and text used to create description model
 
+- Loading spinner for Wikimedia Commons images doesn't work when choosing the update button
+- Meta description length: a minimum of 100 characters is recommended
+- Word count total: 115, Corrected word count: 100, Anchor text words: 15
 - identify dimensions of artist image
 - load raw data for lstm description generation
 - Timry Tenry or Him Hem or Hemithy group artist name (Josm Parchod, Tosh Carr)
@@ -24,6 +31,16 @@ done - remove special characters from trend details and text used to create desc
 - wikiLink: ' Kosmos 1408 ', needs to be translated to full link
 - imageSrc needs full path like './../assets/pictures/Champions-League/UEFA_Champions_League_Hosoda.jpg',
 - add description type: paragraph | poem
+- sercset and  image src names need underscores not spaces: "Belfast by one_300w.jpg"
+- Need to have an easily search for marker for "one" and "two".  Like "<one_ai>" and "<two_artist>".
+- Srcset needs to have separate widths for protrait and landscape.  Ie: does width 300, 600, 1800 also make sense for portrait?
+- need to allow multiple links for topics.
+- mobile check for layout change not working on first load
+
+### Data structure
+
+- images should be s3 links
+- posts should have primary index (NgRx with entity adapter?)
 
 ### Backend Todo
 

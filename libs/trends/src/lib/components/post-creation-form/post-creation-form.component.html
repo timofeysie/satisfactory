@@ -1,12 +1,11 @@
 <div [formGroup]="fullTopicForm">
   <mat-card>
-    <!-- <mat-card-header>
-      <mat-card-title> Complete post form </mat-card-title>
-    </mat-card-header> -->
     <mat-card-content>
       <div class="row">
-        <mat-form-field class="column full-width" appearance="fill">
-          <mat-label>title</mat-label>
+        <mat-form-field class="column full-width-block" appearance="fill">
+          <mat-label>title
+            <span *ngIf="fullTopicForm.controls.pageTitle.value.length < 29">30 characters is recommended</span>
+          </mat-label>
           <input matInput value="pageTitle" formControlName="pageTitle" />
         </mat-form-field>
         <mat-form-field class="column full-width" appearance="fill">
@@ -35,6 +34,8 @@
   </mat-card>
 
   <div class="row">
+
+    <!-- one -->
     <div class="column">
       <mat-card class="full-width" [formGroup]="fullTopicForm.get('one')">
         <mat-card-header>
@@ -89,11 +90,26 @@
           >
             <textarea
               matInput
-              placeholder="description"
-              value="description"
+              placeholder="description "
+              value="description, a minimum of 100 characters is recommended"
               formControlName="description"
             ></textarea>
           </mat-form-field>
+          
+          <!-- one meta-description -->
+          <mat-form-field
+            class="full-width"
+            appearance="fill"
+          >
+          <mat-label>Meta description: Length should be from 120 to 156 characters.</mat-label>
+            <textarea
+              matInput
+              placeholder="Hello, we have such and such new features, and you want it. Find out more!"
+              value="description, a minimum of 100 characters is recommended"
+              formControlName="metaDescription"
+            ></textarea>
+          </mat-form-field>
+
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>altText</mat-label>
             <input matInput value="altText" formControlName="altText" />
@@ -115,6 +131,7 @@
       </mat-card>
     </div>
 
+    <!-- two -->
     <div class="column">
       <mat-card class="full-width" [formGroup]="fullTopicForm.get('two')">
         <mat-card-header>
@@ -163,14 +180,32 @@
               <input matInput value="source" formControlName="source" />
             </mat-form-field>
           </div>
-          <div class="picture-description">
+            <mat-form-field
+            class="full-width"
+            appearance="fill"
+          >
             <textarea
               matInput
-              placeholder="description"
-              value="description"
+              placeholder="description "
+              value="description, a minimum of 100 characters is recommended"
               formControlName="description"
             ></textarea>
-          </div>
+          </mat-form-field>
+          
+          <!-- two meta-description -->
+          <mat-form-field
+            class="full-width"
+            appearance="fill"
+          >
+          <mat-label>Meta description: Length should be from 120 to 156 characters.</mat-label>
+            <textarea
+              matInput
+              placeholder="Hello, we have such and such new features, and you want it. Find out more!"
+              value="description, a minimum of 100 characters is recommended"
+              formControlName="metaDescription"
+            ></textarea>
+          </mat-form-field>
+
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>altText</mat-label>
             <input matInput value="altText" formControlName="altText" />
@@ -198,6 +233,19 @@
           >
           </textarea>
         </mat-form-field>
+        <!-- main post meta-description -->
+          <mat-form-field
+            class="full-width"
+            appearance="fill"
+          >
+          <mat-label>Meta description: Length should be from 120 to 156 characters.</mat-label>
+            <textarea
+              matInput
+              placeholder="Hello, we have such and such new features, and you want it. Find out more!"
+              value="description, a minimum of 100 characters is recommended"
+              formControlName="metaDescription"
+            ></textarea>
+          </mat-form-field>
       </div>
   </mat-card>
   <mat-card>

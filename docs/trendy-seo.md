@@ -1,5 +1,36 @@
 # Trendy SEO
 
+## Content updates
+
+Recommendations from the Belfast post.
+
+### The titles
+
+- done. Belfast: Title length: 7.  Your Title tag is too short, a minimum of 30 characters is recommended
+
+- You are not using your focus keyword: "belfast" in your Title tag
+- You are not using your focus keyword: "belfast" in your H1 heading
+- First H1 content:  Tundra 64 - H1: 1, H2: 0 ... H1 count: 1: You are not using your focus keyword: "belfast" in your H1 heading
+
+*A page's title tag is displayed as part of the search snippet in a search engine results page (SERP). It appears as the clickable headline for the search result and is important for user experience, SEO, and social sharing.*
+
+Currently, the h1 tag is in the header, which is a separate lib that the pictures.  So how will that get set from the pictures lib?
+
+A shared service?  Will that work for SSR?  Anyhow, this is something for the Tundra app.
+
+This is the service with a minimal behavior subject created for the clip-clop challenge:
+
+https://github.com/timofeysie/clip-clop/commit/c9752ce50e749c1443830dfdd81659bce05ea6c8
+
+5. Meta description length 93: Your Meta description is too short, a minimum of 100 characters is recommended
+6. Word count total: 115, Corrected word count: 100, Anchor text words: 15, Anchor Percentage: 13, You should write more content for this page
+7. Total links: 8, External links: 5, Internal: 3, Nofollow count: 0, Duplicate links: 2, No alt tag: 0
+
+
+These requirements should be in the labels on the post creation form.
+
+## Original notes
+
 Here are the links collected.
 
 https://yoast.com/image-seo/

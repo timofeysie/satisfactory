@@ -8,6 +8,7 @@ This is a sample app created following the steps in [Workshop: Enterprise Angula
 nx serve nest-demo // start the nest server
 npm run server // start the customer portal server
 nx serve customer-portal // serve the front end with trends
+nx serve trendy // original Tundra 64 app, now defunct
 nx test auth // test the auth lib
 nx test layout // test the layout lib
 nx test products // test the products lib

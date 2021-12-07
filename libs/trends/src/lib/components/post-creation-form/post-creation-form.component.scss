@@ -3,6 +3,15 @@
   width: 100%;
 }
 
+.full-width-block {
+  display: block !important;
+  margin-right: 12px;
+}
+
+mat-form-field{
+  display: block;
+}
+
 .half-width {
   width: -webkit-fill-available;
   width: 100%;

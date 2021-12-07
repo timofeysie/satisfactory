@@ -29,6 +29,7 @@ export class TrendsComponent implements OnInit {
     authors: [''],
     keywords: [''],
     description: [''],
+    metaDescription: [''],
     linkUrl: [''],
     linkLabel: [''],
     links: this.fb.group({
@@ -51,6 +52,7 @@ export class TrendsComponent implements OnInit {
       imageSrc: [''],
       srcset: [''],
       description: [''],
+      metaDescription: [''],
       tags: [''],
       source: [''],
 
@@ -67,6 +69,7 @@ export class TrendsComponent implements OnInit {
       imageSrc: [''],
       srcset: [''],
       description: [''],
+      metaDescription: [''],
       tags: [''],
       source: [''],
 

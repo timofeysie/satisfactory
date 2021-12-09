@@ -18,9 +18,27 @@ export class PostCreationFormComponent {
   @Input() fullTopicForm: FormGroup;
   @Input() trendTitleSeen: string;
   textLines: number;
+  topicMetaDescriptionText = '';
+  metaDescriptionText1 = '';
+  metaDescriptionText2 = '';
+  topicMetaDescriptionCharacters: number;
+  metaDescriptionCharacters1: number;
+  metaDescriptionCharacters2: number;
 
   calculateLines() {
     const text = this.fullTopicForm.controls.topicText.value;
-    this.textLines = text.match(/\n/g).length; 
+    this.textLines = text.match(/\n/g).length;
+  }
+
+  onTopicMetaDescriptionEvent(event: any) {
+    this.topicMetaDescriptionCharacters = event.length;
+  }
+
+  onMetaDescriptionEvent1(event: any) {
+    this.metaDescriptionCharacters1 = event.length;
+  }
+
+  onMetaDescriptionEvent2(event: any) {
+    this.metaDescriptionCharacters2 = event.length;
   }
 }

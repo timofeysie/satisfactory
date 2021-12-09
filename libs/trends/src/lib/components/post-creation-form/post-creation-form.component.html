@@ -104,10 +104,13 @@
           <mat-label>Meta description: Length should be from 120 to 156 characters.</mat-label>
             <textarea
               matInput
+              [ngModel]="metaDescriptionText1" 
+              (ngModelChange)="onMetaDescriptionEvent1($event)"
               placeholder="Hello, we have such and such new features, and you want it. Find out more!"
               value="description, a minimum of 100 characters is recommended"
               formControlName="metaDescription"
             ></textarea>
+            <div>{{ metaDescriptionCharacters1 }}</div>
           </mat-form-field>
 
           <mat-form-field class="full-width" appearance="fill">
@@ -200,10 +203,13 @@
           <mat-label>Meta description: Length should be from 120 to 156 characters.</mat-label>
             <textarea
               matInput
+              [ngModel]="metaDescriptionText2" 
+              (ngModelChange)="onMetaDescriptionEvent2($event)"
               placeholder="Hello, we have such and such new features, and you want it. Find out more!"
               value="description, a minimum of 100 characters is recommended"
               formControlName="metaDescription"
             ></textarea>
+            <div>{{ metaDescriptionCharacters2 }}</div>
           </mat-form-field>
 
           <mat-form-field class="full-width" appearance="fill">
@@ -241,10 +247,13 @@
           <mat-label>Meta description: Length should be from 120 to 156 characters.</mat-label>
             <textarea
               matInput
+              [ngModel]="topicMetaDescriptionText" 
+              (ngModelChange)="onTopicMetaDescriptionEvent($event)"
               placeholder="Hello, we have such and such new features, and you want it. Find out more!"
               value="description, a minimum of 100 characters is recommended"
               formControlName="metaDescription"
             ></textarea>
+            <div>{{ topicMetaDescriptionCharacters }}</div>
           </mat-form-field>
       </div>
   </mat-card>

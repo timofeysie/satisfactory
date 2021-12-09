@@ -1,13 +1,5 @@
 # TODO
 
-## Plans
-
-### Add/Remove posts pictures
-
-+/- buttons for trend post setup page type cards.
-For this this should be able to remove the "two" picture.
-But really, very quickly we should remove the one/two hardwired approach and just have an array of images.
-
 ## Issues
 
 ### Current
@@ -16,12 +8,35 @@ But really, very quickly we should remove the one/two hardwired approach and jus
 - actual description should be an array of sections representing paragraphs.
 - srcset should be prefilled for Artist pictures only
 
+### Add/Remove posts pictures
+
++/- buttons for trend post setup page type cards.
+For this this should be able to remove the "two" picture.
+But really, very quickly we should remove the one/two hardwired approach and just have an array of images.
+
 ### Frontend Todo
 
-done - remove special characters from trend details and text used to create description model
+#### Tundra
 
+default side nave open
+NgRx post list
+Add $spacer variable for padding & margins
+
+#### SatisFactory
+
+- srcset and  image src names need underscores not spaces: "Belfast by one_300w.jpg"
+- Need to have an easily search for marker for "one" and "two".  Like "<one_ai>" and "<two_artist>".
+- Srcset needs to have separate widths for portrait and landscape.  Ie: does width 300, 600, 1800 also make sense for portrait?
+- need to allow multiple links for topics.
+- mobile check for layout change not working on first load
+
+- add links from trend briefs to be parsed on the backend
+- save the form state in local storage and enable clear
+- add authors to keywords automatically
+- implement links array or links and labels
+- add types <none> and <mashup> to ARTIST and AI picture types
 - Loading spinner for Wikimedia Commons images doesn't work when choosing the update button
-- Meta description length: a minimum of 100 characters is recommended
+- Meta description length: a minimum of 100 characters is recommended & show characters count
 - Word count total: 115, Corrected word count: 100, Anchor text words: 15
 - identify dimensions of artist image
 - load raw data for lstm description generation
@@ -31,11 +46,6 @@ done - remove special characters from trend details and text used to create desc
 - wikiLink: ' Kosmos 1408 ', needs to be translated to full link
 - imageSrc needs full path like './../assets/pictures/Champions-League/UEFA_Champions_League_Hosoda.jpg',
 - add description type: paragraph | poem
-- sercset and  image src names need underscores not spaces: "Belfast by one_300w.jpg"
-- Need to have an easily search for marker for "one" and "two".  Like "<one_ai>" and "<two_artist>".
-- Srcset needs to have separate widths for protrait and landscape.  Ie: does width 300, 600, 1800 also make sense for portrait?
-- need to allow multiple links for topics.
-- mobile check for layout change not working on first load
 
 ### Data structure
 
@@ -60,13 +70,16 @@ done - save json for post
 - cartoonify image
 - copy images to dir
 - add description added to form
+- paraphrase news story
+- background removal
+- combine images
 
 ### Todo
 
 - create api to return raw data for lstm model generation?
 - or allow editing and adding raw text from links before post?
 - show total lines
-- allow adding more content and
+- allow adding more content and ???
 
 ## Merge projects
 

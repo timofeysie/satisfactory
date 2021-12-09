@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 0.0.1
+
+done - remove special characters from trend details and text used to create description model
+
 ## "version": "0.0.0"
 
 - fixed the common images on-change loading message
@@ -9,3 +13,5 @@
 - pictures, trends and trendy-layout created for the trend topic post creation process
 - customer-portal app
 - trendy & nest-demo apps
+- everything else
+- added three meta-descriptions for post and pictures

@@ -3,6 +3,8 @@
 ## Version 0.0.1
 
 done - remove special characters from trend details and text used to create description model
+done - added aspects
+done - added portrait and landscape layout types
 
 ## "version": "0.0.0"
 

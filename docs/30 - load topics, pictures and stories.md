@@ -4,6 +4,8 @@ We need to be able to show a list of topics, pictures and combined stories and e
 
 We still have the products laying around, with sorting.  This feature can be hijacked and give us a starting point for that.  We want will also need to add fields for the data to be sorted by date and category.
 
+## Implementing fetchAll products
+
 The original products from the Duncan have the following format:
 
 ```json
@@ -67,7 +69,11 @@ The original demo shows:
 const db = require('./db.json');
 ```
 
-In TS land that would be something like this:
+Without making too many design decisions at this point, lets just create a json file in the same directory as the route files and put just the products in it for now:
+
+apps\nest-demo\src\app\products\products.json
+
+In TS land, there is no require statement, so the import would be something like this:
 
 ```ts
 import * as productsArray from './products.json';
@@ -90,11 +96,16 @@ apps\nest-demo\tsconfig.json
   }
 ```
 
-Then we update the Nest products service which gets created with a default return:
+There are two parts of the Nest architecture which we will be working on:
+
+1. products.controller.ts - @Get(':category') annotation sends params to the service
+2. products.service.ts - does the work and returns the result
+
+The Nest cli generated products.service out of the box has a default return value hard coded:
 
 apps\nest-demo\src\app\products\products.service.ts
 
-```tx
+```ts
   findAll() {
     return `This action returns all products`;
   }
@@ -110,7 +121,7 @@ Next, we need to use that in the products lib:
 
 libs\products\src\lib\services\products\products.service.ts
 
-```tx
+```ts
   getProducts(category = null): Observable<Product[]> {
     const url =
       category !== null
@@ -118,4 +129,69 @@ libs\products\src\lib\services\products\products.service.ts
         : `http://localhost:3333/api/products`;
     return this.httpClient.get<Product[]>(url);
   }
+```
+
+## Implement get category
+
+The service is overloaded to return either all the products, or a particular category of products.
+
+```ts
+  getProducts(category = null): Observable<Product[]> {
+    const url =
+      category !== null
+        ? `http://localhost:3000/products?category=${category}`
+        : `http://localhost:3333/api/products`;
+    return this.httpClient.get<Product[]>(url);
+  }
+```
+
+To keep this API backwards compatible, we will leave that as it is right now and add a new route that accepts a category parameter.  
+
+Out of the box, we have a route that takes an id to find a specific product.
+
+apps\nest-demo\src\app\products\products.controller.ts
+
+```ts
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.productsService.findOne(+id);
+  }
+```
+
+Change to the function to use a category parameter.
+
+```ts
+  @Get(':category')
+  getCategory(@Param('category') id: string) {
+    return this.productsService.getCategory(id);
+  }
+```
+
+apps\nest-demo\src\app\products\products.service.ts
+
+```ts
+  getCategory(category: string) {
+    const filteredArray = productsArray.products.filter(function (item) {
+      return item.category == category;
+    });
+    return filteredArray;
+  }
+```
+
+The extra filteredArray const doesn't hurt and makes the function a little bit more readable.  We could create a type to use here.
+
+After saving this, if the server is running, it will reload and we will see a new endpoint in the list:
+
+```txt
+...
+[Nest] 7308 - 21/12/2021, 4:12:44 pm [RouterExplorer] Mapped {/api/products/:category, GET} route +1ms 
+...
+```
+
+Then, if we test out the route by going here in the browser: http://localhost:3333/api/products/one
+
+We will see:
+
+```txt
+This action returns a #NaN product
 ```

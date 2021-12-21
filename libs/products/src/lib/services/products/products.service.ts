@@ -12,9 +12,8 @@ export class ProductsService {
   getProducts(category = null): Observable<Product[]> {
     const url =
       category !== null
-        ? `http://localhost:3000/products?category=${category}`
+        ? `http://localhost:3333/api/products/${category}`
         : `http://localhost:3333/api/products`;
-
     return this.httpClient.get<Product[]>(url);
   }
 }

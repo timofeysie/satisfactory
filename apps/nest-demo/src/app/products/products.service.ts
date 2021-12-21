@@ -13,8 +13,11 @@ export class ProductsService {
     return productsArray.products;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  getCategory(category: string) {
+    const filteredArray = productsArray.products.filter(function (item) {
+      return item.category == category;
+    });
+    return filteredArray;
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {

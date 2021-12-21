@@ -13,7 +13,7 @@ export class ProductsService {
     const url =
       category !== null
         ? `http://localhost:3000/products?category=${category}`
-        : `http://localhost:3000/products`;
+        : `http://localhost:3333/api/products`;
 
     return this.httpClient.get<Product[]>(url);
   }

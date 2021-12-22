@@ -83,14 +83,6 @@ done - save json for post
 - or allow editing and adding raw text from links before post?
 - show total lines
 - allow adding more content and ???
-
+- write article for nest with Auth replacement for Duncan server
 - load topics, pictures and stories
-
-## Merge projects
-
-- upgrade Tundra to latest Angular (or version from Satisfactory)
-- Add Satisfaction apps and libs to Tundra
-- Add Python projects to Tundra
-- Automate create 10 descriptions for the user to choose from
-- Create api to let the user load the 10 descriptions in the front end
-- Create page to allow the user to select a description
+- Firebase Auth for SatisFactory

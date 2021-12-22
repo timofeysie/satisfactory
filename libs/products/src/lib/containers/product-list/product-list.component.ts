@@ -9,8 +9,14 @@ import { Product } from '@demo-app/data-models';
 export class ProductListComponent {
   @Input() products: Product[];
   @Output() filter = new EventEmitter<string>();
+  selectedProduct: any;
 
   onFilter(category: string) {
     this.filter.emit(category);
+  }
+
+  onProductSelected(product) {
+    console.log('got', product);
+    this.selectedProduct = product;
   }
 }

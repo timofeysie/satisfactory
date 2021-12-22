@@ -2,23 +2,86 @@
   "products": [
     {
       "id": 1,
-      "name": "Spanner",
-      "category": "tools"
+      "name": "Belfast",
+      "category": "us",
+      "pageTitle": "Belfast",
+      "authors": "<AI>, <ARTIST>",
+      "keywords": "Belfast, Kenneth Branagh",
+      "description": " Oscars season kicks off with Kenneth Branagh's film about his childhood in Belfast.",
+      "linkUrl": "https://en.wikipedia.org/wiki/Belfast",
+      "linkLabel": "Belfaston Wikipedia",
+      "links": {
+        "newsLink": "",
+        "useAPNewsLink": true,
+        "addAPNewsContent": "",
+        "wikiLink": "Belfast_(film)",
+        "useWikiLink": "true",
+        "addWikiLinkContent": ""
+      },
+      "topicText": "Kenneth Branagh is known for blockbusters and Shakespeare ...\nKenneth Branagh drew from his childhood in Northern Ireland to write \"Belfast,\" about a boy who grows up amid political tumult during the Troubles.\nWith Belfast, Kenneth Branagh Affectionately Recalls a ...\nKenneth Branagh has clearly poured a great deal of love into this semiautobiographical story of a child growing up in late-1960s Northern Ireland.\n'Belfast' review: Emotion competes with nostalgia on Kenneth ...\n“Belfast” finds the filmmaker revisiting a crucial juncture in his Protestant family's life, when young Ken Branagh — the character played by Jude Hill is ...\nKenneth Branagh's 'Belfast' offers an indulgent origin story\nJudi Dench, Jamie Dornan, and Ciaran Hinds play Kenneth Branagh's family in the semi-autobiographical family drama, \"Belfast.\"\nReview: Oscars season truly kicks off with Kenneth Branagh's ...\nBuddy is part of a Protestant family that includes his mother (Caitriona Balfe), father (Jamie Dornan), older brother (Lewis McAskie), grandmother (Judi Dench) ...\n"
     },
     {
       "id": 2,
-      "name": "Hammer",
-      "category": "tools"
+      "name": "Erin Molan",
+      "category": "us",
+      "pageTitle": "Erin Molan",
+      "authors": "<AI>, <ARTIST>",
+      "keywords": "Erin Molan, Nine's NRL coverage, Broadcaster, hosted the NRL Footy Show, Sky News' Prime Time Contributor.",
+      "description": "After several seasons of Nine's NRL coverage, Broadcaster Erin Molan, who hosted the NRL Footy Show in 2018, will be Sky News' Prime Time Contributor.",
+      "metaDescription": "Checkout art created by an AI and an artist about Erin Molan, who defected from Nine's NRL to be a Sky News' Prime Time Contributor.",
+      "linkUrl": "https://en.wikipedia.org/wiki/Erin Molan",
+      "linkLabel": "Erin Molanon Wikipedia",
+      "links": {
+        "newsLink": "",
+        "useAPNewsLink": "",
+        "addAPNewsContent": "",
+        "wikiLink": "",
+        "useWikiLink": "true",
+        "addWikiLinkContent": ""
+      },
+      "topicText": "Broadcaster Erin Molan to join Sky News 'primetime'\nMolan, who anchored Nine's NRL coverage for several seasons and hosted The NRL Footy Show in 2018, will be a “primetime contributor” at Sky News. It was also ...\n"
     },
     {
       "id": 3,
-      "name": "Screw driver",
-      "category": "tools"
+      "name": "Nets vs Rockets",
+      "category": "us",
+      "pageTitle": "Nets vs Rockets",
+      "authors": "<AI>, <ARTIST>",
+      "keywords": "Nets vs Rockets",
+      "description": "Eric Gordon scored 21 points before being ejected in the fourth quarter and Garrison Mathews added 19 as the Houston Rockets extended their winning streak to seven games with a 114-104 victory over the shorthanded Brooklyn Nets on Wednesday night.",
+      "metaDescription": "",
+      "linkUrl": "https://en.wikipedia.org/wiki/Nets vs Rockets",
+      "linkLabel": "Nets vs Rocketson Wikipedia",
+      "links": {
+        "newsLink": "",
+        "useAPNewsLink": "",
+        "addAPNewsContent": "",
+        "wikiLink": "Brooklyn_Nets",
+        "useWikiLink": "true",
+        "addWikiLinkContent": ""
+      },
+      "topicText": "Nets Game Tonight: Nets vs. Rockets prediction, betting odds, TV ...\nThe Brooklyn Nets will visit the Houston Rockets on Wednesday night at Toyota Center. Here's the prediction, betting odds, and TV channel for Dec. 8.\nWatch Rockets vs. Nets: TV channel, live stream info, start time\nThe point spread is against the Houston Rockets, but thus far the points are on their side. Three quarters in and their offense has really been able to ...\nNets vs. Rockets - Game Recap - December 8, 2021 - ESPN\nHOUSTON -- — Eric Gordon scored 21 points before being ejected in the fourth quarter and Garrison Mathews added 19 as the Houston Rockets extended their ...\nNets vs. Rockets: Lineups, injury report and broadcast info\nTV Channel: YES Network. Probable starting lineups. Brooklyn Nets. James Harden; Patty Mills; DeAndre' Bembry; Kevin Durant; LaMarcus Aldridge. Houston Rockets.\nNets' Starting Lineup Against The Rockets Without Kevin Durant\nThe Brooklyn Nets have announced their starting lineup for the game against the Houston Rockets.\nNets give Kevin Durant a rest day, won't play vs. Rockets\nKevin Durant rested against the Rockets on the tail end of a back-to-back. With All-Star Kyrie Irving out, that left James Harden as the only member of the ...\n"
     },
     {
       "id": 4,
-      "name": "Paint brush",
-      "category": "paint"
+      "name": "Steph Curry",
+      "category": "paint",
+      "pageTitle": "Steph Curry",
+      "authors": "<AI>, <ARTIST>",
+      "keywords": "Steph Curry,stephen curry,Ray Allen,steph curry 3 point record",
+      "description": "",
+      "metaDescription": "",
+      "linkUrl": "https://en.wikipedia.org/wiki/Steph Curry",
+      "linkLabel": "Steph Curryon Wikipedia",
+      "links": {
+        "newsLink": "",
+        "useAPNewsLink": "",
+        "addAPNewsContent": "",
+        "wikiLink": "",
+        "useWikiLink": "true",
+        "addWikiLinkContent": ""
+      },
+      "topicText": "Steph Curry: How Warriors star 'revolutionized' the NBA - CNN\nTen years ago, a user posted the following question on Reddit: \"When Ray Allen finally retires, is Steph Curry the greatest threat to his 3P made records?\"\nHere's What Warriors' Steph Curry Said After Breaking The NBA's ...\n\nSteph Curry broke the NBA's all-time three-point record during the Golden State Warriors win over the New York Knicks on Tuesday evening.\nStephen Curry far from done after breaking Ray Allen's career 3 ...\nIf Stephen Curry had to set the NBA record for career 3-pointers away from his home arena, he couldn't have picked a more fitting place to do it than ...\nSteph Curry Sets NBA Career Record for 3-Pointers\nGolden State's Curry surpassed Ray Allen, who finished his career with 2973 made 3-pointers. Allen had held the record for 10 years and last played in 2014.\nSteph Curry, Warriors teammates recount all the special moments of ...\nGolden State Warriors superstar Steph Curry became the all-time 3-point king Tuesday night in Madison Square Garden. Experience the moment from the ...\nDraymond's funny reaction to Andrew Wiggins assist on Steph Curry ...\nAccording to Draymond and Steph, Andrew Wiggins never passes out of the play that ultimately led to Curry breaking the all-time 3-point record.\nWarriors' Steph Curry Breaks Ray Allen's Career NBA 3-Point Record\nRay Allen's career 3-point record stood for 11 years. Now, Steph Curry is the all-time leader.\nWarriors' Steph Curry rightfully embraces NBA's GOAT shooter title\nBasketball revolutionary Stephen Curry became the NBA's all-time leader in 3-point makes on Tuesday, and accepted the title 'best shooter of all time.'\nSteph Curry becomes NBA's career leader for 3-pointers\nNEW YORK — Stephen Curry became the NBA's career leader for 3-pointers and scored 22 points, leading the Golden State Warriors to a 105-96 victory over the ...\nHistory made: Steph Curry passes Ray Allen to claim NBA 3-point ...\nThe all-time NBA 3-point record fell almost immediately Tuesday night. It took Steph Curry only 4 minutes, 27 seconds of game time and three shots to claim ...\n\nTrend details\n\n7h ago Steph Curry: How Warriors star 'revolutionized' the NBA - CNN\nCNN\nTen years ago, a user posted the following question on Reddit: \"When Ray Allen finally retires, is Steph Curry the greatest threat to his 3P made records?\"\n\n7h ago Here's What Warriors' Steph Curry Said After Breaking The NBA's ...\nSports Illustrated\nSteph Curry broke the NBA's all-time three-point record during the Golden State Warriors win over the New York Knicks on Tuesday evening.\n\n7h ago Stephen Curry far from done after breaking Ray Allen's career 3 ...\nCBSSports.com\nIf Stephen Curry had to set the NBA record for career 3-pointers away from his home arena, he couldn't have picked a more fitting place to do it than ...\n\n10h ago Steph Curry Sets NBA Career Record for 3-Pointers\nThe New York Times\nGolden State's Curry surpassed Ray Allen, who finished his career with 2973 made 3-pointers. Allen had held the record for 10 years and last played in 2014.\n\n4h ago Steph Curry, Warriors teammates recount all the special moments of ...\nThe Mercury News\nGolden State Warriors superstar Steph Curry became the all-time 3-point king Tuesday night in Madison Square Garden. Experience the moment from the ...\n\n4h ago Draymond's funny reaction to Andrew Wiggins assist on Steph Curry ...\nNBC Sports\nAccording to Draymond and Steph, Andrew Wiggins never passes out of the play that ultimately led to Curry breaking the all-time 3-point record.\n\n10h ago Warriors' Steph Curry Breaks Ray Allen's Career NBA 3-Point Record\nNBC Chicago\nRay Allen's career 3-point record stood for 11 years. Now, Steph Curry is the all-time leader.\n\n5h ago Warriors' Steph Curry rightfully embraces NBA's GOAT shooter title\nNBC Sports Bay Area\nBasketball revolutionary Stephen Curry became the NBA's all-time leader in 3-point makes on Tuesday, and accepted the title 'best shooter of all time.'\n\n8h ago Steph Curry becomes NBA's career leader for 3-pointers\nTampa Bay Times\nNEW YORK — Stephen Curry became the NBA's career leader for 3-pointers and scored 22 points, leading the Golden State Warriors to a 105-96 victory over the ...\n\n8h ago History made: Steph Curry passes Ray Allen to claim NBA 3-point ...\nThe Mercury News\nThe all-time NBA 3-point record fell almost immediately Tuesday night. It took Steph Curry only 4 minutes, 27 seconds of game time and three shots to claim ..."
     },
     {
       "id": 5,

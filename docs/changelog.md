@@ -2,9 +2,14 @@
 
 ## Version 0.0.1
 
-done - remove special characters from trend details and text used to create description model
-done - added aspects
-done - added portrait and landscape layout types
+- remove special characters from trend details and text used to create description model
+- added aspects
+- added portrait and landscape layout types
+
+NestJS
+
+- added products API
+- added get by category API
 
 ## "version": "0.0.0"
 

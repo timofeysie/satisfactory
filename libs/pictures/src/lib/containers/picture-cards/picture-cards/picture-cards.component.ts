@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './picture-cards.component.html',
   styleUrls: ['./picture-cards.component.scss'],
 })
-export class PictureCardsComponent implements OnInit {
+export class PictureCardsComponent {
   currentRoute: string;
   trend;
 
@@ -42,5 +42,4 @@ export class PictureCardsComponent implements OnInit {
     this.trend = this.trends[topic];
   }
 
-  ngOnInit(): void {}
 }

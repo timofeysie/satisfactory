@@ -184,7 +184,7 @@ export class TrendsComponent implements OnInit {
         'https://en.wikipedia.org/wiki/' + this.newWikiSearchTerm
       );
       this.topicForm.controls.linkLabel.setValue(
-        this.trendTitleSeen + 'on Wikipedia'
+        this.trendTitleSeen + ' on Wikipedia'
       );
     }
   }

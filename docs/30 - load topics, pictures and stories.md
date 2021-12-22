@@ -131,7 +131,7 @@ libs\products\src\lib\services\products\products.service.ts
   }
 ```
 
-## Implement get category
+### Implement get category
 
 The service is overloaded to return either all the products, or a particular category of products.
 
@@ -195,3 +195,33 @@ We will see:
 ```txt
 This action returns a #NaN product
 ```
+
+What does work is adding the category as part of the API path.
+
+```ts
+      category !== null
+        ? `http://localhost:3333/api/products/${category}`
+        : `http://localhost:3333/api/products`;
+```
+
+Strangely to me, the url in the browser changes to what I think it should be.
+
+http://localhost:4200/products?category=tools
+
+What I had expected was to use it like this:
+
+```txt
+`http://localhost:3333/api/products?category=${category}`
+```
+
+But this doesn't work.  So using the api/products/${category}.
+
+Still, not looking good for an article when what I expect to work doesn't.  There is still time for this as the auth section actually would come before the products section, so the above would need to split out the Nest getting started part, then have an auth section, then the products section.
+
+## Products detail view
+
+We need a new component for the detail view.
+
+nx generate @nrwl/angular:component containers/product-detail --project=products
+
+Probably should have put that in a components directory.  But this will do for now.

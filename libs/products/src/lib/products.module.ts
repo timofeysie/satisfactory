@@ -11,6 +11,7 @@ import {
 import { ProductsEffects } from './+state/products.effects';
 import { ProductListComponent } from './containers/product-list/product-list.component';
 import { MaterialModule } from '@demo-app/material';
+import { ProductDetailComponent } from './containers/product-detail/product-detail.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +22,7 @@ import { MaterialModule } from '@demo-app/material';
     }),
     EffectsModule.forFeature([ProductsEffects]),
   ],
-  declarations: [ProductsComponent, ProductListComponent],
+  declarations: [ProductsComponent, ProductListComponent, ProductDetailComponent],
   providers: [ProductsEffects],
 })
 export class ProductsModule {}

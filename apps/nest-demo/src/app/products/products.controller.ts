@@ -13,8 +13,10 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  async findAll() {
+    return this.productsService.findAll().then((result) => {
+      return result;
+    });
   }
 
   @Get(':category')

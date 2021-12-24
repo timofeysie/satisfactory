@@ -344,7 +344,6 @@ export class TrendsComponent implements OnInit {
    * @param event pictureNumber: one | two, aspect: portrait | landscape
    */
   onSelectedAspect(event) {
-    console.log('got event', event);
     this.topicForm.controls[event.pictureNumber]['controls']?.aspect?.setValue(event.aspect);
   }
 }

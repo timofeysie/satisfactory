@@ -7,7 +7,9 @@ import * as fs from 'fs';
 @Injectable()
 export class TrendsService {
   create(createTrendDto: any) {
-    const file = fs.createWriteStream('posts/post.json');
+    console.log('createTrendDto', createTrendDto);
+    const fileName = createTrendDto.pageTitle.split(' ').join('-');
+    const file = fs.createWriteStream(`posts/${fileName}.json`);
     file.on('error', function (err) {
       /* error handling */
     });

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
-import * as request from 'request';
+import request from 'request';
 import { JSDOM } from 'jsdom';
 
 @Injectable()

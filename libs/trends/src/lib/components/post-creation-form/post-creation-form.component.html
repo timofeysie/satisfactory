@@ -3,8 +3,11 @@
     <mat-card-content>
       <div class="row">
         <mat-form-field class="column full-width-block" appearance="fill">
-          <mat-label>title
-            <span *ngIf="fullTopicForm.controls.pageTitle.value.length < 29">30 characters is recommended</span>
+          <mat-label
+            >title
+            <span *ngIf="fullTopicForm.controls.pageTitle.value.length < 29"
+              >30 characters is recommended</span
+            >
           </mat-label>
           <input matInput value="pageTitle" formControlName="pageTitle" />
         </mat-form-field>
@@ -34,7 +37,6 @@
   </mat-card>
 
   <div class="row">
-
     <!-- one -->
     <div class="column">
       <mat-card class="full-width" [formGroup]="fullTopicForm.get('one')">
@@ -78,16 +80,28 @@
           >
             <img href="{{ fullTopicForm.value.one.googleImg }}" />
           </div>
+
+          <!--  Aspect select for One -->
+          <mat-form-field appearance="none" class="selector picture-post-card-top">
+            <mat-select
+              appearance="none"
+              #typeSelector
+              click="typeSelector.close()"
+              placeholder="Aspect"
+              (selectionChange)="onAspectSelectionChange($event.value, 'one')"
+            >
+              <mat-option [value]="'landscape'">Landscape</mat-option>
+              <mat-option [value]="'Portrait'">Portrait</mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <div class="source">
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>source</mat-label>
               <input matInput value="source" formControlName="source" />
             </mat-form-field>
           </div>
-          <mat-form-field
-            class="full-width"
-            appearance="fill"
-          >
+          <mat-form-field class="full-width" appearance="fill">
             <textarea
               matInput
               placeholder="description "
@@ -95,16 +109,16 @@
               formControlName="description"
             ></textarea>
           </mat-form-field>
-          
+
           <!-- one meta-description -->
-          <mat-form-field
-            class="full-width"
-            appearance="fill"
-          >
-          <mat-label>Meta description: Length should be from 120 to 156 characters.</mat-label>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label
+              >Meta description: Length should be from 120 to 156
+              characters.</mat-label
+            >
             <textarea
               matInput
-              [ngModel]="metaDescriptionText1" 
+              [ngModel]="metaDescriptionText1"
               (ngModelChange)="onMetaDescriptionEvent1($event)"
               placeholder="Hello, we have such and such new features, and you want it. Find out more!"
               value="description, a minimum of 100 characters is recommended"
@@ -177,16 +191,28 @@
               src="{{ fullTopicForm.value.two.googleImg }}"
             />
           </div>
+
+          <!--  Aspect select for Two -->
+          <mat-form-field appearance="none" class="selector picture-post-card-top">
+            <mat-select
+              appearance="none"
+              #typeSelector
+              click="typeSelector.close()"
+              placeholder="Aspect"
+              (selectionChange)="onAspectSelectionChange($event.value, 'two')"
+            >
+              <mat-option [value]="'landscape'">landscape</mat-option>
+              <mat-option [value]="'Portrait'">portrait</mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <div class="source">
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>source</mat-label>
               <input matInput value="source" formControlName="source" />
             </mat-form-field>
           </div>
-            <mat-form-field
-            class="full-width"
-            appearance="fill"
-          >
+          <mat-form-field class="full-width" appearance="fill">
             <textarea
               matInput
               placeholder="description "
@@ -194,16 +220,16 @@
               formControlName="description"
             ></textarea>
           </mat-form-field>
-          
+
           <!-- two meta-description -->
-          <mat-form-field
-            class="full-width"
-            appearance="fill"
-          >
-          <mat-label>Meta description: Length should be from 120 to 156 characters.</mat-label>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label
+              >Meta description: Length should be from 120 to 156
+              characters.</mat-label
+            >
             <textarea
               matInput
-              [ngModel]="metaDescriptionText2" 
+              [ngModel]="metaDescriptionText2"
               (ngModelChange)="onMetaDescriptionEvent2($event)"
               placeholder="Hello, we have such and such new features, and you want it. Find out more!"
               value="description, a minimum of 100 characters is recommended"
@@ -230,32 +256,28 @@
   </div>
   <mat-card>
     <div class="description">
-        <mat-form-field class="full-width" appearance="fill">
-          <mat-label>description</mat-label>
-          <textarea
-            matInput
-            value="description"
-            formControlName="description"
-          >
-          </textarea>
-        </mat-form-field>
-        <!-- main post meta-description -->
-          <mat-form-field
-            class="full-width"
-            appearance="fill"
-          >
-          <mat-label>Meta description: Length should be from 120 to 156 characters.</mat-label>
-            <textarea
-              matInput
-              [ngModel]="topicMetaDescriptionText" 
-              (ngModelChange)="onTopicMetaDescriptionEvent($event)"
-              placeholder="Hello, we have such and such new features, and you want it. Find out more!"
-              value="description, a minimum of 100 characters is recommended"
-              formControlName="metaDescription"
-            ></textarea>
-            <div>{{ topicMetaDescriptionCharacters }}</div>
-          </mat-form-field>
-      </div>
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>description</mat-label>
+        <textarea matInput value="description" formControlName="description">
+        </textarea>
+      </mat-form-field>
+      <!-- main post meta-description -->
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label
+          >Meta description: Length should be from 120 to 156
+          characters.</mat-label
+        >
+        <textarea
+          matInput
+          [ngModel]="topicMetaDescriptionText"
+          (ngModelChange)="onTopicMetaDescriptionEvent($event)"
+          placeholder="Hello, we have such and such new features, and you want it. Find out more!"
+          value="description, a minimum of 100 characters is recommended"
+          formControlName="metaDescription"
+        ></textarea>
+        <div>{{ topicMetaDescriptionCharacters }}</div>
+      </mat-form-field>
+    </div>
   </mat-card>
   <mat-card>
     <mat-card-header>

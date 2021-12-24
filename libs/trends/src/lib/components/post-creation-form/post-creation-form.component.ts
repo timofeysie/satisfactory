@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {
   FormGroup,
   FormGroupDirective,
@@ -17,6 +17,7 @@ import {
 export class PostCreationFormComponent {
   @Input() fullTopicForm: FormGroup;
   @Input() trendTitleSeen: string;
+  @Output() selectedAspect = new EventEmitter<any>();
   textLines: number;
   topicMetaDescriptionText = '';
   metaDescriptionText1 = '';
@@ -40,5 +41,12 @@ export class PostCreationFormComponent {
 
   onMetaDescriptionEvent2(event: any) {
     this.metaDescriptionCharacters2 = event.length;
+  }
+
+  onAspectSelectionChange(event: any, pictureNumber: string) {
+    this.selectedAspect.emit({
+      pictureNumber: pictureNumber,
+      aspect: event
+    });
   }
 }

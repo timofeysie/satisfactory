@@ -14,7 +14,7 @@ export class GeneratorService {
         this.dataSet.push(part);
         console.log(part);
       } else {
-        console.log('no adding repeat');
+        // console.log('no adding repeat');
       }
     })
   }

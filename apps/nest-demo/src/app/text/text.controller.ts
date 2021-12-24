@@ -25,7 +25,7 @@ export class TextController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const promises = [];
-    for (let offset = 0; offset < 15; offset++) {
+    for (let offset = 0; offset < 14; offset++) {
       const results = this.textService.offsetSearch(id, offset);
       results.then((data) => {
         this.generatorService.setData(data);
@@ -33,8 +33,8 @@ export class TextController {
       promises.push(results);
     }
     Promise.all(promises).then((values) => {
-      console.log('promises', values);
-      const file = fs.createWriteStream('array.txt');
+      const path = `./posts/${id}.txt`;
+      const file = fs.createWriteStream(path);
       file.on('error', function (err) {
         /* error handling */
       });

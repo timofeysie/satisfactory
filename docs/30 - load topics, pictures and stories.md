@@ -225,3 +225,58 @@ We need a new component for the detail view.
 nx generate @nrwl/angular:component containers/product-detail --project=products
 
 Probably should have put that in a components directory.  But this will do for now.
+
+### throwing inside of an async function without a catch block
+
+Or rejecting a promise which was not handled with .catch().
+
+This happened with the text API:
+
+http://localhost:3333/api/text/nets%20vs%20rockets
+
+http://localhost:3333/api/text/nets vs rockets
+
+Here is the full error:
+
+(node:23548) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 31)
+
+Run it again and the top of the error looks like this:
+
+```txt
+(node:23956) UnhandledPromiseRejectionWarning: TypeError: request is not a function
+    at C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\nest-demo\webpack:\apps\nest-demo\src\app\text\text.service.ts:37:7
+```
+
+https://jonasjancarik.medium.com/handling-those-unhandled-promise-rejections-when-using-javascript-async-await-and-ifee-5bac52a0b29f
+
+The answer to the "by rejecting a promise" part would be this:
+
+.catch(e => { console.log(e) })
+
+Doesn't appear to work for us.
+
+The other option is to use a try/catch block.
+
+That also does not work.
+
+There are two errors at play here:
+
+error TypeError: request is not a function
+    at C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\nest-demo\webpack:\apps\nest-demo\src\app\text\text.service.ts:38:9
+
+And the other: UnhandledPromiseRejectionWarning: Unhandled promise rejection...
+
+So it is about request for some reason.  I changed the import to this and it works:
+
+```ts
+import request from 'request';
+```
+
+Then, when working on the next task:
+
+zone.js:2863 GET http://localhost:3333/api/images/Student%20loans 500.
+
+TypeError: request is not a function
+    at C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\nest-demo\webpack:\apps\nest-demo\src\app\images\images.service.ts:25:7
+
+

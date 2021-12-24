@@ -6,10 +6,15 @@
 - added aspects
 - added portrait and landscape layout types
 
-NestJS
+### SatisFactory
+
+- added trend products list and details
+
+### NestJS
 
 - added products API
-- added get by category API
+- ad
+ded get by category API
 
 ## "version": "0.0.0"
 

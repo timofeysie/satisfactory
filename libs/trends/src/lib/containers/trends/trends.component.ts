@@ -55,6 +55,7 @@ export class TrendsComponent implements OnInit {
       metaDescription: [''],
       tags: [''],
       source: [''],
+      aspect: [''],
 
       type: ['AI'],
       commonImg: [''],
@@ -72,6 +73,7 @@ export class TrendsComponent implements OnInit {
       metaDescription: [''],
       tags: [''],
       source: [''],
+      aspect: [''],
 
       type: ['ARTIST'],
       commonImg: [''],
@@ -197,10 +199,14 @@ export class TrendsComponent implements OnInit {
    */
   setAIPictureNumberData(pictureNumber: string) {
     const commonsImgSource = this.getCommonsImgSource(pictureNumber);
+    const aspect = this.getCommonsImgAspect(pictureNumber);
     const altTagText = this.getCommonsImgAlt(pictureNumber);
     const srcset = this.createSrcSet(this.trendTitleSeen, pictureNumber);
     const altTagWithoutExt = this.removeFileExt(altTagText);
     const tags = this.trendTitleSeen + ', ' + altTagWithoutExt;
+    this.topicForm.controls[pictureNumber]['controls']?.aspect?.setValue(
+      aspect
+    );
     this.topicForm.controls[pictureNumber]['controls']?.source?.setValue(
       commonsImgSource
     );
@@ -237,8 +243,8 @@ export class TrendsComponent implements OnInit {
    *Find the .jpg file ending, and work backwards until the last /.
    *The base url is this: "https://commons.wikimedia.org/wiki/File:"
    */
-  getCommonsImgSource(type: string) {
-    const commonImg: string = this.topicForm.controls[type]['controls']
+  getCommonsImgSource(pictureNumber: string) {
+    const commonImg: string = this.topicForm.controls[pictureNumber]['controls']
       .commonImg.value;
     const fileExt = commonImg.indexOf('.jpg');
     const upTo = commonImg.substring(0, fileExt + 4);
@@ -246,6 +252,41 @@ export class TrendsComponent implements OnInit {
     const baseUrl = 'https://commons.wikimedia.org/wiki/File:';
     const source = upTo.substring(start + 1, upTo.length);
     return baseUrl + source;
+  }
+
+  /**
+   * Look for style=\"height: 100% !important; max-width: 4320px !important;
+   * max-height: 3240px;\"
+   * If type = AI and max-width > max-height, then aspect = landscape, else portrait.
+   * @param pictureNumber
+   * @returns portrait | landscape
+   */
+  getCommonsImgAspect(pictureNumber: string) {
+    const type: string = this.topicForm.controls[pictureNumber]['controls'].type
+      .value;
+    if (type === 'AI') {
+      const commonImg: string = this.topicForm.controls[pictureNumber][
+        'controls'
+      ].commonImg.value;
+      const maxWidthSearchString = 'max-width: ';
+      const maxWidth = commonImg.indexOf(maxWidthSearchString);
+      const importantWidth = commonImg.indexOf('!important', maxWidth);
+      const width = commonImg.substring(
+        maxWidth + maxWidthSearchString.length,
+        importantWidth - 3
+      ); // -3 to remove the px part
+
+      const maxHeightSearchString = 'max-height: ';
+      const maxHeight = commonImg.indexOf(maxHeightSearchString);
+      const colonHeight = commonImg.indexOf('px;', maxHeight);
+      const height = commonImg.substring(
+        maxHeight + maxHeightSearchString.length,
+        colonHeight
+      );
+      return parseInt(width) > parseInt(height) ? 'landscape' : 'portrait';
+    } else {
+      return 'portrait';
+    }
   }
 
   /**
@@ -296,5 +337,14 @@ export class TrendsComponent implements OnInit {
   onUpdateSearchTerm(newSearchTerm: string) {
     this.commonImages = null;
     this.getCommonsImages(newSearchTerm);
+  }
+
+  /**
+   * 
+   * @param event pictureNumber: one | two, aspect: portrait | landscape
+   */
+  onSelectedAspect(event) {
+    console.log('got event', event);
+    this.topicForm.controls[event.pictureNumber]['controls']?.aspect?.setValue(event.aspect);
   }
 }

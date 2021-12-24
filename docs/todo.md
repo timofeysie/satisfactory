@@ -5,8 +5,11 @@
 ### Current
 
 - actual description should be an array of sections representing paragraphs
+- srcset for AI should be empty or deleted?
+- add aspectRatio properties to form & data model: landscape/portrait/square
+- add type poetry/description
 
-done - srcset should be prefilled for Artist pictures only
+done - srcset should be pre-filled for Artist pictures only
 done - add three original meta-descriptions pre-filled using the description via a button
 
 ### Add/Remove posts pictures

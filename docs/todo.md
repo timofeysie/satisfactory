@@ -8,6 +8,8 @@
 - srcset for AI should be empty or deleted?
 - add aspectRatio properties to form & data model: landscape/portrait/square
 - add type poetry/description
+- allow edit title.  for example, John Madden turns out to be a mashup between Pat Summerall and John Madden.
+- in the above situation, create two sets of links for each subject.  So maybe subjects can be pills that represent clouds of data to pre-fill.
 
 done - srcset should be pre-filled for Artist pictures only
 done - add three original meta-descriptions pre-filled using the description via a button

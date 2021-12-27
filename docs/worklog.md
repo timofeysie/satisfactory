@@ -34,7 +34,7 @@ https://angular.io/api/forms/FormControlName#use-with-ngmode
 
 Great.
 
-## detect aspect of images
+## Detect aspect of images
 
 The Wikimedia images have this style:
 
@@ -95,3 +95,54 @@ ok: false
 status: 201
 statusText: "Created"
 ```
+
+## News links array
+
+Currently the links are all kind of hard wired.
+
+```json
+  "links": {
+    "newsLink": "",
+    "useAPNewsLink": true,
+    "addAPNewsContent": "",
+    "wikiLink": "",
+    "useWikiLink": "true",
+    "addWikiLinkContent": ""
+  },
+```
+
+What we want is an array of link objects such as:
+
+links: [
+  {
+    linkUrl: xxx,
+    linkLable: AP News,
+  }, {
+    linkUrl: https://en.wikipedia.org/wiki/Pat_Summerall,
+    linkLable: Pat Summerall on Wikipedia,
+  }, {
+    linkUrl: https://en.wikipedia.org/wiki/John_Madden,
+    linkLable: John Madden on Wikipedia,
+  },
+]
+
+Would we really need a useLink?  If they are there, we will use them, if not, we wont.  I don't see any point to keeping hidden data around.  I can take notes on that if I want to.
+
+We just need a way to allow the user to enter multiple subjects that can automatically created the above links, or let the user create specific data.
+
+## Get a particular topic json file
+
+```js
+  getCategory(category: string) {
+    return new Promise((resolve, reject) => {
+      fs.readFile('./posts/' + category, 'utf-8', (err, file) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(JSON.parse(file));
+      });
+    });
+  }
+```
+
+http://localhost:3333/api/products/Belfast.json

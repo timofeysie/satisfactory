@@ -32,10 +32,14 @@ export class ProductsService {
   }
 
   getCategory(category: string) {
-    const filteredArray = productsArray.products.filter(function (item) {
-      return item.category == category;
+    return new Promise((resolve, reject) => {
+      fs.readFile('./posts/' + category, 'utf-8', (err, file) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(JSON.parse(file));
+      });
     });
-    return filteredArray;
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {

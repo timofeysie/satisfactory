@@ -226,7 +226,7 @@ nx generate @nrwl/angular:component containers/product-detail --project=products
 
 Probably should have put that in a components directory.  But this will do for now.
 
-### throwing inside of an async function without a catch block
+### Throwing inside of an async function without a catch block
 
 Or rejecting a promise which was not handled with .catch().
 
@@ -279,4 +279,52 @@ zone.js:2863 GET http://localhost:3333/api/images/Student%20loans 500.
 TypeError: request is not a function
     at C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\nest-demo\webpack:\apps\nest-demo\src\app\images\images.service.ts:25:7
 
+The solution was to return the promise:
 
+apps/nest-demo/src/app/products/products.controller.ts
+
+```js
+  @Get()
+  async findAll() {
+    return this.productsService.findAll().then((result) => {
+      return result;
+    });
+  }
+```
+
+apps/nest-demo/src/app/products/products.service.ts
+
+```js
+  async findAll() {
+    return new Promise((resolve) => {
+      ...
+```
+
+## Get a particular topic json file
+
+Got this error:
+
+Argument of type 'Buffer' is not assignable to parameter of type 'string'.
+
+The solution was to add the encoding (utf-8):
+
+```js
+  getCategory(category: string) {
+    return new Promise((resolve, reject) => {
+      fs.readFile('./posts/' + category, 'utf-8', (err, file) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(JSON.parse(file));
+      });
+    });
+  }
+```
+
+Test like this:
+
+http://localhost:3333/api/products/Belfast.json
+
+To use this on the front end, I think we will have to dispatch an action.
+
+loadFilteredProducts$

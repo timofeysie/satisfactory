@@ -32,7 +32,7 @@ export class TextController {
       });
       promises.push(results);
     }
-    Promise.all(promises).then((values) => {
+    return Promise.all(promises).then((values) => {
       const path = `./posts/${id}.txt`;
       const file = fs.createWriteStream(path);
       file.on('error', function (err) {

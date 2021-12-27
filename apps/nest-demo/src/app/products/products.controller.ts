@@ -21,6 +21,7 @@ export class ProductsController {
 
   @Get(':category')
   getCategory(@Param('category') id: string) {
+    console.log('id', id)
     return this.productsService.getCategory(id);
   }
 

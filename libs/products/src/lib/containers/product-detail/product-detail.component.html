@@ -1,6 +1,10 @@
-<h1>{{ selectedProduct.pageTitle }}</h1>
+<h1 class="header pointer" (click)="onEdit()">
+  <fa-icon class="icon-button" [icon]="faEdit"></fa-icon>
+  {{ selectedProduct.pageTitle }}
+</h1>
 <h2>by {{ selectedProduct.authors }}</h2>
 <p>{{ selectedProduct.description }}</p>
 <p>meta-description: {{ selectedProduct.metDescription }}</p>
 <p>Keywords: {{ selectedProduct.keywords }}</p>
 <a href="{{ selectedProduct.linkUrl }}">{{ selectedProduct.linkLabel }}</a>
+<pre><p>{{selectedProduct | json}}</p></pre>

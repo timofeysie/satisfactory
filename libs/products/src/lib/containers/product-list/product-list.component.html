@@ -18,9 +18,13 @@
       >
     </mat-nav-list>
   </mat-card>
-  <mat-card *ngIf="selectedProduct">
+  <mat-card *ngIf="selectedProduct && !editMode">
     <demo-app-product-detail
       [selectedProduct]="selectedProduct"
+      (edit)="onEditDetail($event)"
     ></demo-app-product-detail>
+  </mat-card>
+  <mat-card *ngIf="selectedProduct && editMode">
+    Hi~
   </mat-card>
 </div>

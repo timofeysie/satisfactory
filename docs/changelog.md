@@ -1,6 +1,16 @@
 # Change Log
 
+The release dates should coincide with all the other apps for this project.
+
+## Version 0.0.2
+
+Release date: 2021-12
+
+free-solid-svg-icons
+
 ## Version 0.0.1
+
+Release date: 2021-11
 
 - remove special characters from trend details and text used to create description model
 - added aspects

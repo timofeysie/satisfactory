@@ -12,10 +12,13 @@ import { ProductsEffects } from './+state/products.effects';
 import { ProductListComponent } from './containers/product-list/product-list.component';
 import { MaterialModule } from '@demo-app/material';
 import { ProductDetailComponent } from './containers/product-detail/product-detail.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
+    FontAwesomeModule,
     RouterModule.forChild([{ path: '', component: ProductsComponent }]),
     StoreModule.forFeature('products', productsReducer, {
       initialState: productsInitialState,

@@ -4,12 +4,20 @@
 
 ### Current
 
+- edit mode
+- created json output
+- installing font awesome
+
+### Next
+
+- somehow document the rules for copying what content into what fields in the post creating code
 - actual description should be an array of sections representing paragraphs
 - srcset for AI should be empty or deleted?
 - add aspectRatio properties to form & data model: landscape/portrait/square
 - add type poetry/description
 - allow edit title.  for example, John Madden turns out to be a mashup between Pat Summerall and John Madden.
 - in the above situation, create two sets of links for each subject.  So maybe subjects can be pills that represent clouds of data to pre-fill.
+- Product API task: save the initial trend query so that the query chosen page is able to be accessed again as an option at a later time.
 
 done - srcset should be pre-filled for Artist pictures only
 done - add three original meta-descriptions pre-filled using the description via a button

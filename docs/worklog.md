@@ -146,3 +146,64 @@ We just need a way to allow the user to enter multiple subjects that can automat
 ```
 
 http://localhost:3333/api/products/Belfast.json
+
+## Product API work
+
+So far, the get and get detail functions are done.  We have the create function in the trendy library, but the products library now used as the trends list, needs to share the form used to create the "product" in order to edit the data at a later date.
+
+We also want to save the query that was used to create the data on the first page of the trend product creation page.
+
+There is a lot of shared logic there that is not SOLID.  We want to use the edit features from this.  It may be necessary to extract the component to a separate library which can be used in both spots so that improvements and changes to it only have to happen in one place.
+
+For edit mode, we need an edit icon.  This is a bit of a rabbit hole as we have avoided using icons in this project so far.  It's not part of the Duncan.
+
+But, the steps were figured out for the Tundra app, so now it's time to try that out here.  The pencil I con we want is:
+
+```html
+<i class="fa-solid fa-pencil"></i>
+```
+
+Or is that this?
+
+```html
+<fa-icon [icon]="faEdit"></fa-icon>
+```
+
+What does Tundra do?
+
+```html
+><fa-icon [icon]="faThumbsUp"></fa-icon>
+```
+
+So what else needs to happen?  Neither version is showing up:
+
+Add FontAwesomeModule to imports in src/app/app.module.ts
+
+OK, did that.  But still not showing.  I guess it's in a different lib?
+
+A SO answer points out:
+
+The icon in font awesome is separated into different packages which allow us to install only the needed icon for our project. This helps to reduce the size of the font-awesome package size.
+
+```txt
+$ npm i --save @fortawesome/fontawesome-svg-core
+$ npm i --save @fortawesome/free-brands-svg-icons
+$ npm i --save fortawesome/free-regular-svg-icons
+$ npm i --save @fortawesome/free-solid-svg-icons
+```
+
+So giving this a try, since it's a solid edit icon we're trying to use.
+
+npm i --save @fortawesome/free-solid-svg-icons
+
+The issue turned out to be that the module shouldn't be the app, but where the icons are used, which is the product module, not the app.module.
+
+## A shared form
+
+It sounded like a good idea when I wrote the above about moving the form to its own lib.
+
+The problem is the current form contains a lot of logic when it's created to pre-fill the fields based on the topic and other things entered in the first step.  Some of those are editable on the next screen, some are not.  And it would be expected that some of the fields are read-only.
+
+One idea is to let the user edit the raw json, and come what may.  That might be the simplest way forward for now.
+
+nx g @nrwl/angular:component  containers/detail-form --project=products

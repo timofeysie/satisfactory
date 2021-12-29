@@ -13,19 +13,22 @@ import { ProductListComponent } from './containers/product-list/product-list.com
 import { MaterialModule } from '@demo-app/material';
 import { ProductDetailComponent } from './containers/product-detail/product-detail.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DetailFormComponent } from './containers/detail-form/detail-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     FontAwesomeModule,
+    ReactiveFormsModule,
     RouterModule.forChild([{ path: '', component: ProductsComponent }]),
     StoreModule.forFeature('products', productsReducer, {
       initialState: productsInitialState,
     }),
     EffectsModule.forFeature([ProductsEffects]),
   ],
-  declarations: [ProductsComponent, ProductListComponent, ProductDetailComponent],
+  declarations: [ProductsComponent, ProductListComponent, ProductDetailComponent, DetailFormComponent],
   providers: [ProductsEffects],
 })
 export class ProductsModule {}

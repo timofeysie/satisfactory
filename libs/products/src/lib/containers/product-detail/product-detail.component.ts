@@ -12,7 +12,6 @@ export class ProductDetailComponent {
   faEdit = faEdit;
 
   onEdit() {
-    console.log('edit1');
     this.edit.emit(true);
   }
 }

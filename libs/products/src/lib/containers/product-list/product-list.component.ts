@@ -15,9 +15,13 @@ export class ProductListComponent {
 
   constructor(private productsService: ProductsService) {}
 
+  onSaveDetails() {
+    console.log('called');
+    this.editMode = false;
+  }
+
   onEditDetail() {
     this.editMode = !this.editMode;
-    console.log('edit2', this.editMode);
   }
 
   onFilter(category: string) {

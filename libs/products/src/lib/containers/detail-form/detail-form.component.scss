@@ -1,0 +1,20 @@
+.full-width {
+  min-width: 900px;
+  min-height: 600px;
+}
+
+.header {
+  pointer-events: all;
+  display: flex;
+  flex-direction: row;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.icon-button {
+  font-size: small;
+  align-self: center;
+  margin-right: 12px;
+}

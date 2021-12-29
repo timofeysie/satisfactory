@@ -1,0 +1,14 @@
+<h1  class="header pointer" (click)="onSave()">
+  <fa-icon class="icon-button" [icon]="faSave"></fa-icon>
+  Edit raw json
+</h1>
+<div [formGroup]="productForm">
+  <mat-form-field class="full-width" appearance="fill">
+    <textarea
+      matInput
+      rows="20"
+      value="description, a minimum of 100 characters is recommended"
+      formControlName="data"
+    ></textarea>
+  </mat-form-field>
+</div>

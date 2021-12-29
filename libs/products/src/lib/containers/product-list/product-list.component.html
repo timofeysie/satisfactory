@@ -24,7 +24,12 @@
       (edit)="onEditDetail($event)"
     ></demo-app-product-detail>
   </mat-card>
-  <mat-card *ngIf="selectedProduct && editMode">
-    Hi~
-  </mat-card>
+  <div class="form-container">
+    <mat-card *ngIf="selectedProduct && editMode">
+      <demo-app-detail-form
+        [selectedProductData]="selectedProduct"
+        (save)="onSaveDetails($event)"
+      ></demo-app-detail-form>
+    </mat-card>
+  </div>
 </div>

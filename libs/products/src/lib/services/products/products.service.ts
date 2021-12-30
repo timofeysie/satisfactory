@@ -16,4 +16,9 @@ export class ProductsService {
         : `http://localhost:3333/api/products`;
     return this.httpClient.get<Product[]>(url);
   }
+  
+  updateProducts(category, body): Observable<Product[]> {
+    const url = `http://localhost:3333/api/products/${category}`;
+    return this.httpClient.patch<any>(url, body);
+  }
 }

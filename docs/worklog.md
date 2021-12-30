@@ -207,3 +207,77 @@ The problem is the current form contains a lot of logic when it's created to pre
 One idea is to let the user edit the raw json, and come what may.  That might be the simplest way forward for now.
 
 nx g @nrwl/angular:component  containers/detail-form --project=products
+
+The textarea needs to have formatted JSON, otherwise it would be a nightmare to edit.
+
+[This article](https://www.tutorialspoint.com/prettify-json-data-in-textarea-input-in-javascript) provided a working solution for that.
+
+However, when the data is saved, that formatting needs to be undone.  JSON.stringify adds extra dashes.  JSON.parse creates this error:
+
+```txt
+core.js:6456 ERROR SyntaxError: Unexpected token o in JSON at position 1
+    at JSON.parse (<anonymous>)
+```
+
+[This SO answer](https://stackoverflow.com/questions/38380462/syntaxerror-unexpected-token-o-in-json-at-position-1?rq=1) indicates a solution like this:
+
+JSON.parse(JSON.stringify(reqData));
+
+However, this will result in data like this, and break the display, as it's not a JS object now.
+
+{"data": "{\n    \"pageTitle\": \"Belfast!!!\",\n    \"authors\": \"<AI>, <ARTIST>\" ...
+
+```js
+  onSave() {
+    this.save.emit(JSON.stringify(this.productForm.value));
+  }
+```
+
+```txt
+"{\"data\":\"{\\n    \\\"pageTitle\\\": \\\"Belfast\\\", ...
+```
+
+Add this in the product-list.component:
+
+```js
+  onSaveDetails(data: any) {
+    this.selectedProduct = JSON.parse(data);
+```
+
+```txt
+{
+  "data": "{\n    \"pageTitle\": \"Belfast\",\n ...
+```
+
+I'm not sure which output is closer to what we want.  And the last one will happen if there is no parse or stringify used.
+
+When we put the data into the textarea, we tried something like this:
+
+```js
+    const parseJSON = JSON.parse(JSON.stringify(data));
+    this.selectedProduct = JSON.stringify(parseJSON, undefined, 4);
+```
+
+But then we end up with this even worse looking result:
+
+```txt
+"{\n    \"data\": \"{\\n    \\\"pageTitle\\\": \\\"Belfast\\\" ...
+```
+
+This would be the same if we just stringify the data.
+
+Just striping out new lines wont work, as some of the values have intentional newlines.
+
+We could save the data to the server, then load it again, because it's all about that file really.  Or just forget this feature for now.
+
+The main thing right now is to use this feature to show issues with the created json and then fix those.
+
+Anyhow, finish off the update on the server app for now.
+
+TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Object--
+
+Doing this results in an empty file with {}.
+
+fs.writeFile('./posts/' + id, JSON.stringify(updateProduct), () => {
+
+This is actually getting sent to the service.  Have to look at that after going to the beach.

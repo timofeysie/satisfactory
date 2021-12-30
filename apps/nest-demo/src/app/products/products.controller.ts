@@ -21,13 +21,14 @@ export class ProductsController {
 
   @Get(':category')
   getCategory(@Param('category') id: string) {
-    console.log('id', id)
+    console.log('category', id);
     return this.productsService.getCategory(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(+id, updateProductDto);
+  update(@Param('id') id: string, @Body() updateProduct: any) {
+    console.log('patch', id);
+    return this.productsService.update(id, updateProduct);
   }
 
   @Delete(':id')

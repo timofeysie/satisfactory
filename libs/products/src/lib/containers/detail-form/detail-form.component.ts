@@ -9,7 +9,7 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 })
 export class DetailFormComponent implements OnInit {
   @Input() selectedProductData: string;
-  @Output() save = new EventEmitter<boolean>();
+  @Output() save = new EventEmitter<any>();
   productForm = this.fb.group({
     data: [''],
   });
@@ -24,6 +24,7 @@ export class DetailFormComponent implements OnInit {
   }
 
   onSave() {
-    this.save.emit(true)
+    console.log('this.productForm.value', this.productForm.value);
+    this.save.emit(this.productForm.value.data);
   }
 }

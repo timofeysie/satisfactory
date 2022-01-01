@@ -21,9 +21,8 @@ export class ProductListComponent {
     this.editMode = false;
     this.productsService
       .updateProducts(this.selectedProductName, data)
-      .subscribe((result) => {
-        // what to do after this?
-        console.log('result', result);
+      .subscribe(() => {
+        this.onProductSelected(this.selectedProduct);
       });
   }
 

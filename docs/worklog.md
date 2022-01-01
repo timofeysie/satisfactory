@@ -281,3 +281,28 @@ Doing this results in an empty file with {}.
 fs.writeFile('./posts/' + id, JSON.stringify(updateProduct), () => {
 
 This is actually getting sent to the service.  Have to look at that after going to the beach.
+
+It's not making it via the http call in the controller or service.
+
+products.service.ts:21 sending body { "pageTitle": "Belfast1", ...
+
+But the server gets this:
+
+controller patch Belfast copy.json updateProduct {}
+
+So then the service writes a blank file.
+
+SO says: *Your postman request needs to be set to raw and JSON, not raw and Text*
+
+Here is the code to accomplish that and fix this issue:
+
+```ts
+  updateProducts(category, body): Observable<Product[]> {
+    const headers = new HttpHeaders().set(
+      'Content-Type',
+      'application/json; charset=utf-8'
+    );
+    const url = `http://localhost:3333/api/products/${category}`;
+    return this.httpClient.post<any>(url, body, { headers: headers });
+  }
+```

@@ -43,7 +43,6 @@ export class ProductsService {
   }
 
   update(id: string, updateProduct: any) {
-    console.log('updateProduct', updateProduct);
     return new Promise((resolve) => {
       fs.writeFile('./posts/' + id, JSON.stringify(updateProduct), () => {
         resolve('OK');

@@ -24,7 +24,6 @@ export class DetailFormComponent implements OnInit {
   }
 
   onSave() {
-    console.log('this.productForm.value', this.productForm.value);
     this.save.emit(this.productForm.value.data);
   }
 }

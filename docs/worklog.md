@@ -292,7 +292,7 @@ controller patch Belfast copy.json updateProduct {}
 
 So then the service writes a blank file.
 
-SO says: *Your postman request needs to be set to raw and JSON, not raw and Text*
+[SO says](https://stackoverflow.com/questions/46669615/angular-http-post-request-content-type-from-text-plain-to-application-json): *Your postman request needs to be set to raw and JSON, not raw and Text*
 
 Here is the code to accomplish that and fix this issue:
 
@@ -306,3 +306,19 @@ Here is the code to accomplish that and fix this issue:
     return this.httpClient.post<any>(url, body, { headers: headers });
   }
 ```
+
+## 2022 January 1st
+
+### todo
+
+- transition to list again after form submitted
+- links array
+
+#### add trends to json submitted
+
+The trend data is held here: this.trendDetails
+
+Add that to the submitted form, and we get this error:
+
+TypeError: Cannot read property 'split' of undefined
+    at TrendsService.create (C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\nest-demo\webpack:\apps\nest-demo\src\app\trends\trends.service.ts:11:47)

@@ -2,14 +2,6 @@
   <span class="title">Trend Factory</span>
   <div class="right-nav">
     <span *ngIf="user$ | async as user">
-      <button mat-button>{{ (user$ | async)?.username }}</button>
-      <button
-        mat-button
-        [routerLink]="['/trends']"
-        routerLinkActive="router-link-active"
-      >
-        Trends
-      </button>
       <button
         mat-button
         [routerLink]="['/products']"
@@ -17,8 +9,17 @@
       >
         Posts
       </button>
-      <button mat-button (click)="logout()"
-        [routerLink]="['/auth/login']">Logout</button>
+      <button
+        mat-button
+        [routerLink]="['/trends']"
+        routerLinkActive="router-link-active"
+      >
+        Trends
+      </button>
+      <button mat-button>{{ (user$ | async)?.username }}</button>
+      <button mat-button (click)="logout()" [routerLink]="['/auth/login']">
+        Logout
+      </button>
     </span>
     <span *ngIf="(user$ | async) === (false || null || undefined)">
       <span

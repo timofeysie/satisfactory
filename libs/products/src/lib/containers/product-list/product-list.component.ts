@@ -17,7 +17,7 @@ export class ProductListComponent {
   constructor(private productsService: ProductsService) {}
 
   onSaveDetails(data: any) {
-    this.selectedProduct = data;
+    this.selectedProduct = null;
     this.editMode = false;
     this.productsService
       .updateProducts(this.selectedProductName, data)

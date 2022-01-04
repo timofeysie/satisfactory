@@ -42,8 +42,12 @@ export class ProductsService {
     });
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  update(id: string, updateProduct: any) {
+    return new Promise((resolve) => {
+      fs.writeFile('./posts/' + id, JSON.stringify(updateProduct), () => {
+        resolve('OK');
+      });
+    });
   }
 
   remove(id: number) {

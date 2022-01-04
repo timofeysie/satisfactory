@@ -11,13 +11,19 @@ export class ProductListComponent {
   @Input() products: Product[];
   @Output() filter = new EventEmitter<string>();
   selectedProduct: any;
+  selectedProductName: string;
   editMode = false;
 
   constructor(private productsService: ProductsService) {}
 
-  onSaveDetails() {
-    console.log('called');
+  onSaveDetails(data: any) {
+    this.selectedProduct = null;
     this.editMode = false;
+    this.productsService
+      .updateProducts(this.selectedProductName, data)
+      .subscribe(() => {
+        this.onProductSelected(this.selectedProduct);
+      });
   }
 
   onEditDetail() {
@@ -30,8 +36,9 @@ export class ProductListComponent {
 
   onProductSelected(product) {
     this.editMode = false;
+    this.selectedProductName = product.name + '.json';
     this.productsService
-      .getProducts(product.name + '.json')
+      .getProducts(this.selectedProductName)
       .subscribe((result) => {
         this.selectedProduct = result;
       });

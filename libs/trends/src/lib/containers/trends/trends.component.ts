@@ -106,7 +106,11 @@ export class TrendsComponent implements OnInit {
   }
 
   onHandleSubmitForm() {
-    this.trendsService.postTrendTopic(this.topicForm.value).subscribe();
+    console.log('submit')
+    const formValue = this.topicForm.value;
+    formValue['originalTrend'] = this.trendDetails;
+    console.log('formValue',formValue);
+    this.trendsService.postTrendTopic(formValue).subscribe();
   }
 
   onHandleBackToSetup() {

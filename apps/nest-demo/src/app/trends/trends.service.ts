@@ -8,14 +8,19 @@ import * as fs from 'fs';
 export class TrendsService {
   create(createTrendDto: any) {
     console.log('createTrendDto', createTrendDto);
-    const fileName = createTrendDto.pageTitle.split(' ').join('-');
-    const file = fs.createWriteStream(`posts/${fileName}.json`);
-    file.on('error', function (err) {
-      /* error handling */
-    });
-    file.write(JSON.stringify(createTrendDto));
-    file.end();
-    return 'This action adds a new trend';
+    const fileName = createTrendDto.pageTitle?.split(' ').join('-');
+    if (fileName) {
+      const file = fs.createWriteStream(`posts/${fileName}.json`);
+      file.on('error', function (err) {
+        /* error handling */
+      });
+      file.write(JSON.stringify(createTrendDto));
+      file.end();
+      return 'This action adds a new trend';
+    } else {
+      console.log('no pageTitle');
+      return 'no pageTitle';
+    }
   }
 
   findAll() {

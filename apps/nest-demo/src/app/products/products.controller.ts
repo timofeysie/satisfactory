@@ -7,11 +7,6 @@ import { UpdateProductDto } from './dto/update-product.dto';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
-  }
-
   @Get()
   async findAll() {
     return this.productsService.findAll().then((result) => {
@@ -21,13 +16,12 @@ export class ProductsController {
 
   @Get(':category')
   getCategory(@Param('category') id: string) {
-    console.log('id', id)
     return this.productsService.getCategory(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(+id, updateProductDto);
+  @Post(':id')
+  update(@Param('id') id: string, @Body() updateProduct: any) {
+    return this.productsService.update(id, updateProduct);
   }
 
   @Delete(':id')

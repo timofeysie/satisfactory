@@ -114,66 +114,22 @@ The hero image from the website.
 The basic structure is:
 
 ```html
-<div
-  class="lg:common-container xl:w-full bg-br-2-10 light:bg-transparent bg-opacity-30 mt-5 flex relative items-center w-100"
-  data-testid="hero-media"
->
-  <div data-testid="media-with-video" class="w-full">
-    <figure class="w-full wrapper-16-9 relative">
-      <div class="inside-16-9" data-testid="blurry-image-wrapper">
-        <picture data-testid="picture"
-          ><source
-            srcset="
-              https://imgresizer.....jpg
-            "
-            type="image/webp"
-            media="(max-width: 699px)" />
-          <source
-            srcset="
-              https://imgresizer...1440.jpg
-            "
-            type="image/webp"
-            media="(min-width: 700px) and (max-width: 1023px)" />
-          <source
-            srcset="
-              https://imgresizer...1440.jpg
-            "
-            type="image/webp"
-            media="(min-width: 1024px)" />
-          <source
-            srcset="
-              https://imgresizer...1440.jpg
-            "
-            type="image/jpeg"
-            media="(max-width: 699px)" />
-          <source
-            srcset="
-              https://imgresizer...-1440.jpg
-            "
-            type="image/jpeg"
-            media="(min-width: 700px) and (max-width: 1023px)" />
-          <source
-            srcset="
-              https://imgresizer...-1440.jpg
-            "
-            type="image/jpeg"
-            media="(min-width: 1024px)" />
-          <img
-            class="text-transparent inside-16-9"
-            src="https://imgresizer...-1440.jpg"
-            alt="Angel Correa of Atletico ..."
-            data-testid="image-high-res"
-        /></picture>
-      </div>
-    </figure>
-    <figcaption
-      class="ArticleHeroBlack__caption--light"
-    >
-      <p>
-        Angel Correa of Atletico ...
-      </p>
-      <p>Image credit: Getty Images</p>
-    </figcaption>
+<figure class="w-full wrapper-16-9 relative">
+  <div class="inside-16-9" data-testid="blurry-image-wrapper">
+    <picture data-testid="picture">
+      <source srcset="https://imgresizer.....jpg"
+        type="image/webp"
+        media="(max-width: 699/1023/1024/699/1023/1024px)" />
+      <img
+        class="text-transparent inside-16-9"
+        src="https://imgresizer...-1440.jpg"
+        alt="Angel Correa of Atletico ..."
+        data-testid="image-high-res"
+    /></picture>
   </div>
-</div>
+</figure>
+<figcaption class="ArticleHeroBlack__caption--light">
+  <p>Angel Correa of Atletico ...</p>
+  <p>Image credit: Getty Images</p>
+</figcaption>
 ```

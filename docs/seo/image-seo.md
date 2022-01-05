@@ -70,3 +70,11 @@ Facilitate and encourage the embedding of these media in other pages to improve 
 ## Create an image sitemap
 
 create an image sitemap to facilitate the crawler’s work of finding your media files and, of course, ensure a better ranking for your site.
+
+### SafeSearch
+
+SafeSearch filters out materials inappropriate for children from their search results.
+
+Group these media in a common URL location and in the image sitemap, indicate to Google that that content is adult.
+
+[Source](https://rockcontent.com/blog/seo-for-google-images/).

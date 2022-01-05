@@ -110,4 +110,86 @@ Another point from the initial article was this: *to extract the full text of th
 
 ## Pre-trained summarizer with HuggingFace Transformers
 
+This summarizer involves multiple steps:
 
+1. Importing Pipeline functionality for a variety of pretrained models.
+2. Read an article stored in some text file.
+3. Initializing and configuring the summarization pipeline, and generating the summary using BART.
+4. Printing the summarized text.
+
+Make the summary bigger by setting the value for min_length.
+
+## Call bart.py from Nest
+
+## Use goose3 to extract the body of a news article
+
+pip install goose-extractor
+
+pip install goose3
+
+```txt
+> python apps\hugging-face\src\goose.py
+Building prefix dict from the default dictionary ...
+Dumping model to file cache C:\Users\timof\AppData\Local\Temp\jieba.cache
+Loading model cost 0.936 seconds.
+Prefix dict has been built successfully.
+ Christopher Plummer's death after head blow and Julie Andrews' moving tribute
+
+```
+
+That's a nice one liner, but the bbc article is longer.  That first line is just the title.  The blank line is where the content should be, but it isn't:
+
+```py
+print('', article.title)
+print(article.cleaned_text)
+```
+
+I was looking at [this link](https://www.codestudyblog.com/sfb20b2/0305161912.html).  It has another example which extracts links from the page, which works fine.
+
+The sample code is actually setup to work for Chinese:
+
+```py
+from goose3.text import StopWordsChinese
+g = Goose({'stopwords_class': StopWordsChinese})
+```
+
+If you remove the Chinese stop words, then the article body comes out fine.
+
+Here is the result for the BBC article for the Sound of Music: https://www.mylondon.news/news/celebs/bbc-sound-music-christopher-plummers-22600079
+
+```txt
+ Christopher Plummer's death after head blow and Julie Andrews' moving tribute
+The Sound of Music is on BBC One today (January 1) in what is surely the perfect way to celebrate the New Year.
+
+The iconic 1965 film starred Julie Andrews and the late Christopher Plummer who died at the age of 91 in February last year.
+
+Christopher Plummer had an amazing career and made his big break with The Sound Of Music where he and Julie evaded the Nazi's in 1940's Austria.
+
+READ MORE: The Bill star Billy Murray's co-star daughter and 'bigger than Brad Pitt' role
+
+Away from the mountains, Christopher also featured in Malcolm X, Knives Out and was even a villainous Klingon in the Star Trek movie franchise.
+
+Sadly the Oscar winner died peacefully at his home in Connecticut, USA on February 5, 2021 with his wife Elaine Taylor by his side.   
+
+His wife said the cause of his death was a "blow to the head as a result of a fall", according to the New York Times.
+
+Following his death, his co-star Julie Andrews who plays Maria von Trapp paid poignant tribute to his memory.
+
+Her words spoke about her "cherished friend" as she said she "treasures the memories" of their work together.
+
+"The world has lost a consummate actor today and I have lost a cherished friend,” she told PA.
+
+At MyLondon, we want to make sure you get the latest and greatest from across the capital. And one way you can do that is by getting the best news, reviews and features from wherever you are straight to your inbox with our free email newsletters. We have seven newsletters you can currently sign up for - including a different one for each part of London, as well as an EastEnders one for all the gossip from Albert Square, and a London Underground one to keep you up to date on the latest transport news. The local newsletters go out twice a day and send the latest stories straight to your inbox. From community stories and news covering every borough of London to celebrity and lifestyle stories, we'll make sure you get the very best every day. To sign up to any of our newsletters, simply follow this link and select the newsletter that's right for you. And to really customise your news experience on the go, you can download our top-rated free apps for iPhone and Android. Find out more here.
+
+"I treasure the memories of our work together and all the humour and fun we shared through the years.
+
+"My heart and condolences go out to his lovely wife Elaine and his daughter Amanda."
+
+The Sound of Music airs on BBC One at 2.20pm today (January 1, 2022).
+
+Do you want the latest crime, sport, or breaking news in London straight to your inbox? Tailor your needs to suit you here.
+```
+
+Not really happy about the last line slipping in there, but it's good enough to use.  Now, run that through BART and see what the summary looks like.
+
+[{'summary_text': ' The Sound of Music is on BBC One at 2.20pm today (January 1, 2022) Christopher Plummer died at the age of 91 in February last year . The Oscar winner died peacefully at his home in Connecticut, USA on February 5, 2021 . His wife said the cause of his death was a "blow to the head as a result of a fall"'}]

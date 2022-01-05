@@ -17,6 +17,7 @@ nx e2e customer-portal-e2e // run the end-to-end tests
 nx build customer-portal
 nx build --prod customer-portal --stats-json   
 npm run bundle-report-customer-portal
+python apps\hugging-face\src\hello.py // run the text summary script
 ```
 
 A trend search for the nest-demo looks like this:
@@ -52,6 +53,11 @@ Use the following info from the server/db.json:
 ```
 
 After login, you should see the same JSON returned with the addition of a token property in the network tab.
+
+## Text Summary Tool
+
+First add the article to summarize in the 
+python apps\hugging-face\src\hello.py
 
 ## Current versions
 

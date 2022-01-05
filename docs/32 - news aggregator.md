@@ -43,12 +43,71 @@ Transformers models, which learn to interweave the importance of tokens by means
 pip install transformers
 ```
 
-Before this, we might want to setup a Python library in this project, however that is done.
+Before this, we might want to setup a Python library in this project, however that is done.  OK, used nx-python for that (see below section).
+
+```txt
+> python apps\hugging-face\src\hello.py
+Hello hugging-face
+No model was supplied, defaulted to sshleifer/distilbart-cnn-12-6 (https://huggingface.co/sshleifer/distilbart-cnn-12-6)
+Downloading: 100%|██████████████████████████████████████████████████████████████| 1.76k/1.76k [00:00<00:00, 989kB/s]
+Downloading: 100%|█████████████████████████████████████████████████████████████| 1.14G/1.14G [06:32<00:00, 3.12MB/s]
+Downloading: 100%|████████████████████████████████████████████████████████████████████████████████| 26.0/26.0 [00:00<00:00, 1.64kB/s]
+Downloading: 100%|█████████████████████████████████████████████████████████████████████████████████| 878k/878k [00:01<00:00, 500kB/s]
+Downloading: 100%|█████████████████████████████████████████████████████████████████████████████████| 446k/446k [00:01<00:00, 321kB/s]
+Token indices sequence length is longer than the specified maximum sequence length for this model (13421 > 1024). Running this sequence through the model will result in indexing errors
+Traceback (most recent call last):
+  File "C:\Users\timof\repos\timofeysie\satisfactory\apps\hugging-face\src\hello.py", line 19, in <module>
+    summarized = summarizer(to_tokenize, min_length=75, max_length=300)
+  File "C:\Users\timof\AppData\Local\Programs\Python\Python39\lib\site-packages\transformers\pipelines\text2text_generation.py", line 
+225, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Users\timof\AppData\Local\Programs\Python\Python39\lib\site-packages\transformers\pipelines\text...  
+    return F.embedding(
+  File "C:\Users\timof\AppData\Local\Programs\Python\Python39\lib\site-packages\torch\nn\functional.py", line 2043, in embedding      
+    return torch.embedding(weight, input, padding_idx, scale_grad_by_freq, sparse)
+IndexError: index out of range in self
+```
+
+Reducing the lines in the input file worked:
+
+No model was supplied, defaulted to sshleifer/distilbart-cnn-12-6 (https://huggingface.co/sshleifer/distilbart-cnn-12-6)
+[{
+  'summary_text': 
+  'John Madden and Pat Summerall spent 22 seasons calling games together at CBS and Fox . The retired head coach and placekicker called their final game together at Fox in February 2002 . Summerall and Madden called eight Super Bowls together, a stint which began with Joe Montana and ended with Tom Brady . Madden ended his broadcasting career working with another iconic play-by-play announcer: Al Michaels .'
+}]
+
+Sweet.  Now to understand what was just accomplished.
+
+### Transformers
+
+Introduced by Vaswani in 2017.
+
+A Transformer is a machine learning architecture that combines an encoder with a decoder and jointly learns them, allowing us to convert input sequences (e.g. phrases) into some intermediate format before we convert it back into human-understandable format.
+
+The Bidirectional Encoder Representations from Transformers (BERT) by Devlin et al. (2018)
+
+BERT-like encoder and GPT-like decoder
+
+BART - Bidirectional and Auto-Regressive Transformers
+
+### maximum sequence length for this model 1024
+
+How to automatically determine sequence length?  Maybe this is an issue with only the default transformer.
 
 ## NxPy: Nx Python plugin
 
 https://github.com/eulerrapp/nx-python
 
+npm i @nx-python/nx-python --save-dev
+
+nx g @nx-python/nx-python:app hugging-face
+
+apps\hugging-face\src\hello.py
+
 ## extract the full text of the article
 
 Another point from the initial article was this: *to extract the full text of the article... libraries such as goose3 solve this problem by applying ML methods to extract the body of the page.*
+
+## Pre-trained summarizer with HuggingFace Transformers
+
+

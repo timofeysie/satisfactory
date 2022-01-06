@@ -25,4 +25,11 @@ export class TrendsService {
       'http://localhost:3333/api/images/' + trend
     );
   }
+
+  kickoffArticleSummary(linkForSummary: string) {
+    return this.httpClient.post<any>(
+      'http://localhost:3333/api/bart', {
+        link: linkForSummary
+      });
+  }
 }

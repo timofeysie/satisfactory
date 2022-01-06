@@ -56,8 +56,13 @@ After login, you should see the same JSON returned with the addition of a token 
 
 ## Text Summary Tool
 
-First add the article to summarize in the 
-python apps\hugging-face\src\hello.py
+To scrape the contents of an article, use the goose app:
+
+python apps\hugging-face\src\goose.py
+
+Add the article to summarize in the article.txt file and run it through the BART app.
+
+python apps\hugging-face\src\bart.py
 
 ## Current versions
 

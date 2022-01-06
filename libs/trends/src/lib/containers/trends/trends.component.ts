@@ -32,6 +32,7 @@ export class TrendsComponent implements OnInit {
     metaDescription: [''],
     linkUrl: [''],
     linkLabel: [''],
+    linkForSummary: [''],
     links: this.fb.group({
       newsLink: [''],
       useAPNewsLink: [''],
@@ -91,6 +92,10 @@ export class TrendsComponent implements OnInit {
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
   }
 
+  handleOnUseLinkForSummary(event) {
+    this.topicForm.controls.linkForSummary.setValue(event);
+  }
+
   onTrendSeen(trend: any) {
     this.trendTitleSeen = trend.title.query;
     this.newWikiSearchTerm = this.trendTitleSeen;
@@ -106,10 +111,10 @@ export class TrendsComponent implements OnInit {
   }
 
   onHandleSubmitForm() {
-    console.log('submit')
+    console.log('submit');
     const formValue = this.topicForm.value;
     formValue['originalTrend'] = this.trendDetails;
-    console.log('formValue',formValue);
+    console.log('formValue', formValue);
     this.trendsService.postTrendTopic(formValue).subscribe();
   }
 
@@ -161,7 +166,14 @@ export class TrendsComponent implements OnInit {
   /**
    */
   preFillForm() {
+    // kick off the article scape and summary on the backend
+    console.log('using', this.topicForm.controls.linkForSummary.value);
+    this.trendsService.kickoffArticleSummary(this.topicForm.controls.linkForSummary.value).subscribe((result) => {
+      console.log('result', result);
+    })
+    // set the page title
     this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
+    // create TODO <AI>, <ARTIST> author values
     const authors =
       '<' +
       this.topicForm.controls['one']['controls']?.author?.value +
@@ -344,10 +356,12 @@ export class TrendsComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    * @param event pictureNumber: one | two, aspect: portrait | landscape
    */
   onSelectedAspect(event) {
-    this.topicForm.controls[event.pictureNumber]['controls']?.aspect?.setValue(event.aspect);
+    this.topicForm.controls[event.pictureNumber]['controls']?.aspect?.setValue(
+      event.aspect
+    );
   }
 }

@@ -6,11 +6,17 @@
       <div class="content">
         <div>
           {{ article.timeAgo }}
-          <a href="{{ article.image?.newsUrl }}"> <span [innerHTML]="decode(article.title)"></span></a>
+          <a href="{{ article.image?.newsUrl }}">
+            <span [innerHTML]="decode(article.title)"></span
+          ></a>
         </div>
         <div [innerHTML]="decode(article.source)"></div>
         <div [innerHTML]="decode(article.snippet)"></div>
       </div>
+      <mat-checkbox
+        class="use-link"
+        (change)="onUseLink($event, article.image?.newsUrl)"
+      ></mat-checkbox>
     </mat-card-content>
   </mat-card>
 </mat-card>

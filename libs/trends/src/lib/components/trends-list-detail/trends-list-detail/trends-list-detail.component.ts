@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'demo-app-trends-list-detail',
@@ -7,10 +7,17 @@ import { Component, Input } from '@angular/core';
 })
 export class TrendsListDetailComponent {
   @Input() trendDetails: any;
+  @Output() handleUseLinkForSummary = new EventEmitter<string>();
 
   decode(input) {
     const txt = document.createElement('textarea');
     txt.innerHTML = input;
     return txt.value;
+  }
+
+  onUseLink(event, url) {
+    if (event.checked === true) {
+      this.handleUseLinkForSummary.emit(url)
+    }
   }
 }

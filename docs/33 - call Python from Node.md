@@ -160,3 +160,21 @@ Or, save the file and let bart use that file.
 
 ## Sending the article to bart
 
+This was a little awkward in Node, as it would require spawning processes and two separate promises.
+
+May as well add the summarize functions to the goose script and do it all there.
+
+This works, except the file it writes is blank.  We can see it getting printed to console after 30 seconds or so.
+
+Also, the front end receives a 500 error almost immediately.  How to we make it wait for the second process to finish?
+
+It's not working out.  After doing quite a bit of tooling around, I have decided just to save the result in Nest and let the user retrieve that via a button on the form page to pre-fill the topic description.
+
+## Formatting the result
+
+The result has a few issues:
+
+[{'summary_text': " Wednesday�s $630 million Powerball jackpot will be split between winners in California and Wisconsin . The winner has 180 days from the day of the drawing to come forward, or the prize is forfeited . It's the fourth Powerball or Mega Millions jackpot won by a Wisconsin resident in four years . The winning numbers were 6, 14, 25, 33, 46, and the Powerball was 17 ."}]
+
+It's go special characters.
+The punctuation has a space before each period.

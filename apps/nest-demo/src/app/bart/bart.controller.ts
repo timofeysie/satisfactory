@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { BartService } from './bart.service';
 import { CreateBartDto } from './dto/create-bart.dto';
 import { UpdateBartDto } from './dto/update-bart.dto';
@@ -13,7 +21,14 @@ export class BartController {
   }
 
   @Post()
-  update(@Body() article: any) {
-    return this.bartService.getArticleSummary(article.link);
+  async getArticleSummary(@Body() article: any) {
+    return new Promise((resolve) => {
+      this.bartService.getArticleSummary(article.link).then((result) => {
+        resolve(result);
+      });
+    }).catch((err) => {
+      const buf = Buffer.from(err);
+      console.log('controller err', buf.toString());
+    })
   }
 }

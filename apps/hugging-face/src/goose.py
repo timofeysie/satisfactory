@@ -1,14 +1,20 @@
 from goose3 import Goose
+from transformers import pipeline
 import sys
 
+
+# extract article text
 g = Goose()
 article = g.extract(url=sys.argv[1])
-print(article.cleaned_text)
 g.close()
 
-# send back to node
+# Initialize the HuggingFace summarization pipeline
+summarizer = pipeline("summarization")
+summarized = summarizer(article.cleaned_text, min_length=75, max_length=300)
+print(summarized)
 sys.stdout.flush()
 
-file = open('apps/hugging-face/src/articleBody.txt', 'x')
-file.write(article.cleaned_text)
+# Print summarized text and save file
+file = open('apps/hugging-face/src/articleSummary.json', 'x')
+file.write(summarized)
 file.close()

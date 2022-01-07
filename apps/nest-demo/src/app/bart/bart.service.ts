@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBartDto } from './dto/create-bart.dto';
 import { spawn } from 'child_process';
+import * as fs from 'fs';
 
 @Injectable()
 export class BartService {
@@ -19,7 +20,7 @@ export class BartService {
     });
   }
 
-  getArticleSummary(articleUrl: any) {
+  async getArticleSummary(articleUrl: any) {
     const process = spawn('python', [
       'apps/hugging-face/src/goose.py',
       articleUrl,
@@ -27,9 +28,19 @@ export class BartService {
     return new Promise((resolve, reject) => {
       process.stdout.on('data', function (data) {
         console.log('bart api', data.toString('utf8'));
+        const path = `./apps/nest-demo/src/app/bart/summary.txt`;
+        const file = fs.createWriteStream(path);
+        file.on('error', function (err) {
+          /* error handling */
+        });
+        file.write(data.toString());
+        file.end();
         resolve(data.toString());
       });
       process.stderr.on('data', reject);
+    }).catch((err) => {
+      const buf = Buffer.from(err);
+      console.log('service err', buf.toString());
     });
   }
 

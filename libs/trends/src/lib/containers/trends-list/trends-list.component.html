@@ -21,5 +21,6 @@
 <div *ngIf="trendDetails">
   <demo-app-trends-list-detail
     [trendDetails]="trendDetails"
+    (handleUseLinkForSummary)="onHandleUseLinkForSummary($event)"
   ></demo-app-trends-list-detail>
 </div>

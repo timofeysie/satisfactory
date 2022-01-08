@@ -28,6 +28,7 @@
     [trendDetails]="trendDetails"
     (country)="updateCountry($event)"
     (trendSeen)="onTrendSeen($event)"
+    (onUseLinkForSummary)="handleOnUseLinkForSummary($event)"
   ></demo-app-trends-list>
   <demo-app-common-images
     class="commons column"
@@ -42,5 +43,6 @@
     [fullTopicForm]="topicForm"
     [trendTitleSeen]="trendTitleSeen"
     (selectedAspect)="onSelectedAspect($event)"
+    (retrieveArticleSummary)="onRetrieveArticleSummary($event)"
   ></demo-app-post-creation-form>
 </div>

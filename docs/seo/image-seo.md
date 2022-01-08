@@ -49,3 +49,32 @@ Google tends to favor rectangular images, in proportions like 16:9 or 4:3.
 This makes dimensions like 1366 x 768 (16:9) or 720 x 480 (4:3) rank better than images totally out of pattern (like something very horizontal or very vertical).
 
 If these dimensions seem familiar to you, it’s because they are: 16:9 and 4:3 formats are usually used in video resolutions such as TVs, movies, and on YouTube itself.
+
+## Image size
+
+Free tools to compress and reduce image’s file size:
+
+- Optimizilla;
+- Kraken.io;
+- TinyPNG;
+- JPEGmini;
+- jpeg.io;
+- ImageOptim.
+
+remove the metadata from the file;
+
+## Create embedding links
+
+Facilitate and encourage the embedding of these media in other pages to improve their ranking in Google Images.
+
+## Create an image sitemap
+
+create an image sitemap to facilitate the crawler’s work of finding your media files and, of course, ensure a better ranking for your site.
+
+### SafeSearch
+
+SafeSearch filters out materials inappropriate for children from their search results.
+
+Group these media in a common URL location and in the image sitemap, indicate to Google that that content is adult.
+
+[Source](https://rockcontent.com/blog/seo-for-google-images/).

@@ -18,6 +18,7 @@ export class PostCreationFormComponent {
   @Input() fullTopicForm: FormGroup;
   @Input() trendTitleSeen: string;
   @Output() selectedAspect = new EventEmitter<any>();
+  @Output() retrieveArticleSummary = new EventEmitter<any>();
   textLines: number;
   topicMetaDescriptionText = '';
   metaDescriptionText1 = '';
@@ -25,6 +26,10 @@ export class PostCreationFormComponent {
   topicMetaDescriptionCharacters: number;
   metaDescriptionCharacters1: number;
   metaDescriptionCharacters2: number;
+
+  retrieveSummary() {
+    this.retrieveArticleSummary.emit(true);
+  }
 
   calculateLines() {
     const text = this.fullTopicForm.controls.topicText.value;
@@ -46,7 +51,7 @@ export class PostCreationFormComponent {
   onAspectSelectionChange(event: any, pictureNumber: string) {
     this.selectedAspect.emit({
       pictureNumber: pictureNumber,
-      aspect: event
+      aspect: event,
     });
   }
 }

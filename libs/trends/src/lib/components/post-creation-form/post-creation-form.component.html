@@ -126,7 +126,7 @@
             ></textarea>
             <div>{{ metaDescriptionCharacters1 }}</div>
           </mat-form-field>
-
+          
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>altText</mat-label>
             <input matInput value="altText" formControlName="altText" />
@@ -260,6 +260,7 @@
         <mat-label>description</mat-label>
         <textarea matInput value="description" formControlName="description">
         </textarea>
+        <button (click)="retrieveSummary()">Use generated summary</button>
       </mat-form-field>
       <!-- main post meta-description -->
       <mat-form-field class="full-width" appearance="fill">
@@ -271,7 +272,6 @@
           matInput
           [ngModel]="topicMetaDescriptionText"
           (ngModelChange)="onTopicMetaDescriptionEvent($event)"
-          placeholder="Hello, we have such and such new features, and you want it. Find out more!"
           value="description, a minimum of 100 characters is recommended"
           formControlName="metaDescription"
         ></textarea>

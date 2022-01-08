@@ -4,12 +4,15 @@
 
 ### Current
 
-- edit mode
-- created json output
-- installing font awesome
+done - edit mode
+done - created json output
+done - installing font awesome
 
 ### Next
 
+- submit post status update
+- trend details section becomes too small when the commons images are too many
+- the AP news search url when long pushes the type box off the screen
 - somehow document the rules for copying what content into what fields in the post creating code
 - actual description should be an array of sections representing paragraphs
 - srcset for AI should be empty or deleted?

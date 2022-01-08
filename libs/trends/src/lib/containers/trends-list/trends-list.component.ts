@@ -11,10 +11,15 @@ export class TrendsListComponent {
   @Input() trendDetails: any;
   @Output() country = new EventEmitter<string>();
   @Output() trendSeen = new EventEmitter<string>();
+  @Output() onUseLinkForSummary = new EventEmitter<string>();
   countries = [
     { value: 'US', label: 'US' },
     { value: 'AU', label: 'Australia' },
   ];
+
+  onHandleUseLinkForSummary(event: any) {
+    this.onUseLinkForSummary.emit(event);
+  }
 
   onFilter(event: string) {
     this.country.emit(event);
@@ -23,5 +28,4 @@ export class TrendsListComponent {
   seeTrend(trend: any): void {
     this.trendSeen.emit(trend);
   }
-
 }

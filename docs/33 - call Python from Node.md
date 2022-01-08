@@ -202,6 +202,10 @@ We need to be able to alert the front end we get the following error:
 getArticleSummary service err Traceback (most recent call last):
   File "C:\Users\timof\AppData\Local\Programs\Python\Python39\lib\site-packages\goose3\__init__.py", line 128, in crawler_wrapper
 
-THis is an error with goose getting the article.  If this happens, then the user should have the option of capturing the article text by hand and using that to be summarized by the bart.
+This is an error with goose getting the article.  If this happens, then the user should have the option of capturing the article text by hand and using that to be summarized by the bart.
 
-[{'summary_text': " Kevin Porter Jr. hit a buzzer-beating 3-pointer to give the Houston Rockets a 114-111 win over the Washington Wizards . Washington Wizards broadcaster Glenn Consor apologized for the remark . Porter Jr.'s father, Bryan Kevin Porter Sr., was killed in a shooting in a Seattle bar in 2004 . Porter Sr. pleaded guilty to first-degree manslaughter in the shooting death of a 14-year-old girl ."}]
+## Call toonify from Nest
+
+Next, without taking a break on this subject, we need to move the Toonify app into this one and do that same for that as was done for goose and bart.
+
+We will needs to quick UX for this, as we should be able to offer all four models to preview and choose one.  Seems like it would be prudent to start a new markdown document and tie up the specific subject of calling Python scripts from a Node Nest.

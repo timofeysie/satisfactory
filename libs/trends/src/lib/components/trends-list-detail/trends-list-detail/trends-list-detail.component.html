@@ -9,8 +9,8 @@
           <a href="{{ article.image?.newsUrl }}">
             <span [innerHTML]="decode(article.title)"></span
           ></a>
+          <div [innerHTML]="decode(article.source)"></div>X
         </div>
-        <div [innerHTML]="decode(article.source)"></div>
         <div [innerHTML]="decode(article.snippet)"></div>
       </div>
       <mat-checkbox

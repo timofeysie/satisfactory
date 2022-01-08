@@ -92,6 +92,13 @@ export class TrendsComponent implements OnInit {
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
   }
 
+  onRetrieveArticleSummary(event) {
+    this.trendsService.retrieveArticleSummary().subscribe((result) => {
+      console.log('result', result);
+      this.topicForm.controls.topicText.setValue(result);
+    })
+  }
+
   handleOnUseLinkForSummary(event) {
     this.topicForm.controls.linkForSummary.setValue(event);
   }
@@ -168,9 +175,11 @@ export class TrendsComponent implements OnInit {
   preFillForm() {
     // kick off the article scape and summary on the backend
     console.log('using', this.topicForm.controls.linkForSummary.value);
-    this.trendsService.kickoffArticleSummary(this.topicForm.controls.linkForSummary.value).subscribe((result) => {
-      console.log('result', result);
-    })
+    this.trendsService
+      .kickoffArticleSummary(this.topicForm.controls.linkForSummary.value)
+      .subscribe((result) => {
+        console.log('result', result);
+      });
     // set the page title
     this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
     // create TODO <AI>, <ARTIST> author values

@@ -27,9 +27,14 @@ export class TrendsService {
   }
 
   kickoffArticleSummary(linkForSummary: string) {
-    return this.httpClient.post<any>(
-      'http://localhost:3333/api/bart', {
-        link: linkForSummary
-      });
+    console.log('kickoffArticleSummary');
+    return this.httpClient.post<any>('http://localhost:3333/api/bart', {
+      link: linkForSummary,
+    });
   }
+
+  retrieveArticleSummary() {
+    return this.httpClient.get<any>('http://localhost:3333/api/bart');
+  }
+
 }

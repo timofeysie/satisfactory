@@ -178,3 +178,12 @@ The result has a few issues:
 
 It's go special characters.
 The punctuation has a space before each period.
+
+## Handle the in crawler_wrapper error
+
+We need to be able to alert the front end we get the following error:
+
+getArticleSummary service err Traceback (most recent call last):
+  File "C:\Users\timof\AppData\Local\Programs\Python\Python39\lib\site-packages\goose3\__init__.py", line 128, in crawler_wrapper
+
+THis is an error with goose getting the article.  If this happens, then the user should have the option of capturing the article text by hand and using that to be summarized by the bart.

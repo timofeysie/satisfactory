@@ -322,3 +322,56 @@ Add that to the submitted form, and we get this error:
 
 TypeError: Cannot read property 'split' of undefined
     at TrendsService.create (C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\nest-demo\webpack:\apps\nest-demo\src\app\trends\trends.service.ts:11:47)
+
+## Calling Python from Node
+
+### id Sidney Poitier
+
+fullUrl https://commons.wikimedia.org/w/index.php?search=Sidney Poitier&title=Special:MediaSearch&go=Go
+list 40
+service err Traceback (most recent call last):
+  File "C:\Users\timof\AppData\Local\Programs\Python\Python39\lib\site-packages\goose3\__init__.py", line 128, in crawler_wrapper
+
+(node:15884) UnhandledPromiseRejectionWarning: TypeError: Cannot read property '0' of undefined
+    at C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\nest-demo\webpack:\apps\nest-demo\src\app\bart\bart.controller.ts:32:53
+
+The file written has a from like this:
+
+[{'summary_text': '...'}]
+
+So accessing the text directly and sending that back like this causes the above error:
+
+resolve(result[0].summary_text);
+
+However, after reverting that change and deleting that file and trying again, the summary file is not being written.  This is all that the server is outputting:
+
+service err No model was supplied, defaulted to sshleifer/distilbart-cnn-12-6 (https://huggingface.co/sshleifer/distilbart-cnn-12-6)
+
+I'm tempted to start a new branch with the changes and start back from the working position.  Or just look at what has changed since the last commit in the goose.py file.  As of now, it appears completely broken like my fathers says of the Republican party.
+
+Here is the file after just moving the print and flush commands to the end of the file which doesn't seem to help anyway.
+
+```py
+from goose3 import Goose
+from transformers import pipeline
+import sys
+
+# extract article text
+g = Goose()
+article = g.extract(url=sys.argv[1])
+g.close()
+
+# Initialize the HuggingFace summarization pipeline
+summarizer = pipeline("summarization")
+summarized = summarizer(article.cleaned_text, min_length=75, max_length=300)
+
+# Print summarized text and save file
+file = open('apps/hugging-face/src/articleSummary.txt', 'x')
+file.write(summarized)
+file.close()
+
+print(summarized)
+sys.stdout.flush()
+```
+
+Other than that, the findAll() and the loadSummary() functions were added to get the file written in the getArticleSummary() service.

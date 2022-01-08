@@ -260,6 +260,7 @@
         <mat-label>description</mat-label>
         <textarea matInput value="description" formControlName="description">
         </textarea>
+        <button (click)="retrieveSummary()">Use generated summary</button>
       </mat-form-field>
       <!-- main post meta-description -->
       <mat-form-field class="full-width" appearance="fill">
@@ -275,7 +276,6 @@
           formControlName="metaDescription"
         ></textarea>
         <div>{{ topicMetaDescriptionCharacters }}</div>
-        <button (click)="retrieveSummary()">Use generated summary</button>
       </mat-form-field>
     </div>
   </mat-card>

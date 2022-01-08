@@ -11,10 +11,5 @@ g.close()
 summarizer = pipeline("summarization")
 summarized = summarizer(article.cleaned_text, min_length=75, max_length=300)
 
-# Print summarized text and save file
-file = open('apps/hugging-face/src/articleSummary.txt', 'x')
-file.write(summarized)
-file.close()
-
-print(summarized)
+print(str(summarized))
 sys.stdout.flush()

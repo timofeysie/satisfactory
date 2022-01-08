@@ -170,14 +170,30 @@ Also, the front end receives a 500 error almost immediately.  How to we make it 
 
 It's not working out.  After doing quite a bit of tooling around, I have decided just to save the result in Nest and let the user retrieve that via a button on the form page to pre-fill the topic description.
 
+The connection between Nest and Angular wasn't working out.  We had to remove the generic type to allow the basic response type of text:
+
+this.httpClient.get<any>
+
+After that, this worked:
+
+```js
+  retrieveArticleSummary() {
+    return this.httpClient.get('http://localhost:3333/api/bart', {
+      responseType: 'text',
+    });
+  }
+```
+
 ## Formatting the result
 
 The result has a few issues:
 
 [{'summary_text': " Wednesday�s $630 million Powerball jackpot will be split between winners in California and Wisconsin . The winner has 180 days from the day of the drawing to come forward, or the prize is forfeited . It's the fourth Powerball or Mega Millions jackpot won by a Wisconsin resident in four years . The winning numbers were 6, 14, 25, 33, 46, and the Powerball was 17 ."}]
 
-It's go special characters.
+It's special characters time.
 The punctuation has a space before each period.
+
+We just use the old string.split(' .').join('.'), etc to finish this off.
 
 ## Handle the in crawler_wrapper error
 
@@ -187,3 +203,5 @@ getArticleSummary service err Traceback (most recent call last):
   File "C:\Users\timof\AppData\Local\Programs\Python\Python39\lib\site-packages\goose3\__init__.py", line 128, in crawler_wrapper
 
 THis is an error with goose getting the article.  If this happens, then the user should have the option of capturing the article text by hand and using that to be summarized by the bart.
+
+[{'summary_text': " Kevin Porter Jr. hit a buzzer-beating 3-pointer to give the Houston Rockets a 114-111 win over the Washington Wizards . Washington Wizards broadcaster Glenn Consor apologized for the remark . Porter Jr.'s father, Bryan Kevin Porter Sr., was killed in a shooting in a Seattle bar in 2004 . Porter Sr. pleaded guilty to first-degree manslaughter in the shooting death of a 14-year-old girl ."}]

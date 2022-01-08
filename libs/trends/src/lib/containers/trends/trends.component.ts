@@ -92,11 +92,15 @@ export class TrendsComponent implements OnInit {
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
   }
 
-  onRetrieveArticleSummary(event) {
+  onRetrieveArticleSummary() {
     this.trendsService.retrieveArticleSummary().subscribe((result) => {
-      console.log('result', result);
-      this.topicForm.controls.topicText.setValue(result);
-    })
+      const fullResponse = JSON.parse(JSON.stringify(result));
+      const start = fullResponse.indexOf('" ');
+      const text = fullResponse.substring(start + 2, fullResponse.length - 5);
+      const text1 = text.split('�').join('\'');
+      const text2 = text1.split(' .').join(".");
+      this.topicForm.controls.description.setValue(text2);
+    });
   }
 
   handleOnUseLinkForSummary(event) {

@@ -10,6 +10,7 @@ export class BartService {
   }
 
   loadSummary() {
+    console.log('loadSummary');
     return new Promise((resolve, reject) => {
       const path = `./apps/nest-demo/src/app/bart/summary.txt`;
       fs.readFile(path,'utf-8', (err, file) => {
@@ -23,10 +24,10 @@ export class BartService {
   }
 
   findOne(id: string) {
+    console.log('findOne');
     const process = spawn('python', ['apps/hugging-face/src/bart.py', id]);
     return new Promise((resolve, reject) => {
       process.stdout.on('data', function (data) {
-        console.log('Sending Info', data.toString('utf8'));
         resolve(data.toString());
       });
       process.stderr.on('data', reject);
@@ -34,13 +35,13 @@ export class BartService {
   }
 
   async getArticleSummary(articleUrl: any) {
+    console.log('getArticleSummary');
     const process = spawn('python', [
       'apps/hugging-face/src/goose.py',
       articleUrl,
     ]);
     return new Promise((resolve, reject) => {
       process.stdout.on('data', function (data) {
-        console.log('getArticleSummary', data.toString('utf8'));
         const path = `./apps/nest-demo/src/app/bart/summary.txt`;
         const file = fs.createWriteStream(path);
         file.on('error', function (err) {
@@ -58,8 +59,9 @@ export class BartService {
   }
 
   faceHugger(articleText: string) {
+    console.log('getArticleSummary');
     const process = spawn('python', [
-      'apps/hugging-face/src/bart.py',
+      'apps/hugging-face/src/goose.py',
       articleText,
     ]);
     return new Promise((resolve, reject) => {

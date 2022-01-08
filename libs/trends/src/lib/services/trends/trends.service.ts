@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Trend } from '@demo-app/data-models';
 import { Observable } from 'rxjs';
 
@@ -34,7 +34,9 @@ export class TrendsService {
   }
 
   retrieveArticleSummary() {
-    return this.httpClient.get<any>('http://localhost:3333/api/bart');
+    return this.httpClient.get('http://localhost:3333/api/bart', {
+      responseType: 'text',
+    });
   }
 
 }

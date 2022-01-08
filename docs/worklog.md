@@ -375,3 +375,5 @@ sys.stdout.flush()
 ```
 
 Other than that, the findAll() and the loadSummary() functions were added to get the file written in the getArticleSummary() service.
+
+Commit message: added a use generated summary button and service to retrieve file written by nest but goose appears to be always failing

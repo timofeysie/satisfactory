@@ -90,6 +90,9 @@
     },
     "hugging-face": {
       "tags": []
+    },
+    "toonify": {
+      "tags": []
     }
   }
 }

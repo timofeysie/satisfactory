@@ -1,0 +1,3 @@
+[submodule "CartoonGAN-Test-Pytorch-Torch"]
+	path = CartoonGAN-Test-Pytorch-Torch
+	url = https://github.com/Yijunmaverick/CartoonGAN-Test-Pytorch-Torch.git

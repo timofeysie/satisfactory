@@ -651,6 +651,42 @@
           }
         }
       }
+    },
+    "toonify": {
+      "projectType": "application",
+      "root": "apps/toonify",
+      "sourceRoot": "apps/toonify/src",
+      "targets": {
+        "build": {
+          "executor": "@nx-python/nx-python:build",
+          "options": {
+            "outputPath": "dist\\apps\\toonify",
+            "main": "apps\\toonify\\src\\hello.py",
+            "templateType": "default"
+          }
+        },
+        "serve": {
+          "executor": "@nx-python/nx-python:serve",
+          "options": {
+            "main": "apps\\toonify\\src\\hello.py",
+            "templateType": "default"
+          }
+        },
+        "test": {
+          "executor": "@nx-python/nx-python:test",
+          "options": {
+            "main": "apps\\toonify\\src\\test_hello.py",
+            "templateType": "default"
+          }
+        },
+        "lint": {
+          "executor": "@nx-python/nx-python:lint",
+          "options": {
+            "main": "apps\\toonify\\src\\hello.py",
+            "templateType": "default"
+          }
+        }
+      }
     }
   },
   "cli": {

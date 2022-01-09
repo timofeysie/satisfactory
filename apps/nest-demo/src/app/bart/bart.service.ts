@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateBartDto } from './dto/create-bart.dto';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class BartService {
@@ -56,7 +57,7 @@ export class BartService {
     }).catch((err) => {
       const buf = Buffer.from(err);
       console.log('bart.service getArticleSummary service err', buf.toString());
-      throw new Error(buf.toString());
+      return throwError(buf.toString());
     });
   }
 

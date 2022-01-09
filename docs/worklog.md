@@ -467,3 +467,10 @@ If we throw a new error there, then we get this:
 
 Both the controller and the service have catch blocks.
 
+This seems to fix the above error:
+
+return throwError(buf.toString());
+
+But the only error we see in the service or component in the front end is the 'SyntaxError: Unexpected token % in JSON at position 0' message.
+
+(moving this discussion into it's own document as this might take a while to sus out).

@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { HttpException, HttpStatus } from '@nestjs/common';
+
 import { BartService } from './bart.service';
 import { CreateBartDto } from './dto/create-bart.dto';
 import { UpdateBartDto } from './dto/update-bart.dto';
@@ -27,6 +29,7 @@ export class BartController {
 
   @Post()
   async getArticleSummary(@Body() article: any) {
+    console.log('bart.controller: getArticleSummary');
     return new Promise((resolve) => {
       this.bartService.getArticleSummary(article.link).then((result: any) => {
         resolve(encodeURI(result));
@@ -34,6 +37,7 @@ export class BartController {
     }).catch((err) => {
       const buf = Buffer.from(err);
       console.log('controller err', buf.toString());
+      throw new HttpException('buf.toString()', HttpStatus.ACCEPTED);
     });
   }
 }

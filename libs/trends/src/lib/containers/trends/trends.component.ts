@@ -8,6 +8,8 @@ import { Trend } from '@demo-app/data-models';
 import * as TrendsActions from '../../+state/trends.actions';
 import { TrendsService } from '../../services/trends/trends.service';
 import { TrendsListComponent } from '../trends-list/trends-list.component';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'demo-app-trends',
@@ -92,13 +94,24 @@ export class TrendsComponent implements OnInit {
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
   }
 
+  /**
+   * As a result of difficulties reading an array from a file and getting
+   * the json summary_text, we do it manually here.
+   * Special characters are converted and spaces before the period created
+   * by BART are removed.
+   */
   onRetrieveArticleSummary() {
     this.trendsService.retrieveArticleSummary().subscribe((result) => {
       const fullResponse = JSON.parse(JSON.stringify(result));
-      const start = fullResponse.indexOf('" ');
-      const text = fullResponse.substring(start + 2, fullResponse.length - 5);
-      const text1 = text.split('�').join('\'');
-      const text2 = text1.split(' .').join(".");
+      let start = fullResponse.indexOf('" ');
+      let offset = 2;
+      if (start === -1) {
+        start = fullResponse.indexOf('summary_text\': \'');
+        offset = 17;
+      }
+      const text = fullResponse.substring(start + offset, fullResponse.length - 5);
+      const text1 = text.split('�').join("'");
+      const text2 = text1.split(' .').join('.');
       this.topicForm.controls.description.setValue(text2);
     });
   }
@@ -181,6 +194,16 @@ export class TrendsComponent implements OnInit {
     console.log('using', this.topicForm.controls.linkForSummary.value);
     this.trendsService
       .kickoffArticleSummary(this.topicForm.controls.linkForSummary.value)
+      .pipe(
+        catchError((error) => {
+          if (error.error instanceof ErrorEvent) {
+            console.log(`1-Error: ${error}`);
+          } else {
+            console.log(`2-Error: ${error?.error?.error}`);
+          }
+          return of('done');
+        })
+      )
       .subscribe((result) => {
         console.log('result', result);
       });

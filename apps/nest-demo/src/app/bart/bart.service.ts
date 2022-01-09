@@ -24,7 +24,7 @@ export class BartService {
   }
 
   findOne(id: string) {
-    console.log('findOne');
+    console.log('findOne not used');
     const process = spawn('python', ['apps/hugging-face/src/bart.py', id]);
     return new Promise((resolve, reject) => {
       process.stdout.on('data', function (data) {
@@ -35,7 +35,7 @@ export class BartService {
   }
 
   async getArticleSummary(articleUrl: any) {
-    console.log('getArticleSummary');
+    console.log('bart.service getArticleSummary');
     const process = spawn('python', [
       'apps/hugging-face/src/goose.py',
       articleUrl,
@@ -46,6 +46,7 @@ export class BartService {
         const file = fs.createWriteStream(path);
         file.on('error', function (err) {
           /* error handling */
+          console.log('process err', err);
         });
         file.write(data.toString());
         file.end();
@@ -54,7 +55,8 @@ export class BartService {
       process.stderr.on('data', reject);
     }).catch((err) => {
       const buf = Buffer.from(err);
-      console.log('getArticleSummary service err', buf.toString());
+      console.log('bart.service getArticleSummary service err', buf.toString());
+      throw new Error(buf.toString());
     });
   }
 

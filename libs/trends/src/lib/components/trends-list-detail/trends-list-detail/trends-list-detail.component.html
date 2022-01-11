@@ -5,11 +5,11 @@
       <img src="{{ article.image?.imageUrl }}" mat-card-image />
       <div class="content">
         <div>
-          {{ article.timeAgo }}
+          <span>{{ article.timeAgo }}</span>
           <a href="{{ article.image?.newsUrl }}">
             <span [innerHTML]="decode(article.title)"></span
           ></a>
-          <div [innerHTML]="decode(article.source)"></div>X
+          <div [innerHTML]="decode(article.source)"></div>
         </div>
         <div [innerHTML]="decode(article.snippet)"></div>
       </div>

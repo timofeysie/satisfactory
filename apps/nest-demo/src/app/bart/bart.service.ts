@@ -62,7 +62,7 @@ export class BartService {
   }
 
   faceHugger(articleText: string) {
-    console.log('getArticleSummary');
+    console.log('faceHugger');
     const process = spawn('python', [
       'apps/hugging-face/src/goose.py',
       articleText,

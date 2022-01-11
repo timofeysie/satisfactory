@@ -3,13 +3,21 @@ import { GanService } from './gan.service';
 import { CreateGanDto } from './dto/create-gan.dto';
 import { UpdateGanDto } from './dto/update-gan.dto';
 
+import { HttpException, HttpStatus } from '@nestjs/common';
+
 @Controller('gan')
 export class GanController {
   constructor(private readonly ganService: GanService) {}
 
   @Post()
-  create(@Body() createGanDto: CreateGanDto) {
-    return this.ganService.create(createGanDto);
+  async downloadImage(@Body() linkWrapper: any) {
+    console.log('bart.controller: getArticleSummary');
+    return new Promise((resolve) => {
+      this.ganService.downloadImage(linkWrapper.link);
+      resolve('OK');
+    }).catch((err) => {
+      console.log('controller err', err);
+    });
   }
 
   @Get()

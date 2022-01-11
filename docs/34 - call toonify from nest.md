@@ -30,9 +30,11 @@ So, basically a month.  I had a feeling this would be quicker.  The S3 bucket is
 
 Anyhow, this is pretty much the core of the app, so one month is understandable.
 
-## 1. create a new app to hold Toonify
+## 1. create a new app to hold Toonify & 2
 
 nx g @nx-python/nx-python:app toonify
+
+Then copy the whole toonify code to the src directory.
 
 ### 3. create a new api to work with the images
 
@@ -68,4 +70,10 @@ I'm not really sure how to apply that suggestion, so I just removed the volatile
   warnings.warn("nn.functional.tanh is deprecated. Use torch.tanh instead.")
 ```
 
-This is not even part of the project, so not sure how to proceed.
+This is not even part of the project, so not sure how to proceed.  For now this epic is blocked.
+
+We can get number 4 done for now.
+
+## 4. send url to server and download image
+
+The api/gan post can be used for this.

@@ -106,10 +106,13 @@ export class TrendsComponent implements OnInit {
       let start = fullResponse.indexOf('" ');
       let offset = 2;
       if (start === -1) {
-        start = fullResponse.indexOf('summary_text\': \'');
+        start = fullResponse.indexOf("summary_text': '");
         offset = 17;
       }
-      const text = fullResponse.substring(start + offset, fullResponse.length - 5);
+      const text = fullResponse.substring(
+        start + offset,
+        fullResponse.length - 5
+      );
       const text1 = text.split('�').join("'");
       const text2 = text1.split(' .').join('.');
       this.topicForm.controls.description.setValue(text2);
@@ -191,6 +194,28 @@ export class TrendsComponent implements OnInit {
    */
   preFillForm() {
     // kick off the article scape and summary on the backend
+    this.kickOffGetArticleSummary();
+    // set the page title
+    this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
+
+    // create TODO <AI>, <ARTIST> author values
+    this.createAuthorValues();
+
+    this.fillLinks();
+    if (this.topicForm.value.one.type === 'AI') {
+      this.setAIPictureNumberData('one');
+    } else {
+      this.setArtistPictureNumberData('one');
+    }
+    if (this.topicForm.value.two.type === 'AI') {
+      this.setAIPictureNumberData('two');
+    } else {
+      this.setArtistPictureNumberData('two');
+    }
+    this.getRelatedQueries();
+  }
+
+  kickOffGetArticleSummary() {
     console.log('using', this.topicForm.controls.linkForSummary.value);
     this.trendsService
       .kickoffArticleSummary(this.topicForm.controls.linkForSummary.value)
@@ -207,9 +232,10 @@ export class TrendsComponent implements OnInit {
       .subscribe((result) => {
         console.log('result', result);
       });
-    // set the page title
-    this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
-    // create TODO <AI>, <ARTIST> author values
+  }
+
+  // create TODO <AI>, <ARTIST> author values
+  createAuthorValues() {
     const authors =
       '<' +
       this.topicForm.controls['one']['controls']?.author?.value +
@@ -218,14 +244,6 @@ export class TrendsComponent implements OnInit {
       this.topicForm.controls['two']['controls']?.author?.value +
       '>';
     this.topicForm.controls.authors.setValue(authors);
-    this.fillLinks();
-    if (this.topicForm.value.one.type === 'AI') {
-      this.setAIPictureNumberData('one');
-    }
-    if (this.topicForm.value.two.type === 'AI') {
-      this.setAIPictureNumberData('two');
-    }
-    this.getRelatedQueries();
   }
 
   /**
@@ -254,6 +272,7 @@ export class TrendsComponent implements OnInit {
     const aspect = this.getCommonsImgAspect(pictureNumber);
     const altTagText = this.getCommonsImgAlt(pictureNumber);
     const srcset = this.createSrcSet(this.trendTitleSeen, pictureNumber);
+    console.log('srcset', srcset);
     const altTagWithoutExt = this.removeFileExt(altTagText);
     const tags = this.trendTitleSeen + ', ' + altTagWithoutExt;
     this.topicForm.controls[pictureNumber]['controls']?.aspect?.setValue(
@@ -265,10 +284,20 @@ export class TrendsComponent implements OnInit {
     this.topicForm.controls[pictureNumber]['controls']?.altText?.setValue(
       altTagText
     );
+    // might be needed later when AI images have more than one size
+    // this.topicForm.controls[pictureNumber]['controls']?.srcset?.setValue(
+    //   srcset
+    // );
+    console.log('set ' + pictureNumber + ':', srcset);
+    this.topicForm.controls[pictureNumber]['controls']?.tags?.setValue(tags);
+  }
+
+  setArtistPictureNumberData(pictureNumber: string) {
+    const srcset = this.createSrcSet(this.trendTitleSeen, pictureNumber);
     this.topicForm.controls[pictureNumber]['controls']?.srcset?.setValue(
       srcset
     );
-    this.topicForm.controls[pictureNumber]['controls']?.tags?.setValue(tags);
+    console.log('set ' + pictureNumber + ':', srcset);
   }
 
   removeFileExt(text: string) {

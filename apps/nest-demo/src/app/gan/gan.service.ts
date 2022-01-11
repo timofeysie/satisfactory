@@ -5,15 +5,18 @@ import { spawn } from 'child_process';
 
 @Injectable()
 export class GanService {
-  create(createGanDto: CreateGanDto) {
-    return 'This action adds a new gan';
+  downloadImage(link: string) {
+    return 'This action downloads an image for the gan '+link;
   }
 
   findAll() {
     console.log('findAll test');
     const process = spawn('python', [
       'apps/toonify/src/test.py',
-      '--style', 'Hosoda', '--gpu', '0',
+      '--style',
+      'Hosoda',
+      '--gpu',
+      '0',
     ]);
     return new Promise((resolve, reject) => {
       process.stdout.on('data', function (data) {

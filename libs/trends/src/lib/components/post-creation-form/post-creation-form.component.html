@@ -243,8 +243,13 @@
             <input matInput value="altText" formControlName="altText" />
           </mat-form-field>
           <mat-form-field class="full-width" appearance="fill">
-            <mat-label>srcset</mat-label>
-            <input matInput value="srcset" formControlName="srcset" />
+            <textarea
+              matInput
+              rows="3"
+              placeholder="srcset"
+              value="srcset"
+              formControlName="srcset"
+            ></textarea>
           </mat-form-field>
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>tags</mat-label>

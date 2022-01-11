@@ -474,3 +474,16 @@ return throwError(buf.toString());
 But the only error we see in the service or component in the front end is the 'SyntaxError: Unexpected token % in JSON at position 0' message.
 
 (moving this discussion into it's own document as this might take a while to sus out).
+
+## srcset issue
+
+In the trends.component, there is a check for AI before calling set AI picture.
+
+    if (this.topicForm.value.one.type === 'AI') {
+      this.setAIPictureNumberData('one');
+    }
+    if (this.topicForm.value.two.type === 'AI') {
+      this.setAIPictureNumberData('two');
+    }
+
+This actually was setting the src set which should be being done only for the artist type at this point.

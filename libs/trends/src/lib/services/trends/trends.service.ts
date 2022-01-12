@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Trend } from '@demo-app/data-models';
-import { Observable,throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -37,10 +37,12 @@ export class TrendsService {
         catchError((error) => {
           let errorMsg: string;
           if (error.error instanceof ErrorEvent) {
-            console.log(`1 - Error: ${error.error.message}`);
+            console.log(
+              `kickoffArticleSummary 1 - Error: ${error.error.message}`
+            );
             errorMsg = error.error.message;
           } else {
-            console.log('2 - Error: ', error);
+            console.log('kickoffArticleSummary 2 - Error: ', error);
             errorMsg = error;
           }
           return throwError(errorMsg);
@@ -48,19 +50,19 @@ export class TrendsService {
       );
   }
 
-  downloadImage(linkForArticle: any) {
+  downloadImages(linksForArticle: any) {
     return this.httpClient
       .post<any>('http://localhost:3333/api/gan', {
-        link: linkForArticle,
+        links: linksForArticle,
       })
       .pipe(
         catchError((error) => {
           let errorMsg: string;
           if (error.error instanceof ErrorEvent) {
-            console.log(`1 - Error: ${error.error.message}`);
+            console.log(`downloadImages 1 - Error: ${error.error.message}`);
             errorMsg = error.error.message;
           } else {
-            console.log('2 - Error: ', error);
+            console.log('downloadImages 2 - Error: ', error);
             errorMsg = error;
           }
           return throwError(errorMsg);

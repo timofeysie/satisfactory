@@ -5,8 +5,8 @@ import { spawn } from 'child_process';
 
 @Injectable()
 export class GanService {
-  downloadImage(link: string) {
-    return 'This action downloads an image for the gan '+link;
+  downloadImage(links: any) {
+    return 'This action downloads an image for the gan '+links;
   }
 
   findAll() {

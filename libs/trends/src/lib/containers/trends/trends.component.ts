@@ -194,7 +194,9 @@ export class TrendsComponent implements OnInit {
    */
   preFillForm() {
     // kick off the article scape and summary on the backend
-    this.kickOffGetArticleSummary();
+    if (this.topicForm.controls.linkForSummary.value) {
+       this.kickOffGetArticleSummary();
+    }
     // download images
     this.downloadImages();
     // set the page title
@@ -226,7 +228,7 @@ export class TrendsComponent implements OnInit {
     const two = this.getCommonsImageUrl('two');
     if (one) urls.push(one);
     if (two) urls.push(two);
-    this.trendsService.downloadImage(urls);
+    this.trendsService.downloadImages(urls).subscribe();
   }
 
   /**
@@ -272,7 +274,6 @@ export class TrendsComponent implements OnInit {
   }
 
   kickOffGetArticleSummary() {
-    console.log('using', this.topicForm.controls.linkForSummary.value);
     this.trendsService
       .kickoffArticleSummary(this.topicForm.controls.linkForSummary.value)
       .pipe(

@@ -36,7 +36,6 @@ export class BartService {
   }
 
   async getArticleSummary(articleUrl: any) {
-    console.log('bart.service getArticleSummary');
     const process = spawn('python', [
       'apps/hugging-face/src/goose.py',
       articleUrl,

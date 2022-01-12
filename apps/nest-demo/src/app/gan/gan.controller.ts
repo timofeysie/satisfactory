@@ -11,9 +11,9 @@ export class GanController {
 
   @Post()
   async downloadImage(@Body() linkWrapper: any) {
-    console.log('bart.controller: getArticleSummary');
+    console.log('gan.controller: downloadImage');
     return new Promise((resolve) => {
-      this.ganService.downloadImage(linkWrapper.link);
+      this.ganService.downloadImage(linkWrapper.links);
       resolve('OK');
     }).catch((err) => {
       console.log('controller err', err);

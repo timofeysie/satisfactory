@@ -29,7 +29,6 @@ export class BartController {
 
   @Post()
   async getArticleSummary(@Body() article: any) {
-    console.log('bart.controller: getArticleSummary');
     return new Promise((resolve) => {
       this.bartService.getArticleSummary(article.link).then((result: any) => {
         resolve(encodeURI(result));

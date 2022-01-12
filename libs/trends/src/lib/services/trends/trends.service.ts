@@ -40,7 +40,27 @@ export class TrendsService {
             console.log(`1 - Error: ${error.error.message}`);
             errorMsg = error.error.message;
           } else {
-            console.log('2 - Error: ',error);
+            console.log('2 - Error: ', error);
+            errorMsg = error;
+          }
+          return throwError(errorMsg);
+        })
+      );
+  }
+
+  downloadImage(linkForArticle: any) {
+    return this.httpClient
+      .post<any>('http://localhost:3333/api/gan', {
+        link: linkForArticle,
+      })
+      .pipe(
+        catchError((error) => {
+          let errorMsg: string;
+          if (error.error instanceof ErrorEvent) {
+            console.log(`1 - Error: ${error.error.message}`);
+            errorMsg = error.error.message;
+          } else {
+            console.log('2 - Error: ', error);
             errorMsg = error;
           }
           return throwError(errorMsg);

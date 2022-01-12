@@ -195,6 +195,8 @@ export class TrendsComponent implements OnInit {
   preFillForm() {
     // kick off the article scape and summary on the backend
     this.kickOffGetArticleSummary();
+    // download images
+    this.downloadImages();
     // set the page title
     this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
 
@@ -213,6 +215,60 @@ export class TrendsComponent implements OnInit {
       this.setArtistPictureNumberData('two');
     }
     this.getRelatedQueries();
+  }
+
+  /**
+   * Get img urls to send to the backend for download.
+   */
+  downloadImages() {
+    const urls = [];
+    const one = this.getCommonsImageUrl('one');
+    const two = this.getCommonsImageUrl('two');
+    if (one) urls.push(one);
+    if (two) urls.push(two);
+    this.trendsService.downloadImage(urls);
+  }
+
+  /**
+   * Find the full sized image by getting the src and removing the \thumb section.
+   * @param pictureNumber
+   * @returns url of full sized image
+   */
+  getCommonsImageUrl(pictureNumber: string) {
+    const urlPage = this.topicForm.controls[pictureNumber]['controls'].commonImg
+      .value;
+    if (urlPage) {
+      const dataSet = 'src="';
+      const ext = this.findExtension(urlPage);
+      const start = urlPage.indexOf(dataSet);
+      const urlStart = urlPage.substring(
+        start + dataSet.length,
+        urlPage.length
+      );
+      const end = urlStart.indexOf(ext);
+      const urlFull = urlStart.substring(0, end + ext.length);
+      const woThumb = urlFull.replace('/thumb', '');
+      return woThumb;
+    }
+  }
+
+  /**
+   * looks for the third dot in the img tag string and 
+   * returns that with the dot, such as '.jpg' or '.png'.
+   * @param urlPage
+   * @returns first file extension found
+   */
+  findExtension(urlPage) {
+    const firstDot = urlPage.indexOf('.');
+    const afterFirstDot = urlPage.substring(firstDot + 1, urlPage.length);
+    const secondDot = afterFirstDot.indexOf('.');
+    const afterSecondDot = afterFirstDot.substring(
+      secondDot + 1,
+      afterFirstDot.lenth
+    );
+    const thirdDot = afterSecondDot.indexOf('.');
+    const ext = afterSecondDot.substring(thirdDot, thirdDot + 4);
+    return ext;
   }
 
   kickOffGetArticleSummary() {
@@ -272,7 +328,6 @@ export class TrendsComponent implements OnInit {
     const aspect = this.getCommonsImgAspect(pictureNumber);
     const altTagText = this.getCommonsImgAlt(pictureNumber);
     const srcset = this.createSrcSet(this.trendTitleSeen, pictureNumber);
-    console.log('srcset', srcset);
     const altTagWithoutExt = this.removeFileExt(altTagText);
     const tags = this.trendTitleSeen + ', ' + altTagWithoutExt;
     this.topicForm.controls[pictureNumber]['controls']?.aspect?.setValue(
@@ -288,7 +343,6 @@ export class TrendsComponent implements OnInit {
     // this.topicForm.controls[pictureNumber]['controls']?.srcset?.setValue(
     //   srcset
     // );
-    console.log('set ' + pictureNumber + ':', srcset);
     this.topicForm.controls[pictureNumber]['controls']?.tags?.setValue(tags);
   }
 
@@ -297,7 +351,6 @@ export class TrendsComponent implements OnInit {
     this.topicForm.controls[pictureNumber]['controls']?.srcset?.setValue(
       srcset
     );
-    console.log('set ' + pictureNumber + ':', srcset);
   }
 
   removeFileExt(text: string) {

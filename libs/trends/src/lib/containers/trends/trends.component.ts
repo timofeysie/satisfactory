@@ -344,11 +344,13 @@ export class TrendsComponent implements OnInit {
     // this.topicForm.controls[pictureNumber]['controls']?.srcset?.setValue(
     //   srcset
     // );
+    // const srcset = srcset1.split(' ').join('_'); ???
     this.topicForm.controls[pictureNumber]['controls']?.tags?.setValue(tags);
   }
 
   setArtistPictureNumberData(pictureNumber: string) {
-    const srcset = this.createSrcSet(this.trendTitleSeen, pictureNumber);
+    const srcset1 = this.createSrcSet(this.trendTitleSeen, pictureNumber);
+    const srcset = srcset1.split(' ').join('_');
     this.topicForm.controls[pictureNumber]['controls']?.srcset?.setValue(
       srcset
     );

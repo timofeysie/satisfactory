@@ -8,14 +8,16 @@
 4. send url to server and download image
 5. run all models on the image
 6. alert the front end that the images are ready
-7. upload images to an S3 bucket
-8. allow the user to choose between the images
-9. add the selected image link to the post
+7. frontend displays the images and user selects one
+8. upload image selected to an S3 bucket
+9. allow the user to choose between the images
+10. add the selected image link to the post
 
-This ought to about cover it.  No. 6 and no. 7 are biggies.
+This ought to about cover it.  No. 6 and no. 7 are bigger than the rest.
 
-No. 6 will require using a service worker and a new framework to support that.
-No. 7 will require another whole new skill of using S3.  It's pretty standard so shouldn't be too difficult.
+No. 6 will require using a service worker and a new framework to support push notifications.
+
+No. 7 will require an AWS account to support using S3 CRUD functions.  It's pretty standard so shouldn't be too difficult.
 
 ### Estimates
 
@@ -70,10 +72,37 @@ I'm not really sure how to apply that suggestion, so I just removed the volatile
   warnings.warn("nn.functional.tanh is deprecated. Use torch.tanh instead.")
 ```
 
-This is not even part of the project, so not sure how to proceed.  For now this epic is blocked.
+This is not even part of the project, so not sure how to proceed.  
 
-We can get number 4 done for now.
+### Steps to reproduce & project brief
+
+Run the node server: nx serve nest-demo
+
+Go to this url when it's running: http://localhost:3333/api/gan
+
+See this error:
+
+```txt
+[Nest] 8948   - 09/01/2022, 2:39:30 pm   [ExceptionsHandler] C:\Users\timof\repos\timofeysie\satisfactory\apps\toonify\src\test.py:63: UserWarning: volatile was removed and now has no effect. Use `with torch.no_grad():` instead.
+  input_image = Variable(input_image, volatile=True).float()
+```
+
+The Node API service that makes the call to the Python app can be seen here: apps\nest-demo\src\app\gan\gan.service.ts
+
+The process = spawn('python', ...) approach has been used somewhat successfully in the hugging-face text extraction and summarizer app.
+
+See the apps\nest-demo\src\app\bart\bart.service.ts which handles calling the apps/hugging-face/src/goose.py script as a working example.
+
+Due to the time taken, the result must be loaded by the front end when it's ready.
+
+Note also that calling test.py directly from the command line works to generate an image.
+
+I currently haver Python 3.9.6 64-bit via VS Code.  There are no current plans to deploy this app to a server, having the apps running locally in VS Code is fine for now.
+
+The hugging-face and other Python apps with rely on libraries like pymatting will also need to work and share the same version of Python that all the other apps use as this is a nx monorepo.
 
 ## 4. send url to server and download image
 
 The api/gan post can be used for this.
+
+Once the backend gets the url, it can save the image in preparation for calling cartoonify to process it.

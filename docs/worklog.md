@@ -487,3 +487,9 @@ In the trends.component, there is a check for AI before calling set AI picture.
     }
 
 This actually was setting the src set which should be being done only for the artist type at this point.
+
+## 2022-01-15 Saturday
+
+- Make link to commons image go to that page.
+- Write steps to reproduce toonify app called from Node error.
+- Write brief for background removal task and find person for that.

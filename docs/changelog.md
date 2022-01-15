@@ -4,9 +4,34 @@ The release dates should coincide with all the other apps for this project.
 
 ## Version 0.0.2
 
-Release date: 2021-12
+Expected release date: 2021-12-?
+Actual release date: 2022-01-13
 
-free-solid-svg-icons
+- sending image links to backend
+- added function to get the full sized commons image url
+- fixed the srcset logic
+- added toonify code and gan api with test route
+- added more notes on error handling
+- bart error message handling wip
+- added notes on next steps
+- prefill description with text summary from bart working
+- added a use generated summary button and service to retrieve file written by nest
+- saving bart summary in file
+- goose working
+- added goose article scraper
+- added hugging-face text summarizer python app
+- basic product api crud functions done
+- added detail edit form component
+- added font awesome and working on details form
+- added products api detail service and view
+- converted findAll products to read the json files in the posts directory
+- added aspect and form select to images
+- created product details container
+- added get by category API
+- added the products service to replace the Duncan service
+- added some posts wip and before products api
+- started version 0.0.1 with meta descriptions and nets vs rockets
+- using free-solid-svg-icons
 
 ## Version 0.0.1
 

@@ -29,11 +29,6 @@ export class TrendsService {
 
   kickoffArticleSummary(linkForSummary: string) {
     console.log('kickoffArticleSummary');
-<<<<<<< HEAD
-    return this.httpClient.post<any>('http://localhost:3333/api/bart', {
-      link: linkForSummary,
-    });
-=======
     return this.httpClient
       .post<any>('http://localhost:3333/api/bart', {
         link: linkForSummary,
@@ -73,7 +68,6 @@ export class TrendsService {
           return throwError(errorMsg);
         })
       );
->>>>>>> HuggingFace
   }
 
   retrieveArticleSummary() {
@@ -81,8 +75,4 @@ export class TrendsService {
       responseType: 'text',
     });
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> HuggingFace
 }

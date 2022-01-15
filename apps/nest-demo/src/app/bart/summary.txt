@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-[{'summary_text': " Sources say West's romance with Julia Fox is a ploy to get under ex Kim Kardashian�s skin . The rapper has called for his ex to �run back to� him, sources say . West and Fox were first snapped on dates in Miami and New York early this month . Fox has described herself as a �die-hard, OG fan� of �Keeping Up With the Kardashians�"}]
-=======
 [{'summary_text': " Australia recover from 12-3 to reach 241-6 before rain interrupts the day�s proceedings . Travis Head scores 101 off 113 balls in day-night test in Australia's fifth Ashes test . Cameron Green contributes an authoritative 74 and Marnus Labuschagne scores 44 . Rain interrupted play on the first day of the fifth test at stumps in Melbourne . Head scored 152 in the opening test at Brisbane and 152 in Brisbane ."}]
->>>>>>> HuggingFace

@@ -94,15 +94,6 @@ export class TrendsComponent implements OnInit {
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
   }
 
-<<<<<<< HEAD
-  onRetrieveArticleSummary() {
-    this.trendsService.retrieveArticleSummary().subscribe((result) => {
-      const fullResponse = JSON.parse(JSON.stringify(result));
-      const start = fullResponse.indexOf('" ');
-      const text = fullResponse.substring(start + 2, fullResponse.length - 5);
-      const text1 = text.split('�').join('\'');
-      const text2 = text1.split(' .').join(".");
-=======
   /**
    * As a result of difficulties reading an array from a file and getting
    * the json summary_text, we do it manually here.
@@ -124,7 +115,6 @@ export class TrendsComponent implements OnInit {
       );
       const text1 = text.split('�').join("'");
       const text2 = text1.split(' .').join('.');
->>>>>>> HuggingFace
       this.topicForm.controls.description.setValue(text2);
     });
   }
@@ -204,25 +194,6 @@ export class TrendsComponent implements OnInit {
    */
   preFillForm() {
     // kick off the article scape and summary on the backend
-<<<<<<< HEAD
-    console.log('using', this.topicForm.controls.linkForSummary.value);
-    this.trendsService
-      .kickoffArticleSummary(this.topicForm.controls.linkForSummary.value)
-      .subscribe((result) => {
-        console.log('result', result);
-      });
-    // set the page title
-    this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
-    // create TODO <AI>, <ARTIST> author values
-    const authors =
-      '<' +
-      this.topicForm.controls['one']['controls']?.author?.value +
-      '>, ' +
-      '<' +
-      this.topicForm.controls['two']['controls']?.author?.value +
-      '>';
-    this.topicForm.controls.authors.setValue(authors);
-=======
     if (this.topicForm.controls.linkForSummary.value) {
        this.kickOffGetArticleSummary();
     }
@@ -234,7 +205,6 @@ export class TrendsComponent implements OnInit {
     // create TODO <AI>, <ARTIST> author values
     this.createAuthorValues();
 
->>>>>>> HuggingFace
     this.fillLinks();
     if (this.topicForm.value.one.type === 'AI') {
       this.setAIPictureNumberData('one');

@@ -376,9 +376,6 @@ sys.stdout.flush()
 
 Other than that, the findAll() and the loadSummary() functions were added to get the file written in the getArticleSummary() service.
 
-<<<<<<< HEAD
-Commit message: added a use generated summary button and service to retrieve file written by nest but goose appears to be always failing
-=======
 The problem with the failing Python script turned out to be that we were working on the goose file but the bart file was still being used in the server app, so, yeah.
 
 ## Error handling for BART
@@ -496,4 +493,3 @@ This actually was setting the src set which should be being done only for the ar
 - Make link to commons image go to that page.
 - Write steps to reproduce toonify app called from Node error.
 - Write brief for background removal task and find person for that.
->>>>>>> HuggingFace

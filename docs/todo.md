@@ -4,15 +4,6 @@
 
 ### Current
 
-<<<<<<< HEAD
-done - edit mode
-done - created json output
-done - installing font awesome
-
-### Next
-
-=======
->>>>>>> HuggingFace
 - submit post status update
 - trend details section becomes too small when the commons images are too many
 - the AP news search url when long pushes the type box off the screen

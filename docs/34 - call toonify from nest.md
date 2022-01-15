@@ -8,16 +8,6 @@
 4. send url to server and download image
 5. run all models on the image
 6. alert the front end that the images are ready
-<<<<<<< HEAD
-7. upload images to an S3 bucket
-8. allow the user to choose between the images
-9. add the selected image link to the post
-
-This ought to about cover it.  No. 6 and no. 7 are biggies.
-
-No. 6 will require using a service worker and a new framework to support that.
-No. 7 will require another whole new skill of using S3.  It's pretty standard so shouldn't be too difficult.
-=======
 7. frontend displays the images and user selects one
 8. upload image selected to an S3 bucket
 9. allow the user to choose between the images
@@ -28,7 +18,6 @@ This ought to about cover it.  No. 6 and no. 7 are bigger than the rest.
 No. 6 will require using a service worker and a new framework to support push notifications.
 
 No. 7 will require an AWS account to support using S3 CRUD functions.  It's pretty standard so shouldn't be too difficult.
->>>>>>> HuggingFace
 
 ### Estimates
 
@@ -43,11 +32,6 @@ So, basically a month.  I had a feeling this would be quicker.  The S3 bucket is
 
 Anyhow, this is pretty much the core of the app, so one month is understandable.
 
-<<<<<<< HEAD
-## 1. create a new app to hold Toonify
-
-nx generate @nestjs/schematics:resource toonify --sourceRoot apps/nest-demo/src/app
-=======
 ## 1. create a new app to hold Toonify & 2
 
 nx g @nx-python/nx-python:app toonify
@@ -122,4 +106,3 @@ The hugging-face and other Python apps with rely on libraries like pymatting wil
 The api/gan post can be used for this.
 
 Once the backend gets the url, it can save the image in preparation for calling cartoonify to process it.
->>>>>>> HuggingFace

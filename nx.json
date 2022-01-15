@@ -90,12 +90,9 @@
     },
     "hugging-face": {
       "tags": []
-<<<<<<< HEAD
-=======
     },
     "toonify": {
       "tags": []
->>>>>>> HuggingFace
     }
   }
 }

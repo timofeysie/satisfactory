@@ -5,19 +5,11 @@
       <img src="{{ article.image?.imageUrl }}" mat-card-image />
       <div class="content">
         <div>
-<<<<<<< HEAD
-          {{ article.timeAgo }}
-          <a href="{{ article.image?.newsUrl }}">
-            <span [innerHTML]="decode(article.title)"></span
-          ></a>
-          <div [innerHTML]="decode(article.source)"></div>X
-=======
           <span>{{ article.timeAgo }}</span>
           <a href="{{ article.image?.newsUrl }}">
             <span [innerHTML]="decode(article.title)"></span
           ></a>
           <div [innerHTML]="decode(article.source)"></div>
->>>>>>> HuggingFace
         </div>
         <div [innerHTML]="decode(article.snippet)"></div>
       </div>

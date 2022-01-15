@@ -651,8 +651,6 @@
           }
         }
       }
-<<<<<<< HEAD
-=======
     },
     "toonify": {
       "projectType": "application",
@@ -689,7 +687,6 @@
           }
         }
       }
->>>>>>> HuggingFace
     }
   },
   "cli": {

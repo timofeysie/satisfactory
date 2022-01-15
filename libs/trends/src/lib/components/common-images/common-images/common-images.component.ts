@@ -15,7 +15,6 @@ export class CommonImagesComponent implements OnInit {
 
   ngOnInit() {
     this.newSearch = this.searchTerm;
-    console.log('search', this.newSearch);
   }
 
   selectCommonImage(image: any) {

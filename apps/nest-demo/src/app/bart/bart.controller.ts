@@ -7,6 +7,11 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+<<<<<<< HEAD
+=======
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+>>>>>>> HuggingFace
 import { BartService } from './bart.service';
 import { CreateBartDto } from './dto/create-bart.dto';
 import { UpdateBartDto } from './dto/update-bart.dto';
@@ -34,6 +39,10 @@ export class BartController {
     }).catch((err) => {
       const buf = Buffer.from(err);
       console.log('controller err', buf.toString());
+<<<<<<< HEAD
+=======
+      throw new HttpException('buf.toString()', HttpStatus.ACCEPTED);
+>>>>>>> HuggingFace
     });
   }
 }

@@ -14,12 +14,13 @@
       object-fit: cover;
       height: 100px;
       width: 100px;
-      margin: 0;
+      margin-right: 6px;
       padding: 0;
     }
 
     .content {
       padding: 0;
+      margin-right: 6px;
     }
 
     & > * {

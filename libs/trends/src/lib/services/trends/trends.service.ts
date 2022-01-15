@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Trend } from '@demo-app/data-models';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,9 +29,51 @@ export class TrendsService {
 
   kickoffArticleSummary(linkForSummary: string) {
     console.log('kickoffArticleSummary');
+<<<<<<< HEAD
     return this.httpClient.post<any>('http://localhost:3333/api/bart', {
       link: linkForSummary,
     });
+=======
+    return this.httpClient
+      .post<any>('http://localhost:3333/api/bart', {
+        link: linkForSummary,
+      })
+      .pipe(
+        catchError((error) => {
+          let errorMsg: string;
+          if (error.error instanceof ErrorEvent) {
+            console.log(
+              `kickoffArticleSummary 1 - Error: ${error.error.message}`
+            );
+            errorMsg = error.error.message;
+          } else {
+            console.log('kickoffArticleSummary 2 - Error: ', error);
+            errorMsg = error;
+          }
+          return throwError(errorMsg);
+        })
+      );
+  }
+
+  downloadImages(linksForArticle: any) {
+    return this.httpClient
+      .post<any>('http://localhost:3333/api/gan', {
+        links: linksForArticle,
+      })
+      .pipe(
+        catchError((error) => {
+          let errorMsg: string;
+          if (error.error instanceof ErrorEvent) {
+            console.log(`downloadImages 1 - Error: ${error.error.message}`);
+            errorMsg = error.error.message;
+          } else {
+            console.log('downloadImages 2 - Error: ', error);
+            errorMsg = error;
+          }
+          return throwError(errorMsg);
+        })
+      );
+>>>>>>> HuggingFace
   }
 
   retrieveArticleSummary() {
@@ -38,5 +81,8 @@ export class TrendsService {
       responseType: 'text',
     });
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> HuggingFace
 }

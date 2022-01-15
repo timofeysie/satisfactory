@@ -13,3 +13,13 @@ summarized = summarizer(article.cleaned_text, min_length=75, max_length=300)
 
 print(str(summarized))
 sys.stdout.flush()
+<<<<<<< HEAD
+=======
+
+file = open('apps/hugging-face/src/article.txt', 'x')
+file.write(str(summarized))
+file.close()
+file = open('apps/hugging-face/src/articleSummary.json', 'x')
+file.write(str(summarized))
+file.close()
+>>>>>>> HuggingFace

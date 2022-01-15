@@ -2,6 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { CreateBartDto } from './dto/create-bart.dto';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
+<<<<<<< HEAD
+=======
+import { throwError } from 'rxjs';
+>>>>>>> HuggingFace
 
 @Injectable()
 export class BartService {
@@ -24,7 +28,11 @@ export class BartService {
   }
 
   findOne(id: string) {
+<<<<<<< HEAD
     console.log('findOne');
+=======
+    console.log('findOne not used');
+>>>>>>> HuggingFace
     const process = spawn('python', ['apps/hugging-face/src/bart.py', id]);
     return new Promise((resolve, reject) => {
       process.stdout.on('data', function (data) {
@@ -35,7 +43,10 @@ export class BartService {
   }
 
   async getArticleSummary(articleUrl: any) {
+<<<<<<< HEAD
     console.log('getArticleSummary');
+=======
+>>>>>>> HuggingFace
     const process = spawn('python', [
       'apps/hugging-face/src/goose.py',
       articleUrl,
@@ -46,6 +57,10 @@ export class BartService {
         const file = fs.createWriteStream(path);
         file.on('error', function (err) {
           /* error handling */
+<<<<<<< HEAD
+=======
+          console.log('process err', err);
+>>>>>>> HuggingFace
         });
         file.write(data.toString());
         file.end();
@@ -54,12 +69,21 @@ export class BartService {
       process.stderr.on('data', reject);
     }).catch((err) => {
       const buf = Buffer.from(err);
+<<<<<<< HEAD
       console.log('getArticleSummary service err', buf.toString());
+=======
+      console.log('bart.service getArticleSummary service err', buf.toString());
+      return throwError(buf.toString());
+>>>>>>> HuggingFace
     });
   }
 
   faceHugger(articleText: string) {
+<<<<<<< HEAD
     console.log('getArticleSummary');
+=======
+    console.log('faceHugger');
+>>>>>>> HuggingFace
     const process = spawn('python', [
       'apps/hugging-face/src/goose.py',
       articleText,

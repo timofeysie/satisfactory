@@ -191,21 +191,32 @@ export class TrendsComponent implements OnInit {
   }
 
   /**
+   * TODO: summarize source data and how it's used to pre-fill the other
+   * form fields.
    */
   preFillForm() {
     // kick off the article scape and summary on the backend
     if (this.topicForm.controls.linkForSummary.value) {
-       this.kickOffGetArticleSummary();
+      this.kickOffGetArticleSummary();
     }
     // download images
     this.downloadImages();
     // set the page title
     this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
-
     // create TODO <AI>, <ARTIST> author values
     this.createAuthorValues();
-
     this.fillLinks();
+    this.setAIorArtistPictureData();
+    this.getRelatedQueries();
+  }
+
+  /**
+   * Call the appropriate functions to set up data such as:
+   * aspect
+   * commonsImgSource
+   * altTagText
+   */
+  setAIorArtistPictureData() {
     if (this.topicForm.value.one.type === 'AI') {
       this.setAIPictureNumberData('one');
     } else {
@@ -216,7 +227,6 @@ export class TrendsComponent implements OnInit {
     } else {
       this.setArtistPictureNumberData('two');
     }
-    this.getRelatedQueries();
   }
 
   /**
@@ -255,12 +265,21 @@ export class TrendsComponent implements OnInit {
   }
 
   /**
-   * looks for the third dot in the img tag string and 
+   * looks for the third dot in the img tag string and
    * returns that with the dot, such as '.jpg' or '.png'.
+   * This is a pretty weak function with two separate ways of getting the extension.
+   * The first method goes through the dots and gets the third dot and assumes that's it.
+   * The next method was needed for situations that returned a url like this:
+   * links https://upload.wikimedia.org/wikipedia/commons/1/1d/Chuck_Liddell_vs._Ri
+   * That would be for this commons page.
+   * The full res version is:
+   * https://upload.wikimedia.org/wikipedia/commons/1/1d/Chuck_Liddell_vs._Rich_Franklin_UFC_115.jpg
    * @param urlPage
    * @returns first file extension found
    */
   findExtension(urlPage) {
+    const jpg = '.jpg';
+    const png = '.png';
     const firstDot = urlPage.indexOf('.');
     const afterFirstDot = urlPage.substring(firstDot + 1, urlPage.length);
     const secondDot = afterFirstDot.indexOf('.');
@@ -270,7 +289,18 @@ export class TrendsComponent implements OnInit {
     );
     const thirdDot = afterSecondDot.indexOf('.');
     const ext = afterSecondDot.substring(thirdDot, thirdDot + 4);
-    return ext;
+    if (ext === jpg || ext === png) {
+      return ext;
+    } else {
+      const pngPlace = afterFirstDot.indexOf(png);
+      const jpgPlace = afterFirstDot.indexOf(jpg);
+      if (pngPlace !== -1) {
+        return png;
+      }
+      if (jpgPlace !== -1) {
+        return jpg;
+      }
+    }
   }
 
   kickOffGetArticleSummary() {

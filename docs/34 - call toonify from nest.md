@@ -5,19 +5,20 @@
 1. create a new app to hold Toonify
 2. copy the code there
 3. create a new api to work with the images
-4. send url to server and download image
-5. run all models on the image
-6. alert the front end that the images are ready
-7. frontend displays the images and user selects one
-8. upload image selected to an S3 bucket
-9. allow the user to choose between the images
-10. add the selected image link to the post
+4. send url to server
+5. download images
+6. run all models on the image
+7. alert the front end that the images are ready
+8. frontend displays the images and user selects one
+9. upload image selected to an S3 bucket
+10. allow the user to choose between the images
+11. add the selected image link to the post
 
-This ought to about cover it.  No. 6 and no. 7 are bigger than the rest.
+This ought to about cover it.  No. 7 and no. 8 are bigger than the rest.
 
-No. 6 will require using a service worker and a new framework to support push notifications.
+No. 7 will require using a service worker and a new framework to support push notifications.
 
-No. 7 will require an AWS account to support using S3 CRUD functions.  It's pretty standard so shouldn't be too difficult.
+No. 8 will require an AWS account to support using S3 CRUD functions.  It's pretty standard so shouldn't be too difficult.
 
 ### Estimates
 
@@ -38,11 +39,52 @@ nx g @nx-python/nx-python:app toonify
 
 Then copy the whole toonify code to the src directory.
 
-### 3. create a new api to work with the images
+## 3. create a new api to work with the images & 4
 
 nx generate @nestjs/schematics:resource gan --sourceRoot apps/nest-demo/src/app
 
-Test the app like this: 
+Getting the url to the backend required some extra work to extract the image path and create the link to the full sized image to download.
+
+## 5. Download images
+
+This is how it will work for a single image.
+
+```js
+  downloadImage(links: any) {
+    console.log('links', links[0]);
+    // return 'This action downloads an image for the gan '+links[0];
+    return new Promise((resolve, reject) => {
+        https.get(links[0], (res) => {
+            if (res.statusCode === 200) {
+              const filepath = 'apps/toonify/src/test.jpg';
+                res.pipe(fs.createWriteStream(filepath))
+                    .on('error', reject)
+                    .once('close', () => resolve(filepath));
+            } else {
+                // Consume response data to free up memory
+                res.resume();
+                reject(new Error(`Request Failed With a Status Code: ${res.statusCode}`));
+
+            }
+        });
+    });
+  }
+```
+
+Not sure about an array of multiple links yet.  Probably we need a promise factory to create a new promise for each link and do promises.all() on them.  That can be done later.
+
+Right now it appears like the frontend is not done with getting appropriate image links.
+
+links https://upload.wikimedia.org/wikipedia/commons/1/1d/Chuck_Liddell_vs._Ri
+
+That would be for this commons page.
+
+The full res version is:
+https://upload.wikimedia.org/wikipedia/commons/1/1d/Chuck_Liddell_vs._Rich_Franklin_UFC_115.jpg
+
+## 6. Call Toonify
+
+Test the app like this:
 
 python apps/toonify/src/test.py  --style Hosoda --gpu 0
 

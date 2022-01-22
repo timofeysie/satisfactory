@@ -9,10 +9,8 @@ import {
   HttpService,
 } from '@nestjs/common';
 import { GanService } from './gan.service';
-import { CreateGanDto } from './dto/create-gan.dto';
 import { UpdateGanDto } from './dto/update-gan.dto';
 import * as fs from 'fs';
-import { HttpException, HttpStatus } from '@nestjs/common';
 
 @Controller('gan')
 export class GanController {

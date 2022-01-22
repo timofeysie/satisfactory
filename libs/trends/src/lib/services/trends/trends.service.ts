@@ -75,4 +75,11 @@ export class TrendsService {
       responseType: 'text',
     });
   }
+
+  retrieveArticleSummaryById(id: string) {
+    const encodedId = encodeURIComponent(id);
+    return this.httpClient.get('http://localhost:3333/api/bart/' + encodedId, {
+      responseType: 'text',
+    });
+  }
 }

@@ -209,3 +209,11 @@ This is an error with goose getting the article.  If this happens, then the user
 Next, without taking a break on this subject, we need to move the Toonify app into this one and do that same for that as was done for goose and bart.
 
 We will needs to quick UX for this, as we should be able to offer all four models to preview and choose one.  Seems like it would be prudent to start a new markdown document and tie up the specific subject of calling Python scripts from a Node Nest.
+
+## Anomalies
+
+loadSummary [{'summary_text': ' Meat Loaf\'s agent confirms his death to CNN . The singer, whose real name is Marvin Lee Aday, was born in Dallas . He won a Grammy in 1993 for Best Solo Rock Vocal Performance for the song "I\'d Do Anything for Love" In November, he said he\'d had four back surgeries and would be back in the studio in the new year .'}]
+
+Description shows: In November, he said he\'d had four back surgeries and would be back in the studio in the new year.
+
+Looks like it's cutting of everything before the last " character.

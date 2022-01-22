@@ -148,3 +148,38 @@ The hugging-face and other Python apps with rely on libraries like pymatting wil
 The api/gan post can be used for this.
 
 Once the backend gets the url, it can save the image in preparation for calling cartoonify to process it.
+## 5. Download the image
+
+ the url download is causing this error:
+
+```txt
+gan.controller: downloadImage
+links https://upload.wikimedia.org/wikipedia/commons/6/65/1971_Chrysler_Valiant_%28VG%29_Regal_Safari_station_wagon_%282015-07-10%29_02.jpg
+(node:11936) UnhandledPromiseRejectionWarning: Error: Request Failed With a Status Code: 403
+    at ClientRequest.<anonymous> (C:\Users\timof\repos\timofeysie\satisfactory\dist\apps\nest-demo\webpack:\apps\nest-demo\src\app\gan\gan.service.ts:22:24)
+```
+
+The url works in the browser indicating that this is a cors issue.
+
+But we already use the setting in our nest app:  app.enableCors();
+
+I then used a different approach to the https lib.
+
+```js
+  @Post()
+  async downloadImage(@Body() linkWrapper: any) {
+    const name = this.parsePath(linkWrapper.links[0]);
+    console.log('gan.controller: downloadImage', name);
+    const writer = fs.createWriteStream('apps/toonify/src/test_img/'+name.filename);
+    const response = await this.httpService.axiosRef({
+      url: linkWrapper.links[0],
+      method: 'GET',
+      responseType: 'stream',
+    });
+    response.data.pipe(writer);
+    return new Promise((resolve, reject) => {
+      writer.on('finish', resolve);
+      writer.on('error', reject);
+    });
+  }
+```

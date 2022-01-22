@@ -11,10 +11,25 @@ export class BartService {
   }
 
   loadSummary() {
-    console.log('loadSummary');
+    console.log('bart.service.loadSummary()');
     return new Promise((resolve, reject) => {
       const path = `./apps/nest-demo/src/app/bart/summary.txt`;
-      fs.readFile(path,'utf-8', (err, file) => {
+      fs.readFile(path, 'utf-8', (err, file) => {
+        if (err) {
+          reject(err);
+        }
+        console.log('loadSummary', file);
+        resolve(file);
+      });
+    });
+  }
+
+  loadSummaryById(summaryUrl: string) {
+    const summaryFilename = encodeURIComponent(summaryUrl);
+    console.log('bart.service.loadSummaryById:', summaryUrl);
+    return new Promise((resolve, reject) => {
+      const path = `./apps/nest-demo/src/app/bart/summaries/${summaryFilename}.txt`;
+      fs.readFile(path, 'utf-8', (err, file) => {
         if (err) {
           reject(err);
         }
@@ -42,7 +57,8 @@ export class BartService {
     ]);
     return new Promise((resolve, reject) => {
       process.stdout.on('data', function (data) {
-        const path = `./apps/nest-demo/src/app/bart/summary.txt`;
+        const path = `./apps/nest-demo/src/app/bart/summaries/${articleUrl}.txt`;
+        console.log('bart.service.getArticleSummary: path', path);
         const file = fs.createWriteStream(path);
         file.on('error', function (err) {
           /* error handling */

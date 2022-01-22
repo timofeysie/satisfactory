@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { TrendsState } from './../../+state/trends.reducer';
 import { Store, select } from '@ngrx/store';
 import { trendsQuery } from './../../+state/trends.selectors';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Trend } from '@demo-app/data-models';
 import * as TrendsActions from '../../+state/trends.actions';
 import { TrendsService } from '../../services/trends/trends.service';
@@ -27,6 +27,7 @@ export class TrendsComponent implements OnInit {
   completePostMode = false;
   newWikiSearchTerm: string;
   topicForm = this.fb.group({
+    date: [''],
     pageTitle: [''],
     authors: [''],
     keywords: [''],
@@ -101,7 +102,8 @@ export class TrendsComponent implements OnInit {
    * by BART are removed.
    */
   onRetrieveArticleSummary() {
-    this.trendsService.retrieveArticleSummary().subscribe((result) => {
+    const linkForSummary = this.topicForm.controls.linkForSummary.value;
+    this.trendsService.retrieveArticleSummaryById(linkForSummary).subscribe((result) => {
       const fullResponse = JSON.parse(JSON.stringify(result));
       let start = fullResponse.indexOf('" ');
       let offset = 2;
@@ -120,6 +122,7 @@ export class TrendsComponent implements OnInit {
   }
 
   handleOnUseLinkForSummary(event) {
+    console.log('linkForSummary', event);
     this.topicForm.controls.linkForSummary.setValue(event);
   }
 
@@ -195,6 +198,7 @@ export class TrendsComponent implements OnInit {
    * form fields.
    */
   preFillForm() {
+    this.setDate();
     // kick off the article scape and summary on the backend
     if (this.topicForm.controls.linkForSummary.value) {
       this.kickOffGetArticleSummary();
@@ -208,6 +212,11 @@ export class TrendsComponent implements OnInit {
     this.fillLinks();
     this.setAIorArtistPictureData();
     this.getRelatedQueries();
+  }
+
+  setDate() {
+    const date = new Date();
+    this.topicForm.controls.date.setValue(date.toString());
   }
 
   /**
@@ -238,7 +247,9 @@ export class TrendsComponent implements OnInit {
     const two = this.getCommonsImageUrl('two');
     if (one) urls.push(one);
     if (two) urls.push(two);
-    this.trendsService.downloadImages(urls).subscribe();
+    if (urls.length > 0) {
+      this.trendsService.downloadImages(urls).subscribe();
+    }
   }
 
   /**

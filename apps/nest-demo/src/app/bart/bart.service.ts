@@ -65,7 +65,8 @@ export class BartService {
     ]);
     return new Promise((resolve, reject) => {
       process.stdout.on('data', function (data) {
-        const path = `./apps/nest-demo/src/app/bart/summaries/${articleUrl}.txt`;
+        const filename = encodeURIComponent(articleUrl);
+        const path = `./apps/nest-demo/src/app/bart/summaries/${filename}.txt`;
         console.log('bart.service.getArticleSummary: path', path);
         const file = fs.createWriteStream(path);
         file.on('error', function (err) {

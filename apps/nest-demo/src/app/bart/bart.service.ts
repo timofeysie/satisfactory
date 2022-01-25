@@ -11,15 +11,19 @@ export class BartService {
   }
 
   loadSummary() {
-    console.log('bart.service.loadSummary()');
+    console.log('DEPRECATED bart.service.loadSummary()');
     return new Promise((resolve, reject) => {
       const path = `./apps/nest-demo/src/app/bart/summary.txt`;
       fs.readFile(path, 'utf-8', (err, file) => {
         if (err) {
           reject(err);
         }
-        console.log('loadSummary', file);
-        resolve(file);
+        console.log('DEPRECATED: loadSummary', file);
+        if (file) {
+          resolve(file);
+        } else {
+          reject('DEPRECATED: none found');
+        }
       });
     });
   }
@@ -33,8 +37,12 @@ export class BartService {
         if (err) {
           reject(err);
         }
-        console.log('loadSummary', file);
-        resolve(file);
+        console.log('loadSummaryById.loadSummary', file);
+        if (file) {
+          resolve(file);
+        } else {
+          reject('none found');
+        }
       });
     });
   }

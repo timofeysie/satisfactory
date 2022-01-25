@@ -16,15 +16,16 @@ import {
 export class TrendsLinksComponent implements OnInit {
   @Input() trendTitleSeen: string;
   @Input() topicForm: FormGroup;
-  @Output() handleNewWikiSearchTerm = new EventEmitter<any>();
+  @Output() handleNewWikiSearchTerm = new EventEmitter<string>();
+  @Output() handleNewAPSearchTerm = new EventEmitter<string>();
   newNewsLink: string;
   newWikiSearchTerm: string;
 
   ngOnInit() {
     const dashTitle = this.trendTitleSeen.split(' ').join('-');
     this.newNewsLink = 'https://apnews.com/hub/' + dashTitle;
+    this.handleNewAPSearchTerm.emit(this.newNewsLink);
     this.newWikiSearchTerm = this.trendTitleSeen;
-    this.topicForm.controls.linkUrl.setValue(this.newNewsLink);
   }
 
   onUpdatedWikiSearchTerm() {
@@ -32,7 +33,21 @@ export class TrendsLinksComponent implements OnInit {
     this.handleNewWikiSearchTerm.emit(this.newWikiSearchTerm);
   }
 
+  onSelectWikiSearchTerm(event) {
+    if (event.checked) {
+      this.onUpdatedWikiSearchTerm();
+    }
+  }
+
   onUpdatedNewsSearchTerm() {
-    this.newNewsLink = this.topicForm.value.links.newsLink;
+    this.newNewsLink =
+      'https://apnews.com/hub/' + this.topicForm.value.links.newsLink;
+    this.handleNewAPSearchTerm.emit(this.newNewsLink);
+  }
+
+  onSelectNewsSearchTerm(event) {
+    if (event.checked) {
+      this.onUpdatedNewsSearchTerm();
+    }
   }
 }

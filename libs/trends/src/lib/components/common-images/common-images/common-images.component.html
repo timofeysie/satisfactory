@@ -1,5 +1,5 @@
 <mat-card *ngIf="images">
-  <h5 class="title">
+  <h5 class="title tooltip">
     Commons:
       <input
         class="search-term"
@@ -7,6 +7,7 @@
         name="searchTerm"
         [(ngModel)]="searchTerm"
       />
+      <span class="tooltiptext">Select an image to generate artwork from</span>
     <button type="button" (click)="onUpdate()">(update)</button>
   </h5>
   <span *ngFor="let image of images"

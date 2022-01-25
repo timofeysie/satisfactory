@@ -28,7 +28,8 @@
       </button>
     </div>
     <mat-checkbox class="example-margin" formControlName="useWikiLink"
-      >use link</mat-checkbox
+       (change)="onSelectWikiSearchTerm($event)"
+       >use link</mat-checkbox
     >
   </mat-card>
   <mat-card class="news-links">
@@ -54,6 +55,7 @@
       </button>
     </div>
     <mat-checkbox class="example-margin" formControlName="useAPNewsLink"
+    (change)="onSelectNewsSearchTerm($event)"
       >use link</mat-checkbox
     >
   </mat-card>

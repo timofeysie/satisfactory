@@ -29,7 +29,7 @@ export class BartController {
     console.log('bart.controller.getArticleSummary: article', article);
     return new Promise((resolve) => {
       this.bartService.getArticleSummary(article.link).then((result: any) => {
-        resolve(encodeURI(result));
+        resolve(encodeURIComponent(result));
       });
     }).catch((err) => {
       const buf = Buffer.from(err);

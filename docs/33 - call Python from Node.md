@@ -12,6 +12,9 @@ Of the ten answers there, many of the examples are years out of date.  They all 
 4. child_process module
 5. zerorpc
 6. transpile Python to JS
+7. DB triggers
+
+Note: Number 7 was suggested later by Elyorjin. For ex: You can make use of something var schedule = require('node-schedule');
 
 The answer by bormat has a decent example of using spawn fro child_process.  Also, child_process is mentioned at least five times in the answers, so that wins the popularity contest.
 

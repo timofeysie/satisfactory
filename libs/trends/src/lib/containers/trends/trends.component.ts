@@ -26,6 +26,7 @@ export class TrendsComponent implements OnInit {
   trendTitleSeenBackup: string; // this is a code smell!
   completePostMode = false;
   newWikiSearchTerm: string;
+  newAPSearchTerm: string;
   topicForm = this.fb.group({
     date: [''],
     pageTitle: [''],
@@ -38,6 +39,7 @@ export class TrendsComponent implements OnInit {
     linkForSummary: [''],
     links: this.fb.group({
       newsLink: [''],
+      newsLinkLabel: [''],
       useAPNewsLink: [''],
       addAPNewsContent: [''],
       wikiLink: [''],
@@ -103,26 +105,27 @@ export class TrendsComponent implements OnInit {
    */
   onRetrieveArticleSummary() {
     const linkForSummary = this.topicForm.controls.linkForSummary.value;
-    this.trendsService.retrieveArticleSummaryById(linkForSummary).subscribe((result) => {
-      const fullResponse = JSON.parse(JSON.stringify(result));
-      let start = fullResponse.indexOf('" ');
-      let offset = 2;
-      if (start === -1) {
-        start = fullResponse.indexOf("summary_text': '");
-        offset = 17;
-      }
-      const text = fullResponse.substring(
-        start + offset,
-        fullResponse.length - 5
-      );
-      const text1 = text.split('�').join("'");
-      const text2 = text1.split(' .').join('.');
-      this.topicForm.controls.description.setValue(text2);
-    });
+    this.trendsService
+      .retrieveArticleSummaryById(linkForSummary)
+      .subscribe((result) => {
+        const fullResponse = JSON.parse(JSON.stringify(result));
+        let start = fullResponse.indexOf('" ');
+        let offset = 2;
+        if (start === -1) {
+          start = fullResponse.indexOf("summary_text': '");
+          offset = 17;
+        }
+        const text = fullResponse.substring(
+          start + offset,
+          fullResponse.length - 5
+        );
+        const text1 = text.split('�').join("'");
+        const text2 = text1.split(' .').join('.');
+        this.topicForm.controls.description.setValue(text2);
+      });
   }
 
   handleOnUseLinkForSummary(event) {
-    console.log('linkForSummary', event);
     this.topicForm.controls.linkForSummary.setValue(event);
   }
 
@@ -165,6 +168,11 @@ export class TrendsComponent implements OnInit {
 
   onHandleNewWikiSearchTerm(newValue: string) {
     this.newWikiSearchTerm = newValue;
+  }
+
+  onHandleNewAPSearchTerm(newValue: string) {
+    this.newAPSearchTerm = newValue;
+    this.topicForm.controls.links['controls']?.newsLink?.setValue(newValue);
   }
 
   /**
@@ -315,6 +323,7 @@ export class TrendsComponent implements OnInit {
   }
 
   kickOffGetArticleSummary() {
+    console.log('sending', this.topicForm.controls.linkForSummary.value);
     this.trendsService
       .kickoffArticleSummary(this.topicForm.controls.linkForSummary.value)
       .pipe(
@@ -355,6 +364,15 @@ export class TrendsComponent implements OnInit {
       );
       this.topicForm.controls.linkLabel.setValue(
         this.trendTitleSeen + ' on Wikipedia'
+      );
+    }
+
+    if (this.topicForm.controls.links['controls']?.useAPNewsLink.value === true) {
+      this.topicForm.controls.links['controls'].newsLink.setValue(
+        'https://en.wikipedia.org/wiki/' + this.newAPSearchTerm
+      );
+      this.topicForm.controls.links['controls'].newsLinkLabel.setValue(
+        this.trendTitleSeen + ' on AP News'
       );
     }
   }

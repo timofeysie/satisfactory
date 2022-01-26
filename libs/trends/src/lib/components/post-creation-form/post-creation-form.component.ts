@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import {
   FormGroup,
   FormGroupDirective,
@@ -19,6 +26,7 @@ export class PostCreationFormComponent {
   @Input() trendTitleSeen: string;
   @Output() selectedAspect = new EventEmitter<any>();
   @Output() retrieveArticleSummary = new EventEmitter<any>();
+  @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
   metaDescriptionText1 = '';
@@ -53,5 +61,14 @@ export class PostCreationFormComponent {
       pictureNumber: pictureNumber,
       aspect: event,
     });
+  }
+
+  onUploadImage() {
+    this.fileInput.nativeElement.click();
+  }
+
+  upload(e) {
+    console.log('e', e.target.files[0]['name']);
+    const fileChosen = e.target.files[0]['name'];
   }
 }

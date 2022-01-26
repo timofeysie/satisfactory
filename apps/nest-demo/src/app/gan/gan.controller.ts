@@ -23,7 +23,8 @@ export class GanController {
   async downloadImage(@Body() linkWrapper: any) {
     const name = this.parsePath(linkWrapper.links[0]);
     console.log('gan.controller: downloadImage', name);
-    const writer = fs.createWriteStream('apps/toonify/src/test_img/'+name.filename);
+    const pathToImage = 'apps/toonify/src/test_img/' + name.filename;
+    const writer = fs.createWriteStream(pathToImage);
     const response = await this.httpService.axiosRef({
       url: linkWrapper.links[0],
       method: 'GET',
@@ -31,7 +32,7 @@ export class GanController {
     });
     response.data.pipe(writer);
     return new Promise((resolve, reject) => {
-      writer.on('finish', resolve);
+      writer.on('finish', () => this.ganService.kickOffGan());
       writer.on('error', reject);
     });
   }

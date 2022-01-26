@@ -82,7 +82,10 @@
           </div>
 
           <!--  Aspect select for One -->
-          <mat-form-field appearance="none" class="selector picture-post-card-top">
+          <mat-form-field
+            appearance="none"
+            class="selector picture-post-card-top"
+          >
             <mat-select
               appearance="none"
               #typeSelector
@@ -94,6 +97,23 @@
               <mat-option [value]="'Portrait'">Portrait</mat-option>
             </mat-select>
           </mat-form-field>
+
+          <div class="no-style-input selector">
+            <input
+              #fileInput
+              type="file"
+              class="file-input"
+              accept=".jpg, .png, .jpeg"
+              (change)="upload($event)"
+            />
+            <button
+              type="button"
+              (click)="onUploadImage()"
+              class="btn btn-primary"
+            >
+              Choose generated image
+            </button>
+          </div>
 
           <div class="source">
             <mat-form-field class="full-width" appearance="fill">
@@ -126,7 +146,7 @@
             ></textarea>
             <div>{{ metaDescriptionCharacters1 }}</div>
           </mat-form-field>
-          
+
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>altText</mat-label>
             <input matInput value="altText" formControlName="altText" />
@@ -193,7 +213,10 @@
           </div>
 
           <!--  Aspect select for Two -->
-          <mat-form-field appearance="none" class="selector picture-post-card-top">
+          <mat-form-field
+            appearance="none"
+            class="selector picture-post-card-top"
+          >
             <mat-select
               appearance="none"
               #typeSelector

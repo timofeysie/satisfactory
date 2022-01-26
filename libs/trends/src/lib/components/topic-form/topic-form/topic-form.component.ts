@@ -3,6 +3,8 @@ import {
   Input,
   AfterViewInit,
   ViewEncapsulation,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import {
   FormGroup,

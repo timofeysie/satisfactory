@@ -6,7 +6,6 @@ import https from 'https';
 
 @Injectable()
 export class GanService {
-
   findAll() {
     console.log('findAll test');
     const process = spawn('python', [
@@ -23,6 +22,29 @@ export class GanService {
       process.stderr.on('data', reject);
     });
   }
+
+  kickOffGan(): void {
+    this.startProcess('Hosoda');
+    this.startProcess('Hayao');
+    this.startProcess('Paprika');
+    this.startProcess('Shinkai');
+  }
+
+  startProcess = async (model: string) => {
+    const process = spawn('python', [
+      'apps/toonify/src/test.py',
+      '--style',
+      model,
+      '--gpu',
+      '0',
+    ]);
+    return new Promise((resolve, reject) => {
+      process.stdout.on('data', function (data) {
+        resolve(data.toString());
+      });
+      process.stderr.on('data', reject);
+    });
+  };
 
   findOne(id: number) {
     return `This action returns a #${id} gan`;

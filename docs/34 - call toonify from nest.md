@@ -8,17 +8,19 @@
 4. send url to server
 5. download images
 6. run all models on the image
-7. alert the front end that the images are ready
-8. frontend displays the images and user selects one
-9. upload image selected to an S3 bucket
-10. allow the user to choose between the images
-11. add the selected image link to the post
+7. create api to return the local image links
+8. delete the original downloaded images
+9. alert the front end that the images are ready
+10. frontend displays the images and user selects one
+11. upload image selected to an S3 bucket
+12. allow the user to choose between the images
+13. add the selected image link to the post
 
 This ought to about cover it.  No. 7 and no. 8 are bigger than the rest.
 
-No. 7 will require using a service worker and a new framework to support push notifications.
+No. 9 will require using a service worker and a new framework to support push notifications.
 
-No. 8 will require an AWS account to support using S3 CRUD functions.  It's pretty standard so shouldn't be too difficult.
+No. 11 will require an AWS account to support using S3 CRUD functions.  It's pretty standard so shouldn't be too difficult.
 
 ### Estimates
 
@@ -148,6 +150,7 @@ The hugging-face and other Python apps with rely on libraries like pymatting wil
 The api/gan post can be used for this.
 
 Once the backend gets the url, it can save the image in preparation for calling cartoonify to process it.
+
 ## 5. Download the image
 
  the url download is causing this error:
@@ -182,4 +185,58 @@ I then used a different approach to the https lib.
       writer.on('error', reject);
     });
   }
+```
+
+## 6. run all models on the image
+
+This should happen after directly after the image(s) are downloaded.
+
+There is a bit of a problem with this, as the result after the download is all done in the controller, not the service.
+
+gan.controller.ts
+
+```ts
+    response.data.pipe(writer);
+    return new Promise((resolve, reject) => {
+      writer.on('finish', resolve);
+      writer.on('error', reject);
+    });
+```
+
+Since the Angular Http service wasn't working for us, Axios was used.  That data piped above has this type:
+
+```js
+(property) AxiosResponse<any>.data: any
+```
+
+What if we do this?
+
+```ts
+writer.on('finish', this.ganService.kickOffGan(pathToImage));
+```
+
+Then we get this interesting TS error:
+
+```txt
+No overload matches this call.
+  The last overload gave the following error.
+    Argument of type 'void' is not assignable to parameter of type '(...args: any[]) => void'.ts(2769)
+fs.d.ts(247, 9): The last overload is declared here.
+```
+
+The on function has this mouseover:  
+
+(method) WriteStream.on(event: "close", listener: () => void): fs.WriteStream (+8 overloads)
+
+This will compile:
+
+writer.on('finish', () => this.ganService.kickOffGan());
+
+That works, and I see this in the terminal:
+
+```txt
+(node:18184) UnhandledPromiseRejectionWarning: [object Uint8Array]
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18184) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)        
+(node:18184) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
 ```

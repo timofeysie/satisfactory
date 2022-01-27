@@ -26,6 +26,7 @@ export class PostCreationFormComponent {
   @Input() trendTitleSeen: string;
   @Output() selectedAspect = new EventEmitter<any>();
   @Output() retrieveArticleSummary = new EventEmitter<any>();
+  @Output() imageSelected = new EventEmitter<string>();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
@@ -67,8 +68,8 @@ export class PostCreationFormComponent {
     this.fileInput.nativeElement.click();
   }
 
-  upload(e) {
-    console.log('e', e.target.files[0]['name']);
-    const fileChosen = e.target.files[0]['name'];
+  upload(event) {
+    const fileChosen = event.target.files[0]['name'];
+    this.imageSelected.emit(fileChosen);
   }
 }

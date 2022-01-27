@@ -240,3 +240,21 @@ That works, and I see this in the terminal:
 (node:18184) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)        
 (node:18184) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
 ```
+
+Next we let the user choose one of the generated images and are allowed to get the filename of the chosen one, which is OK because we know which directory they get generated in.
+
+So now we have skipped a few of the steps, and this is where we are at so far:
+
+- #7. create api to return the local image links (not doing)
+- #8. delete the original downloaded images
+- #9. alert the front end that the images are ready (not doing)
+- #10. frontend displays the images and user selects one (done)
+- #11. upload image selected to an S3 bucket
+
+Deleting the downloaded images ensures that they don't keep getting generated each time the form goes into post creation mode.
+
+Then, it's time to upload the results which will require a new API endpoint to send the selected file name, upload the image, and return the bucket address which can be used to add to the form and display.
+
+## #11 upload image selected to an S3 bucket
+
+We may need the aws-sdk package from npm for this and the ACCESS_KEY and KEY_SECRET from aws.

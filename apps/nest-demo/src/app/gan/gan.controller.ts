@@ -55,8 +55,8 @@ export class GanController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ganService.findOne(+id);
+  upload(@Param('id') id: string) {
+    return this.ganService.uploadImage(id);
   }
 
   @Patch(':id')

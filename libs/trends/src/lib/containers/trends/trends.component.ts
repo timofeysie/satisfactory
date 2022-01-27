@@ -175,6 +175,12 @@ export class TrendsComponent implements OnInit {
     this.topicForm.controls.links['controls']?.newsLink?.setValue(newValue);
   }
 
+  onImageSelected(selectedImage: string) {
+    this.trendsService.uploadSelectedImage(selectedImage).subscribe((result) => {
+      console.log('result', result);
+    })
+  }
+
   /**
    * For this we loop through the selected json and add each of these to a text field:
    * ```txt
@@ -367,7 +373,9 @@ export class TrendsComponent implements OnInit {
       );
     }
 
-    if (this.topicForm.controls.links['controls']?.useAPNewsLink.value === true) {
+    if (
+      this.topicForm.controls.links['controls']?.useAPNewsLink.value === true
+    ) {
       this.topicForm.controls.links['controls'].newsLink.setValue(
         'https://en.wikipedia.org/wiki/' + this.newAPSearchTerm
       );

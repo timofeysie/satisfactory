@@ -70,6 +70,13 @@ export class TrendsService {
       );
   }
 
+  uploadSelectedImage(selectedImage: string) {
+    const path = 'http://localhost:3333/api/gan/' + selectedImage;
+    return this.httpClient.get<any>(
+      path
+    );
+  }
+
   retrieveArticleSummary() {
     return this.httpClient.get('http://localhost:3333/api/bart', {
       responseType: 'text',

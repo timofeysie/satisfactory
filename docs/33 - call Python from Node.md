@@ -220,3 +220,9 @@ loadSummary [{'summary_text': ' Meat Loaf\'s agent confirms his death to CNN . T
 Description shows: In November, he said he\'d had four back surgeries and would be back in the studio in the new year.
 
 Looks like it's cutting of everything before the last " character.
+
+## Waiting for the results
+
+There are currently various errors that result despite eventually the functions complete and create a summary and generate images.
+
+To really accomplish this cleanly we will want to do [something like this](https://wanago.io/2021/05/03/api-nestjs-cpu-intensive-tasks-queues/): *"Handling CPU-intensive operations with REST API can be tricky. If our endpoint takes too much time to respond, it might result in a timeout. In this article, we look into queues to help us resolve this issue."*

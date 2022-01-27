@@ -46,7 +46,8 @@ export class GanService {
     });
   };
 
-  findOne(id: number) {
+  uploadImage(id: string) {
+    console.log('got id', id);
     return `This action returns a #${id} gan`;
   }
 

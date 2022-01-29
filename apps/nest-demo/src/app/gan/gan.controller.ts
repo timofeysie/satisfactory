@@ -58,9 +58,8 @@ export class GanController {
 
   @Get(':id')
   async upload(@Param('id') id: string) {
-    const pathToImage = 'apps/toonify/src/cartooned_img/' + id;
+    const pathToImage =  'apps/toonify/src/cartooned_img/' + encodeURIComponent(id);
     return fs.readFile(pathToImage, (err, file) => {
-      console.log('gan.service.upload: file', file);
       console.log('gan.service.upload: err', err);
       return this.ganService.uploadImage(file, id);
     });

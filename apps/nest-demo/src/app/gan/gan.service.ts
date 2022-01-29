@@ -47,10 +47,9 @@ export class GanService {
     });
   };
 
-  async uploadImage(file, originalname) {
-    console.log('file', file);
+  async uploadImage(file, originalFileName) {
     const bucketS3 = 'one-public-bucket';
-    await this.uploadS3(file.buffer, bucketS3, originalname);
+    return await this.uploadS3(file.buffer, bucketS3, originalFileName);
   }
 
   async uploadS3(file, bucket, name) {
@@ -58,16 +57,16 @@ export class GanService {
     const params = {
       Bucket: bucket,
       Key: String(name),
-      Body: JSON.stringify(file),
+      Body: new Buffer(file),
     };
     return new Promise((resolve, reject) => {
       s3.upload(params, (err, data) => {
         if (err) {
-          console.log('err', err);
+          console.log('gan.service: err', err);
           Logger.error(err);
           reject(err.message);
         }
-        console.log('resolved', data);
+        console.log('gan.service: resolved', data);
         resolve(data);
       });
     });

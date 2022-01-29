@@ -16,11 +16,11 @@
 12. allow the user to choose between the images
 13. add the selected image link to the post
 
-This ought to about cover it.  No. 7 and no. 8 are bigger than the rest.
+This ought to about cover it. No. 7 and no. 8 are bigger than the rest.
 
 No. 9 will require using a service worker and a new framework to support push notifications.
 
-No. 11 will require an AWS account to support using S3 CRUD functions.  It's pretty standard so shouldn't be too difficult.
+No. 11 will require an AWS account to support using S3 CRUD functions. It's pretty standard so shouldn't be too difficult.
 
 ### Estimates
 
@@ -31,7 +31,7 @@ No. 11 will require an AWS account to support using S3 CRUD functions.  It's pre
 8-9 five days
 ```
 
-So, basically a month.  I had a feeling this would be quicker.  The S3 bucket is not technically necessary at this point, but needs to happen sooner or later.
+So, basically a month. I had a feeling this would be quicker. The S3 bucket is not technically necessary at this point, but needs to happen sooner or later.
 
 Anyhow, this is pretty much the core of the app, so one month is understandable.
 
@@ -73,7 +73,7 @@ This is how it will work for a single image.
   }
 ```
 
-Not sure about an array of multiple links yet.  Probably we need a promise factory to create a new promise for each link and do promises.all() on them.  That can be done later.
+Not sure about an array of multiple links yet. Probably we need a promise factory to create a new promise for each link and do promises.all() on them. That can be done later.
 
 Right now it appears like the frontend is not done with getting appropriate image links.
 
@@ -88,15 +88,15 @@ https://upload.wikimedia.org/wikipedia/commons/1/1d/Chuck_Liddell_vs._Rich_Frank
 
 Test the app like this:
 
-python apps/toonify/src/test.py  --style Hosoda --gpu 0
+python apps/toonify/src/test.py --style Hosoda --gpu 0
 
-FileNotFoundError: [Errno 2] No such file or directory: './apps/toonify/src/test_img\\Theranos_Chairman,_CEO_and_Founder_Elizabeth_Holmes_(L)_and_TechCrunch_Writer_and_Moderator_Jonathan_Shieber_speak_onstage_at_TechCrunch_Disrupt_at_Pier_48_on_September_8,_2014_(14995888227).jpg'
+FileNotFoundError: [Errno 2] No such file or directory: './apps/toonify/src/test*img\\Theranos_Chairman,\_CEO_and_Founder_Elizabeth_Holmes*(L)_and_TechCrunch_Writer_and_Moderator_Jonathan_Shieber_speak_onstage_at_TechCrunch_Disrupt_at_Pier_48_on_September_8,\_2014_(14995888227).jpg'
 
-There was a problem with the paths in test.py, and also that file name.  Doing this and shortening the filename works:
+There was a problem with the paths in test.py, and also that file name. Doing this and shortening the filename works:
 
 parser.add_argument('--input_dir', default = 'apps/toonify/src/test_img/')
 
-python apps/toonify/src/test.py  --style Hosoda --gpu 0
+python apps/toonify/src/test.py --style Hosoda --gpu 0
 
 However, we called from the Nest gan api: http://localhost:3333/api/gan
 
@@ -116,7 +116,7 @@ I'm not really sure how to apply that suggestion, so I just removed the volatile
   warnings.warn("nn.functional.tanh is deprecated. Use torch.tanh instead.")
 ```
 
-This is not even part of the project, so not sure how to proceed.  
+This is not even part of the project, so not sure how to proceed.
 
 ### Steps to reproduce & project brief
 
@@ -141,7 +141,7 @@ Due to the time taken, the result must be loaded by the front end when it's read
 
 Note also that calling test.py directly from the command line works to generate an image.
 
-I currently haver Python 3.9.6 64-bit via VS Code.  There are no current plans to deploy this app to a server, having the apps running locally in VS Code is fine for now.
+I currently haver Python 3.9.6 64-bit via VS Code. There are no current plans to deploy this app to a server, having the apps running locally in VS Code is fine for now.
 
 The hugging-face and other Python apps with rely on libraries like pymatting will also need to work and share the same version of Python that all the other apps use as this is a nx monorepo.
 
@@ -153,7 +153,7 @@ Once the backend gets the url, it can save the image in preparation for calling 
 
 ## 5. Download the image
 
- the url download is causing this error:
+the url download is causing this error:
 
 ```txt
 gan.controller: downloadImage
@@ -164,7 +164,7 @@ links https://upload.wikimedia.org/wikipedia/commons/6/65/1971_Chrysler_Valiant_
 
 The url works in the browser indicating that this is a cors issue.
 
-But we already use the setting in our nest app:  app.enableCors();
+But we already use the setting in our nest app: app.enableCors();
 
 I then used a different approach to the https lib.
 
@@ -196,14 +196,14 @@ There is a bit of a problem with this, as the result after the download is all d
 gan.controller.ts
 
 ```ts
-    response.data.pipe(writer);
-    return new Promise((resolve, reject) => {
-      writer.on('finish', resolve);
-      writer.on('error', reject);
-    });
+response.data.pipe(writer);
+return new Promise((resolve, reject) => {
+  writer.on('finish', resolve);
+  writer.on('error', reject);
+});
 ```
 
-Since the Angular Http service wasn't working for us, Axios was used.  That data piped above has this type:
+Since the Angular Http service wasn't working for us, Axios was used. That data piped above has this type:
 
 ```js
 (property) AxiosResponse<any>.data: any
@@ -224,7 +224,7 @@ No overload matches this call.
 fs.d.ts(247, 9): The last overload is declared here.
 ```
 
-The on function has this mouseover:  
+The on function has this mouseover:
 
 (method) WriteStream.on(event: "close", listener: () => void): fs.WriteStream (+8 overloads)
 
@@ -237,9 +237,11 @@ That works, and I see this in the terminal:
 ```txt
 (node:18184) UnhandledPromiseRejectionWarning: [object Uint8Array]
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:18184) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)        
+(node:18184) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
 (node:18184) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
 ```
+
+There will be four of those with ids 1 - 4 which represent the four images we are generating.
 
 Next we let the user choose one of the generated images and are allowed to get the filename of the chosen one, which is OK because we know which directory they get generated in.
 
@@ -258,3 +260,100 @@ Then, it's time to upload the results which will require a new API endpoint to s
 ## #11 upload image selected to an S3 bucket
 
 We may need the aws-sdk package from npm for this and the ACCESS_KEY and KEY_SECRET from aws.
+
+Step 1: create a new user that has a restricted set of permissions. To do so, we need to open the Identity and Access Management (IAM) panel and create a user.
+
+Step 2: get the Access key ID and Secret access key and add them to our .env file
+
+Step 3: add it to our environment variables validation schema in AppModule
+
+Wait, what? The article shows this in the AppModule in src/app.module.ts:
+
+```js
+ConfigModule.forRoot({
+  validationSchema: Joi.object({
+    POSTGRES_HOST: Joi.string().required(),
+    ...
+    AWS_REGION: Joi.string().required(),
+    AWS_ACCESS_KEY_ID: Joi.string().required(),
+    AWS_SECRET_ACCESS_KEY: Joi.string().required(),
+  })
+}),
+```
+
+I suppose this is one of the downsides of jumping into the middle of a long series of tutorials - there is something that happened before that is relied on for the current step.
+
+Of course, our friend didn't figure this out on his own.  The [official NestJS docs](https://docs.nestjs.com/techniques/configuration) show how:
+
+npm i --save @nestjs/config
+
+Nest provides the @nestjs/config package out-of-the box that exposes a ConfigService which loads the appropriate .env file.
+
+Step 5: Next we need the aws cdk:
+
+npm install aws-sdk @types/aws-sdk
+
+Step 6: open the [Amazon S3 panel](https://console.aws.amazon.com/s3/home?region=us-east-1) and create a bucket.
+
+Step 7: create a service that uploads files to the bucket with a unique Id using the uuid library,
+
+The example calls for a service with a constructor in the service.  I thought that was a no-no.  Or at least, we couldn't get it to work.
+
+```js
+  @UseInterceptors(FileInterceptor('file'))
+  async addAvatar(@Req() request: RequestWithUser, @UploadedFile() file: Express.Multer.File) {
+    return this.usersService.addAvatar(request.user.id, file.buffer, file.originalname);
+  }
+```
+
+The article is also concerned with a db which we are not.
+
+The controller looks like this:
+
+```js
+@UseInterceptors(FileInterceptor('file'))
+async addAvatar(
+  @Req() request: RequestWithUser, 
+  @UploadedFile() file: Express.Multer.File) {
+  return this.usersService.addAvatar(request.user.id, file.buffer, file.originalname);
+}
+```
+
+See the file buffer being used?  So we will have to load the file first in the controller.
+
+I think at this point we should give the article a break and look at just a controller and service example of for example, [StackOverflow](https://stackoverflow.com/questions/61402054/nestjs-how-to-upload-image-to-aws-s3).
+
+Then we get this error:
+
+err TypeError [ERR_INVALID_ARG_TYPE]: The "chunk" argument must be of type string or an instance of Buffer. Received an instance of ArrayBuffer
+
+Try this: JSON.stringify(file);
+
+Success!
+
+Here are some of the details.
+
+```txt
+S3 URI: s3://one-public-bucket/Diego_Verdaguer_Hayao.jpg
+Amazon Resource Name (ARN) arn:aws:s3:::one-public-bucket/Diego_Verdaguer_Hayao.jpg
+Entity tag (Etag): 99914b932bd37a50b983c5e7c90ae93b
+Object URL: https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Diego_Verdaguer_Hayao.jpg
+```
+
+So that's nice to see our first upload work.  But the response from the url is:
+
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+
+```xml
+<Error>
+<script id="tinyhippos-injected"/>
+<Code>AccessDenied</Code>
+<Message>Access Denied</Message>
+<RequestId>3KM2RCY0Q9BXMXAQ</RequestId>
+<HostId>UEHZ8BCDPDpftaf4EbBE6UWno7H/mZQPFq81e90CQFU0ZTzVB118TzursFualmQK0dmcWVATeoc=</HostId>
+</Error>
+```
+
+That doesn't seem right.  The bucket is supposed to be public.
+
+Also, the trends.component gets result: null.

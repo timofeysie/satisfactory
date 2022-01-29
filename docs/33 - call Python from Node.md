@@ -226,3 +226,5 @@ Looks like it's cutting of everything before the last " character.
 There are currently various errors that result despite eventually the functions complete and create a summary and generate images.
 
 To really accomplish this cleanly we will want to do [something like this](https://wanago.io/2021/05/03/api-nestjs-cpu-intensive-tasks-queues/): *"Handling CPU-intensive operations with REST API can be tricky. If our endpoint takes too much time to respond, it might result in a timeout. In this article, we look into queues to help us resolve this issue."*
+
+While looking for an example for the s3 upload, I found [Marcin Wanago](https://twitter.com/intent/user?original_referer=&region=screen_name&screen_name=wanago_io&source=followbutton&variant=1.1), who is an impressing blogger about seemingly every topic for NestJS.

@@ -11,12 +11,14 @@ import {
 import { GanService } from './gan.service';
 import { UpdateGanDto } from './dto/update-gan.dto';
 import * as fs from 'fs';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('gan')
 export class GanController {
   constructor(
     private readonly httpService: HttpService,
-    private readonly ganService: GanService
+    private readonly ganService: GanService,
+    private readonly configService: ConfigService
   ) {}
 
   @Post()
@@ -55,8 +57,13 @@ export class GanController {
   }
 
   @Get(':id')
-  upload(@Param('id') id: string) {
-    return this.ganService.uploadImage(id);
+  async upload(@Param('id') id: string) {
+    const pathToImage = 'apps/toonify/src/cartooned_img/' + id;
+    return fs.readFile(pathToImage, (err, file) => {
+      console.log('gan.service.upload: file', file);
+      console.log('gan.service.upload: err', err);
+      return this.ganService.uploadImage(file, id);
+    });
   }
 
   @Patch(':id')

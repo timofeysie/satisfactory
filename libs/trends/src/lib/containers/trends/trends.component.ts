@@ -274,6 +274,7 @@ export class TrendsComponent implements OnInit {
   getCommonsImageUrl(pictureNumber: string) {
     const urlPage = this.topicForm.controls[pictureNumber]['controls'].commonImg
       .value;
+    console.log('urlPage', urlPage);
     if (urlPage) {
       const dataSet = 'src="';
       const ext = this.findExtension(urlPage);
@@ -282,8 +283,12 @@ export class TrendsComponent implements OnInit {
         start + dataSet.length,
         urlPage.length
       );
+    console.log('urlStart', urlStart);
+
       const end = urlStart.indexOf(ext);
       const urlFull = urlStart.substring(0, end + ext.length);
+    console.log('urlFull', urlFull);
+
       const woThumb = urlFull.replace('/thumb', '');
       return woThumb;
     }
@@ -314,11 +319,12 @@ export class TrendsComponent implements OnInit {
     );
     const thirdDot = afterSecondDot.indexOf('.');
     const ext = afterSecondDot.substring(thirdDot, thirdDot + 4);
-    if (ext === jpg || ext === png) {
+    console.log('ext', ext);
+    if (ext.toLowerCase() === jpg || ext.toLowerCase() === png) {
       return ext;
     } else {
-      const pngPlace = afterFirstDot.indexOf(png);
-      const jpgPlace = afterFirstDot.indexOf(jpg);
+      const pngPlace = afterFirstDot.toLowerCase().indexOf(png);
+      const jpgPlace = afterFirstDot.toLowerCase().indexOf(jpg);
       if (pngPlace !== -1) {
         return png;
       }

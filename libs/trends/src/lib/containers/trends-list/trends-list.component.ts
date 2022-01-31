@@ -15,6 +15,7 @@ export class TrendsListComponent {
   countries = [
     { value: 'US', label: 'US' },
     { value: 'AU', label: 'Australia' },
+    { value: 'KR', label: 'South Korea' },
   ];
 
   onHandleUseLinkForSummary(event: any) {

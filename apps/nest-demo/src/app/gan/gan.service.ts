@@ -49,7 +49,9 @@ export class GanService {
 
   async uploadImage(file, originalFileName) {
     const bucketS3 = 'one-public-bucket';
-    return await this.uploadS3(file.buffer, bucketS3, originalFileName);
+    if (file.buffer) {
+      return await this.uploadS3(file.buffer, bucketS3, originalFileName);
+    } else return 'error';
   }
 
   async uploadS3(file, bucket, name) {
@@ -67,9 +69,29 @@ export class GanService {
           reject(err.message);
         }
         console.log('gan.service: resolved', data);
+        this.writeS3ResultFile(name, data);
         resolve(data);
       });
     });
+  }
+
+  writeS3ResultFile(bucketFilename, data) {
+    console.log('gan.service.writeFile: writeS3ResultFile', bucketFilename);
+
+    const origFilename = encodeURIComponent(bucketFilename);
+    const remove = origFilename.split('(').join('%28');
+    const filename = remove.split(')').join('%29');
+    const path = `./apps/nest-demo/src/app/gan/bucket/${filename}.json`;
+    console.log('gan.service.writeS3ResultFile: filename', filename);
+    const file = fs.createWriteStream(path);
+    file.on('error', function (err) {
+      console.log('gan.service.writeS3ResultFile: process err', err);
+    });
+    console.log('data', data);
+    file.write(JSON.stringify(data, undefined, 2), (err) => {
+      if (err) console.log('gan.service.writeS3ResultFile: err', err);
+    });
+    file.end();
   }
 
   getS3() {

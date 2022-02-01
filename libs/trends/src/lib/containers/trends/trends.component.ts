@@ -27,8 +27,11 @@ export class TrendsComponent implements OnInit {
   completePostMode = false;
   newWikiSearchTerm: string;
   newAPSearchTerm: string;
+  countryListUsed: string;
+  imageChosen: string;
   topicForm = this.fb.group({
     date: [''],
+    country: [''],
     pageTitle: [''],
     authors: [''],
     keywords: [''],
@@ -56,6 +59,7 @@ export class TrendsComponent implements OnInit {
       author: ['AI'],
       altText: [''],
       imageSrc: [''],
+      imageChosen: [''],
       srcset: [''],
       description: [''],
       metaDescription: [''],
@@ -74,6 +78,7 @@ export class TrendsComponent implements OnInit {
       author: ['ARTIST'],
       altText: [''],
       imageSrc: [''],
+      imageChosen: [''],
       srcset: [''],
       description: [''],
       metaDescription: [''],
@@ -144,7 +149,6 @@ export class TrendsComponent implements OnInit {
   }
 
   onHandleSubmitForm() {
-    console.log('submit');
     const formValue = this.topicForm.value;
     formValue['originalTrend'] = this.trendDetails;
     console.log('formValue', formValue);
@@ -175,10 +179,28 @@ export class TrendsComponent implements OnInit {
     this.topicForm.controls.links['controls']?.newsLink?.setValue(newValue);
   }
 
+  /**
+   * The user is shown a file chooser to select the generated image.
+   * Currently there is no notion of ONE or TWO here.
+   * @param selectedImage selected generated image
+   */
   onImageSelected(selectedImage: string) {
-    this.trendsService.uploadSelectedImage(selectedImage).subscribe((result) => {
-      console.log('result', result);
-    })
+    this.trendsService
+      .uploadSelectedImage(selectedImage)
+      .subscribe((result) => {
+        console.log('onImageSelected result', result);
+        this.imageChosen = selectedImage;
+        if (this.topicForm.value.one.type === 'AI') {
+          this.topicForm.controls['one']['controls']?.imageChosen?.setValue(
+            selectedImage
+          );
+        }
+        if (this.topicForm.value.two.type === 'AI') {
+          this.topicForm.controls['two']['controls']?.imageChosen?.setValue(
+            selectedImage
+          );
+        }
+      });
   }
 
   /**
@@ -231,6 +253,7 @@ export class TrendsComponent implements OnInit {
   setDate() {
     const date = new Date();
     this.topicForm.controls.date.setValue(date.toString());
+    this.topicForm.controls.country.setValue(this.countryListUsed);
   }
 
   /**
@@ -274,7 +297,6 @@ export class TrendsComponent implements OnInit {
   getCommonsImageUrl(pictureNumber: string) {
     const urlPage = this.topicForm.controls[pictureNumber]['controls'].commonImg
       .value;
-    console.log('urlPage', urlPage);
     if (urlPage) {
       const dataSet = 'src="';
       const ext = this.findExtension(urlPage);
@@ -283,12 +305,9 @@ export class TrendsComponent implements OnInit {
         start + dataSet.length,
         urlPage.length
       );
-    console.log('urlStart', urlStart);
 
       const end = urlStart.indexOf(ext);
       const urlFull = urlStart.substring(0, end + ext.length);
-    console.log('urlFull', urlFull);
-
       const woThumb = urlFull.replace('/thumb', '');
       return woThumb;
     }
@@ -319,7 +338,6 @@ export class TrendsComponent implements OnInit {
     );
     const thirdDot = afterSecondDot.indexOf('.');
     const ext = afterSecondDot.substring(thirdDot, thirdDot + 4);
-    console.log('ext', ext);
     if (ext.toLowerCase() === jpg || ext.toLowerCase() === png) {
       return ext;
     } else {
@@ -335,21 +353,22 @@ export class TrendsComponent implements OnInit {
   }
 
   kickOffGetArticleSummary() {
-    console.log('sending', this.topicForm.controls.linkForSummary.value);
     this.trendsService
       .kickoffArticleSummary(this.topicForm.controls.linkForSummary.value)
       .pipe(
         catchError((error) => {
           if (error.error instanceof ErrorEvent) {
-            console.log(`1-Error: ${error}`);
+            console.log(`kickOffGetArticleSummary 1-Error: ${error}`);
           } else {
-            console.log(`2-Error: ${error?.error?.error}`);
+            console.log(
+              `kickOffGetArticleSummary 2-Error: ${error?.error?.error}`
+            );
           }
-          return of('done');
+          return of('done with kickOffGetArticleSummary');
         })
       )
       .subscribe((result) => {
-        console.log('result', result);
+        console.log('kickOffGetArticleSummary result', result);
       });
   }
 
@@ -542,6 +561,7 @@ export class TrendsComponent implements OnInit {
 
   updateCountry(category: any): void {
     this.store.dispatch(TrendsActions.loadTrends({ payload: category }));
+    this.countryListUsed = category;
   }
 
   onUpdateSearchTerm(newSearchTerm: string) {

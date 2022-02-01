@@ -76,8 +76,6 @@ export class GanService {
   }
 
   writeS3ResultFile(bucketFilename, data) {
-    console.log('gan.service.writeFile: writeS3ResultFile', bucketFilename);
-
     const origFilename = encodeURIComponent(bucketFilename);
     const remove = origFilename.split('(').join('%28');
     const filename = remove.split(')').join('%29');
@@ -87,7 +85,6 @@ export class GanService {
     file.on('error', function (err) {
       console.log('gan.service.writeS3ResultFile: process err', err);
     });
-    console.log('data', data);
     file.write(JSON.stringify(data, undefined, 2), (err) => {
       if (err) console.log('gan.service.writeS3ResultFile: err', err);
     });

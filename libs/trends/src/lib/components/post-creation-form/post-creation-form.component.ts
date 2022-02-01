@@ -69,7 +69,6 @@ export class PostCreationFormComponent {
   }
 
   upload(event) {
-    console.log('event');
     const fileChosen = event.target.files[0]['name'];
     this.imageSelected.emit(fileChosen);
   }

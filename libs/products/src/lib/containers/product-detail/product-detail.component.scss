@@ -4,6 +4,26 @@
   flex-direction: row;
 }
 
+h1 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+h2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.landscape {
+  display: flex;
+  flex-direction: column;
+}
+
+.direction {
+  display: flex;
+  flex-direction: row;
+}
+
 .pointer {
   cursor: pointer;
 }

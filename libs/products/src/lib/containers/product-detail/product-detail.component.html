@@ -1,10 +1,24 @@
-<h1 class="header pointer" (click)="onEdit()">
-  <fa-icon class="icon-button" [icon]="faEdit"></fa-icon>
-  {{ selectedProduct.pageTitle }}
-</h1>
-<h2>by {{ selectedProduct.authors }}</h2>
-<p>{{ selectedProduct.description }}</p>
-<p>meta-description: {{ selectedProduct.metDescription }}</p>
-<p>Keywords: {{ selectedProduct.keywords }}</p>
-<a href="{{ selectedProduct.linkUrl }}">{{ selectedProduct.linkLabel }}</a>
-<pre><p>{{ selectedProduct | json }}</p></pre>
+<div [ngClass]="{ direction: selectedProduct.one.aspect === 'AI' }">
+  <h1 class="header pointer" (click)="onEdit()">
+    <fa-icon class="icon-button" [icon]="faEdit"></fa-icon>
+    {{ selectedProduct.pageTitle }}
+  </h1>
+  <h2>by {{ selectedProduct.authors }}</h2>
+  <div
+    class="row"
+    [ngClass]="{ direction: selectedProduct.one.aspect === 'AI' && selectedProduct.one.s3 }"
+  >
+    <div *ngIf="selectedProduct.one.s3">
+      <img src="{{ selectedProduct.one.s3.Location }}" />
+    </div>
+    <div class="landscape">
+      <p>{{ selectedProduct.description }}</p>
+      <p>meta-description: {{ selectedProduct.metDescription }}</p>
+      <p>Keywords: {{ selectedProduct.keywords }}</p>
+      <a href="{{ selectedProduct.linkUrl }}">{{
+        selectedProduct.linkLabel
+      }}</a>
+    </div>
+    <pre><p>{{ selectedProduct | json }}</p></pre>
+  </div>
+</div>

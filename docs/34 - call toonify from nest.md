@@ -357,3 +357,90 @@ This XML file does not appear to have any style information associated with it. 
 That doesn't seem right.  The bucket is supposed to be public.
 
 Also, the trends.component gets result: null.
+
+## S3 Access
+
+When trying to use links to the uploaded images such as this:
+
+<https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Session_with_Bungie_at_PAX_2009_(3983322185)_Hayao.jpg>
+
+We get a 404 errors.  I thought the bucket was set as public when created?  The bucket settings say:
+
+Block all public access: Off
+
+In the control panel:
+
+<https://console.aws.amazon.com/s3/buckets/one-public-bucket?region=ap-southeast-2&tab=objects>
+
+There are options such as:
+
+```txt
+Access Point policy - optional
+Policy examples
+The Access Point policy, written in JSON, provides access to the objects stored in the bucket from this Access Point. Access Point policies don't apply to objects owned by other accounts. Learn more
+```
+
+On the permissions tab the edit button is disabled in the Access control list (ACL) section.
+
+The docs are too boring and long winded to worry about.
+
+This Stackoverflow [has an answer](https://stackoverflow.com/questions/6975693/amazon-s3-access-image-by-url#:~:text=On%20your%20console%2C%20right%20click,Link%20from%20the%20Extended%20view.).
+
+We don't want to manually have to allow access to the uploads anyhow.  This has to be all automated, so even if I find a way to do it for one image, I need to make the settings on the whole bucket permissive.
+
+The default Bucket policy looks like this:
+
+```json
+ "Statement": [
+  {
+   "Sid": "Statement1",
+   "Principal": {},
+   "Effect": "Allow",
+   "Action": [],
+   "Resource": []
+  }
+```
+
+I cam up with this:
+
+```json
+ "Statement": [
+  {
+   "Sid": "PublicRead",
+    "Effect": "Allow",
+    "Principal": "*",
+    "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion"
+    ],
+   "Resource": "arn:aws:s3:::one-public-bucket/*"
+  }
+ ]
+```
+
+The last part was difficult to work out.  There was always an error until I read [this SO](https://stackoverflow.com/questions/44228422/s3-bucket-action-doesnt-apply-to-any-resources)
+
+But with the above step done, I still see this when trying to go to an image url:
+
+Status Code: 404 Not Found
+
+The link in the browser however will download the image.
+
+Oh, nevermind.  I wasn't interpolating the link.  ALl good now.
+
+## Unused images
+
+```txt
+Blake_Powell_2014_Shinkai.jpg
+AFC_Asian_Cup_Old_trophy_Hayao.jpg
+Huntingdale_Railway_Station_Paprika.jpg
+Joe_Burrow_(50677810636)_Hayao.jpg
+Maddie_Ziegler_May_2015_(cropped)_Hayao.jpg
+Pierre-Emerick_Aubameyang_Paprika.jpg
+Scott_Morrison_Hosoda.jpg
+```
+
+,
+    "s3": {
+      "Location": ""
+    }

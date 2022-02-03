@@ -19,7 +19,12 @@ h2 {
   flex-direction: column;
 }
 
-.direction {
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
   display: flex;
   flex-direction: row;
 }

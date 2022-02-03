@@ -13,6 +13,11 @@ export class ProductListComponent {
   selectedProduct: any;
   selectedProductName: string;
   editMode = false;
+  countries = [
+    { value: 'US', label: 'US' },
+    { value: 'AU', label: 'Australia' },
+    { value: 'KR', label: 'South Korea' },
+  ];
 
   constructor(private productsService: ProductsService) {}
 

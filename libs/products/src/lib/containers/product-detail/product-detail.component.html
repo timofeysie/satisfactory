@@ -1,13 +1,11 @@
-<div [ngClass]="{ direction: selectedProduct.one.aspect === 'AI' }">
-  <h1 class="header pointer" (click)="onEdit()">
-    <fa-icon class="icon-button" [icon]="faEdit"></fa-icon>
-    {{ selectedProduct.pageTitle }}
-  </h1>
-  <h2>by {{ selectedProduct.authors }}</h2>
-  <div
-    class="row"
-    [ngClass]="{ direction: selectedProduct.one.aspect === 'AI' && selectedProduct.one.s3 }"
-  >
+<div *ngIf="selectedProduct.one.aspect === 'portrait'">
+  <div class="row">
+    <h1 class="header pointer">
+      {{ selectedProduct.pageTitle }}
+    </h1>
+  </div>
+  <div class="column">
+    <h2>by {{ selectedProduct.authors }}</h2>
     <div *ngIf="selectedProduct.one.s3">
       <img src="{{ selectedProduct.one.s3.Location }}" />
     </div>
@@ -19,6 +17,32 @@
         selectedProduct.linkLabel
       }}</a>
     </div>
-    <pre><p>{{ selectedProduct | json }}</p></pre>
   </div>
 </div>
+
+<div *ngIf="selectedProduct.one.aspect === 'landscape'" class="column">
+  <h1 class="header pointer" (click)="onEdit()">
+    <fa-icon class="icon-button" [icon]="faEdit"></fa-icon>
+    {{ selectedProduct.pageTitle }}
+  </h1>
+  <h2>by {{ selectedProduct.authors }}</h2>
+  <div class="row">
+    <div *ngIf="selectedProduct.one.s3">
+      <img src="{{ selectedProduct.one.s3.Location }}" />
+    </div>
+    <div class="landscape">
+      <p>{{ selectedProduct.description }}</p>
+      <p>meta-description: {{ selectedProduct.metDescription }}</p>
+      <p>Keywords: {{ selectedProduct.keywords }}</p>
+      <a href="{{ selectedProduct.linkUrl }}">{{
+        selectedProduct.linkLabel
+      }}</a>
+    </div>
+  </div>
+</div>
+
+<h3 class="pointer" (click)="onEdit()">
+  <fa-icon class="icon-button" [icon]="faEdit"></fa-icon>
+  Edit
+</h3>
+<pre><p>{{ selectedProduct | json }}</p></pre>

@@ -35,21 +35,6 @@
       "Location": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Alex_De_Minaur_(43875330731)_Hosoda.jpg"
     }
   },
-  "two": {
-    "title": "Alex de Minaur",
-    "author": "ARTIST",
-    "altText": "",
-    "imageSrc": "",
-    "srcset": "./../assets/pictures/Alex_de_Minaur/Alex_de_Minaur_by_two_300w.jpg,\n./../assets/pictures/Alex_de_Minaur/Alex_de_Minaur_by_$author}_600w.jpg\n./../assets/pictures/Alex_de_Minaur/Alex_de_Minaur_by_two_1800w.jpg",
-    "description": "Alex de Minaur defeats defeated Pablo Andujar by <ARTIST>",
-    "metaDescription": "Alex de Minaur defeats defeated Pablo Andujar by <ARTIST>",
-    "tags": "",
-    "source": "https://content.api.news/v3/images/bin/e47b223204adf185d34bd87cb5666fed",
-    "aspect": "",
-    "type": "ARTIST",
-    "commonImg": "",
-    "googleImg": "https://content.api.news/v3/images/bin/e47b223204adf185d34bd87cb5666fed"
-  },
   "originalTrend": {
     "title": {
       "query": "Alex de Minaur",

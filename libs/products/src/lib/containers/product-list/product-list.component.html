@@ -5,8 +5,10 @@
         placeholder="Category"
         (selectionChange)="onFilter($event.value)"
       >
-        <mat-option [value]="'tools'">Tools</mat-option>
-        <mat-option [value]="'paint'">Paint</mat-option>
+        <mat-option *ngFor="let country of countries" [value]="country.value">{{
+        country.label
+      }}</mat-option>
+
       </mat-select>
     </mat-form-field>
     <mat-nav-list>

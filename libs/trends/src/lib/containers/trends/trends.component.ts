@@ -234,7 +234,7 @@ export class TrendsComponent implements OnInit {
    * form fields.
    */
   preFillForm() {
-    this.setDate();
+    this.setDateAndCountry();
     // kick off the article scape and summary on the backend
     if (this.topicForm.controls.linkForSummary.value) {
       this.kickOffGetArticleSummary();
@@ -250,7 +250,7 @@ export class TrendsComponent implements OnInit {
     this.getRelatedQueries();
   }
 
-  setDate() {
+  setDateAndCountry() {
     const date = new Date();
     this.topicForm.controls.date.setValue(date.toString());
     this.topicForm.controls.country.setValue(this.countryListUsed);

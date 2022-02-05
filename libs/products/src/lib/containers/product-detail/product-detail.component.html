@@ -1,4 +1,4 @@
-<div *ngIf="selectedProduct.one.aspect === 'portrait'">
+<div *ngIf="selectedProduct.one.aspect === 'landscape'">
   <div class="row">
     <h1 class="header pointer">
       {{ selectedProduct.pageTitle }}
@@ -10,7 +10,7 @@
       <img src="{{ selectedProduct.one.s3.Location }}" />
     </div>
     <div class="landscape">
-      <p>{{ selectedProduct.description }}</p>
+      <pre>{{ replaceNewlines(selectedProduct.description) }}</pre>
       <p>meta-description: {{ selectedProduct.metDescription }}</p>
       <p>Keywords: {{ selectedProduct.keywords }}</p>
       <a href="{{ selectedProduct.linkUrl }}">{{
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div *ngIf="selectedProduct.one.aspect === 'landscape'" class="column">
+<div *ngIf="selectedProduct.one.aspect === 'portrait'" class="column">
   <h1 class="header pointer" (click)="onEdit()">
     <fa-icon class="icon-button" [icon]="faEdit"></fa-icon>
     {{ selectedProduct.pageTitle }}
@@ -30,13 +30,22 @@
     <div *ngIf="selectedProduct.one.s3">
       <img src="{{ selectedProduct.one.s3.Location }}" />
     </div>
-    <div class="landscape">
+    <div class="landscape left-margin">
       <p>{{ selectedProduct.description }}</p>
       <p>meta-description: {{ selectedProduct.metDescription }}</p>
       <p>Keywords: {{ selectedProduct.keywords }}</p>
       <a href="{{ selectedProduct.linkUrl }}">{{
         selectedProduct.linkLabel
       }}</a>
+      <a *ngIf="selectedProduct.links.newsLink"
+        href="{{ selectedProduct.links.newsLink }}">
+        <ng-container *ngIf="selectedProduct.links.newsLinkLabel; else defaultLabel">
+          {{ selectedProduct.links.newsLinkLabel}}
+        </ng-container>
+        <ng-template #defaultLabel>
+          AP News link
+        </ng-template>
+      </a>
     </div>
   </div>
 </div>

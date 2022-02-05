@@ -30,6 +30,7 @@ export class TrendsComponent implements OnInit {
   countryListUsed: string;
   imageChosen: string;
   topicForm = this.fb.group({
+    version: ['0.0.3'],
     date: [''],
     country: [''],
     pageTitle: [''],
@@ -181,7 +182,10 @@ export class TrendsComponent implements OnInit {
 
   /**
    * The user is shown a file chooser to select the generated image.
+   * We also want to set the author <AI> as the type of model used.
+   *
    * Currently there is no notion of ONE or TWO here.
+   *
    * @param selectedImage selected generated image
    */
   onImageSelected(selectedImage: string) {
@@ -194,6 +198,10 @@ export class TrendsComponent implements OnInit {
           this.topicForm.controls['one']['controls']?.imageChosen?.setValue(
             selectedImage
           );
+          const modelUser = this.getModelUser(selectedImage);
+          this.topicForm.controls['one']['controls']?.author?.setValue(
+            modelUser
+          );
         }
         if (this.topicForm.value.two.type === 'AI') {
           this.topicForm.controls['two']['controls']?.imageChosen?.setValue(
@@ -201,6 +209,20 @@ export class TrendsComponent implements OnInit {
           );
         }
       });
+  }
+
+  /**
+   * Look for the last slash and return the string between it and the file extension.
+   * selectedImage Allen%27s_80th_book_of_berries_%281965%29_%2817924239616%29_Hayao.jpg
+   * 
+   * @param selectedImage
+   */
+  getModelUser(selectedImage: string) {
+    console.log('selectedImage', selectedImage);
+    const lastSlash = selectedImage.lastIndexOf('_');
+    const lastPart = selectedImage.substring(lastSlash+1, selectedImage.length - 4);
+    console.log('last part', lastPart);
+    return lastPart;
   }
 
   /**

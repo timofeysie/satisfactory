@@ -14,4 +14,8 @@ export class ProductDetailComponent {
   onEdit() {
     this.edit.emit(true);
   }
+
+  replaceNewlines(desc: string) {
+    return desc.replace(/\n /g, '\n');
+  }
 }

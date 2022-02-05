@@ -8,6 +8,13 @@ from torch.autograd import Variable
 import torchvision.utils as vutils
 from network import Transformer
 
+path = r'C:\\Users\\timof\\repos\\timofeysie\\satisfactory\\apps\\toonify\\src'
+directory = os.getcwd()
+print("Current working directory %s" % directory)
+os.chdir(path)
+directory = os.getcwd()
+print("Directory changed success %s" % directory)
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--input_dir', default = 'apps/toonify/src/test_img/')
 parser.add_argument('--load_size', default = 450)

@@ -41,7 +41,7 @@ export class TrendsLinksComponent implements OnInit {
 
   onUpdatedNewsSearchTerm() {
     this.newNewsLink =
-      'https://apnews.com/hub/' + this.topicForm.value.links.newsLink;
+      this.topicForm.value.links.newsLink;
     this.handleNewAPSearchTerm.emit(this.newNewsLink);
   }
 

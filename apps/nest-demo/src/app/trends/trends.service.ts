@@ -36,17 +36,22 @@ export class TrendsService {
     const title1 = this.findTitle('one', createTrendDto);
     if (title1) {
       const oneS3 = await this.writeBucketFile(title1);
-      createTrendDto.one.s3 = oneS3;
+      if (oneS3) createTrendDto.one.s3 = oneS3;
     }
-    const title2 = await this.findTitle('two', createTrendDto);
-    if (title2) {
-      const twoS3 = this.writeBucketFile(title2);
-      createTrendDto.two.s3 = twoS3;
-    }
+    // const title2 = await this.findTitle('two', createTrendDto);
+    // if (title2) {
+    //   const twoS3 = this.writeBucketFile(title2);
+    //   createTrendDto.two.s3 = twoS3;
+    // }
   }
 
   async writeBucketFile(fileTitle) {
     const path = `./apps/nest-demo/src/app/gan/bucket/${fileTitle}.json`;
+    // Check that the file exists locally
+    if (!fs.existsSync(path)) {
+      console.log('writeBucketFile: File not found', path);
+      return null;
+    }
     const s3file = JSON.parse(fs.readFileSync(path, 'utf-8'));
     return s3file;
   }

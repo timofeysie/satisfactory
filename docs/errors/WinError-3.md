@@ -148,3 +148,7 @@ Darwin_Olympic_player_Josh_Horvat_%28right%29_and_Dion_Bandiera_from_Alice_Sprin
 FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\timof\\repos\\timofeysie\\satisfactory\\apps\\toonify\\src\\cartooned_img\\Darwin_Olympic_player_Josh_Horvat_%28right%29_and_Dion_Bandiera_from_Alice_Springs_club_Celtic_during_the_Northern_Territory_final_in_the_FFA_Cup_at_the_Darwin_Football_Stadium_Shinkai.jpg'
 
 to abc.jpg, and the image is generated.
+
+So it's most likely a file name thing.  I think we have a growing collection now if images that have generation problems.  This needs to be looked at and fix or a workaround discovered.
+
+Stay tuned.

@@ -14,8 +14,8 @@
     <mat-nav-list>
       <a
         mat-list-item
-        *ngFor="let product of products"
-        (click)="onProductSelected(product)"
+        *ngFor="let product of products; let i = index"
+        (click)="onProductSelected(product, i)"
         >{{ product.id }} - {{ product.name }}</a
       >
     </mat-nav-list>
@@ -24,6 +24,8 @@
     <demo-app-product-detail
       [selectedProduct]="selectedProduct"
       (edit)="onEditDetail($event)"
+      (left)="onNavigateLeft($event)"
+      (right)="onNavigateRight($event)"
     ></demo-app-product-detail>
   </mat-card>
   <div class="form-container">

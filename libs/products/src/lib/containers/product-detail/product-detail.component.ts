@@ -1,5 +1,7 @@
 import { Component, Output, Input, EventEmitter } from '@angular/core';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'demo-app-product-detail',
@@ -9,10 +11,22 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 export class ProductDetailComponent {
   @Input() selectedProduct: any;
   @Output() edit = new EventEmitter<boolean>();
+  @Output() left = new EventEmitter<boolean>();
+  @Output() right = new EventEmitter<boolean>();
   faEdit = faEdit;
+  faAngleLeft = faAngleLeft;
+  faAngleRight = faAngleRight;
 
   onEdit() {
     this.edit.emit(true);
+  }
+
+  onLeft() {
+    this.left.emit(true);
+  }
+
+  onRight() {
+    this.right.emit(true);
   }
 
   replaceNewlines(desc: string) {

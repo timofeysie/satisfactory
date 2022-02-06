@@ -199,9 +199,14 @@ export class TrendsComponent implements OnInit {
             selectedImage
           );
           const modelUser = this.getModelUser(selectedImage);
+          // set the author
           this.topicForm.controls['one']['controls']?.author?.setValue(
             modelUser
           );
+          // if this is an AI only post, also set the main author
+          if (this.topicForm.value.two) {
+            this.topicForm.controls['authors'].setValue(modelUser);
+          }
         }
         if (this.topicForm.value.two.type === 'AI') {
           this.topicForm.controls['two']['controls']?.imageChosen?.setValue(

@@ -26,7 +26,9 @@
       <img src="{{ selectedProduct.one.s3.Location }}" />
     </div>
     <div class="column left-margin">
-      <span *ngIf="selectedProduct.country">{{ selectedProduct.country}} - </span>
+      <span *ngIf="selectedProduct.country"
+        >{{ selectedProduct.country }} -
+      </span>
       <h1 class="header pointer">
         {{ selectedProduct.pageTitle }}
       </h1>
@@ -55,8 +57,27 @@
   </div>
 </div>
 
+<mat-toolbar color="primary">
+  <button
+    mat-icon-button
+    class="fas fa-angle-left"
+    aria-label="Example icon-button with menu icon"
+    (click)="onLeft()"
+  >
+    <fa-icon [icon]="faAngleLeft">left</fa-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="fas fa-angle-right"
+    aria-label="Example icon-button with share icon"
+    (click)="onRight()"
+  >
+    <fa-icon [icon]="faAngleRight">right</fa-icon>
+  </button>
+</mat-toolbar>
+
 <h3 class="pointer" (click)="onEdit()">
   <fa-icon class="icon-button" [icon]="faEdit"></fa-icon>
-  Edit
+  <span>Edit</span> raw JSON
 </h3>
 <pre><p>{{ selectedProduct | json }}</p></pre>

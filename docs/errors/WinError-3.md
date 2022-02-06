@@ -140,3 +140,11 @@ This syntax requires an imported helper but module 'tslib' cannot be found.ts(23
 I restart VSCode and those errors go away.  Still, that's weird about the file not found errors.  Now products are working again, but the GAN is still not.
 
 I note that the download is working to save the file in the test_image directory.
+
+In another test, I changed the file name from:
+
+Darwin_Olympic_player_Josh_Horvat_%28right%29_and_Dion_Bandiera_from_Alice_Springs_club_Celtic_during_the_Northern_Territory_final_in_the_FFA_Cup_at_the_Darwin_Football_Stadium_Shinkai.jpg
+
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\timof\\repos\\timofeysie\\satisfactory\\apps\\toonify\\src\\cartooned_img\\Darwin_Olympic_player_Josh_Horvat_%28right%29_and_Dion_Bandiera_from_Alice_Springs_club_Celtic_during_the_Northern_Territory_final_in_the_FFA_Cup_at_the_Darwin_Football_Stadium_Shinkai.jpg'
+
+to abc.jpg, and the image is generated.

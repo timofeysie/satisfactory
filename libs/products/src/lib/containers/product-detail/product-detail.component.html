@@ -26,8 +26,8 @@
       <img src="{{ selectedProduct.one.s3.Location }}" />
     </div>
     <div class="column left-margin">
-      <h1 class="header pointer" (click)="onEdit()">
-        <fa-icon class="icon-button" [icon]="faEdit"></fa-icon>
+      <span *ngIf="selectedProduct.country">{{ selectedProduct.country}} - </span>
+      <h1 class="header pointer">
         {{ selectedProduct.pageTitle }}
       </h1>
       <h2>by {{ selectedProduct.authors }}</h2>

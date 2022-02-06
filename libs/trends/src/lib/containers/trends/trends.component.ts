@@ -214,13 +214,16 @@ export class TrendsComponent implements OnInit {
   /**
    * Look for the last slash and return the string between it and the file extension.
    * selectedImage Allen%27s_80th_book_of_berries_%281965%29_%2817924239616%29_Hayao.jpg
-   * 
+   *
    * @param selectedImage
    */
   getModelUser(selectedImage: string) {
     console.log('selectedImage', selectedImage);
     const lastSlash = selectedImage.lastIndexOf('_');
-    const lastPart = selectedImage.substring(lastSlash+1, selectedImage.length - 4);
+    const lastPart = selectedImage.substring(
+      lastSlash + 1,
+      selectedImage.length - 4
+    );
     console.log('last part', lastPart);
     return lastPart;
   }
@@ -275,7 +278,6 @@ export class TrendsComponent implements OnInit {
   setDateAndCountry() {
     const date = new Date();
     this.topicForm.controls.date.setValue(date.toString());
-    console.log('this.countryListUsed', this.countryListUsed);
     this.topicForm.controls.country.setValue(this.countryListUsed);
   }
 
@@ -291,10 +293,12 @@ export class TrendsComponent implements OnInit {
     } else {
       this.setArtistPictureNumberData('one');
     }
-    if (this.topicForm.value.two.type === 'AI') {
-      this.setAIPictureNumberData('two');
-    } else {
-      this.setArtistPictureNumberData('two');
+    if (this.topicForm.value.two) {
+      if (this.topicForm.value.two.type === 'AI') {
+        this.setAIPictureNumberData('two');
+      } else {
+        this.setArtistPictureNumberData('two');
+      }
     }
   }
 
@@ -304,7 +308,10 @@ export class TrendsComponent implements OnInit {
   downloadImages() {
     const urls = [];
     const one = this.getCommonsImageUrl('one');
-    const two = this.getCommonsImageUrl('two');
+    let two;
+    if (this.topicForm.controls.two) {
+      two = this.getCommonsImageUrl('two');
+    }
     if (one) urls.push(one);
     if (two) urls.push(two);
     if (urls.length > 0) {
@@ -397,13 +404,15 @@ export class TrendsComponent implements OnInit {
 
   // create TODO <AI>, <ARTIST> author values
   createAuthorValues() {
-    const authors =
-      '<' +
-      this.topicForm.controls['one']['controls']?.author?.value +
-      '>, ' +
-      '<' +
-      this.topicForm.controls['two']['controls']?.author?.value +
-      '>';
+    const one = this.topicForm.controls['one']['controls']?.author?.value;
+    let authors = '<' + one + '>, ';
+    if (this.topicForm.controls['two']) {
+      authors =
+        authors +
+        '<' +
+        this.topicForm.controls['two']['controls']?.author?.value +
+        '>';
+    }
     this.topicForm.controls.authors.setValue(authors);
   }
 

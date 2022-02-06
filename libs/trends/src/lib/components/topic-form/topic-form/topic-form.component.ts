@@ -11,6 +11,7 @@ import {
   FormGroupDirective,
   ControlContainer,
 } from '@angular/forms';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'demo-app-topic-form',
@@ -24,7 +25,7 @@ import {
 export class TopicFormComponent implements AfterViewInit {
   @Input() topicForm: FormGroup;
   @Input() trendTitleSeen: string;
-
+  faTimes = faTimes;
   ngAfterViewInit() {
     this.topicForm.controls.one['controls']?.title?.setValue(
       this.trendTitleSeen
@@ -32,6 +33,10 @@ export class TopicFormComponent implements AfterViewInit {
     this.topicForm.controls.two['controls']?.title?.setValue(
       this.trendTitleSeen
     );
+  }
+
+  onClose() {
+    this.topicForm.removeControl('two');
   }
 
   onTypeSelectionChange(selection, oneOrTwo) {

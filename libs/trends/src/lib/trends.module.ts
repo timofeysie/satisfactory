@@ -16,6 +16,7 @@ import { TrendsLinksComponent } from './components/trends-links/trends-links/tre
 import { TopicFormComponent } from './components/topic-form/topic-form/topic-form.component';
 import { TrendsToolbarComponent } from './components/trends-toolbar/trends-toolbar.component';
 import { PostCreationFormComponent } from './components/post-creation-form/post-creation-form.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   imports: [
@@ -28,7 +29,17 @@ import { PostCreationFormComponent } from './components/post-creation-form/post-
     ]),
     StoreModule.forFeature(fromTrends.TRENDS_FEATURE_KEY, fromTrends.reducer),
     EffectsModule.forFeature([TrendsEffects]),
+    FontAwesomeModule,
   ],
-  declarations: [TrendsComponent, TrendsListComponent, CommonImagesComponent, TrendsListDetailComponent, TrendsLinksComponent, TopicFormComponent, TrendsToolbarComponent, PostCreationFormComponent],
+  declarations: [
+    TrendsComponent,
+    TrendsListComponent,
+    CommonImagesComponent,
+    TrendsListDetailComponent,
+    TrendsLinksComponent,
+    TopicFormComponent,
+    TrendsToolbarComponent,
+    PostCreationFormComponent,
+  ],
 })
 export class TrendsModule {}

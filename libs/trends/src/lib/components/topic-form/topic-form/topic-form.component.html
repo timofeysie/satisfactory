@@ -45,7 +45,7 @@
   </mat-card>
 </div>
 
-<div formGroupName="two" class="links">
+<div *ngIf="topicForm.value.two" formGroupName="two" class="links">
   <mat-card class="picture-post-card">
     <mat-form-field appearance="none" class="selector picture-post-card-top">
       <mat-select
@@ -58,6 +58,11 @@
         <mat-option [value]="'AI'">A.I.</mat-option>
         <mat-option [value]="'ARTIST'">Artist</mat-option>
       </mat-select>
+      <fa-icon
+        class="close-icon-button"
+        [icon]="faTimes"
+        (click)="onClose()"
+      ></fa-icon>
     </mat-form-field>
     <div class="title-row">
       <input

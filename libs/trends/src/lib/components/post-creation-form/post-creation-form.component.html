@@ -169,7 +169,7 @@
     </div>
 
     <!-- two -->
-    <div class="column">
+    <div class="column" *ngIf="fullTopicForm.get('two')">
       <mat-card class="full-width" [formGroup]="fullTopicForm.get('two')">
         <mat-card-header>
           <mat-card-title>

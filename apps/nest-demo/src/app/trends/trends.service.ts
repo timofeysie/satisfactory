@@ -7,20 +7,21 @@ import * as fs from 'fs';
 @Injectable()
 export class TrendsService {
   async create(createTrendDto: any) {
-    console.log('createTrendDto', createTrendDto);
+    console.log('TrendsService.create: createTrendDto', createTrendDto);
     await this.getGeneratedFileName(createTrendDto);
     const fileName = createTrendDto.pageTitle?.split(' ').join('-');
     if (fileName) {
       const file = fs.createWriteStream(`posts/${fileName}.json`);
-      file.on('error', function (err) {
+      file.on('TrendsService.create: error', function (err) {
         /* error handling */
+        console.log('TrendsService.create: err 1', err);
       });
-      console.log('========== writing', createTrendDto);
+      console.log(fileName,'writing', createTrendDto);
       file.write(JSON.stringify(createTrendDto));
       file.end();
       return 'This action adds a new trend';
     } else {
-      console.log('no pageTitle');
+      console.log('TrendsService.create: no pageTitle');
       return 'no pageTitle';
     }
   }

@@ -11,24 +11,28 @@ export class ProductsService {
   }
 
   async findAll() {
-    return new Promise((resolve) => {
-    const results: Array<any> = new Array<any>();
-    fs.readdir('./posts', (err, files) => {
-      for (const [index, file] of files.entries()) {
-        const fileName = file.substring(0, file.length - 5);
-        const fileType = file.substring(file.lastIndexOf('.') + 1, file.length) ||
-          file;
-        if (fileType === 'json') {
-          const entry = {
-            id: index,
-            name: fileName,
-          };
-          results.push(entry);
+    return new Promise((resolve, reject) => {
+      const results: Array<any> = new Array<any>();
+      fs.readdir('./posts', (err, files) => {
+        if (files) {
+          for (const [index, file] of files.entries()) {
+            const fileName = file.substring(0, file.length - 5);
+            const fileType =
+              file.substring(file.lastIndexOf('.') + 1, file.length) || file;
+            if (fileType === 'json') {
+              const entry = {
+                id: index,
+                name: fileName,
+              };
+              results.push(entry);
+            }
+          }
+        } else {
+          reject('ProductsService.findAll: no files '+err.toString());
         }
-      }
-      resolve(results);
+        resolve(results);
+      });
     });
-  })
   }
 
   getCategory(category: string) {

@@ -275,6 +275,7 @@ export class TrendsComponent implements OnInit {
   setDateAndCountry() {
     const date = new Date();
     this.topicForm.controls.date.setValue(date.toString());
+    console.log('this.countryListUsed', this.countryListUsed);
     this.topicForm.controls.country.setValue(this.countryListUsed);
   }
 

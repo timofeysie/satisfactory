@@ -204,10 +204,9 @@ export class TrendsComponent implements OnInit {
             modelUser
           );
           // if this is an AI only post, also set the main author
-          if (this.topicForm.value.two) {
-            this.topicForm.controls['authors'].setValue(modelUser);
-          }
+          this.createAuthorValues();
         }
+
         if (this.topicForm.value.two.type === 'AI') {
           this.topicForm.controls['two']['controls']?.imageChosen?.setValue(
             selectedImage
@@ -409,14 +408,21 @@ export class TrendsComponent implements OnInit {
 
   // create TODO <AI>, <ARTIST> author values
   createAuthorValues() {
+    let authors = '';
     const one = this.topicForm.controls['one']['controls']?.author?.value;
-    let authors = '<' + one + '>, ';
-    if (this.topicForm.controls['two']) {
-      authors =
-        authors +
-        '<' +
-        this.topicForm.controls['two']['controls']?.author?.value +
-        '>';
+    if (one === 'AI') {
+      authors = '<' + one + '>, ';
+      if (this.topicForm.controls['two']) {
+        authors =
+          authors +
+          '<' +
+          this.topicForm.controls['two']['controls']?.author?.value +
+          '>';
+      }
+    } else {
+      // the user has chosen an image so we set the author from that
+      console.log('one')
+      authors = one;
     }
     this.topicForm.controls.authors.setValue(authors);
   }

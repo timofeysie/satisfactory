@@ -2,6 +2,7 @@
   pointer-events: all;
   display: flex;
   flex-direction: row;
+  margin-top: -5px;
 }
 
 h1 {
@@ -41,4 +42,8 @@ h2 {
 
 .left-margin {
   margin-left: 16px;
+}
+
+.top-margin-12 {
+  margin-top: 12px;
 }

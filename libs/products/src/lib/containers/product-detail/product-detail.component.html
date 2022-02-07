@@ -1,5 +1,8 @@
 <div *ngIf="selectedProduct.one.aspect === 'landscape'">
   <div class="row">
+    <span *ngIf="selectedProduct.country"
+      >{{ selectedProduct.country }} &nbsp;
+    </span>
     <h1 class="header pointer">
       {{ selectedProduct.pageTitle }}
     </h1>
@@ -10,8 +13,8 @@
       <img src="{{ selectedProduct.one.s3.Location }}" />
     </div>
     <div class="landscape">
+      <pre>{{ selectedProduct.metaDescription }}</pre>
       <pre>{{ replaceNewlines(selectedProduct.description) }}</pre>
-      <p>meta-description: {{ selectedProduct.metDescription }}</p>
       <p>Keywords: {{ selectedProduct.keywords }}</p>
       <a href="{{ selectedProduct.linkUrl }}">{{
         selectedProduct.linkLabel
@@ -26,17 +29,19 @@
       <img src="{{ selectedProduct.one.s3.Location }}" />
     </div>
     <div class="column left-margin">
-      <span *ngIf="selectedProduct.country"
-        >{{ selectedProduct.country }} -
-      </span>
-      <h1 class="header pointer">
-        {{ selectedProduct.pageTitle }}
-      </h1>
+      <div class="row">
+        <span *ngIf="selectedProduct.country"
+          >{{ selectedProduct.country }} &nbsp;
+        </span>
+        <h1 class="header pointer">
+          {{ selectedProduct.pageTitle }}
+        </h1>
+      </div>
       <h2>by {{ selectedProduct.authors }}</h2>
 
       <div class="landscape">
+        <pre>{{ selectedProduct.metaDescription }}</pre>
         <pre>{{ replaceNewlines(selectedProduct.description) }}</pre>
-        <p>meta-description: {{ selectedProduct.metDescription }}</p>
         <p>Keywords: {{ selectedProduct.keywords }}</p>
         <a href="{{ selectedProduct.linkUrl }}">{{
           selectedProduct.linkLabel
@@ -57,7 +62,7 @@
   </div>
 </div>
 
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="top-margin-12">
   <button
     mat-icon-button
     class="fas fa-angle-left"

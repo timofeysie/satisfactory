@@ -10,6 +10,7 @@ import { ProductsModule } from './products/products.module';
 import { BartModule } from './bart/bart.module';
 import { GanModule } from './gan/gan.module';
 import { ConfigModule } from '@nestjs/config';
+import { GenerateModule } from './generate/generate.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ConfigModule } from '@nestjs/config';
     ProductsModule,
     BartModule,
     GanModule,
+    GenerateModule,
   ],
   controllers: [AppController],
   providers: [AppService],

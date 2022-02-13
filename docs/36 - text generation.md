@@ -282,3 +282,13 @@ warnings from Washington that a Russian invasion of Ukraine could be imminent.
 "The United States is not going to let this happen," he said. "We are going to have to do everything we can to prevent this from happening."
 
 Wh-what?
+
+### How to know when the summaries are ready
+
+Option one: look in this directory:
+
+apps/nest-demo/src/app/bart/summaries
+
+For example:
+
+apps/nest-demo/src/app/bart/summaries/https%3A%2F%2Fwww.wfla.com%2Fnews%2Frapper-kodak-black-shot-outside-west-hollywood-club-report-says%2F.txt

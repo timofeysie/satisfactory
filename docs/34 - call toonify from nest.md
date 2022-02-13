@@ -444,3 +444,47 @@ Scott_Morrison_Hosoda.jpg
     "s3": {
       "Location": ""
     }
+
+## Error Handling
+
+### The form submit post
+
+The post form shows this error in the console:
+
+HttpErrorResponse {headers: HttpHeaders, status: 201, statusText: 'Created', url: 'http://localhost:3333/api/trends/', ok: false, …}
+error: {error: SyntaxError: Unexpected token T in JSON at position 0 at JSON.parse (<anonymous>) at XMLHtt…, text: 'This action adds a new trend'}
+headers: HttpHeaders {normalizedNames: Map(0), lazyUpdate: null, lazyInit: ƒ}
+message: "Http failure during parsing for <http://localhost:3333/api/trends/>"
+name: "HttpErrorResponse"
+ok: false
+status: 201
+statusText: "Created"
+url: "http://localhost:3333/api/trends/"
+[[Prototype]]: HttpResponseBase
+
+Seems like it shouldn't be an error, but that should be fixed.
+
+The frontend does this to catch either response:
+
+```ts
+this.trendsService.postTrendTopic(formValue).subscribe(
+  (result) => {
+    console.log('Value Received ' + result);
+    this.openSnackBar('form posted 1', 'close');
+  },
+  (err) => {
+    console.log('Error caught at Subscriber ' + err);
+    this.openSnackBar('form submitted', 'close');
+  },
+  () => console.log('Processing Complete.')
+);
+```
+
+The backend needs to get it's act together and return success.
+
+### The description is ready
+
+After Goose scrapes the content, and Bart creates the summary, you will see this message in the node output:
+
+bart.service.getArticleSummary: path ./apps/nest-demo/src/app/bart/summaries/https%3A%2F%2Fwww.dailymail.co.uk%2Ftvshowbiz%2Farticle-10506411%2FKylie-Minogue-splashes-8-million-four-bedroom-home-Melbourne.html.txt
+bart.controller.findOne: got id <https://www.dailymail.co.uk/tvshowbiz/article-10506411/Kylie-Minogue-splashes-8-million-four-bedroom-home-Melbourne.html>

@@ -10,6 +10,7 @@ import { TrendsService } from '../../services/trends/trends.service';
 import { TrendsListComponent } from '../trends-list/trends-list.component';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'demo-app-trends',
@@ -95,12 +96,17 @@ export class TrendsComponent implements OnInit {
   constructor(
     private store: Store<TrendsState>,
     private trendsService: TrendsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
     this.store.dispatch(TrendsActions.loadTrends({ payload: 'US' }));
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 
   /**
@@ -153,7 +159,17 @@ export class TrendsComponent implements OnInit {
     const formValue = this.topicForm.value;
     formValue['originalTrend'] = this.trendDetails;
     console.log('formValue', formValue);
-    this.trendsService.postTrendTopic(formValue).subscribe();
+    this.trendsService.postTrendTopic(formValue).subscribe(
+      (result) => {
+        console.log('Value Received ' + result);
+        this.openSnackBar('form posted 1', 'close');
+      },
+      (err) => {
+        console.log('Error caught at Subscriber ' + err);
+        this.openSnackBar('form submitted', 'close');
+      },
+      () => console.log('Processing Complete.')
+    );
   }
 
   onHandleBackToSetup() {
@@ -207,7 +223,7 @@ export class TrendsComponent implements OnInit {
           this.createAuthorValues();
         }
 
-        if (this.topicForm.value.two.type === 'AI') {
+        if (this.topicForm.value?.two && this.topicForm.value.two.type === 'AI') {
           this.topicForm.controls['two']['controls']?.imageChosen?.setValue(
             selectedImage
           );
@@ -421,7 +437,7 @@ export class TrendsComponent implements OnInit {
       }
     } else {
       // the user has chosen an image so we set the author from that
-      console.log('one')
+      console.log('one');
       authors = one;
     }
     this.topicForm.controls.authors.setValue(authors);

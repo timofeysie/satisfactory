@@ -52,8 +52,8 @@ export class GanController {
   };
 
   @Get()
-  findAll() {
-    return this.ganService.findAll();
+  cleanUp() {
+    return this.ganService.cleanUp();
   }
 
   @Get(':id')

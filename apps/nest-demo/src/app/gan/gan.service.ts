@@ -7,21 +7,22 @@ import https from 'https';
 
 @Injectable()
 export class GanService {
-  findAll() {
-    console.log('findAll test');
-    const process = spawn('python', [
-      'apps/toonify/src/test.py',
-      '--style',
-      'Hosoda',
-      '--gpu',
-      '0',
-    ]);
-    return new Promise((resolve, reject) => {
-      process.stdout.on('data', function (data) {
-        resolve(data.toString());
-      });
-      process.stderr.on('data', reject);
-    });
+  cleanUp() {
+    const bucketDir = './apps/nest-demo/src/app/gan/bucket';
+    const toonifiedDir = './apps/toonify/src/cartooned_img';
+    const testImageDir = './apps/toonify/src/test_img';
+    const summariesDir = './apps/nest-demo/src/app/bart/summaries';
+    // posts/ ???
+    fs.readdirSync(bucketDir).forEach((f) => fs.rmSync(`${bucketDir}/${f}`));
+    fs.readdirSync(toonifiedDir).forEach((f) =>
+      fs.rmSync(`${toonifiedDir}/${f}`)
+    );
+    fs.readdirSync(testImageDir).forEach((f) =>
+      fs.rmSync(`${testImageDir}/${f}`)
+    );
+    fs.readdirSync(summariesDir).forEach((f) =>
+      fs.rmSync(`${summariesDir}/${f}`)
+    );
   }
 
   kickOffGan(): void {

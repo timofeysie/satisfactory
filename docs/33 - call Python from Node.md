@@ -228,3 +228,11 @@ There are currently various errors that result despite eventually the functions 
 To really accomplish this cleanly we will want to do [something like this](https://wanago.io/2021/05/03/api-nestjs-cpu-intensive-tasks-queues/): *"Handling CPU-intensive operations with REST API can be tricky. If our endpoint takes too much time to respond, it might result in a timeout. In this article, we look into queues to help us resolve this issue."*
 
 While looking for an example for the s3 upload, I found [Marcin Wanago](https://twitter.com/intent/user?original_referer=&region=screen_name&screen_name=wanago_io&source=followbutton&variant=1.1), who is an impressing blogger about seemingly every topic for NestJS.
+
+According to [this StackOverflow](https://stackoverflow.com/questions/32974791/handle-long-running-processes-in-nodejs) answer: *use a worker queue that uses nodejs. Hence, the solution is: (1) use a nodejs server that does nothing but queue tasks in the worker queue. (2) use a nodejs worker queue (like kue) to do the actual work. Use cluster to spread the work across different CPUs.*
+
+I'm not sure if the use-case as noted by the question poster is the same as ours.  We don't really want to spread multiple requests across CPUs (at least for now).  We are already using a new process which calls the Python script.  We just want to hold up returning anything to the browser until it completes what it's doing.
+
+Currently, we just write the result to a file, and then another endpoint is responsible for picking that up.  The issue there is that the front end doesn't know when it's ready.  We could use push notifications to do this, but that's a lot more work and more complexity to the app.  Also, we need to deal with knowing what that file name is going to be which has already created issues for the GAN image generation.  Then we need to deal with deleting the files at some point so they don't just keep building up.  Or we could re-use them, which means only one at a time.
+
+It would be much nice to just have the frontend service wait for the task to complete and then get the result without the file write and the extra endpoint.

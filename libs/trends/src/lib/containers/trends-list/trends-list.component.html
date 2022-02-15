@@ -18,9 +18,15 @@
   </mat-nav-list>
 </mat-card>
 <!-- detail -->
-<div *ngIf="trendDetails">
+<div *ngIf="trendDetails; else utilities">
   <demo-app-trends-list-detail
     [trendDetails]="trendDetails"
     (handleUseLinkForSummary)="onHandleUseLinkForSummary($event)"
   ></demo-app-trends-list-detail>
 </div>
+<ng-template #utilities>
+  <mat-card>
+    Cleanup raw files
+    <button mat-button (click)="cleanup()">Cleanup</button>
+  </mat-card>
+</ng-template>

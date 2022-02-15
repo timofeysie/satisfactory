@@ -12,6 +12,8 @@ export class TrendsListComponent {
   @Output() country = new EventEmitter<string>();
   @Output() trendSeen = new EventEmitter<string>();
   @Output() onUseLinkForSummary = new EventEmitter<string>();
+  @Output() onCleanup = new EventEmitter<boolean>();
+  
   countries = [
     { value: 'US', label: 'US' },
     { value: 'AU', label: 'Australia' },
@@ -28,5 +30,9 @@ export class TrendsListComponent {
 
   seeTrend(trend: any): void {
     this.trendSeen.emit(trend);
+  }
+
+  cleanup(event: any) {
+    this.onCleanup.emit(true);
   }
 }

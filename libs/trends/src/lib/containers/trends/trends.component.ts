@@ -183,6 +183,14 @@ export class TrendsComponent implements OnInit {
     this.trendDetails = null;
   }
 
+  handleCleanup(event: any) {
+    console.log('b');
+    this.trendsService.cleanupFiles().subscribe((result) => {
+      console.log('done');
+      this.openSnackBar('Working files deleted'+result, 'great')
+    })
+  }
+
   onSelectedCommonsImage(image: any) {
     this.topicForm.controls.one['controls']?.commonImg?.setValue(image);
   }
@@ -223,7 +231,10 @@ export class TrendsComponent implements OnInit {
           this.createAuthorValues();
         }
 
-        if (this.topicForm.value?.two && this.topicForm.value.two.type === 'AI') {
+        if (
+          this.topicForm.value?.two &&
+          this.topicForm.value.two.type === 'AI'
+        ) {
           this.topicForm.controls['two']['controls']?.imageChosen?.setValue(
             selectedImage
           );

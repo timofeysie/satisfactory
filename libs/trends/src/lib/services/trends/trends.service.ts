@@ -73,9 +73,7 @@ export class TrendsService {
   uploadSelectedImage(selectedImage: string) {
     const path = 'http://localhost:3333/api/gan/' + selectedImage;
     console.log('path', path);
-    return this.httpClient.get<any>(
-      path
-    );
+    return this.httpClient.get<any>(path);
   }
 
   retrieveArticleSummary() {
@@ -87,6 +85,12 @@ export class TrendsService {
   retrieveArticleSummaryById(id: string) {
     const encodedId = encodeURIComponent(id);
     return this.httpClient.get('http://localhost:3333/api/bart/' + encodedId, {
+      responseType: 'text',
+    });
+  }
+
+  cleanupFiles() {
+    return this.httpClient.get('http://localhost:3333/api/gan', {
       responseType: 'text',
     });
   }

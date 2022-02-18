@@ -27,6 +27,7 @@ export class PostCreationFormComponent {
   @Output() selectedAspect = new EventEmitter<any>();
   @Output() retrieveArticleSummary = new EventEmitter<any>();
   @Output() imageSelected = new EventEmitter<string>();
+  @Output() generatedTextUpdated = new EventEmitter<string>();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
@@ -35,6 +36,11 @@ export class PostCreationFormComponent {
   topicMetaDescriptionCharacters: number;
   metaDescriptionCharacters1: number;
   metaDescriptionCharacters2: number;
+
+  onTextGenerationChange(event: any) {
+    console.log('eve', event);
+    this.generatedTextUpdated.emit(event);
+  }
 
   retrieveSummary() {
     this.retrieveArticleSummary.emit(true);

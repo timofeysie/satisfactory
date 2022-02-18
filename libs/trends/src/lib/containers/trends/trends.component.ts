@@ -42,6 +42,7 @@ export class TrendsComponent implements OnInit {
     linkUrl: [''],
     linkLabel: [''],
     linkForSummary: [''],
+    generatedText: [''],
     links: this.fb.group({
       newsLink: [''],
       newsLinkLabel: [''],
@@ -107,6 +108,10 @@ export class TrendsComponent implements OnInit {
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
+  }
+
+  onGeneratedTextUpdated(event: any) {
+    console.log('event', event);
   }
 
   /**
@@ -184,11 +189,10 @@ export class TrendsComponent implements OnInit {
   }
 
   handleCleanup(event: any) {
-    console.log('b');
     this.trendsService.cleanupFiles().subscribe((result) => {
       console.log('done');
-      this.openSnackBar('Working files deleted'+result, 'great')
-    })
+      this.openSnackBar('Working files deleted' + result, 'great');
+    });
   }
 
   onSelectedCommonsImage(image: any) {
@@ -304,6 +308,14 @@ export class TrendsComponent implements OnInit {
     this.fillLinks();
     this.setAIorArtistPictureData();
     this.getRelatedQueries();
+    this.getGeneratedText();
+  }
+
+  getGeneratedText() {
+    const seed = this.topicForm.controls.pageTitle.value;
+    this.trendsService.downloadImages(seed).subscribe((result) => {
+      console.log('result', result);
+    })
   }
 
   setDateAndCountry() {

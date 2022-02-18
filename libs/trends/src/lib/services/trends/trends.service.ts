@@ -89,6 +89,14 @@ export class TrendsService {
     });
   }
 
+  generateText(seed: string) {
+    const encodedSeed = encodeURIComponent(seed);
+    const url = 'http://localhost:3333/api/generate/';
+    return this.httpClient.get(url + encodedSeed, {
+      responseType: 'text',
+    });
+  }
+
   cleanupFiles() {
     return this.httpClient.get('http://localhost:3333/api/gan', {
       responseType: 'text',

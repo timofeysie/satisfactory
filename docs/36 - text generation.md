@@ -283,6 +283,12 @@ warnings from Washington that a Russian invasion of Ukraine could be imminent.
 
 Wh-what?
 
+### Text generation on the frontend
+
+No matter how the quality of the results are, they could be useful and need to be added to the front end.
+
+<http://localhost:3333/api/generate/Ash%20Barty%20is>
+
 ### How to know when the summaries are ready
 
 Option one: look in this directory:

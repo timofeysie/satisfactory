@@ -2,6 +2,14 @@
   display: flex;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  span {
+    margin-right: 12px;
+  }
+}
+
 .selector {
   font-size: small;
 }

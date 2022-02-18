@@ -1,16 +1,20 @@
 <div formGroupName="one" class="links">
   <mat-card class="picture-post-card">
     <mat-form-field appearance="none" class="selector picture-post-card-top">
-      <mat-select
-        appearance="none"
-        #typeSelector
-        click="typeSelector.close()"
-        placeholder="Type"
-        (selectionChange)="onTypeSelectionChange($event.value, 'one')"
-      >
-        <mat-option [value]="'AI'">A.I.</mat-option>
-        <mat-option [value]="'ARTIST'">Artist</mat-option>
-      </mat-select>
+      <div class="row">
+        <span>One</span>
+        <mat-select
+          appearance="none"
+          #typeSelector
+          click="typeSelector.close()"
+          placeholder="Type"
+          (selectionChange)="onTypeSelectionChange($event.value, 'one')"
+        >
+          <mat-option [value]="'AI'">A.I.</mat-option>
+          <mat-option [value]="'ARTIST'">Artist</mat-option>
+          <mat-option [value]="'MASHUP'">Mashup</mat-option>
+        </mat-select>
+      </div>
     </mat-form-field>
     <div class="title-row">
       <input
@@ -48,16 +52,20 @@
 <div *ngIf="topicForm.value.two" formGroupName="two" class="links">
   <mat-card class="picture-post-card">
     <mat-form-field appearance="none" class="selector picture-post-card-top">
-      <mat-select
-        appearance="none"
-        #typeSelector
-        click="typeSelector.close()"
-        placeholder="Type"
-        (selectionChange)="onTypeSelectionChange($event.value, 'two')"
-      >
-        <mat-option [value]="'AI'">A.I.</mat-option>
-        <mat-option [value]="'ARTIST'">Artist</mat-option>
-      </mat-select>
+      <div class="row">
+        <span>Two</span>
+        <mat-select
+          appearance="none"
+          #typeSelector
+          click="typeSelector.close()"
+          placeholder="Type"
+          (selectionChange)="onTypeSelectionChange($event.value, 'two')"
+        >
+          <mat-option [value]="'AI'">A.I.</mat-option>
+          <mat-option [value]="'ARTIST'">Artist</mat-option>
+          <mat-option [value]="'MASHUP'">Mashup</mat-option>
+        </mat-select>
+      </div>
       <fa-icon
         class="close-icon-button"
         [icon]="faTimes"

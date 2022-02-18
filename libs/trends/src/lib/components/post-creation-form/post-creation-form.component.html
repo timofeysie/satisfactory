@@ -11,26 +11,35 @@
           </mat-label>
           <input matInput value="pageTitle" formControlName="pageTitle" />
         </mat-form-field>
-        <mat-form-field class="column full-width" appearance="fill">
+        <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>authors</mat-label>
           <input matInput value="authors" formControlName="authors" />
         </mat-form-field>
       </div>
       <div class="keywords row">
-        <mat-form-field class="column full-width" appearance="fill">
+        <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>linkLabel</mat-label>
           <input matInput value="linkLabel" formControlName="linkLabel" />
         </mat-form-field>
-        <mat-form-field class="column full-width" appearance="fill">
+        <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>linkUrl</mat-label>
           <input matInput value="linkUrl" formControlName="linkUrl" />
         </mat-form-field>
       </div>
 
-      <div class="keywords">
-        <mat-form-field class="full-width" appearance="fill">
+      <div class="keywords row">
+        <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>keywords</mat-label>
           <input matInput value="keywords" formControlName="keywords" />
+        </mat-form-field>
+        <mat-form-field class="column full-widthh-block" appearance="fill">
+          <mat-label>generated text</mat-label>
+          <input
+            (change)="onTextGenerationChange($event)"
+            matInput
+            value="generatedText"
+            formControlName="generatedText"
+          />
         </mat-form-field>
       </div>
     </mat-card-content>

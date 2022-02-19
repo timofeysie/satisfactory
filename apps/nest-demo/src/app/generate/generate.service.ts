@@ -10,12 +10,11 @@ export class GenerateService {
       'apps/hugging-face/src/text_generator.py',
       id,
     ]);
-    return await new Promise((resolve, reject) => {
+    return await new Promise((resolve) => {
       process.stdout.on('data', function (data) {
-        console.log(data.toString());
+        console.log('generateText:', data.toString());
         resolve(data.toString());
       });
-      process.stderr.on('data', reject);
     });
   }
 }

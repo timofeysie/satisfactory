@@ -26,20 +26,10 @@
           <input matInput value="linkUrl" formControlName="linkUrl" />
         </mat-form-field>
       </div>
-
       <div class="keywords row">
         <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>keywords</mat-label>
           <input matInput value="keywords" formControlName="keywords" />
-        </mat-form-field>
-        <mat-form-field class="column full-widthh-block" appearance="fill">
-          <mat-label>generated text</mat-label>
-          <input
-            (change)="onTextGenerationChange($event)"
-            matInput
-            value="generatedText"
-            formControlName="generatedText"
-          />
         </mat-form-field>
       </div>
     </mat-card-content>
@@ -314,6 +304,23 @@
         ></textarea>
         <div>{{ topicMetaDescriptionCharacters }}</div>
       </mat-form-field>
+      <mat-form-field class="column full-width-block" appearance="fill">
+        <mat-label>generated GPT2 text</mat-label>
+        <input matInput value="generatedText" formControlName="generatedText" />
+      </mat-form-field>
+      <div class="row">
+        <button type="button" (click)="onGeneratedTextUpdate()">
+          (update)
+        </button>
+        <mat-spinner
+          class="spinner"
+          mode="indeterminate"
+          style="margin: 0 auto"
+          [diameter]="30"
+          *ngIf="generatedTextUpdating"
+          >loading</mat-spinner
+        >
+      </div>
     </div>
   </mat-card>
   <mat-card>

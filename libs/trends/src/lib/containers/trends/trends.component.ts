@@ -30,6 +30,7 @@ export class TrendsComponent implements OnInit {
   newAPSearchTerm: string;
   countryListUsed: string;
   imageChosen: string;
+  isGeneratedTextUpdating: boolean;
   topicForm = this.fb.group({
     version: ['0.0.3'],
     date: [''],
@@ -111,7 +112,7 @@ export class TrendsComponent implements OnInit {
   }
 
   onGeneratedTextUpdated(event: any) {
-    console.log('event', event);
+    this.getGeneratedText(this.topicForm.controls.generatedText.value);
   }
 
   /**
@@ -311,11 +312,24 @@ export class TrendsComponent implements OnInit {
     this.getGeneratedText();
   }
 
-  getGeneratedText() {
-    const seed = this.topicForm.controls.pageTitle.value;
-    this.trendsService.downloadImages(seed).subscribe((result) => {
-      console.log('result', result);
-    })
+  /** Grab the page title and generate some test based on that
+   * using the GST2 model.
+   */
+  getGeneratedText(seedValue?: string) {
+    let seed: string;
+    if (seedValue) {
+      seed = seedValue;
+    } else {
+      seed = this.topicForm.controls.pageTitle.value;
+    }
+    this.isGeneratedTextUpdating = true;
+    this.trendsService.generateText(seed).subscribe((result) => {
+      result = result.replace('\n\n', '\n');
+      result = result.replace('�', '');
+      console.log('getGeneratedText.result:', result);
+      this.topicForm.controls.generatedText.setValue(result);
+      this.isGeneratedTextUpdating = false;
+    });
   }
 
   setDateAndCountry() {

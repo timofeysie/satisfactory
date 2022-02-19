@@ -24,10 +24,11 @@ import {
 export class PostCreationFormComponent {
   @Input() fullTopicForm: FormGroup;
   @Input() trendTitleSeen: string;
+  @Input() generatedTextUpdating: boolean;
   @Output() selectedAspect = new EventEmitter<any>();
   @Output() retrieveArticleSummary = new EventEmitter<any>();
   @Output() imageSelected = new EventEmitter<string>();
-  @Output() generatedTextUpdated = new EventEmitter<string>();
+  @Output() generatedTextUpdated = new EventEmitter<boolean>();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
@@ -37,9 +38,8 @@ export class PostCreationFormComponent {
   metaDescriptionCharacters1: number;
   metaDescriptionCharacters2: number;
 
-  onTextGenerationChange(event: any) {
-    console.log('eve', event);
-    this.generatedTextUpdated.emit(event);
+  onGeneratedTextUpdate() {
+    this.generatedTextUpdated.emit(true);
   }
 
   retrieveSummary() {

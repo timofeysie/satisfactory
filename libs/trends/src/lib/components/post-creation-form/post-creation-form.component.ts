@@ -75,7 +75,11 @@ export class PostCreationFormComponent {
   }
 
   upload(event) {
-    const fileChosen = event.target.files[0]['name'];
-    this.imageSelected.emit(fileChosen);
+    if (event.target.files.length > 0) {
+      const fileChosen = event.target.files[0]['name'];
+      this.imageSelected.emit(fileChosen);
+    } else {
+      console.error('event.target.files array is empty');
+    }
   }
 }

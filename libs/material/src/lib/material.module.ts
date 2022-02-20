@@ -15,7 +15,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { ClipboardModule } from '@angular/cdk/clipboard';
 @NgModule({
   imports: [
     FlexLayoutModule,
@@ -34,6 +34,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDividerModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    ClipboardModule,
   ],
   exports: [
     FlexLayoutModule,
@@ -51,6 +52,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatGridListModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    ClipboardModule,
   ],
 })
 export class MaterialModule {}

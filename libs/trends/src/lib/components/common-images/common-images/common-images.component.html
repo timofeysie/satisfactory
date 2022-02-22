@@ -1,5 +1,6 @@
 <mat-card *ngIf="images">
-  <h5 class="title tooltip">
+  <mat-card-header class="title">
+  <h5 class="tooltip">
     Commons:
     <input
       class="search-term"
@@ -9,8 +10,16 @@
     />
     <span class="tooltiptext">Select an image to generate artwork from</span>
     <button type="button" (click)="onUpdate()">(update)</button>
-    <mat-slide-toggle>Selecting for:</mat-slide-toggle>
+    <span>Selecting for: </span
+    ><mat-slide-toggle
+      class="margin-right"
+      [checked]="selectTwo"
+      (change)="toggleSelectType($event)"
+    ></mat-slide-toggle>
+    <span *ngIf="!this.selectTwo">One</span>
+    <span *ngIf="this.selectTwo">Two</span>
   </h5>
+  </mat-card-header>
   <span *ngFor="let image of images"
     ><span
       class="common-image"

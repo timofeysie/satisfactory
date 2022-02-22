@@ -31,6 +31,7 @@ export class TrendsComponent implements OnInit {
   countryListUsed: string;
   imageChosen: string;
   isGeneratedTextUpdating: boolean;
+  selectTwo: boolean;
   topicForm = this.fb.group({
     version: ['0.0.3'],
     date: [''],
@@ -197,7 +198,11 @@ export class TrendsComponent implements OnInit {
   }
 
   onSelectedCommonsImage(image: any) {
-    this.topicForm.controls.one['controls']?.commonImg?.setValue(image);
+    if (this.selectTwo) {
+      this.topicForm.controls.two['controls']?.commonImg?.setValue(image);
+    } else {
+      this.topicForm.controls.one['controls']?.commonImg?.setValue(image);
+    }
   }
 
   onHandleNewWikiSearchTerm(newValue: string) {
@@ -207,6 +212,11 @@ export class TrendsComponent implements OnInit {
   onHandleNewAPSearchTerm(newValue: string) {
     this.newAPSearchTerm = newValue;
     this.topicForm.controls.links['controls']?.newsLink?.setValue(newValue);
+  }
+
+  onSelectedImageType(selectType: boolean) {
+    console.log('hy', selectType);
+    this.selectTwo = selectType;
   }
 
   /**

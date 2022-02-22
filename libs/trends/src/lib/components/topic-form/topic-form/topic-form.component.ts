@@ -39,9 +39,26 @@ export class TopicFormComponent implements AfterViewInit {
     this.topicForm.removeControl('two');
   }
 
+  /**
+   * Set the oneOrTwo type and author.
+   * If it's type MASHUP, then we set both one and two properties.
+   * @param selection AI, ARTIST, MASHUP 
+   * @param oneOrTwo one or two
+   */
   onTypeSelectionChange(selection, oneOrTwo) {
-    this.topicForm.controls[oneOrTwo]['controls']?.type?.setValue(selection);
-    this.topicForm.controls[oneOrTwo]['controls']?.author?.setValue(selection);
+
+    console.log('selection', selection);
+    if (oneOrTwo === 'one' && selection === 'MASHUP') {
+      this.topicForm.controls['one']['controls']?.type?.setValue(selection);
+      this.topicForm.controls['one']['controls']?.author?.setValue(selection);
+      this.topicForm.controls?.two['controls']?.type?.setValue(selection);
+      this.topicForm.controls?.two['controls']?.author?.setValue(
+        selection
+      );
+    } else {
+      this.topicForm.controls[oneOrTwo]['controls']?.type?.setValue(selection);
+      this.topicForm.controls[oneOrTwo]['controls']?.author?.setValue(selection);
+    }
   }
 
   /**

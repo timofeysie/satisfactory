@@ -1,7 +1,7 @@
 {
   "date": "Thu Jan 27 2022 23:53:21 GMT+1100 (Australian Eastern Daylight Time)",
   "pageTitle": "Zara Rutherford",
-  "authors": "<AI>, <ARTIST>",
+  "authors": "Hayao",
   "keywords": "Zara Rutherford ",
   "description": "Belgian-British pilot Zara Rutherford who becomes the youngest woman to fly solo around the world.",
   "metaDescription": "Belgian-British pilot Zara Rutherford who becomes the youngest woman to fly solo around the world.",
@@ -35,7 +35,6 @@
     "s3": {
       "Location": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Zara_Rutherford_2021-01_Hayao.jpg"
     }
-
   },
   "two": {
     "title": "Andrew O'Keefe",

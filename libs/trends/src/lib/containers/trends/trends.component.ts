@@ -381,8 +381,8 @@ export class TrendsComponent implements OnInit {
     }
     if (one) urls.push(one);
     if (two) urls.push(two);
-    if (urls.length > 0) {
-      this.trendsService.downloadImages(urls).subscribe();
+    for (let i = 0; i < urls.length; i++) {
+      this.trendsService.downloadImages(urls[i]).subscribe();
     }
   }
 

@@ -23,12 +23,11 @@ export class GanController {
 
   @Post()
   async downloadImage(@Body() linkWrapper: any) {
-    const name = this.parsePath(linkWrapper.links[0]);
-    console.log('gan.controller: downloadImage', name);
+    const name = this.parsePath(linkWrapper.links);
     const pathToImage = 'apps/toonify/src/test_img/' + name.filename;
     const writer = fs.createWriteStream(pathToImage);
     const response = await this.httpService.axiosRef({
-      url: linkWrapper.links[0],
+      url: linkWrapper.links,
       method: 'GET',
       responseType: 'stream',
     });

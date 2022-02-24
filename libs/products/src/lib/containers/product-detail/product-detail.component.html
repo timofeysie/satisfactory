@@ -1,4 +1,4 @@
-<div *ngIf="selectedProduct.one.aspect === 'landscape'">
+<div *ngIf="selectedProduct.one.aspect === 'landscape' || selectedProduct.one.type === 'MASHUP'">
   <div class="row">
     <span *ngIf="selectedProduct.country"
       >{{ selectedProduct.country }} &nbsp;

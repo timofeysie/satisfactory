@@ -6,10 +6,10 @@
 
 ```txt
 npm install --save-dev @nrwl/next
-nx g @nrwl/next:app my-new-app
-nx g @nrwl/next:lib my-new-lib
-nx g @nrwl/next:page my-new-page --project=my-new-app
-nx g @nrwl/next:component my-new-component --project=my-new-app
+nx g @nrwl/next:app next-app
+nx g @nrwl/next:lib next-layout-lib
+nx g @nrwl/next:page demo-page --project=next-app
+nx g @nrwl/next:component demo-component --project=next-app
 nx serve my-new-app --prod
 nx test my-new-app
 nx test my-new-lib
@@ -61,3 +61,19 @@ I also noticed a mis-match with nest, which was added a little bit later than th
 ```
 
 We haven't had any issues with those yet, so no need to switch at this point.
+
+## Layout
+
+The [docs](https://nextjs.org/docs/basic-features/layouts) show a basic method for creating a layout that can contain the content.
+
+It shows these components
+
+components/layout.js
+components/navbar.js
+components/footer.js
+
+We will try out the "one layout for the entire application" approach.
+
+Create a Custom App and wrap the application with the layout.
+
+Since the <Layout /> component is re-used when changing pages, its component state will be preserved (e.g. input values).

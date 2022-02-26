@@ -1,8 +1,4 @@
 {
-  "npmScope": "demo-app",
-  "affected": {
-    "defaultBase": "master"
-  },
   "implicitDependencies": {
     "package.json": {
       "dependencies": "*",
@@ -10,32 +6,25 @@
     },
     ".eslintrc.json": "*"
   },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "npmScope": "demo-app",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     },
     "prerender": {
       "builder": "@nguniversal/express-engine:prerender",
-      "output": [
-        "dist/apps/trendy/browser"
-      ],
+      "output": ["dist/apps/trendy/browser"],
       "options": {
         "browserTarget": "trendy:build",
         "serverTarget": "trendy:server",
         "guessRoutes": true,
-        "routes": [
-          "/",
-          "/home",
-          "/Mike%20Richards"
-        ]
+        "routes": ["/", "/home", "/Mike%20Richards"]
       }
     }
   },
@@ -48,9 +37,7 @@
     },
     "customer-portal-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "customer-portal"
-      ]
+      "implicitDependencies": ["customer-portal"]
     },
     "data-models": {
       "tags": []
@@ -75,9 +62,7 @@
     },
     "trendy-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "trendy"
-      ]
+      "implicitDependencies": ["trendy"]
     },
     "trendy-ssr": {
       "tags": []
@@ -93,6 +78,13 @@
     },
     "toonify": {
       "tags": []
+    },
+    "next-app": {
+      "tags": []
+    },
+    "next-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["next-app"]
     }
   }
 }

@@ -18,6 +18,7 @@ nx build customer-portal
 nx build --prod customer-portal --stats-json   
 npm run bundle-report-customer-portal
 python apps\hugging-face\src\hello.py // run the text summary script
+nx serve next-app // NextJS AMP app
 ```
 
 A trend search for the nest-demo looks like this:

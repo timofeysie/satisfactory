@@ -71,7 +71,7 @@ export class GanController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateGanDto: UpdateGanDto) {
-    return this.ganService.update(+id, updateGanDto);
+    return this.ganService.kickOffGan();
   }
 
   @Delete(':id')

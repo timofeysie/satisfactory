@@ -29,6 +29,7 @@ export class PostCreationFormComponent {
   @Output() retrieveArticleSummary = new EventEmitter<any>();
   @Output() imageSelected = new EventEmitter<string>();
   @Output() generatedTextUpdated = new EventEmitter<boolean>();
+  @Output() kickoffGenerateImages = new EventEmitter<any>();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
@@ -81,5 +82,9 @@ export class PostCreationFormComponent {
     } else {
       console.error('event.target.files array is empty');
     }
+  }
+
+  kickoffGenerate() {
+    this.kickoffGenerateImages.emit();
   }
 }

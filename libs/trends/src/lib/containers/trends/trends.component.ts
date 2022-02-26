@@ -116,6 +116,12 @@ export class TrendsComponent implements OnInit {
     this.getGeneratedText(this.topicForm.controls.generatedText.value);
   }
 
+  onKickoffGenerateImages(event: any) {
+    this.trendsService.kickoffGenerateImages().subscribe((result) => {
+    console.log('do it');
+    });
+  }
+
   /**
    * As a result of difficulties reading an array from a file and getting
    * the json summary_text, we do it manually here.

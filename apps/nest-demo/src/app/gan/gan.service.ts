@@ -42,6 +42,7 @@ export class GanService {
     ]);
     return new Promise((resolve, reject) => {
       process.stdout.on('data', function (data) {
+        console.log('gan.service.startProcess: resolved', data.toString());
         resolve(data.toString());
       });
       process.stderr.on('data', reject);

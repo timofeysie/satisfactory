@@ -7,6 +7,7 @@ module.exports = {
     '<rootDir>/libs/layout',
     '<rootDir>/libs/products',
     '<rootDir>/apps/nest-demo',
+    "<rootDir>/apps/next",
     '<rootDir>/libs/trends',
     '<rootDir>/apps/trendy',
     '<rootDir>/libs/pictures',

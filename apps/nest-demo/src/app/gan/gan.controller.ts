@@ -11,27 +11,29 @@ import {
 import { GanService } from './gan.service';
 import { UpdateGanDto } from './dto/update-gan.dto';
 import * as fs from 'fs';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('gan')
 export class GanController {
   constructor(
     private readonly httpService: HttpService,
-    private readonly ganService: GanService
+    private readonly ganService: GanService,
+    private readonly configService: ConfigService
   ) {}
 
   @Post()
   async downloadImage(@Body() linkWrapper: any) {
-    const name = this.parsePath(linkWrapper.links[0]);
-    console.log('gan.controller: downloadImage', name);
-    const writer = fs.createWriteStream('apps/toonify/src/test_img/'+name.filename);
+    const name = this.parsePath(linkWrapper.links);
+    const pathToImage = 'apps/toonify/src/test_img/' + name.filename;
+    const writer = fs.createWriteStream(pathToImage);
     const response = await this.httpService.axiosRef({
-      url: linkWrapper.links[0],
+      url: linkWrapper.links,
       method: 'GET',
       responseType: 'stream',
     });
     response.data.pipe(writer);
     return new Promise((resolve, reject) => {
-      writer.on('finish', resolve);
+      writer.on('finish', () => this.ganService.kickOffGan());
       writer.on('error', reject);
     });
   }
@@ -49,18 +51,27 @@ export class GanController {
   };
 
   @Get()
-  findAll() {
-    return this.ganService.findAll();
+  cleanUp() {
+    return this.ganService.cleanUp();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ganService.findOne(+id);
+  async upload(@Param('id') id: string) {
+    const remove = id.split('(').join('%28');
+    const brackets = remove.split(')').join('%29');
+    const filename = brackets;
+    const pathToImage = 'apps/toonify/src/cartooned_img/' + filename;
+    return fs.readFile(pathToImage, (err, file) => {
+      if (err) {
+        console.log('gan.service.upload: err', err);
+      }
+      return this.ganService.uploadImage(file, id);
+    });
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateGanDto: UpdateGanDto) {
-    return this.ganService.update(+id, updateGanDto);
+    return this.ganService.kickOffGan();
   }
 
   @Delete(':id')

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'demo-app-trends-toolbar',
@@ -12,5 +13,5 @@ export class TrendsToolbarComponent {
   @Output() handleBackToSetup = new EventEmitter<any>();
   @Output() handleShowForm = new EventEmitter<any>();
   @Output() handleSubmitForm = new EventEmitter<any>();
-
+  faCopy = faCopy;
 }

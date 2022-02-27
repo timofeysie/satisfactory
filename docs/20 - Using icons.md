@@ -2,8 +2,6 @@
 
 [Font Awesome](https://fontawesome.com/) is a standard icon library.
 
-[Fort Awesome](https://fortawesome.com/) is as close to Font Awesome as you can get.
-
 I missed it the first time.  But according to [Wikipedia, Font and Fort are the same project](https://en.wikipedia.org/wiki/Font_Awesome).
 
 ## Installing Fort Awesome

@@ -1,10 +1,88 @@
-<h1 class="header pointer" (click)="onEdit()">
+<div *ngIf="selectedProduct.one.aspect === 'landscape' || selectedProduct.one.type === 'MASHUP'">
+  <div class="row">
+    <span *ngIf="selectedProduct.country"
+      >{{ selectedProduct.country }} &nbsp;
+    </span>
+    <h1 class="header pointer">
+      {{ selectedProduct.pageTitle }}
+    </h1>
+  </div>
+  <div class="column">
+    <h2>by {{ selectedProduct.authors }}</h2>
+    <div *ngIf="selectedProduct.one.s3">
+      <img src="{{ selectedProduct.one.s3.Location }}" />
+    </div>
+    <div class="landscape">
+      <pre>{{ selectedProduct.metaDescription }}</pre>
+      <pre>{{ replaceNewlines(selectedProduct.description) }}</pre>
+      <p>Keywords: {{ selectedProduct.keywords }}</p>
+      <a href="{{ selectedProduct.linkUrl }}">{{
+        selectedProduct.linkLabel
+      }}</a>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="selectedProduct.one.aspect === 'portrait'" class="column">
+  <div class="row">
+    <div *ngIf="selectedProduct.one.s3">
+      <img src="{{ selectedProduct.one.s3.Location }}" />
+    </div>
+    <div class="column left-margin">
+      <div class="row">
+        <span *ngIf="selectedProduct.country"
+          >{{ selectedProduct.country }} &nbsp;
+        </span>
+        <h1 class="header pointer">
+          {{ selectedProduct.pageTitle }}
+        </h1>
+      </div>
+      <h2>by {{ selectedProduct.authors }}</h2>
+
+      <div class="landscape">
+        <pre>{{ selectedProduct.metaDescription }}</pre>
+        <pre>{{ replaceNewlines(selectedProduct.description) }}</pre>
+        <p>Keywords: {{ selectedProduct.keywords }}</p>
+        <a href="{{ selectedProduct.linkUrl }}">{{
+          selectedProduct.linkLabel
+        }}</a>
+        <a
+          *ngIf="selectedProduct.links.newsLink"
+          href="{{ selectedProduct.links.newsLink }}"
+        >
+          <ng-container
+            *ngIf="selectedProduct.links.newsLinkLabel; else defaultLabel"
+          >
+            {{ selectedProduct.links.newsLinkLabel }}
+          </ng-container>
+          <ng-template #defaultLabel> AP News link </ng-template>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-toolbar color="primary" class="top-margin-12">
+  <button
+    mat-icon-button
+    class="fas fa-angle-left"
+    aria-label="Example icon-button with menu icon"
+    (click)="onLeft()"
+  >
+    <fa-icon [icon]="faAngleLeft">left</fa-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="fas fa-angle-right"
+    aria-label="Example icon-button with share icon"
+    (click)="onRight()"
+  >
+    <fa-icon [icon]="faAngleRight">right</fa-icon>
+  </button>
+</mat-toolbar>
+
+<h3 class="pointer" (click)="onEdit()">
   <fa-icon class="icon-button" [icon]="faEdit"></fa-icon>
-  {{ selectedProduct.pageTitle }}
-</h1>
-<h2>by {{ selectedProduct.authors }}</h2>
-<p>{{ selectedProduct.description }}</p>
-<p>meta-description: {{ selectedProduct.metDescription }}</p>
-<p>Keywords: {{ selectedProduct.keywords }}</p>
-<a href="{{ selectedProduct.linkUrl }}">{{ selectedProduct.linkLabel }}</a>
+  <span>Edit</span> raw JSON
+</h3>
 <pre><p>{{ selectedProduct | json }}</p></pre>

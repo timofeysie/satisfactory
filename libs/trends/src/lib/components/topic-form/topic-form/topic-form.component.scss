@@ -2,6 +2,14 @@
   display: flex;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  span {
+    margin-right: 12px;
+  }
+}
+
 .selector {
   font-size: small;
 }
@@ -34,16 +42,16 @@
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-wrapper {
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-infix {
-    padding: 5px 0;
+  padding: 5px 0;
 }
 
 .mat-form-field-infix {
-    padding: 0;
-    border-top: 0;
+  padding: 0;
+  border-top: 0;
 }
 
 .no-style-input {
@@ -55,4 +63,10 @@
 button {
   all: unset;
   cursor: pointer;
+}
+
+.close-icon-button {
+  position: absolute;
+  right: -190px;
+  top: 65px;
 }

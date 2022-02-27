@@ -70,6 +70,12 @@ export class TrendsService {
       );
   }
 
+  uploadSelectedImage(selectedImage: string) {
+    const path = 'http://localhost:3333/api/gan/' + selectedImage;
+    console.log('path', path);
+    return this.httpClient.get<any>(path);
+  }
+
   retrieveArticleSummary() {
     return this.httpClient.get('http://localhost:3333/api/bart', {
       responseType: 'text',
@@ -81,5 +87,25 @@ export class TrendsService {
     return this.httpClient.get('http://localhost:3333/api/bart/' + encodedId, {
       responseType: 'text',
     });
+  }
+
+  generateText(seed: string) {
+    const encodedSeed = encodeURIComponent(seed);
+    const url = 'http://localhost:3333/api/generate/' + encodedSeed;
+    console.log('calling', url);
+    return this.httpClient.get(url, {
+      responseType: 'text',
+    });
+  }
+
+  cleanupFiles() {
+    return this.httpClient.get('http://localhost:3333/api/gan', {
+      responseType: 'text',
+    });
+  }
+
+  kickoffGenerateImages(): any {
+    return this.httpClient.patch(
+      'http://localhost:3333/api/gan/something', {});
   }
 }

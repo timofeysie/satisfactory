@@ -2,6 +2,32 @@
   pointer-events: all;
   display: flex;
   flex-direction: row;
+  margin-top: -5px;
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+h2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.landscape {
+  display: flex;
+  flex-direction: column;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
 }
 
 .pointer {
@@ -12,4 +38,12 @@
   font-size: small;
   align-self: center;
   margin-right: 12px;
+}
+
+.left-margin {
+  margin-left: 16px;
+}
+
+.top-margin-12 {
+  margin-top: 12px;
 }

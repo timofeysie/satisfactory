@@ -14,6 +14,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [
@@ -32,6 +35,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatGridListModule,
     MatDividerModule,
     MatCheckboxModule,
+    MatSnackBarModule,
+    ClipboardModule,
+    MatSlideToggleModule,
   ],
   exports: [
     FlexLayoutModule,
@@ -48,6 +54,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     MatGridListModule,
     MatCheckboxModule,
+    MatSnackBarModule,
+    ClipboardModule,
+    MatSlideToggleModule,
   ],
 })
 export class MaterialModule {}

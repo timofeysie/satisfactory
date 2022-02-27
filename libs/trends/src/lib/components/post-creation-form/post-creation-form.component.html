@@ -11,24 +11,23 @@
           </mat-label>
           <input matInput value="pageTitle" formControlName="pageTitle" />
         </mat-form-field>
-        <mat-form-field class="column full-width" appearance="fill">
+        <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>authors</mat-label>
           <input matInput value="authors" formControlName="authors" />
         </mat-form-field>
       </div>
       <div class="keywords row">
-        <mat-form-field class="column full-width" appearance="fill">
+        <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>linkLabel</mat-label>
           <input matInput value="linkLabel" formControlName="linkLabel" />
         </mat-form-field>
-        <mat-form-field class="column full-width" appearance="fill">
+        <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>linkUrl</mat-label>
           <input matInput value="linkUrl" formControlName="linkUrl" />
         </mat-form-field>
       </div>
-
-      <div class="keywords">
-        <mat-form-field class="full-width" appearance="fill">
+      <div class="keywords row">
+        <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>keywords</mat-label>
           <input matInput value="keywords" formControlName="keywords" />
         </mat-form-field>
@@ -82,7 +81,10 @@
           </div>
 
           <!--  Aspect select for One -->
-          <mat-form-field appearance="none" class="selector picture-post-card-top">
+          <mat-form-field
+            appearance="none"
+            class="selector picture-post-card-top"
+          >
             <mat-select
               appearance="none"
               #typeSelector
@@ -94,6 +96,25 @@
               <mat-option [value]="'Portrait'">Portrait</mat-option>
             </mat-select>
           </mat-form-field>
+
+          <div class="no-style-input selector">
+            <input
+              #fileInput
+              type="file"
+              class="file-input"
+              accept=".jpg, .png, .jpeg"
+              (change)="upload($event)"
+            />
+            <button
+              type="button"
+              (click)="onUploadImage()"
+              class="btn btn-primary"
+            >
+              Choose generated image
+            </button>
+            <button class="separator" (click)="kickoffGenerate()">Kickoff image generation</button>
+            <span class="separator">{{ fullTopicForm.value.one?.imageChosen }}</span>
+          </div>
 
           <div class="source">
             <mat-form-field class="full-width" appearance="fill">
@@ -126,7 +147,7 @@
             ></textarea>
             <div>{{ metaDescriptionCharacters1 }}</div>
           </mat-form-field>
-          
+
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>altText</mat-label>
             <input matInput value="altText" formControlName="altText" />
@@ -149,7 +170,7 @@
     </div>
 
     <!-- two -->
-    <div class="column">
+    <div class="column" *ngIf="fullTopicForm.get('two')">
       <mat-card class="full-width" [formGroup]="fullTopicForm.get('two')">
         <mat-card-header>
           <mat-card-title>
@@ -193,7 +214,10 @@
           </div>
 
           <!--  Aspect select for Two -->
-          <mat-form-field appearance="none" class="selector picture-post-card-top">
+          <mat-form-field
+            appearance="none"
+            class="selector picture-post-card-top"
+          >
             <mat-select
               appearance="none"
               #typeSelector
@@ -282,6 +306,23 @@
         ></textarea>
         <div>{{ topicMetaDescriptionCharacters }}</div>
       </mat-form-field>
+      <mat-form-field class="column full-width-block" appearance="fill">
+        <mat-label>generated GPT2 text</mat-label>
+        <input matInput value="generatedText" formControlName="generatedText" />
+      </mat-form-field>
+      <div class="row">
+        <button type="button" (click)="onGeneratedTextUpdate()">
+          (update)
+        </button>
+        <mat-spinner
+          class="spinner"
+          mode="indeterminate"
+          style="margin: 0 auto"
+          [diameter]="30"
+          *ngIf="generatedTextUpdating"
+          >loading</mat-spinner
+        >
+      </div>
     </div>
   </mat-card>
   <mat-card>

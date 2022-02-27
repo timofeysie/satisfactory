@@ -10,6 +10,7 @@ import { TrendsService } from '../../services/trends/trends.service';
 import { TrendsListComponent } from '../trends-list/trends-list.component';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'demo-app-trends',
@@ -26,8 +27,15 @@ export class TrendsComponent implements OnInit {
   trendTitleSeenBackup: string; // this is a code smell!
   completePostMode = false;
   newWikiSearchTerm: string;
+  newAPSearchTerm: string;
+  countryListUsed: string;
+  imageChosen: string;
+  isGeneratedTextUpdating: boolean;
+  selectTwo: boolean;
   topicForm = this.fb.group({
+    version: ['0.0.3'],
     date: [''],
+    country: [''],
     pageTitle: [''],
     authors: [''],
     keywords: [''],
@@ -36,8 +44,10 @@ export class TrendsComponent implements OnInit {
     linkUrl: [''],
     linkLabel: [''],
     linkForSummary: [''],
+    generatedText: [''],
     links: this.fb.group({
       newsLink: [''],
+      newsLinkLabel: [''],
       useAPNewsLink: [''],
       addAPNewsContent: [''],
       wikiLink: [''],
@@ -54,6 +64,7 @@ export class TrendsComponent implements OnInit {
       author: ['AI'],
       altText: [''],
       imageSrc: [''],
+      imageChosen: [''],
       srcset: [''],
       description: [''],
       metaDescription: [''],
@@ -72,6 +83,7 @@ export class TrendsComponent implements OnInit {
       author: ['ARTIST'],
       altText: [''],
       imageSrc: [''],
+      imageChosen: [''],
       srcset: [''],
       description: [''],
       metaDescription: [''],
@@ -87,12 +99,27 @@ export class TrendsComponent implements OnInit {
   constructor(
     private store: Store<TrendsState>,
     private trendsService: TrendsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
     this.store.dispatch(TrendsActions.loadTrends({ payload: 'US' }));
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
+  onGeneratedTextUpdated(event: any) {
+    this.getGeneratedText(this.topicForm.controls.generatedText.value);
+  }
+
+  onKickoffGenerateImages(event: any) {
+    this.trendsService.kickoffGenerateImages().subscribe((result) => {
+    console.log('do it');
+    });
   }
 
   /**
@@ -103,26 +130,27 @@ export class TrendsComponent implements OnInit {
    */
   onRetrieveArticleSummary() {
     const linkForSummary = this.topicForm.controls.linkForSummary.value;
-    this.trendsService.retrieveArticleSummaryById(linkForSummary).subscribe((result) => {
-      const fullResponse = JSON.parse(JSON.stringify(result));
-      let start = fullResponse.indexOf('" ');
-      let offset = 2;
-      if (start === -1) {
-        start = fullResponse.indexOf("summary_text': '");
-        offset = 17;
-      }
-      const text = fullResponse.substring(
-        start + offset,
-        fullResponse.length - 5
-      );
-      const text1 = text.split('�').join("'");
-      const text2 = text1.split(' .').join('.');
-      this.topicForm.controls.description.setValue(text2);
-    });
+    this.trendsService
+      .retrieveArticleSummaryById(linkForSummary)
+      .subscribe((result) => {
+        const fullResponse = JSON.parse(JSON.stringify(result));
+        let start = fullResponse.indexOf('" ');
+        let offset = 2;
+        if (start === -1) {
+          start = fullResponse.indexOf("summary_text': '");
+          offset = 17;
+        }
+        const text = fullResponse.substring(
+          start + offset,
+          fullResponse.length - 5
+        );
+        const text1 = text.split('�').join("'");
+        const text2 = text1.split(' .').join('.');
+        this.topicForm.controls.description.setValue(text2);
+      });
   }
 
   handleOnUseLinkForSummary(event) {
-    console.log('linkForSummary', event);
     this.topicForm.controls.linkForSummary.setValue(event);
   }
 
@@ -141,11 +169,20 @@ export class TrendsComponent implements OnInit {
   }
 
   onHandleSubmitForm() {
-    console.log('submit');
     const formValue = this.topicForm.value;
     formValue['originalTrend'] = this.trendDetails;
     console.log('formValue', formValue);
-    this.trendsService.postTrendTopic(formValue).subscribe();
+    this.trendsService.postTrendTopic(formValue).subscribe(
+      (result) => {
+        console.log('Value Received ' + result);
+        this.openSnackBar('form posted 1', 'close');
+      },
+      (err) => {
+        console.log('Error caught at Subscriber ' + err);
+        this.openSnackBar('form submitted', 'close');
+      },
+      () => console.log('Processing Complete.')
+    );
   }
 
   onHandleBackToSetup() {
@@ -159,12 +196,88 @@ export class TrendsComponent implements OnInit {
     this.trendDetails = null;
   }
 
+  handleCleanup(event: any) {
+    this.trendsService.cleanupFiles().subscribe((result) => {
+      console.log('done');
+      this.openSnackBar('Working files deleted' + result, 'great');
+    });
+  }
+
   onSelectedCommonsImage(image: any) {
-    this.topicForm.controls.one['controls']?.commonImg?.setValue(image);
+    if (this.selectTwo) {
+      this.topicForm.controls.two['controls']?.commonImg?.setValue(image);
+    } else {
+      this.topicForm.controls.one['controls']?.commonImg?.setValue(image);
+    }
   }
 
   onHandleNewWikiSearchTerm(newValue: string) {
     this.newWikiSearchTerm = newValue;
+  }
+
+  onHandleNewAPSearchTerm(newValue: string) {
+    this.newAPSearchTerm = newValue;
+    this.topicForm.controls.links['controls']?.newsLink?.setValue(newValue);
+  }
+
+  onSelectedImageType(selectType: boolean) {
+    console.log('hy', selectType);
+    this.selectTwo = selectType;
+  }
+
+  /**
+   * The user is shown a file chooser to select the generated image.
+   * We also want to set the author <AI> as the type of model used.
+   *
+   * Currently there is no notion of ONE or TWO here.
+   *
+   * @param selectedImage selected generated image
+   */
+  onImageSelected(selectedImage: string) {
+    this.trendsService
+      .uploadSelectedImage(selectedImage)
+      .subscribe((result) => {
+        console.log('onImageSelected result', result);
+        this.imageChosen = selectedImage;
+        if (this.topicForm.value.one.type === 'AI') {
+          this.topicForm.controls['one']['controls']?.imageChosen?.setValue(
+            selectedImage
+          );
+          const modelUser = this.getModelUser(selectedImage);
+          // set the author
+          this.topicForm.controls['one']['controls']?.author?.setValue(
+            modelUser
+          );
+          // if this is an AI only post, also set the main author
+          this.createAuthorValues();
+        }
+
+        if (
+          this.topicForm.value?.two &&
+          this.topicForm.value.two.type === 'AI'
+        ) {
+          this.topicForm.controls['two']['controls']?.imageChosen?.setValue(
+            selectedImage
+          );
+        }
+      });
+  }
+
+  /**
+   * Look for the last slash and return the string between it and the file extension.
+   * selectedImage Allen%27s_80th_book_of_berries_%281965%29_%2817924239616%29_Hayao.jpg
+   *
+   * @param selectedImage
+   */
+  getModelUser(selectedImage: string) {
+    console.log('selectedImage', selectedImage);
+    const lastSlash = selectedImage.lastIndexOf('_');
+    const lastPart = selectedImage.substring(
+      lastSlash + 1,
+      selectedImage.length - 4
+    );
+    console.log('last part', lastPart);
+    return lastPart;
   }
 
   /**
@@ -198,7 +311,7 @@ export class TrendsComponent implements OnInit {
    * form fields.
    */
   preFillForm() {
-    this.setDate();
+    this.setDateAndCountry();
     // kick off the article scape and summary on the backend
     if (this.topicForm.controls.linkForSummary.value) {
       this.kickOffGetArticleSummary();
@@ -212,11 +325,33 @@ export class TrendsComponent implements OnInit {
     this.fillLinks();
     this.setAIorArtistPictureData();
     this.getRelatedQueries();
+    this.getGeneratedText();
   }
 
-  setDate() {
+  /** Grab the page title and generate some test based on that
+   * using the GST2 model.
+   */
+  getGeneratedText(seedValue?: string) {
+    let seed: string;
+    if (seedValue) {
+      seed = seedValue;
+    } else {
+      seed = this.topicForm.controls.pageTitle.value;
+    }
+    this.isGeneratedTextUpdating = true;
+    this.trendsService.generateText(seed).subscribe((result) => {
+      result = result.replace('\n\n', '\n');
+      result = result.replace('�', '');
+      console.log('getGeneratedText.result:', result);
+      this.topicForm.controls.generatedText.setValue(result);
+      this.isGeneratedTextUpdating = false;
+    });
+  }
+
+  setDateAndCountry() {
     const date = new Date();
     this.topicForm.controls.date.setValue(date.toString());
+    this.topicForm.controls.country.setValue(this.countryListUsed);
   }
 
   /**
@@ -231,10 +366,12 @@ export class TrendsComponent implements OnInit {
     } else {
       this.setArtistPictureNumberData('one');
     }
-    if (this.topicForm.value.two.type === 'AI') {
-      this.setAIPictureNumberData('two');
-    } else {
-      this.setArtistPictureNumberData('two');
+    if (this.topicForm.value.two) {
+      if (this.topicForm.value.two.type === 'AI') {
+        this.setAIPictureNumberData('two');
+      } else {
+        this.setArtistPictureNumberData('two');
+      }
     }
   }
 
@@ -244,11 +381,14 @@ export class TrendsComponent implements OnInit {
   downloadImages() {
     const urls = [];
     const one = this.getCommonsImageUrl('one');
-    const two = this.getCommonsImageUrl('two');
+    let two;
+    if (this.topicForm.controls.two) {
+      two = this.getCommonsImageUrl('two');
+    }
     if (one) urls.push(one);
     if (two) urls.push(two);
-    if (urls.length > 0) {
-      this.trendsService.downloadImages(urls).subscribe();
+    for (let i = 0; i < urls.length; i++) {
+      this.trendsService.downloadImages(urls[i]).subscribe();
     }
   }
 
@@ -268,6 +408,7 @@ export class TrendsComponent implements OnInit {
         start + dataSet.length,
         urlPage.length
       );
+
       const end = urlStart.indexOf(ext);
       const urlFull = urlStart.substring(0, end + ext.length);
       const woThumb = urlFull.replace('/thumb', '');
@@ -300,11 +441,11 @@ export class TrendsComponent implements OnInit {
     );
     const thirdDot = afterSecondDot.indexOf('.');
     const ext = afterSecondDot.substring(thirdDot, thirdDot + 4);
-    if (ext === jpg || ext === png) {
+    if (ext.toLowerCase() === jpg || ext.toLowerCase() === png) {
       return ext;
     } else {
-      const pngPlace = afterFirstDot.indexOf(png);
-      const jpgPlace = afterFirstDot.indexOf(jpg);
+      const pngPlace = afterFirstDot.toLowerCase().indexOf(png);
+      const jpgPlace = afterFirstDot.toLowerCase().indexOf(jpg);
       if (pngPlace !== -1) {
         return png;
       }
@@ -320,27 +461,38 @@ export class TrendsComponent implements OnInit {
       .pipe(
         catchError((error) => {
           if (error.error instanceof ErrorEvent) {
-            console.log(`1-Error: ${error}`);
+            console.log(`kickOffGetArticleSummary 1-Error: ${error}`);
           } else {
-            console.log(`2-Error: ${error?.error?.error}`);
+            console.log(
+              `kickOffGetArticleSummary 2-Error: ${error?.error?.error}`
+            );
           }
-          return of('done');
+          return of('done with kickOffGetArticleSummary');
         })
       )
       .subscribe((result) => {
-        console.log('result', result);
+        console.log('kickOffGetArticleSummary result', result);
       });
   }
 
   // create TODO <AI>, <ARTIST> author values
   createAuthorValues() {
-    const authors =
-      '<' +
-      this.topicForm.controls['one']['controls']?.author?.value +
-      '>, ' +
-      '<' +
-      this.topicForm.controls['two']['controls']?.author?.value +
-      '>';
+    let authors = '';
+    const one = this.topicForm.controls['one']['controls']?.author?.value;
+    if (one === 'AI') {
+      authors = '<' + one + '>, ';
+      if (this.topicForm.controls['two']) {
+        authors =
+          authors +
+          '<' +
+          this.topicForm.controls['two']['controls']?.author?.value +
+          '>';
+      }
+    } else {
+      // the user has chosen an image so we set the author from that
+      console.log('one');
+      authors = one;
+    }
     this.topicForm.controls.authors.setValue(authors);
   }
 
@@ -355,6 +507,17 @@ export class TrendsComponent implements OnInit {
       );
       this.topicForm.controls.linkLabel.setValue(
         this.trendTitleSeen + ' on Wikipedia'
+      );
+    }
+
+    if (
+      this.topicForm.controls.links['controls']?.useAPNewsLink.value === true
+    ) {
+      this.topicForm.controls.links['controls'].newsLink.setValue(
+        'https://en.wikipedia.org/wiki/' + this.newAPSearchTerm
+      );
+      this.topicForm.controls.links['controls'].newsLinkLabel.setValue(
+        this.trendTitleSeen + ' on AP News'
       );
     }
   }
@@ -510,6 +673,7 @@ export class TrendsComponent implements OnInit {
 
   updateCountry(category: any): void {
     this.store.dispatch(TrendsActions.loadTrends({ payload: category }));
+    this.countryListUsed = category;
   }
 
   onUpdateSearchTerm(newSearchTerm: string) {

@@ -27,10 +27,11 @@ export class ProductsComponent implements OnInit {
   }
 
   updateUrlFilters(category: string): void {
+    console.log('country', category)
     const navigationExtras: NavigationExtras = {
       replaceUrl: true,
       queryParams: { category },
     };
-    this.router.navigate([`/products`], navigationExtras);
+    // this.router.navigate([`/products`], navigationExtras);
   }
 }

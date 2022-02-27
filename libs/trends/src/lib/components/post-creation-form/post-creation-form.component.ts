@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import {
   FormGroup,
   FormGroupDirective,
@@ -17,8 +24,13 @@ import {
 export class PostCreationFormComponent {
   @Input() fullTopicForm: FormGroup;
   @Input() trendTitleSeen: string;
+  @Input() generatedTextUpdating: boolean;
   @Output() selectedAspect = new EventEmitter<any>();
   @Output() retrieveArticleSummary = new EventEmitter<any>();
+  @Output() imageSelected = new EventEmitter<string>();
+  @Output() generatedTextUpdated = new EventEmitter<boolean>();
+  @Output() kickoffGenerateImages = new EventEmitter<any>();
+  @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
   metaDescriptionText1 = '';
@@ -26,6 +38,10 @@ export class PostCreationFormComponent {
   topicMetaDescriptionCharacters: number;
   metaDescriptionCharacters1: number;
   metaDescriptionCharacters2: number;
+
+  onGeneratedTextUpdate() {
+    this.generatedTextUpdated.emit(true);
+  }
 
   retrieveSummary() {
     this.retrieveArticleSummary.emit(true);
@@ -53,5 +69,22 @@ export class PostCreationFormComponent {
       pictureNumber: pictureNumber,
       aspect: event,
     });
+  }
+
+  onUploadImage() {
+    this.fileInput.nativeElement.click();
+  }
+
+  upload(event) {
+    if (event.target.files.length > 0) {
+      const fileChosen = event.target.files[0]['name'];
+      this.imageSelected.emit(fileChosen);
+    } else {
+      console.error('event.target.files array is empty');
+    }
+  }
+
+  kickoffGenerate() {
+    this.kickoffGenerateImages.emit();
   }
 }

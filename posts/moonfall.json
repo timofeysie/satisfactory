@@ -1,0 +1,57 @@
+{
+  "version": "0.0.3",
+  "date": "Thu Feb 03 2022 23:19:53 GMT+1100 (Australian Eastern Daylight Time)",
+  "country": "AU",
+  "pageTitle": "Moonfall",
+  "authors": "The Paprika AI",
+  "keywords": "Moonfall",
+  "description": "Critics crater Moonfall, a space action drama that takes audiences on a journey inside the moon, with viral Twitter reactions to press screening.",
+  "metaDescription": "",
+  "linkUrl": "https://en.wikipedia.org/wiki/Moonfall",
+  "linkLabel": "Moonfall on Wikipedia",
+  "linkForSummary": "",
+  "links": {
+    "newsLink": "https://apnews.com/hub/Moonfall",
+    "newsLinkLabel": "",
+    "useAPNewsLink": "",
+    "addAPNewsContent": "",
+    "wikiLink": "",
+    "useWikiLink": "true",
+    "addWikiLinkContent": ""
+  },
+  "topicText": "",
+  "one": {
+    "title": "Moonfall",
+    "author": "AI",
+    "altText": "",
+    "imageSrc": "",
+    "imageChosen": "Sierra_Sunrise_and_Moonfall%2C_CA_2016_%2830370749223%29_Paprika.jpg",
+    "srcset": "",
+    "description": "Critics crater 'Moonfall', a space action drama that takes audiences on a journey inside the moon, with viral Twitter reactions to press screening.",
+    "metaDescription": "See an artwork created by the Paprika AI about 'Moonfall', a space action drama that takes audiences on a journey inside the moon.",
+    "tags": "Moonfall, ",
+    "source": "https://commons.wikimedia.org/wiki/File:",
+    "aspect": "landscape",
+    "type": "AI",
+    "commonImg": "",
+    "googleImg": "",
+    "s3": {
+      "Location": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Sierra_Sunrise_and_Moonfall%252C_CA_2016_%252830370749223%2529_Paprika.jpg"
+    }
+  },
+  "originalTrend": {
+    "title": {
+    "query": "Moonfall",
+    "exploreLink": "/trends/explore?q=Moonfall&date=now+7-d&geo=AU"
+    },
+    "formattedTraffic": "20K+",
+    "relatedQueries": [],
+    "image": {
+    "newsUrl": "https://www.smh.com.au/culture/movies/sci-fi-blockbuster-moonfall-is-hard-to-take-seriously-20220201-p59szz.html",
+    "source": "The Sydney Morning Herald",
+    "imageUrl": "https://t2.gstatic.com/images?q=tbn:ANd9GcRYuN0CkDpvtITrn6avtQT77xrk-3KtDnq708CJP4u87Nns7QzsrxO3K3ZbRw2gWQ39E4Xu5mPM"
+    },
+    "articles": [ ],
+    "shareUrl": "https://trends.google.com/trends/trendingsearches/daily?geo=AU&tt=Moonfall#Moonfall" 
+  }
+}

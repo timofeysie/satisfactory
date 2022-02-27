@@ -11,8 +11,14 @@ export class ProductListComponent {
   @Input() products: Product[];
   @Output() filter = new EventEmitter<string>();
   selectedProduct: any;
+  selectedProductIndex: any;
   selectedProductName: string;
   editMode = false;
+  countries = [
+    { value: 'US', label: 'US' },
+    { value: 'AU', label: 'Australia' },
+    { value: 'KR', label: 'South Korea' },
+  ];
 
   constructor(private productsService: ProductsService) {}
 
@@ -22,7 +28,7 @@ export class ProductListComponent {
     this.productsService
       .updateProducts(this.selectedProductName, data)
       .subscribe(() => {
-        this.onProductSelected(this.selectedProduct);
+        this.onProductSelected(this.selectedProduct, this.selectedProductIndex);
       });
   }
 
@@ -34,13 +40,32 @@ export class ProductListComponent {
     this.filter.emit(category);
   }
 
-  onProductSelected(product) {
+  onProductSelected(product, index) {
     this.editMode = false;
     this.selectedProductName = product.name + '.json';
+    this.selectedProductIndex = index;
     this.productsService
       .getProducts(this.selectedProductName)
       .subscribe((result) => {
         this.selectedProduct = result;
       });
+  }
+
+  onNavigateLeft(event) {
+    let previousIndex = this.selectedProductIndex -1;
+    if (previousIndex < 0) {
+      previousIndex = this.products.length - 1;
+    }
+    const previousProduct = this.products[previousIndex];
+    this.onProductSelected(previousProduct, previousIndex);
+  }
+
+  onNavigateRight(event) {
+    let nextIndex = this.selectedProductIndex + 1;
+    if (nextIndex >= this.products.length) {
+      nextIndex = 0;
+    }
+    const nextProduct = this.products[nextIndex];
+    this.onProductSelected(nextProduct, nextIndex);
   }
 }

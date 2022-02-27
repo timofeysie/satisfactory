@@ -5,12 +5,12 @@
 ### Current
 
 - submit post status update
-- trend details section becomes too small when the commons images are too many
-- the AP news search url when long pushes the type box off the screen
+done? - trend details section becomes too small when the commons images are too many
+done? - the AP news search url when long pushes the type box off the screen
 - somehow document the rules for copying what content into what fields in the post creating code
 - actual description should be an array of sections representing paragraphs
-- add type poetry/description
-- allow edit title.  for example, John Madden turns out to be a mashup between Pat Summerall and John Madden.
+defer - add type poetry/description
+i think this happens - allow edit title.  for example, John Madden turns out to be a mashup between Pat Summerall and John Madden.
 - in the above situation, create two sets of links for each subject.  So maybe subjects can be pills that represent clouds of data to pre-fill.
 
 ### Add/Remove posts pictures
@@ -28,29 +28,30 @@ Add $spacer variable for padding & margins
 
 #### SatisFactory
 
-- add date (what format?)
-- srcset and  image src names need underscores not spaces: "Belfast by one_300w.jpg"
+done - add date (what format?)
+
+- add country
+done? - srcset and  image src names need underscores not spaces: "Belfast by one_300w.jpg"
 - Need to have an easily search for marker for "one" and "two".  Like "<one_ai>" and "<two_artist>".
 - Srcset needs to have separate widths for portrait and landscape.  Ie: does width 300, 600, 1800 also make sense for portrait?
-- need to allow multiple links for topics.
+ap only done - need to allow multiple links for topics.
 done - mobile check for layout change not working on first load
-
-- add links from trend briefs to be parsed on the backend
-- save the form state in local storage and enable clear
-? - add authors to keywords automatically
-- implement links array or links and labels
+done? - add links from trend briefs to be parsed on the backend
+defer - save the form state in local storage and enable clear
+done? - add authors to keywords automatically
+defer - implement links array or links and labels
 - add types <none> and <mashup> to ARTIST and AI picture types
 - Loading spinner for Wikimedia Commons images doesn't work when choosing the update button
 done - Meta description length: a minimum of 100 characters is recommended & show characters count
 done - Word count total: 115, Corrected word count: 100, Anchor text words: 15
-- identify dimensions of artist image
-- load raw data for lstm description generation
-- Timry Tenry or Him Hem or Hemithy group artist name (Josm Parchod, Tosh Carr)
+why? - identify dimensions of artist image
+no - load raw data for lstm description generation
+what - Timry Tenry or Him Hem or Hemithy group artist name (Josm Parchod, Tosh Carr)
 done - make title/link input fields on the create post section fill their containers
-?- the AI type doesn't use srcset currently, so this should be optional
+done - the AI type doesn't use srcset currently, so this should be optional
 - wikiLink: ' Kosmos 1408 ', needs to be translated to full link
-- imageSrc needs full path like './../assets/pictures/Champions-League/UEFA_Champions_League_Hosoda.jpg',
-- add description type: paragraph | poem: portrait default portrait, description landscape 
+done? - imageSrc needs full path like './../assets/pictures/Champions-League/UEFA_Champions_League_Hosoda.jpg',
+- add description type: paragraph | poem: portrait default portrait, description landscape
 
 ### Data structure
 

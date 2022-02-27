@@ -12,7 +12,8 @@
       <demo-app-trends-links
         [trendTitleSeen]="trendTitleSeen"
         [topicForm]="topicForm"
-        (handleNewWikiSearchTerm)="(onHandleNewWikiSearchTerm)"
+        (handleNewWikiSearchTerm)="onHandleNewWikiSearchTerm($event)"
+        (handleNewAPSearchTerm)="onHandleNewAPSearchTerm($event)"
       ></demo-app-trends-links>
       <demo-app-topic-form
         [topicForm]="topicForm"
@@ -29,6 +30,7 @@
     (country)="updateCountry($event)"
     (trendSeen)="onTrendSeen($event)"
     (onUseLinkForSummary)="handleOnUseLinkForSummary($event)"
+    (onCleanup)="handleCleanup($event)"
   ></demo-app-trends-list>
   <demo-app-common-images
     class="commons column"
@@ -36,13 +38,18 @@
     [searchTerm]="trendTitleSeen"
     (updateSearchTerm)="onUpdateSearchTerm($event)"
     (selectedCommonsImage)="onSelectedCommonsImage($event)"
+    (selectedImageType)="onSelectedImageType($event)"
   ></demo-app-common-images>
 </div>
 <div *ngIf="completePostMode">
   <demo-app-post-creation-form
     [fullTopicForm]="topicForm"
     [trendTitleSeen]="trendTitleSeen"
+    [generatedTextUpdating]="isGeneratedTextUpdating"
     (selectedAspect)="onSelectedAspect($event)"
+    (imageSelected)="onImageSelected($event)"
     (retrieveArticleSummary)="onRetrieveArticleSummary($event)"
+    (generatedTextUpdated)="onGeneratedTextUpdated($event)"
+    (kickoffGenerateImages)="onKickoffGenerateImages($event)"
   ></demo-app-post-creation-form>
 </div>

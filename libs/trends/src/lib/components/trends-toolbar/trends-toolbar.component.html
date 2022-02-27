@@ -20,8 +20,15 @@
         trendTitleSeen
       }}&sxsrf=AOaemvJf1T-duILeKDVtiLYiQ2-h3ERxOg:1635532481229&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi2lb-kofDzAhWJaCsKHTW9A-4Q_AUoAnoECAEQBA&biw=1280&bih=520&dpr=1"
       >{{ trendTitleSeen }}</a
-    ></span
-  >
+    >
+    <button class="menu-spacer"
+    [cdkCopyToClipboard]="trendTitleSeen">
+      <fa-icon
+        [styles]="{ stroke: 'blue', color: 'blue' }"
+        [icon]="faCopy"
+      ></fa-icon>
+    </button>
+  </span>
   <span
     *ngIf="!completePostMode"
     class="toolbar-item"
@@ -31,7 +38,7 @@
   <span
     *ngIf="completePostMode"
     class="toolbar-item"
-    (click)="handleSubmitForm.emit()"
+    (click)="handleSubmitForm.emit(true)"
     >Submit post</span
   >
 </mat-toolbar>

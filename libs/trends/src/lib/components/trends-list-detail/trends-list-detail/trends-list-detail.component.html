@@ -1,5 +1,8 @@
 <mat-card>
-  <h5>Trend details</h5>
+  <h5 class="tooltip">
+    Trend details
+    <span class="tooltiptext">Select an article to summarize</span>
+  </h5>
   <mat-card class="home-card" *ngFor="let article of trendDetails.articles">
     <mat-card-content class="home-card-content">
       <img src="{{ article.image?.imageUrl }}" mat-card-image />

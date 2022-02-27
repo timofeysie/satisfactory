@@ -9,9 +9,21 @@ import { TextModule } from './text/text.module';
 import { ProductsModule } from './products/products.module';
 import { BartModule } from './bart/bart.module';
 import { GanModule } from './gan/gan.module';
+import { ConfigModule } from '@nestjs/config';
+import { GenerateModule } from './generate/generate.module';
 
 @Module({
-  imports: [LoginModule, TrendsModule, ImagesModule, TextModule, ProductsModule, BartModule, GanModule],
+  imports: [
+    ConfigModule.forRoot({envFilePath: '.env'}),
+    LoginModule,
+    TrendsModule,
+    ImagesModule,
+    TextModule,
+    ProductsModule,
+    BartModule,
+    GanModule,
+    GenerateModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

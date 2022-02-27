@@ -22,7 +22,7 @@ git clone https://github.com/timofeysie/cartoonify.git
 cd cartoonify
 ```
 
-## Download pretrained models
+## Download pre-trained models
 
 - Download the models in '.pth' format:
 

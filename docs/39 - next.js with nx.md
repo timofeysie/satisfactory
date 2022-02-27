@@ -72,8 +72,50 @@ components/layout.js
 components/navbar.js
 components/footer.js
 
-We will try out the "one layout for the entire application" approach.
-
-Create a Custom App and wrap the application with the layout.
+We will try out the "one layout for the entire application" approach by creating a Custom App to wrap the application with the layout.
 
 Since the <Layout /> component is re-used when changing pages, its component state will be preserved (e.g. input values).
+
+I thought this would be done in a lib, but it shows using components.  Lets see what the different generated things look like out of the box.
+
+```txt
+nx g @nrwl/next:lib next-lib
+√ Which stylesheet format would you like to use? · css
+UPDATE workspace.json
+UPDATE nx.json
+CREATE libs/next-lib/.eslintrc.json   
+CREATE libs/next-lib/.babelrc
+CREATE libs/next-lib/README.md        
+CREATE libs/next-lib/src/index.ts     
+CREATE libs/next-lib/tsconfig.json    
+CREATE libs/next-lib/tsconfig.lib.json
+UPDATE tsconfig.base.json
+CREATE libs/next-lib/jest.config.js
+CREATE libs/next-lib/tsconfig.spec.json
+UPDATE jest.config.js
+CREATE libs/next-lib/src/lib/next-lib.module.css
+CREATE libs/next-lib/src/lib/next-lib.spec.tsx
+CREATE libs/next-lib/src/lib/next-lib.tsx
+```
+
+nx g @nrwl/next:page demo-page --project=next-app
+
+nx g @nrwl/next:component demo-component --project=next-app
+
+### Custom Apps
+
+In the layout section it is recommended to create a [Custom App](https://nextjs.org/docs/advanced-features/custom-app) to initialize pages in order to persist the layout between page changes, keep the state when navigating pages and provide custom error handling
+
+With the Nx Next app generation shown above, this is done for us automatically.  It says to override the default App by creating the file ./pages/_app.js.
+
+We already have this file, and it's already using TypeScript:
+
+apps\next-app\pages\_app.tsx
+
+## Static-site generation with getStaticProps
+
+In the official NextJs docs on Data Fetching there is a page on SSG: Static-site generation which says *pre-rendering can result in better performance and SEO.*
+
+We will be using this [Static Generation](https://nextjs.org/docs/basic-features/data-fetching/get-static-props) method.  This means the HTML is generated at build time and will be reused on each request.
+
+The getStaticProps state that the page must be pre-rendered for SEO and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance

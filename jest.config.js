@@ -13,5 +13,6 @@ module.exports = {
     '<rootDir>/libs/pictures',
     '<rootDir>/libs/trendy-layout',
     '<rootDir>/apps/next-app',
+    '<rootDir>/libs/next-lib',
   ],
 };

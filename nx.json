@@ -85,6 +85,9 @@
     "next-app-e2e": {
       "tags": [],
       "implicitDependencies": ["next-app"]
+    },
+    "next-lib": {
+      "tags": []
     }
   }
 }

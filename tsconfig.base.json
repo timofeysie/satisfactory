@@ -22,7 +22,8 @@
       "@demo-app/products": ["libs/products/src/index.ts"],
       "@demo-app/trends": ["libs/trends/src/index.ts"],
       "@demo-app/pictures": ["libs/pictures/src/index.ts"],
-      "@demo-app/trendy-layout": ["libs/trendy-layout/src/index.ts"]
+      "@demo-app/trendy-layout": ["libs/trendy-layout/src/index.ts"],
+      "@demo-app/next-lib": ["libs/next-lib/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

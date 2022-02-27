@@ -748,6 +748,27 @@
           }
         }
       }
+    },
+    "next-lib": {
+      "root": "libs/next-lib",
+      "sourceRoot": "libs/next-lib/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/next-lib/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/next-lib"],
+          "options": {
+            "jestConfig": "libs/next-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

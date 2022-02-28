@@ -105,15 +105,15 @@
               accept=".jpg, .png, .jpeg"
               (change)="upload($event)"
             />
-            <button
-              type="button"
-              (click)="onUploadImage()"
-              class="btn btn-primary"
-            >
+            <button type="button" (click)="onUploadImage()" class="outline">
               Choose generated image
             </button>
-            <button class="separator" (click)="kickoffGenerate()">Kickoff image generation</button>
-            <span class="separator">{{ fullTopicForm.value.one?.imageChosen }}</span>
+            <button class="separator-big outline" (click)="kickoffGenerate()">
+              Kickoff image generation
+            </button>
+            <span class="separator">{{
+              fullTopicForm.value.one?.imageChosen
+            }}</span>
           </div>
 
           <div class="source">
@@ -289,7 +289,9 @@
         <mat-label>description</mat-label>
         <textarea matInput value="description" formControlName="description">
         </textarea>
-        <button (click)="retrieveSummary()">Use generated summary</button>
+        <button class="outline font-13" (click)="retrieveSummary()">
+          Use generated summary
+        </button>
       </mat-form-field>
       <!-- main post meta-description -->
       <mat-form-field class="full-width" appearance="fill">
@@ -311,8 +313,8 @@
         <input matInput value="generatedText" formControlName="generatedText" />
       </mat-form-field>
       <div class="row">
-        <button type="button" (click)="onGeneratedTextUpdate()">
-          (update)
+        <button type="button" class="outline font-13" (click)="onGeneratedTextUpdate()">
+          Update
         </button>
         <mat-spinner
           class="spinner"
@@ -341,7 +343,9 @@
           ></textarea>
         </div>
         <h5>Lines {{ textLines }}</h5>
-        <button (click)="calculateLines()">Calculate Lines</button>
+        <button class="outline font-13" (click)="calculateLines()">
+          Calculate Lines
+        </button>
       </mat-form-field>
     </mat-card-content>
   </mat-card>

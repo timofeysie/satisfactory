@@ -13,6 +13,15 @@
   font-size: small;
 }
 
+.outline {
+    outline-style: dotted;
+    outline-width: 2px;
+    border-radius: 6px;
+    padding: 3px;
+    margin-top: 6px;
+    margin-left: 6px;
+}
+
 .news-links {
   // width: 25%;
   // max-width: 276px;

@@ -109,7 +109,9 @@ export class TrendsComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
+    this._snackBar.open(message, action, {
+      duration: 3 * 1000,
+    });
   }
 
   onGeneratedTextUpdated(event: any) {
@@ -118,7 +120,7 @@ export class TrendsComponent implements OnInit {
 
   onKickoffGenerateImages(event: any) {
     this.trendsService.kickoffGenerateImages().subscribe((result) => {
-    console.log('do it');
+      this._snackBar.open('Generation started', result)
     });
   }
 

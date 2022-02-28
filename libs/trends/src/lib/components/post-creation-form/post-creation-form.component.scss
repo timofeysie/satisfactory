@@ -51,6 +51,22 @@ mat-form-field{
   margin-left: 6px;
 }
 
+.separator-big {
+  margin-right: 12px;
+  margin-left: 12px;
+}
+
+.font-13 {
+  font-size: 13px;
+}
+
+.outline {
+    outline-style: dotted;
+    outline-width: 2px;
+    border-radius: 6px;
+    padding: 3px;
+}
+
 .no-style-input {
   border-width: 0px;
   border: none;

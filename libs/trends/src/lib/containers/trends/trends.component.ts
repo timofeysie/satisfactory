@@ -120,8 +120,14 @@ export class TrendsComponent implements OnInit {
 
   onKickoffGenerateImages(event: any) {
     this.trendsService.kickoffGenerateImages().subscribe((result) => {
-      this._snackBar.open('Generation started', result)
+      this._snackBar.open('Generation started', result);
     });
+  }
+
+  onPreFillDescription(event: any) {
+    //get the value of the GST2 field
+    // prefill the description with it.
+    // this.topicForm.controls.description.setValue(text2);
   }
 
   /**

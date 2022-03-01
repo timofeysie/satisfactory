@@ -30,6 +30,7 @@ export class PostCreationFormComponent {
   @Output() imageSelected = new EventEmitter<string>();
   @Output() generatedTextUpdated = new EventEmitter<boolean>();
   @Output() kickoffGenerateImages = new EventEmitter<any>();
+  @Output() preFillDescription = new EventEmitter<any>();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
@@ -41,6 +42,10 @@ export class PostCreationFormComponent {
 
   onGeneratedTextUpdate() {
     this.generatedTextUpdated.emit(true);
+  }
+
+  onPreFillDescription() {
+    this.preFillDescription.emit();
   }
 
   retrieveSummary() {

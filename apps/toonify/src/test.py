@@ -9,11 +9,11 @@ import torchvision.utils as vutils
 from network import Transformer
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--input_dir', default = 'apps/toonify/src/test_img/')
+parser.add_argument('--input_dir', default = './test_img/')
 parser.add_argument('--load_size', default = 450)
-parser.add_argument('--model_path', default='apps/toonify/src/pretrained_model/')
+parser.add_argument('--model_path', default='./pretrained_model/')
 parser.add_argument('--style', default = 'Hosoda')
-parser.add_argument('--output_dir', default='apps/toonify/src/cartooned_img/')
+parser.add_argument('--output_dir', default='./cartooned_img/')
 parser.add_argument('--gpu', type=int, default = 0)
 
 opt = parser.parse_args()
@@ -24,7 +24,7 @@ if not os.path.exists(opt.output_dir): os.mkdir(opt.output_dir)
 
 # load pretrained model
 model = Transformer()
-model.load_state_dict(torch.load(os.path.join(opt.model_path, opt.style + '_net_G_float.pth')))
+model.load_state_dict(torch.load(os.path.join(opt.model_path, opt.style + '_net_G_float.pth')), strict=False)
 model.eval()
 
 # if opt.gpu > -1:

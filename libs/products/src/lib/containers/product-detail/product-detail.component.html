@@ -1,4 +1,9 @@
-<div *ngIf="selectedProduct.one.aspect === 'landscape' || selectedProduct.one.type === 'MASHUP'">
+<div
+  *ngIf="
+    selectedProduct.one.aspect === 'landscape' ||
+    selectedProduct.one.type === 'MASHUP'
+  "
+>
   <div class="row">
     <span *ngIf="selectedProduct.country"
       >{{ selectedProduct.country }} &nbsp;
@@ -70,6 +75,14 @@
     (click)="onLeft()"
   >
     <fa-icon [icon]="faAngleLeft">left</fa-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="fas fa-angle-left"
+    aria-label="Example icon-button with menu icon"
+    (click)="exit.emit()"
+  >
+    <fa-icon [icon]="faUndo">Exit</fa-icon>
   </button>
   <button
     mat-icon-button

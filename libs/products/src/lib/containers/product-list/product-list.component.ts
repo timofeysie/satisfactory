@@ -32,6 +32,36 @@ export class ProductListComponent {
       });
   }
 
+  onExit(event) {
+    console.log('event', event);
+    this.selectedProduct = null;
+    this.editMode = false;
+  }
+
+  /**
+   * Take all the posts and create a list of articles out of them.
+   * They look like this:
+   * "articles": [
+      {
+        "title": "Bryan Harsin...",
+        "timeAgo": "53m ago",
+        "source": "CalBearsMaven",
+        "image": {
+          "newsUrl": "https://www.si.com/...",
+          "source": "CalBearsMaven",
+          "imageUrl": "https://t2.gstatic..."
+        },
+        "url": "https://www.si.com/colle...",
+        "snippet": "Tigers football pla..."
+      },
+   */
+  onGenerateList() {
+    console.log('ya~');
+    this.productsService.generateProductList().subscribe((result) => {
+      console.log('result', result);
+    })
+  }
+
   onEditDetail() {
     this.editMode = !this.editMode;
   }
@@ -52,7 +82,7 @@ export class ProductListComponent {
   }
 
   onNavigateLeft(event) {
-    let previousIndex = this.selectedProductIndex -1;
+    let previousIndex = this.selectedProductIndex - 1;
     if (previousIndex < 0) {
       previousIndex = this.products.length - 1;
     }

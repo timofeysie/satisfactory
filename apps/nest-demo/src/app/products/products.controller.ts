@@ -9,6 +9,7 @@ export class ProductsController {
 
   @Get()
   async findAll() {
+    console.log('called 1')
     return this.productsService.findAll().then((result) => {
       return result;
     });
@@ -16,7 +17,12 @@ export class ProductsController {
 
   @Get(':category')
   getCategory(@Param('category') id: string) {
-    return this.productsService.getCategory(id);
+    console.log('do 2', id)
+    if (id === 'generate') {
+      return this.productsService.generateList();
+    } else {
+      return this.productsService.getCategory(id);
+    }
   }
 
   @Post(':id')

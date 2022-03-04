@@ -11,6 +11,7 @@ export class ProductsService {
   }
 
   async findAll() {
+    console.log('findAll');
     return new Promise((resolve, reject) => {
       const results: Array<any> = new Array<any>();
       fs.readdir('./posts', (err, files) => {
@@ -28,7 +29,7 @@ export class ProductsService {
             }
           }
         } else {
-          reject('ProductsService.findAll: no files '+err.toString());
+          reject('ProductsService.findAll: no files ' + err.toString());
         }
         resolve(results);
       });
@@ -36,6 +37,7 @@ export class ProductsService {
   }
 
   getCategory(category: string) {
+    console.log('getCategory');
     return new Promise((resolve, reject) => {
       fs.readFile('./posts/' + category, 'utf-8', (err, file) => {
         if (err) {
@@ -52,6 +54,70 @@ export class ProductsService {
         resolve('OK');
       });
     });
+  }
+
+  /*
+    "author": "Paprika",
+    "altText": "Lukashenko's moustache.jpg",
+    "imageSrc": "",
+    "imageChosen": "Lukashenko%27s_moustache_Paprika.jpg",
+    "srcset": "",
+    "description": "",
+    "metaDescription": "",
+    "tags": "Lukashenko, Lukashenko's moustache",
+    "source": "https://commons.wikimedia.org/wiki/File:Lukashenko%27s_moustache.jpg",
+    "aspect": "landscape",
+    "type": "AI",
+    "commonImg": "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Lukashenko%27s_moustache.jpg/268px-Lukashenko%27s_moustache.jpg\" data-src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Lukashenko%27s_moustache.jpg/268px-Lukashenko%27s_moustache.jpg\" alt=\"Lukashenko's moustache.jpg\" loading=\"lazy\" class=\"sd-image\" style=\"height: 100% !important; max-width: 600px !important; max-height: 403px;\">",
+    "googleImg": "",
+    "s3": {
+      "Location": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Lukashenko%2527s_moustache-using-Evening_in_Florence_Augusto_Giacometti_(1909).png"
+    }
+                */
+  generateList() {
+    return new Promise((resolve, reject) => {
+      fs.readdir('./posts', (err, files) => {
+        if (files) {
+          const articles = [];
+          for (const [index, file] of files.entries()) {
+            const fileName = file.substring(0, file.length - 5);
+            const fileType =
+              file.substring(file.lastIndexOf('.') + 1, file.length) || file;
+            if (fileType === 'json') {
+              console.log('filename', fileName);
+              fs.readFile('./posts/' + file, 'utf-8', (err, file) => {
+                if (!err) {
+                  const jsonFile = JSON.parse(file);
+                  const article = {
+                    title: jsonFile['pageTitle'],
+                    timeAgo: '10m ago',
+                    source: 'AIvsArt',
+                    image: {
+                      newsUrl:
+                        'https://www.aivsart.com/' + jsonFile['pageTitle'],
+                      source: jsonFile['one']['author'],
+                      imageUrl: jsonFile['s3']
+                        ? jsonFile['s3']['Location']
+                        : '',
+                    },
+                    url: 'https://www.aivsart.com',
+                    snippet: jsonFile['metaDescription'],
+                  };
+                  articles.push(article);
+                }
+              });
+            }
+            console.log('articles', articles.length);
+          }
+        } else {
+          reject('ProductsService.findAll: no files ' + err.toString());
+        }
+      });
+    });
+  }
+
+  createArticle(file: any) {
+    const article = {};
   }
 
   remove(id: number) {

@@ -26,7 +26,11 @@
       (edit)="onEditDetail($event)"
       (left)="onNavigateLeft($event)"
       (right)="onNavigateRight($event)"
+      (exit)="onExit($event)"
     ></demo-app-product-detail>
+  </mat-card>
+  <mat-card *ngIf="!selectedProduct && !editMode">
+    <button class="outline" (click)="onGenerateList()">Generate list</button>
   </mat-card>
   <div class="form-container">
     <mat-card *ngIf="selectedProduct && editMode">

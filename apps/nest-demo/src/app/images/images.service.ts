@@ -11,7 +11,7 @@ export class ImagesService {
   }
 
   findAll() {
-    return 'findAll';
+    return 'ImagesService.findAll';
   }
 
   findOne(id: string) {
@@ -20,7 +20,7 @@ export class ImagesService {
 
   async search(searchString: string): Promise<any> {
     const fullUrl =this.getInfo(searchString);
-    console.log('fullUrl', fullUrl);
+    console.log('ImagesService.fullUrl', fullUrl);
     return new Promise((resolve, reject) => {
       request(fullUrl, function (error, response, body) {
         if (error) {

@@ -26,9 +26,9 @@ from cyclegan_pytorch import Generator
 parser = argparse.ArgumentParser(
     description="PyTorch implements `Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks`")
 parser.add_argument("--file", type=str, default="assets/horse.png",
-                    help="Image name. (default:`assets/horse.png`)")
-parser.add_argument("--model-name", type=str, default="weights/horse2zebra/netG_A2B.pth",
-                    help="dataset name.  (default:`weights/horse2zebra/netG_A2B.pth`).")
+                    help="Image name.")
+parser.add_argument("--model-name", type=str, default="cezanne2photo/netG_B2A.pth",
+                    help="Path to the pretrained model.")
 parser.add_argument("--cuda", action="store_true", help="Enables cuda")
 parser.add_argument("--image-size", type=int, default=256,
                     help="size of the data crop (squared assumed). (default:256)")

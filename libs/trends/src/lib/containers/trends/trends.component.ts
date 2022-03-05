@@ -120,13 +120,13 @@ export class TrendsComponent implements OnInit {
 
   onKickoffGenerateImages(event: any) {
     this.trendsService.kickoffGenerateImages().subscribe((result) => {
-      this._snackBar.open('Generation started', result);
+      this._snackBar.open('Generation started', 'close');
     });
   }
 
   onPreFillDescription(event: any) {
-    //get the value of the GST2 field
-    // prefill the description with it.
+    // get the value of the GST2 field
+    // pre-fill the description with it.
     // this.topicForm.controls.description.setValue(text2);
   }
 
@@ -207,7 +207,7 @@ export class TrendsComponent implements OnInit {
   handleCleanup(event: any) {
     this.trendsService.cleanupFiles().subscribe((result) => {
       console.log('done');
-      this.openSnackBar('Working files deleted' + result, 'great');
+      this.openSnackBar('Working files deleted' + result, 'close');
     });
   }
 

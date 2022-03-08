@@ -29,7 +29,8 @@
       (exit)="onExit($event)"
     ></demo-app-product-detail>
   </mat-card>
-  <mat-card *ngIf="!selectedProduct && !editMode">
+  <mat-card class="margin-top"
+    *ngIf="!selectedProduct && !editMode">
     <button class="outline" (click)="onGenerateList()">Generate list</button>
   </mat-card>
   <div class="form-container">

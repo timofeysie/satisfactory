@@ -56,6 +56,11 @@ mat-form-field{
   margin-left: 12px;
 }
 
+.margin-big {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
 .font-13 {
   font-size: 13px;
 }
@@ -64,7 +69,7 @@ mat-form-field{
     outline-style: dotted;
     outline-width: 2px;
     border-radius: 6px;
-    padding: 3px;
+    padding: 6px;
     margin-top: 6px;
 }
 
@@ -84,4 +89,8 @@ mat-form-field{
 
 .spinner {
   width: 25px;
+}
+
+.margin-12 {
+  margin-left: 12px;
 }

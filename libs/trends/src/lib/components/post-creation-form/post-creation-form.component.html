@@ -108,10 +108,10 @@
             <button type="button" (click)="onUploadImage()" class="outline">
               Choose generated image
             </button>
-            <button class="separator-big outline" (click)="kickoffGenerate()">
+            <button class="separator-big margin-big outline" (click)="kickoffGenerate()">
               Kickoff image generation
             </button>
-            <span class="separator">{{
+            <span class="separator margin-big">{{
               fullTopicForm.value.one?.imageChosen
             }}</span>
           </div>
@@ -316,7 +316,7 @@
         <button type="button" class="outline font-13" (click)="onGeneratedTextUpdate()">
           Update
         </button>
-        <button type="button" class="outline font-13" (click)="onPreFillDescription()">
+        <button type="button" class="outline font-13 margin-12" (click)="onPreFillDescription()">
           Pre-fill description
         </button>
         <mat-spinner

@@ -26,6 +26,7 @@ export class GanService {
   }
 
   kickOffGan(): void {
+    console.log('gan.service.kickOffGan: start all');
     this.startProcess('Hosoda');
     this.startProcess('Hayao');
     this.startProcess('Paprika');

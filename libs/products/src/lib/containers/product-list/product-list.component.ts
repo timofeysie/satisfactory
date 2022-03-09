@@ -10,6 +10,7 @@ import { ProductsService } from '../../services/products/products.service';
 export class ProductListComponent {
   @Input() products: Product[];
   @Output() filter = new EventEmitter<string>();
+  articles: any[];
   selectedProduct: any;
   selectedProductIndex: any;
   selectedProductName: string;
@@ -56,9 +57,9 @@ export class ProductListComponent {
       },
    */
   onGenerateList() {
-    console.log('ya~');
     this.productsService.generateProductList().subscribe((result) => {
       console.log('result', result);
+      this.articles = result;
     })
   }
 

@@ -76,7 +76,7 @@ export class ProductsService {
                 */
   generateList() {
     return new Promise((resolve, reject) => {
-      fs.readdir('./posts', (err, files) => {
+      fs.readdir('./posts', async (err, files) => {
         if (files) {
           const articles = [];
           for (const [index, file] of files.entries()) {
@@ -85,30 +85,25 @@ export class ProductsService {
               file.substring(file.lastIndexOf('.') + 1, file.length) || file;
             if (fileType === 'json') {
               console.log('filename', fileName);
-              fs.readFile('./posts/' + file, 'utf-8', (err, file) => {
-                if (!err) {
-                  const jsonFile = JSON.parse(file);
-                  const article = {
-                    title: jsonFile['pageTitle'],
-                    timeAgo: '10m ago',
-                    source: 'AIvsArt',
-                    image: {
-                      newsUrl:
-                        'https://www.aivsart.com/' + jsonFile['pageTitle'],
-                      source: jsonFile['one']['author'],
-                      imageUrl: jsonFile['s3']
-                        ? jsonFile['s3']['Location']
-                        : '',
-                    },
-                    url: 'https://www.aivsart.com',
-                    snippet: jsonFile['metaDescription'],
-                  };
-                  articles.push(article);
-                }
-              });
+              const fileContents = fs.readFileSync('./posts/' + file, 'utf-8');
+              const jsonFile = JSON.parse(fileContents);
+              const article = {
+                title: jsonFile['pageTitle'],
+                timeAgo: '10m ago',
+                source: 'AIvsArt',
+                image: {
+                  newsUrl: 'https://www.aivsart.com/' + jsonFile['pageTitle'],
+                  source: jsonFile['one']['author'],
+                  imageUrl: jsonFile['s3'] ? jsonFile['s3']['Location'] : '',
+                },
+                url: 'https://www.aivsart.com',
+                snippet: jsonFile['metaDescription'],
+              };
+              articles.push(article);
             }
-            console.log('articles', articles.length);
           }
+          console.log('articles', articles.length);
+          resolve(articles);
         } else {
           reject('ProductsService.findAll: no files ' + err.toString());
         }

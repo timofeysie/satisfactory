@@ -32,6 +32,7 @@
   <mat-card class="margin-top"
     *ngIf="!selectedProduct && !editMode">
     <button class="outline" (click)="onGenerateList()">Generate list</button>
+    <demo-app-article-list [articles]="articles"></demo-app-article-list>
   </mat-card>
   <div class="form-container">
     <mat-card *ngIf="selectedProduct && editMode">

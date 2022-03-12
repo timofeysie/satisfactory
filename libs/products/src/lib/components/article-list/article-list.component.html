@@ -1,0 +1,29 @@
+<div *ngFor="let article of articles">
+  <a
+    title="{{ article.title }}"
+    target="_blank"
+    href="https://www.thelcn.com/news/local/winter-storm-warning-for-wyoming-county-rest-of-glow-to-see-winter-weather-advisory/article_da47ac55-1229-54fd-b376-d314ce619f97.html"
+    style="width: 264px"
+  >
+      <div class="row">
+        <div class="row">
+        <img
+          role="presentation"
+          src="https://t2.gstatic.com/images?q=tbn:ANd9GcTmCTU-uIPHYdDIaLQpEsYBJ1lChjmMC1G8Y61SC84CmttgfZRoQ3HoUFMBKn2NOrqJqHQdjeOz"
+        />
+          <div class="item-title" multi-line-ellipsis="">
+            {{ article.snippet }}
+        </div>
+        </div>
+        <div class="col">
+          <div
+            class="item-subtitles"
+            title="The Livingston County News • 1h ago"
+          >
+            <span>{{ article.source }}</span> •
+            <span>{{ article.timeAgo }}</span>
+          </div>
+        </div>
+      </div>
+  </a>
+</div>

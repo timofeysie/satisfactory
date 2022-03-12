@@ -30,9 +30,10 @@ a {
 }
 
 img {
-  max-width: 100px;
+  max-height: 100px;
   height: fit-content;
-  margin: 12px;
+  margin-top: 6px;
+  margin-left: 3px;
 }
 
 .margin-12 {
@@ -46,3 +47,4 @@ img {
 .item-subtitles {
   float: left;
 }
+

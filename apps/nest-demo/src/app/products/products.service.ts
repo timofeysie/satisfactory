@@ -57,6 +57,8 @@ export class ProductsService {
   }
 
   /*
+  * Generate a json response with a brief article of all posts.
+  * 
     "author": "Paprika",
     "altText": "Lukashenko's moustache.jpg",
     "imageSrc": "",
@@ -110,12 +112,24 @@ export class ProductsService {
             }
           }
           console.log('articles', articles.length);
+          this.saveFile(articles);
           resolve(articles);
         } else {
           reject('ProductsService.findAll: no files ' + err.toString());
         }
       });
     });
+  }
+
+  saveFile(articles: any) {
+    const jsonString = JSON.stringify(articles)
+    fs.writeFile('./articles.json', jsonString, err => {
+    if (err) {
+        console.log('Error writing file', err)
+    } else {
+        console.log('Successfully wrote file')
+    }
+})
   }
 
   createArticle(file: any) {

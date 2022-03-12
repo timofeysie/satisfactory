@@ -20,6 +20,10 @@ export class ProductsController {
     if (id === 'generate') {
       console.log('ProductsController.getCategory no id');
       return this.productsService.generateList();
+    } else if (id === 'save') {
+      console.log('ProductsController.getCategory no id');
+      // its already done in the above service call
+      // return this.productsService.saveList();
     } else {
       console.log('ProductsController.getCategory', id);
       return this.productsService.getCategory(id);

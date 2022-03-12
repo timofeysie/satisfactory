@@ -1,5 +1,5 @@
-<div *ngFor="let article of articles" class="row">
-  <div *ngIf="displayList">
+<div *ngIf="displayList">
+  <div *ngFor="let article of articles">
     <a
       title="{{ article.title }}"
       target="_blank"
@@ -19,13 +19,15 @@
       </div>
     </a>
   </div>
-  <span *ngIf="!displayList" class="row">
+</div>
+<div *ngIf="!displayList">
+  <span *ngFor="let article of articles">
     <a
       title="{{ article.title }}"
       target="_blank"
       href="https://www.thelcn.com/news/local/winter-storm-warning-for-wyoming-county-rest-of-glow-to-see-winter-weather-advisory/article_da47ac55-1229-54fd-b376-d314ce619f97.html"
     >
-        <img role="presentation" src="{{ article.image.imageUrl }}" />
+      <img role="presentation" src="{{ article.image.imageUrl }}" />
     </a>
   </span>
 </div>

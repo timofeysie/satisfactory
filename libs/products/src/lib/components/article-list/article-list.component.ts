@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ArticleListComponent {
   @Input() articles: any[];
+  @Input() displayList: boolean;
 }

@@ -1,3 +1,10 @@
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: 0;
+  cursor: auto;
+}
+
 .flex-container {
   flex: 0 100%;
   display: flex;
@@ -23,5 +30,19 @@
 }
 
 img {
-  max-width: 200px;
+  max-width: 100px;
+  height: fit-content;
+  margin: 12px;
+}
+
+.margin-12 {
+  margin: 12px;
+}
+
+.no-left {
+  margin-left: 0;
+}
+
+.item-subtitles {
+  float: left;
 }

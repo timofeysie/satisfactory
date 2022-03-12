@@ -87,6 +87,11 @@ export class ProductsService {
               console.log('filename', fileName);
               const fileContents = fs.readFileSync('./posts/' + file, 'utf-8');
               const jsonFile = JSON.parse(fileContents);
+              let metaDesc = jsonFile['metaDescription'];
+              const descLen = metaDesc.length
+              if (descLen > 156 ) {
+                metaDesc = metaDesc.substring(0, 152) + '...'
+              }
               const article = {
                 title: jsonFile['pageTitle'],
                 timeAgo: '10m ago',
@@ -94,10 +99,12 @@ export class ProductsService {
                 image: {
                   newsUrl: 'https://www.aivsart.com/' + jsonFile['pageTitle'],
                   source: jsonFile['one']['author'],
-                  imageUrl: jsonFile['s3'] ? jsonFile['s3']['Location'] : '',
+                  imageUrl: jsonFile['one']['s3']
+                    ? jsonFile['one']['s3']['Location']
+                    : '',
                 },
                 url: 'https://www.aivsart.com',
-                snippet: jsonFile['metaDescription'],
+                snippet: metaDesc,
               };
               articles.push(article);
             }

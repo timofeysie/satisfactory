@@ -24,6 +24,8 @@ npm i --save @fortawesome/free-brands-svg-icons
 npm i --save fortawesome/free-regular-svg-icons
 ```
 
+### Finding icons
+
 How to use a font awesome icon.  Explore the icons [here](https://fontawesome.com/v6.0/icons?m=free&s=solid%2Cbrands).
 
 Add FontAwesomeModule to imports in src/app/app.module.ts.  It wont work unless it is imported into the module where it is used.  For this use case, that is this file:

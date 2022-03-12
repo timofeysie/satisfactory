@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '@demo-app/data-models';
 import { ProductsService } from '../../services/products/products.service';
+import { faBorderAll, faList } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'demo-app-product-list',
@@ -15,6 +16,9 @@ export class ProductListComponent {
   selectedProductIndex: any;
   selectedProductName: string;
   editMode = false;
+  faBorderAll = faBorderAll;
+  faList = faList;
+  displayList = true;
   countries = [
     { value: 'US', label: 'US' },
     { value: 'AU', label: 'Australia' },
@@ -60,7 +64,23 @@ export class ProductListComponent {
     this.productsService.generateProductList().subscribe((result) => {
       console.log('result', result);
       this.articles = result;
-    })
+    });
+  }
+
+  onSaveList() {
+    console.log('onSaveList');
+    // this.productsService.generateProductList().subscribe((result) => {
+    //   console.log('result', result);
+    //   this.articles = result;
+    // });
+  }
+
+  onLoadList() {
+    console.log('onLoadList');
+    // this.productsService.generateProductList().subscribe((result) => {
+    //   console.log('result', result);
+    //   this.articles = result;
+    // });
   }
 
   onEditDetail() {
@@ -98,5 +118,9 @@ export class ProductListComponent {
     }
     const nextProduct = this.products[nextIndex];
     this.onProductSelected(nextProduct, nextIndex);
+  }
+
+  onDisplayListChange(event) {
+    this.displayList = !event;
   }
 }

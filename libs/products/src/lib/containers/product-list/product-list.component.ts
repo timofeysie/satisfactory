@@ -77,10 +77,10 @@ export class ProductListComponent {
 
   onLoadList() {
     console.log('onLoadList');
-    // this.productsService.generateProductList().subscribe((result) => {
-    //   console.log('result', result);
-    //   this.articles = result;
-    // });
+    this.productsService.loadArticles().subscribe((result) => {
+      console.log('result', result);
+      this.articles = result;
+    });
   }
 
   onEditDetail() {

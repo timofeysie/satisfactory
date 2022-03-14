@@ -11,6 +11,7 @@ import {
   FormGroupDirective,
   ControlContainer,
 } from '@angular/forms';
+import { Selector } from '@demo-app/data-models';
 
 @Component({
   selector: 'demo-app-post-creation-form',
@@ -31,6 +32,7 @@ export class PostCreationFormComponent {
   @Output() generatedTextUpdated = new EventEmitter<boolean>();
   @Output() kickoffGenerateImages = new EventEmitter<any>();
   @Output() preFillDescription = new EventEmitter<any>();
+  @Output() selectedCategory = new EventEmitter<any>();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
@@ -39,6 +41,29 @@ export class PostCreationFormComponent {
   topicMetaDescriptionCharacters: number;
   metaDescriptionCharacters1: number;
   metaDescriptionCharacters2: number;
+  selectedValue: string;
+  categories: Selector[] = [
+    {
+      value: 'sports',
+      viewValue: 'Sports',
+    },
+    {
+      value: 'Business',
+      viewValue: 'Business',
+    },
+    {
+      value: 'Politics',
+      viewValue: 'Politics',
+    },
+    {
+      value: 'Entertainment',
+      viewValue: 'Entertainment',
+    },
+    {
+      value: 'Tech',
+      viewValue: 'Tech',
+    },
+  ];
 
   onGeneratedTextUpdate() {
     this.generatedTextUpdated.emit(true);
@@ -50,6 +75,10 @@ export class PostCreationFormComponent {
 
   retrieveSummary() {
     this.retrieveArticleSummary.emit(true);
+  }
+
+  onSelectedCategory(event) {
+    this.selectedCategory.emit(event);
   }
 
   calculateLines() {

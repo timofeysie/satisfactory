@@ -48,6 +48,15 @@ export class ProductsService {
     });
   }
 
+  loadList() {
+    console.log('loadie');
+    return new Promise((resolve, reject) => {
+      const fileContents = fs.readFileSync('./articles/articles.json', 'utf-8');
+      const jsonFile = JSON.parse(fileContents);
+      resolve(jsonFile);
+    });
+  }
+
   update(id: string, updateProduct: any) {
     return new Promise((resolve) => {
       fs.writeFile('./posts/' + id, JSON.stringify(updateProduct), () => {
@@ -58,7 +67,7 @@ export class ProductsService {
 
   /*
   * Generate a json response with a brief article of all posts.
-  * 
+  *
     "author": "Paprika",
     "altText": "Lukashenko's moustache.jpg",
     "imageSrc": "",
@@ -90,9 +99,9 @@ export class ProductsService {
               const fileContents = fs.readFileSync('./posts/' + file, 'utf-8');
               const jsonFile = JSON.parse(fileContents);
               let metaDesc = jsonFile['metaDescription'];
-              const descLen = metaDesc.length
-              if (descLen > 156 ) {
-                metaDesc = metaDesc.substring(0, 152) + '...'
+              const descLen = metaDesc.length;
+              if (descLen > 156) {
+                metaDesc = metaDesc.substring(0, 152) + '...';
               }
               const article = {
                 title: jsonFile['pageTitle'],
@@ -122,14 +131,14 @@ export class ProductsService {
   }
 
   saveFile(articles: any) {
-    const jsonString = JSON.stringify(articles)
-    fs.writeFile('./articles.json', jsonString, err => {
-    if (err) {
-        console.log('Error writing file', err)
-    } else {
-        console.log('Successfully wrote file')
-    }
-})
+    const jsonString = JSON.stringify(articles);
+    fs.writeFile('./articles.json', jsonString, (err) => {
+      if (err) {
+        console.log('Error writing file', err);
+      } else {
+        console.log('Successfully wrote file');
+      }
+    });
   }
 
   createArticle(file: any) {

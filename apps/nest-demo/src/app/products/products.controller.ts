@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -24,6 +32,10 @@ export class ProductsController {
       console.log('ProductsController.getCategory no id');
       // its already done in the above service call
       // return this.productsService.saveList();
+    } else if (id === 'load') {
+      console.log('ProductsController.getCategory no id');
+      // its already done in the above service call
+      return this.productsService.loadList();
     } else {
       console.log('ProductsController.getCategory', id);
       return this.productsService.getCategory(id);

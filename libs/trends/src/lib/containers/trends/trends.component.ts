@@ -35,6 +35,7 @@ export class TrendsComponent implements OnInit {
   topicForm = this.fb.group({
     version: ['0.0.3'],
     date: [''],
+    category: [''],
     country: [''],
     pageTitle: [''],
     authors: [''],
@@ -209,6 +210,11 @@ export class TrendsComponent implements OnInit {
       console.log('done');
       this.openSnackBar('Working files deleted' + result, 'close');
     });
+  }
+
+  onSelectedCategory(event) {
+    console.log('onSelectedCategory', event);
+    this.topicForm.controls.category.setValue(event);
   }
 
   onSelectedCommonsImage(image: any) {

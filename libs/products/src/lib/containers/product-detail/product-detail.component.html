@@ -19,26 +19,9 @@
     </div>
 
     <!-- TODO: move repeat sections into dumb components -->
-    <div class="landscape">
-      <pre>{{ selectedProduct.metaDescription }}</pre>
-      <pre>{{ replaceNewlines(selectedProduct.description) }}</pre>
-      <p>Keywords: {{ selectedProduct.keywords }}</p>
-      <a href="{{ selectedProduct.linkUrl }}">{{
-        selectedProduct.linkLabel
-      }}</a>
-      <a
-        *ngIf="selectedProduct.links.newsLink"
-        href="{{ selectedProduct.links.newsLink }}"
-      >
-        <ng-container
-          *ngIf="selectedProduct.links.newsLinkLabel; else defaultLabel"
-        >
-          {{ selectedProduct.links.newsLinkLabel }}
-        </ng-container>
-        <ng-template #defaultLabel> AP News link </ng-template>
-      </a>
-    </div>
-
+    <demo-app-detail-links
+      [selectedProduct]="selectedProduct"
+    ></demo-app-detail-links>
   </div>
 </div>
 
@@ -58,27 +41,9 @@
       </div>
       <h2>by {{ selectedProduct.authors }}</h2>
 
-      <!-- TODO: move repeat sections into dumb components -->
-      <div class="landscape">
-        <pre>{{ selectedProduct.metaDescription }}</pre>
-        <pre>{{ replaceNewlines(selectedProduct.description) }}</pre>
-        <p>Keywords: {{ selectedProduct.keywords }}</p>
-        <a href="{{ selectedProduct.linkUrl }}">{{
-          selectedProduct.linkLabel
-        }}</a>
-        <a
-          *ngIf="selectedProduct.links.newsLink"
-          href="{{ selectedProduct.links.newsLink }}"
-        >
-          <ng-container
-            *ngIf="selectedProduct.links.newsLinkLabel; else defaultLabel"
-          >
-            {{ selectedProduct.links.newsLinkLabel }}
-          </ng-container>
-          <ng-template #defaultLabel> AP News link </ng-template>
-        </a>
-      </div>
-
+      <demo-app-detail-links
+        [selectedProduct]="selectedProduct"
+      ></demo-app-detail-links>
     </div>
   </div>
 </div>

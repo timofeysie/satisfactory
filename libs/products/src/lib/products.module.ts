@@ -16,6 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DetailFormComponent } from './containers/detail-form/detail-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ArticleListComponent } from './components/article-list/article-list.component';
+import { DetailLinksComponent } from './components/detail-links/article-list.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,14 @@ import { ArticleListComponent } from './components/article-list/article-list.com
     }),
     EffectsModule.forFeature([ProductsEffects]),
   ],
-  declarations: [ProductsComponent, ProductListComponent, ProductDetailComponent, DetailFormComponent, ArticleListComponent],
+  declarations: [
+    ProductsComponent,
+    ProductListComponent,
+    ProductDetailComponent,
+    DetailFormComponent,
+    ArticleListComponent,
+    DetailLinksComponent,
+  ],
   providers: [ProductsEffects],
 })
 export class ProductsModule {}

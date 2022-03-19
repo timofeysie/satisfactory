@@ -194,10 +194,22 @@ Not really happy about the last line slipping in there, but it's good enough to 
 
 [{'summary_text': ' The Sound of Music is on BBC One at 2.20pm today (January 1, 2022) Christopher Plummer died at the age of 91 in February last year . The Oscar winner died peacefully at his home in Connecticut, USA on February 5, 2021 . His wife said the cause of his death was a "blow to the head as a result of a fall"'}]
 
-### Another anomoly
+### Another anomaly
 
 This url: https://klewtv.com/news/entertainment/tiger-king-joe-exotic-oklahoma-city-resentencing-carole-baskin-joseph-maldonado-passage-prostate-cancer-wynnwood-zoo-netflix
 
 Returns this summary:
 
 CNN.com will feature iReporter photos in a weekly Travel Snapshots gallery. Please submit your best shots of our featured destinations for next week. Visit CNN iReport.com/Travel next Wednesday for a new gallery of snapshots. Visit www.dailyimpact.com for a gallery next week for snapshots of places to go next week in the gallery.com. Submit photos of your favorite destinations to see next week's featured destinations.
+
+### The Tom Brady anomaly
+
+bart.controller.findOne: got id <https://www.fox13news.com/sports/tom-brady-announces-hes-coming-out-of-retirement>
+bart.service.loadSummaryById: <https://www.fox13news.com/sports/tom-brady-announces-hes-coming-out-of-retirement>
+loadSummaryById.loadSummary [{'summary_text': ' Tom Brady announced Sunday that he\'s coming out retirement and will return for his 23rd season to the NFL . The seven-time Super Bowl champion made the announcement on Twitter . ESPN first reported Brady�s retirement in January, citing unidentified sources . Last month, it was reported that Brady will play himself in the new film called "80 for Brady" The movie tells the story of four friends and Patriots fans who take a road trip to watch Brady and the Pats battle the Atlanta Falcons in Super Bowl LI in 2017 .'}]
+
+All that showed up in the description was this:P
+
+The movie tells the story of four friends and Patriots fans who take a road trip to watch Brady and the Pats battle the Atlanta Falcons in Super Bowl LI in 2017.
+
+This indicates that we can't rely on a " mark to start the section.

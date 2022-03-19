@@ -116,6 +116,8 @@ export class ProductsService {
                 },
                 url: 'https://www.aivsart.com',
                 snippet: metaDesc,
+                date: jsonFile['date'],
+                category: jsonFile['category']
               };
               articles.push(article);
             }

@@ -77,6 +77,10 @@ export class PostCreationFormComponent {
     this.retrieveArticleSummary.emit(true);
   }
 
+  copyToMetaDescription() {
+    this.topicMetaDescriptionText = this.fullTopicForm.controls.description.value;
+  }
+
   onSelectedCategory(event) {
     this.selectedCategory.emit(event);
   }

@@ -55,7 +55,8 @@ device = torch.device("cuda:0" if args.cuda else "cpu")
 model = Generator().to(device)
 
 # Load state dicts
-model.load_state_dict(torch.load(args.model_name), strict=False)
+model.load_state_dict(torch.load(
+    args.model_name, map_location=torch.device('cpu')), strict=False)
 
 # Set model mode
 model.eval()
@@ -73,4 +74,5 @@ start = timeit.default_timer()
 fake_image = model(image)
 elapsed = (timeit.default_timer() - start)
 print(f"cost {elapsed:.4f}s")
-vutils.save_image(fake_image.detach(), "result.png", normalize=True)
+vutils.save_image(fake_image.detach(
+), "apps/toonify/src/cartooned_img/" + 'cezanne2photo' + ".png", normalize=True)

@@ -16,16 +16,38 @@
           <input matInput value="authors" formControlName="authors" />
         </mat-form-field>
       </div>
+      <!-- Wikipedia link-->
       <div class="keywords row">
         <mat-form-field class="column full-width-block" appearance="fill">
-          <mat-label>linkLabel</mat-label>
+          <mat-label>link label</mat-label>
           <input matInput value="linkLabel" formControlName="linkLabel" />
         </mat-form-field>
         <mat-form-field class="column full-width-block" appearance="fill">
-          <mat-label>linkUrl</mat-label>
+          <mat-label>link url</mat-label>
           <input matInput value="linkUrl" formControlName="linkUrl" />
         </mat-form-field>
       </div>
+
+      <!-- News link-->
+      <div
+        *ngIf="fullTopicForm.controls.links['controls']?.useAPNewsLink.value"
+      >
+        <div [formGroup]="fullTopicForm.get('links')" class="keywords row">
+          <mat-form-field class="column full-width-block" appearance="fill">
+            <mat-label>second link label</mat-label>
+            <input
+              matInput
+              value="newsLinkLabel"
+              formControlName="newsLinkLabel"
+            />
+          </mat-form-field>
+          <mat-form-field class="column full-width-block" appearance="fill">
+            <mat-label>second link url</mat-label>
+            <input matInput value="newsLink" formControlName="newsLink" />
+          </mat-form-field>
+        </div>
+      </div>
+
       <div class="keywords row">
         <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>keywords</mat-label>
@@ -314,7 +336,10 @@
         <button class="outline font-13" (click)="retrieveSummary()">
           Use generated summary
         </button>
-        <button class="outline font-13 margin-12" (click)="copyToMetaDescription()">
+        <button
+          class="outline font-13 margin-12"
+          (click)="copyToMetaDescription()"
+        >
           Copy to meta-description
         </button>
       </mat-form-field>

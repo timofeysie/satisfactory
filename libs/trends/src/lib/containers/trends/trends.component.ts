@@ -51,9 +51,9 @@ export class TrendsComponent implements OnInit {
       newsLinkLabel: [''],
       useAPNewsLink: [''],
       addAPNewsContent: [''],
-      wikiLink: [''],
-      useWikiLink: ['true'],
-      addWikiLinkContent: [''],
+      wikiLink: [''], // these links are unused I believe
+      useWikiLink: ['true'], // they were intended to replace the linkUrl/label
+      addWikiLinkContent: [''], // in the main form, but not sure now
     }),
 
     // text for description generation
@@ -395,10 +395,12 @@ export class TrendsComponent implements OnInit {
   downloadImages() {
     const urls = [];
     const one = this.getCommonsImageUrl('one');
+    console.log('downloadImages.one', one);
     let two;
     if (this.topicForm.controls.two) {
       two = this.getCommonsImageUrl('two');
     }
+    console.log('downloadImages.two', two);
     if (one) urls.push(one);
     if (two) urls.push(two);
     for (let i = 0; i < urls.length; i++) {
@@ -423,10 +425,12 @@ export class TrendsComponent implements OnInit {
         urlPage.length
       );
 
-      const end = urlStart.indexOf(ext);
-      const urlFull = urlStart.substring(0, end + ext.length);
-      const woThumb = urlFull.replace('/thumb', '');
-      return woThumb;
+      if (ext) {
+        const end = urlStart.indexOf(ext);
+        const urlFull = urlStart.substring(0, end + ext.length);
+        const woThumb = urlFull.replace('/thumb', '');
+        return woThumb;
+      }
     }
   }
 
@@ -446,6 +450,7 @@ export class TrendsComponent implements OnInit {
   findExtension(urlPage) {
     const jpg = '.jpg';
     const png = '.png';
+    const gif = '.gif';
     const firstDot = urlPage.indexOf('.');
     const afterFirstDot = urlPage.substring(firstDot + 1, urlPage.length);
     const secondDot = afterFirstDot.indexOf('.');
@@ -460,11 +465,24 @@ export class TrendsComponent implements OnInit {
     } else {
       const pngPlace = afterFirstDot.toLowerCase().indexOf(png);
       const jpgPlace = afterFirstDot.toLowerCase().indexOf(jpg);
+      const gifPlace = afterFirstDot.toLowerCase().indexOf(gif);
       if (pngPlace !== -1) {
         return png;
       }
       if (jpgPlace !== -1) {
         return jpg;
+      }
+      if (gifPlace !== -1) {
+        return gif;
+      }
+      if (afterSecondDot.includes(jpg)) {
+        return jpg;
+      }
+      if (afterSecondDot.includes(png)) {
+        return png;
+      }
+      if (afterSecondDot.includes(gif)) {
+        return gif;
       }
     }
   }

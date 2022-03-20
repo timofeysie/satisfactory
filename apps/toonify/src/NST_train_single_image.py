@@ -20,7 +20,8 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--input_dir', default = 'rafa.jpg')
-parser.add_argument('--style_image', default = 'mystyle.jpeg')
+parser.add_argument('--style_image', default='mystyle.jpeg')
+parser.add_argument('--output_file', default='result.png')
 
 opt = parser.parse_args()
 
@@ -33,7 +34,7 @@ model=models.vgg19(pretrained=True).features
 
 
 #Assigning the GPU to the variable device
-device=torch.device("cuda")
+device=torch.device("cpu")
 
 
 #[0,5,10,19,28] are the index of the layers we will be using to calculate the loss as per the paper of NST
@@ -145,7 +146,7 @@ for e in range (epoch):
     if(not (e%100)):
         print(total_loss)
         
-        save_image(generated_image, "gen_" + opt.input_dir)
+        save_image(generated_image, "apps/toonify/src/gen_image/" + opt.output_file)
     
         
         

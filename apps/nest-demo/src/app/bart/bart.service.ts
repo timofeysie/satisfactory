@@ -29,10 +29,9 @@ export class BartService {
   }
 
   loadSummaryById(summaryUrl: string) {
-    const summaryFilename = encodeURIComponent(summaryUrl);
     console.log('bart.service.loadSummaryById:', summaryUrl);
     return new Promise((resolve, reject) => {
-      const path = `./apps/nest-demo/src/app/bart/summaries/${summaryFilename}.txt`;
+      const path = `./apps/nest-demo/src/app/bart/summaries/${summaryUrl}`;
       fs.readFile(path, 'utf-8', (err, file) => {
         if (err) {
           reject(err);
@@ -59,6 +58,7 @@ export class BartService {
   }
 
   async getArticleSummary(articleUrl: any) {
+    console.log('bart.service.getArticleSummary: articleUrl', articleUrl);
     const process = spawn('python', [
       'apps/hugging-face/src/goose.py',
       articleUrl,

@@ -138,7 +138,35 @@ export class TrendsComponent implements OnInit {
    * by BART are removed.
    */
   onRetrieveArticleSummary() {
-    const linkForSummary = this.topicForm.controls.linkForSummary.value;
+    const linkForSummary =  encodeURIComponent(this.topicForm.controls.linkForSummary.value+'.txt');
+    this.trendsService
+      .retrieveArticleSummaryById(linkForSummary)
+      .subscribe((result) => {
+        const fullResponse = JSON.parse(JSON.stringify(result));
+        let start = fullResponse.indexOf('" ');
+        let offset = 2;
+        if (start === -1) {
+          start = fullResponse.indexOf("summary_text': '");
+          offset = 17;
+        }
+        const text = fullResponse.substring(
+          start + offset,
+          fullResponse.length - 5
+        );
+        const text1 = text.split('�').join("'");
+        const text2 = text1.split(' .').join('.');
+        this.topicForm.controls.description.setValue(text2);
+      });
+  }
+
+  /**
+   * As a result of difficulties reading an array from a file and getting
+   * the json summary_text, we do it manually here.
+   * Special characters are converted and spaces before the period created
+   * by BART are removed.
+   */
+  onChooseArticleSummary(linkForSummary) {
+    console.log('onChooseArticleSummary: linkForSummary', linkForSummary);
     this.trendsService
       .retrieveArticleSummaryById(linkForSummary)
       .subscribe((result) => {
@@ -232,6 +260,13 @@ export class TrendsComponent implements OnInit {
   onHandleNewAPSearchTerm(newValue: string) {
     this.newAPSearchTerm = newValue;
     this.topicForm.controls.links['controls']?.newsLink?.setValue(newValue);
+  }
+
+  handleDownloadArticleAction(event: string) {
+    console.log('calling kickoffArticleSummary for', event);
+    this.trendsService.kickoffArticleSummary(event).subscribe((result) => {
+      console.log('result', result);
+    });
   }
 
   onSelectedImageType(selectType: boolean) {

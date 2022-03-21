@@ -106,6 +106,7 @@ export class ProductsService {
               const article = {
                 title: jsonFile['pageTitle'],
                 timeAgo: '10m ago',
+                date: jsonFile['date'],
                 source: 'AIvsArt',
                 image: {
                   newsUrl: 'https://www.aivsart.com/' + jsonFile['pageTitle'],
@@ -134,7 +135,7 @@ export class ProductsService {
 
   saveFile(articles: any) {
     const jsonString = JSON.stringify(articles);
-    fs.writeFile('./articles.json', jsonString, (err) => {
+    fs.writeFile('./articles/articles.json', jsonString, (err) => {
       if (err) {
         console.log('Error writing file', err);
       } else {

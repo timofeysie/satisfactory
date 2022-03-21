@@ -12,7 +12,7 @@
             {{ article.snippet }}
             <span class="item-subtitles margin-12" title="{{ article.title }}">
               <span>{{ article.source }}</span> •
-              <span>{{ article.timeAgo }}</span>
+              <span>{{ calcDateAgo(article.date) }}</span>
             </span>
           </div>
         </div>

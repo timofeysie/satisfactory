@@ -31,6 +31,7 @@
     (trendSeen)="onTrendSeen($event)"
     (onUseLinkForSummary)="handleOnUseLinkForSummary($event)"
     (onCleanup)="handleCleanup($event)"
+    (onHandleDownloadArticleAction)="handleDownloadArticleAction($event)"
   ></demo-app-trends-list>
   <demo-app-common-images
     class="commons column"
@@ -49,6 +50,7 @@
     (selectedAspect)="onSelectedAspect($event)"
     (imageSelected)="onImageSelected($event)"
     (retrieveArticleSummary)="onRetrieveArticleSummary($event)"
+    (chooseArticleSummary)="onChooseArticleSummary($event)"
     (generatedTextUpdated)="onGeneratedTextUpdated($event)"
     (kickoffGenerateImages)="onKickoffGenerateImages($event)"
     (preFillDescription)="onPreFillDescription($event)"

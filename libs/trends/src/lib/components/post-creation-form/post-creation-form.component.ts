@@ -28,12 +28,14 @@ export class PostCreationFormComponent {
   @Input() generatedTextUpdating: boolean;
   @Output() selectedAspect = new EventEmitter<any>();
   @Output() retrieveArticleSummary = new EventEmitter<any>();
+  @Output() chooseArticleSummary = new EventEmitter<any>();
   @Output() imageSelected = new EventEmitter<string>();
   @Output() generatedTextUpdated = new EventEmitter<boolean>();
   @Output() kickoffGenerateImages = new EventEmitter<any>();
   @Output() preFillDescription = new EventEmitter<any>();
   @Output() selectedCategory = new EventEmitter<any>();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
+  @ViewChild('summaryInput', { static: false }) summaryInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
   metaDescriptionText1 = '';
@@ -77,6 +79,10 @@ export class PostCreationFormComponent {
     this.retrieveArticleSummary.emit(true);
   }
 
+  onChooseSummary() {
+    this.summaryInput.nativeElement.click();
+  }
+
   copyToMetaDescription() {
     this.topicMetaDescriptionText = this.fullTopicForm.controls.description.value;
   }
@@ -117,6 +123,15 @@ export class PostCreationFormComponent {
     if (event.target.files.length > 0) {
       const fileChosen = event.target.files[0]['name'];
       this.imageSelected.emit(fileChosen);
+    } else {
+      console.error('event.target.files array is empty');
+    }
+  }
+
+  chooseSummary(event) {
+    if (event.target.files.length > 0) {
+      const fileChosen = event.target.files[0]['name'];
+      this.chooseArticleSummary.emit(fileChosen);
     } else {
       console.error('event.target.files array is empty');
     }

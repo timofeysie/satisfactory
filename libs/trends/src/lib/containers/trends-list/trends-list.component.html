@@ -22,11 +22,12 @@
   <demo-app-trends-list-detail
     [trendDetails]="trendDetails"
     (handleUseLinkForSummary)="onHandleUseLinkForSummary($event)"
+    (handleDownloadArticle)="onHandleDownloadArticle($event)"
   ></demo-app-trends-list-detail>
 </div>
 <ng-template #utilities>
   <mat-card>
     Cleanup raw files
-    <button mat-button (click)="cleanup()">Cleanup</button>
+    <button mat-button class="outline" (click)="cleanup()">Cleanup</button>
   </mat-card>
 </ng-template>

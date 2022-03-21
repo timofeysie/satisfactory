@@ -28,7 +28,7 @@ export class TrendsService {
   }
 
   kickoffArticleSummary(linkForSummary: string) {
-    console.log('kickoffArticleSummary');
+    console.log('kickoffArticleSummary for', linkForSummary);
     return this.httpClient
       .post<any>('http://localhost:3333/api/bart', {
         link: linkForSummary,
@@ -82,7 +82,7 @@ export class TrendsService {
     });
   }
 
-  retrieveArticleSummaryById(id: string) {
+  retrieveArticleSummaryById(id?: string) {
     const encodedId = encodeURIComponent(id);
     return this.httpClient.get('http://localhost:3333/api/bart/' + encodedId, {
       responseType: 'text',

@@ -16,6 +16,11 @@
         </div>
         <div [innerHTML]="decode(article.snippet)"></div>
       </div>
+      <fa-icon
+        class="download-icon"
+        [icon]="faCloudDownloadAlt"
+        (click)="onDownloadArticle(article.url)"
+      ></fa-icon>
       <mat-checkbox
         class="use-link"
         (change)="onUseLink($event, article.image?.newsUrl)"

@@ -13,7 +13,8 @@ export class TrendsListComponent {
   @Output() trendSeen = new EventEmitter<string>();
   @Output() onUseLinkForSummary = new EventEmitter<string>();
   @Output() onCleanup = new EventEmitter<boolean>();
-  
+  @Output() onHandleDownloadArticleAction = new EventEmitter<string>();
+
   countries = [
     { value: 'US', label: 'US' },
     { value: 'AU', label: 'Australia' },
@@ -34,5 +35,9 @@ export class TrendsListComponent {
 
   cleanup(event: any) {
     this.onCleanup.emit(true);
+  }
+
+  onHandleDownloadArticle(event: any) {
+    this.onHandleDownloadArticleAction.emit(event);
   }
 }

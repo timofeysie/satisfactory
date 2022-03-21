@@ -143,7 +143,7 @@
               #fileInput
               type="file"
               class="file-input"
-              accept=".jpg, .png, .jpeg"
+              accept=".jpg, .png, .jpeg .gif"
               (change)="upload($event)"
             />
             <button type="button" (click)="onUploadImage()" class="outline">
@@ -333,10 +333,29 @@
         <mat-label>description</mat-label>
         <textarea matInput value="description" formControlName="description">
         </textarea>
-        <button class="outline font-13" (click)="retrieveSummary()">
+        <button
+          type="button"
+          class="outline font-13"
+          (click)="retrieveSummary()"
+        >
           Use generated summary
         </button>
+        <input
+          #summaryInput
+          type="file"
+          class="file-input"
+          accept=".txt"
+          (change)="chooseSummary($event)"
+        />
         <button
+          type="button"
+          (click)="onChooseSummary()"
+          class="outline font-13 margin-12"
+        >
+          Choose generated summary
+        </button>
+        <button
+          type="button"
           class="outline font-13 margin-12"
           (click)="copyToMetaDescription()"
         >

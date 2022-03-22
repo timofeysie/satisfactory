@@ -2,7 +2,14 @@
   <mat-card class="picture-post-card">
     <mat-form-field appearance="none" class="selector picture-post-card-top">
       <div class="row">
-        <span>One</span>
+        <span class="tooltip"
+          >One
+          <span class="tooltiptext"
+            >These are topic types. A single AI type requires only one topic
+            section, the second one can be deleted. An AI vs Art post requires
+            two topic sections. A mashup type requires two also.</span
+          >
+        </span>
         <mat-select
           appearance="none"
           #typeSelector
@@ -14,6 +21,9 @@
           <mat-option [value]="'ARTIST'">Artist</mat-option>
           <mat-option [value]="'MASHUP'">Mashup</mat-option>
         </mat-select>
+        <span *ngIf="topicForm.value.one.commonImg" class="common-image-set">
+          set
+        </span>
       </div>
     </mat-form-field>
     <div class="title-row">
@@ -30,11 +40,6 @@
         formControlName="author"
         class="title-row-item no-style-input"
       />
-    </div>
-    <div *ngIf="topicForm.value.one.commonImg" class="common-image">
-      <span *ngIf="topicForm.value.one.type === 'AI'">{{
-        topicForm.value.one.commonImg
-      }}</span>
     </div>
     <div *ngIf="topicForm.value.one.type === 'ARTIST'" class="common-image">
       {{ topicForm.value.one.googleImg }}
@@ -66,6 +71,9 @@
           <mat-option [value]="'MASHUP'">Mashup</mat-option>
         </mat-select>
       </div>
+      <span *ngIf="topicForm.value.two.commonImg" class="common-image-set">
+        set
+      </span>
       <fa-icon
         class="close-icon-button"
         [icon]="faTimes"
@@ -86,11 +94,6 @@
         formControlName="author"
         class="title-row-item no-style-input"
       />
-    </div>
-    <div *ngIf="topicForm.value.two.commonImg" class="common-image">
-      <span *ngIf="topicForm.value.two.type === 'AI'">{{
-        topicForm.value.two.commonImg
-      }}</span>
     </div>
     <div *ngIf="topicForm.value.two.type === 'ARTIST'" class="common-image">
       {{ topicForm.value.two.googleImg }}

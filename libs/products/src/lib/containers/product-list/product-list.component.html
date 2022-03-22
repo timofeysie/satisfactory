@@ -48,6 +48,7 @@
     <demo-app-article-list
       [articles]="articles"
       [displayList]="displayList"
+      (handleSelectedArticle)="onHandleSelectedArticle($event)"
     ></demo-app-article-list>
   </mat-card>
   <div class="form-container">

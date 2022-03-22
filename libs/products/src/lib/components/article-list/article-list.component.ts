@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'demo-app-article-list',
@@ -8,6 +8,14 @@ import { Component, Input } from '@angular/core';
 export class ArticleListComponent {
   @Input() articles: any[];
   @Input() displayList: boolean;
+  @Output() handleSelectedArticle = new EventEmitter<any>();
+
+  onSelectedArticle(article, index) {
+    this.handleSelectedArticle.emit({
+      article: article,
+      index: index
+    })
+  }
 
   /**
    * Credit: Dharman & Dinesh Sah from StackOverflow

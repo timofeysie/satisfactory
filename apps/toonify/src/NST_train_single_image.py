@@ -120,7 +120,7 @@ def calculate_loss(gen_features, orig_feautes, style_featues):
 model=VGG().to(device).eval() 
 
 #initialize the paramerters required for fitting the model
-epoch=200
+epoch=2000
 lr=0.004
 alpha=8
 beta=70

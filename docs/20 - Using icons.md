@@ -53,7 +53,7 @@ faHashtag = faHashtag;
 Add the icon to the template:
 
 ```html
-<fa-icon [icon]="faThumbsUp"></fa-icon></a>
+<fa-icon [icon]="faThumbsUp"></fa-icon>
 ```
 
 Give it a size like this:

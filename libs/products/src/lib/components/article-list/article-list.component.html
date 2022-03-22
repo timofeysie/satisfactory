@@ -1,9 +1,9 @@
 <div *ngIf="displayList">
-  <div *ngFor="let article of articles">
+  <div *ngFor="let article of articles; let i = index">
     <a
       title="{{ article.title }}"
       target="_blank"
-      href="https://www.thelcn.com/news/local/winter-storm-warning-for-wyoming-county-rest-of-glow-to-see-winter-weather-advisory/article_da47ac55-1229-54fd-b376-d314ce619f97.html"
+      (click)="onSelectedArticle(article, index)"
     >
       <div class="row">
         <div class="row">
@@ -25,7 +25,7 @@
     <a
       title="{{ article.title }}"
       target="_blank"
-      href="https://www.thelcn.com/news/local/winter-storm-warning-for-wyoming-county-rest-of-glow-to-see-winter-weather-advisory/article_da47ac55-1229-54fd-b376-d314ce619f97.html"
+      (click)="onSelectedArticle(article, index)"
     >
       <img role="presentation" src="{{ article.image.imageUrl }}" />
     </a>

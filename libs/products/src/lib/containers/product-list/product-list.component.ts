@@ -102,6 +102,10 @@ export class ProductListComponent {
       });
   }
 
+  onHandleSelectedArticle(event: any) {
+    this.onProductSelected(event.article, event.index);
+  }
+
   onNavigateLeft(event) {
     let previousIndex = this.selectedProductIndex - 1;
     if (previousIndex < 0) {

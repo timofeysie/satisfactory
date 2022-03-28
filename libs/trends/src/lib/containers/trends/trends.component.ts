@@ -581,10 +581,14 @@ export class TrendsComponent implements OnInit {
       this.topicForm.controls.links['controls']?.useAPNewsLink.value === true
     ) {
       this.topicForm.controls.links['controls'].newsLink.setValue(
-        'https://en.wikipedia.org/wiki/' + this.newAPSearchTerm
+        this.newAPSearchTerm
       );
+      let newsLabelExt = ' on AP News';
+      if (this.newAPSearchTerm.includes('wikipedia.org')) {
+        newsLabelExt = ' on Wikipedia';
+      }
       this.topicForm.controls.links['controls'].newsLinkLabel.setValue(
-        this.trendTitleSeen + ' on AP News'
+        this.trendTitleSeen + newsLabelExt
       );
     }
   }

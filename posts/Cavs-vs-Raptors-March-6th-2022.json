@@ -35,7 +35,10 @@
     "aspect": "portrait",
     "type": "AI",
     "commonImg": "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Zydrunas_Ilgauskas_Cleveland_Cavaliers.jpg/180px-Zydrunas_Ilgauskas_Cleveland_Cavaliers.jpg\" data-src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Zydrunas_Ilgauskas_Cleveland_Cavaliers.jpg/180px-Zydrunas_Ilgauskas_Cleveland_Cavaliers.jpg\" alt=\"Zydrunas Ilgauskas Cleveland Cavaliers.jpg\" loading=\"lazy\" class=\"sd-image\" style=\"height: 100% !important; max-width: 2169px !important; max-height: 2172px;\">",
-    "googleImg": ""
+    "googleImg": "",
+    "s3": {
+      "Location": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Zydrunas_Ilgauskas_Cleveland_Cavaliers_Hayao.jpg"
+    }
   },
   "two": {
     "title": "Cavs",

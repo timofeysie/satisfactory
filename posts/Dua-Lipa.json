@@ -35,7 +35,10 @@
     "aspect": "landscape",
     "type": "AI",
     "commonImg": "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Dua_Lipa_for_Evian_2021_03.jpg/247px-Dua_Lipa_for_Evian_2021_03.jpg\" data-src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Dua_Lipa_for_Evian_2021_03.jpg/247px-Dua_Lipa_for_Evian_2021_03.jpg\" alt=\"Dua Lipa for Evian 2021 03.jpg\" loading=\"lazy\" class=\"sd-image\" style=\"height: 100% !important; max-width: 675px !important; max-height: 493px;\">",
-    "googleImg": ""
+    "googleImg": "",
+    "s3": {
+      "Location": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Dua_Lipa_for_Evian_2021_03_Hayao-using-palette-knife-and-brush-resized.png"
+    }
   },
   "originalTrend": {
     "title": {

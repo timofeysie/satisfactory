@@ -37,12 +37,13 @@ export class ProductsService {
   }
 
   getCategory(category: string) {
-    console.log('getCategory');
+    console.log('product.service: getCategory', category);
     return new Promise((resolve, reject) => {
       fs.readFile('./posts/' + category, 'utf-8', (err, file) => {
         if (err) {
           reject(err);
         }
+        console.log('resolving', file)
         resolve(JSON.parse(file));
       });
     });
@@ -117,7 +118,6 @@ export class ProductsService {
                 },
                 url: 'https://www.aivsart.com',
                 snippet: metaDesc,
-                date: jsonFile['date'],
                 category: jsonFile['category']
               };
               articles.push(article);

@@ -103,6 +103,7 @@ export class ProductListComponent {
   }
 
   onHandleSelectedArticle(event: any) {
+    console.log('onHandleSelectedArticle: event', event);
     this.onProductSelected(event.article, event.index);
   }
 

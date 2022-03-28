@@ -19,6 +19,7 @@ export class ProductsService {
       category !== null
         ? `http://localhost:3333/api/products/${category}`
         : `http://localhost:3333/api/products`;
+    console.log('getProducts calling ', url);
     return this.httpClient.get<Product[]>(url);
   }
 

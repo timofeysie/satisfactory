@@ -106,6 +106,8 @@ export class TrendsComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(TrendsActions.loadTrends({ payload: 'US' }));
+    this.countryListUsed = 'US';
+    this.setDateAndCountry();
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
   }
 
@@ -430,15 +432,14 @@ export class TrendsComponent implements OnInit {
   downloadImages() {
     const urls = [];
     const one = this.getCommonsImageUrl('one');
-    console.log('downloadImages.one', one);
     let two;
     if (this.topicForm.controls.two) {
       two = this.getCommonsImageUrl('two');
     }
-    console.log('downloadImages.two', two);
     if (one) urls.push(one);
     if (two) urls.push(two);
     for (let i = 0; i < urls.length; i++) {
+      console.log('downloadImages', urls[i]);
       this.trendsService.downloadImages(urls[i]).subscribe();
     }
   }
@@ -745,6 +746,7 @@ export class TrendsComponent implements OnInit {
   updateCountry(category: any): void {
     this.store.dispatch(TrendsActions.loadTrends({ payload: category }));
     this.countryListUsed = category;
+    this.setDateAndCountry();
   }
 
   onUpdateSearchTerm(newSearchTerm: string) {

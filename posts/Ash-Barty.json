@@ -10,7 +10,7 @@
   "linkLabel": "Ash Barty on Wikipedia",
   "linkForSummary": "https://www.abc.net.au/news/2022-01-27/australian-open-ash-barty-reaches-finals/100786776",
   "links": {
-    "newsLink": "https://en.wikipedia.org/wiki/https://apnews.com/hub/https://apnews.com/hub/Ash-Barty",
+    "newsLink": "https://apnews.com/hub/https://apnews.com/hub/Ash-Barty",
     "newsLinkLabel": "Ash Barty on AP News",
     "useAPNewsLink": true,
     "addAPNewsContent": "",

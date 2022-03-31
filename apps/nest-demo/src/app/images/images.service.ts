@@ -19,7 +19,7 @@ export class ImagesService {
   }
 
   async search(searchString: string): Promise<any> {
-    const fullUrl =this.getInfo(searchString);
+    const fullUrl = this.getInfo(searchString);
     console.log('ImagesService.fullUrl', fullUrl);
     return new Promise((resolve, reject) => {
       request(fullUrl, function (error, response, body) {
@@ -44,7 +44,7 @@ export class ImagesService {
   getInfo(searchString: string) {
     const baseUrl = 'https://commons.wikimedia.org/w/index.php?search=';
     const params = '&title=Special:MediaSearch&go=Go';
-    const fullUrl = baseUrl + searchString + params;
+    const fullUrl = baseUrl + encodeURI(searchString) + params;
     return fullUrl;
   }
 

@@ -99,6 +99,13 @@ export class ProductListComponent {
       .getProducts(this.selectedProductName)
       .subscribe((result) => {
         this.selectedProduct = result;
+        document.body.scrollTop = 0;
+        window.scroll({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+        console.log('document.body.scrollTop = 0;');
       });
   }
 

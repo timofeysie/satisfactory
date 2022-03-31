@@ -10,7 +10,7 @@
   "linkLabel": "Nadal on Wikipedia",
   "linkForSummary": "https://www.theguardian.com/sport/2022/jan/28/rafael-nadal-outplays-matteo-berrettini-to-reach-sixth-australian-open-final-tennis",
   "links": {
-    "newsLink": "https://en.wikipedia.org/wiki/https://apnews.com/hub/Nadal",
+    "newsLink": "https://apnews.com/hub/Nadal",
     "newsLinkLabel": "Nadal on AP News",
     "useAPNewsLink": true,
     "addAPNewsContent": "",

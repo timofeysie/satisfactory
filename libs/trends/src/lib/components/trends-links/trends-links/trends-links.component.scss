@@ -23,8 +23,7 @@
 }
 
 .news-links {
-  // width: 25%;
-  // max-width: 276px;
+  max-width: 350px;
 }
 
 .update-position {
@@ -34,7 +33,6 @@
 
 .news-link {
   width: 90%;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }

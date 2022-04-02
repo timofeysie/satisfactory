@@ -43,14 +43,19 @@ export class ProductsService {
         if (err) {
           reject(err);
         }
-        console.log('resolving', file)
-        resolve(JSON.parse(file));
+        if (file) {
+          console.log('ProductsService.getCategory: resolving', file);
+          resolve(JSON.parse(file));
+        } else {
+          console.log('ProductsService.getCategory: rejecting', err);
+          reject(err);
+        }
       });
     });
   }
 
   loadList() {
-    console.log('loadie');
+    console.log('ProductsService.loadList');
     return new Promise((resolve, reject) => {
       const fileContents = fs.readFileSync('./articles/articles.json', 'utf-8');
       const jsonFile = JSON.parse(fileContents);
@@ -118,7 +123,7 @@ export class ProductsService {
                 },
                 url: 'https://www.aivsart.com',
                 snippet: metaDesc,
-                category: jsonFile['category']
+                category: jsonFile['category'],
               };
               articles.push(article);
             }

@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div *ngIf="selectedProduct.one.aspect === 'portrait'" class="column">
+<div *ngIf="selectedProduct.one.aspect === 'portrait' && selectedProduct.one.type !== 'MASHUP'" class="column">
   <div class="row">
     <div *ngIf="selectedProduct.one.s3">
       <img src="{{ selectedProduct.one.s3.Location }}" />

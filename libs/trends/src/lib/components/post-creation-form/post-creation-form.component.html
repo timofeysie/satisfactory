@@ -9,6 +9,7 @@
               >30 characters is recommended</span
             >
           </mat-label>
+          <div>{{ fullTopicForm.controls.pageTitle.value.length }}</div>
           <input matInput value="pageTitle" formControlName="pageTitle" />
         </mat-form-field>
         <mat-form-field class="column full-width-block" appearance="fill">
@@ -108,12 +109,13 @@
   it may not be needed, which would be the case here. -->
           <div
             class="common-image"
-            *ngIf="fullTopicForm.value.one.type === 'AI'"
-          ></div>
+            *ngIf="fullTopicForm.value.one.type === 'AI' || fullTopicForm.value.one.type === 'MASHUP'"
+          >
           <span
             class="common-image"
             [innerHTML]="fullTopicForm.value.one.commonImg"
           ></span>
+          </div>
           <div
             *ngIf="fullTopicForm.value.one.type === 'ARTIST'"
             class="common-image"
@@ -238,15 +240,29 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
+          <!-- two = AI use two.commonImg -->
+          <!-- two = ARTIST use two.googleImg -->
+          <!-- two = MASHUP use two.commonImg -->
           <div
             class="common-image"
             *ngIf="fullTopicForm.value.two.type === 'AI'"
           >
             <span
               class="common-image"
-              [innerHTML]="fullTopicForm.value.one.commonImg"
+              [innerHTML]="fullTopicForm.value.two.commonImg"
             ></span>
           </div>
+          <div
+            class="common-image"
+            *ngIf="fullTopicForm.value.two.type === 'MASHUP'"
+          >
+            <span
+              class="common-image"
+              [innerHTML]="fullTopicForm.value.two.commonImg"
+            ></span>
+          </div>
+          <!-- The original design where an AI competes against and artist, the artist can
+            choose any image they want from Google as source material for their work. -->
           <div
             *ngIf="fullTopicForm.value.two.type === 'ARTIST'"
             class="common-image"

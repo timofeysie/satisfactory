@@ -194,6 +194,7 @@ export class TrendsComponent implements OnInit {
   }
 
   onTrendSeen(trend: any) {
+    console.log('trend', trend);
     this.trendTitleSeen = trend.title.query;
     this.newWikiSearchTerm = this.trendTitleSeen;
     this.trendDetails = trend;

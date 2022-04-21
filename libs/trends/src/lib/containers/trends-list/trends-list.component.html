@@ -29,5 +29,16 @@
   <mat-card>
     Cleanup raw files
     <button mat-button class="outline" (click)="cleanup()">Cleanup</button>
+    Custom topic
+    <mat-form-field>
+      <input
+        class="login-name custom-input"
+        matInput
+        placeholder="custom search"
+        type="text"
+        [(ngModel)]="searchText"
+      />
+    </mat-form-field>
+     <button mat-button class="outline" (click)="goForIt()">Go for it</button>
   </mat-card>
 </ng-template>

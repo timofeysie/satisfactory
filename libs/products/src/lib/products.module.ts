@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { ProductsComponent } from './containers/products/products.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -23,6 +24,7 @@ import { DetailLinksComponent } from './components/detail-links/article-list.com
     CommonModule,
     MaterialModule,
     FontAwesomeModule,
+    FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([{ path: '', component: ProductsComponent }]),
     StoreModule.forFeature('products', productsReducer, {

@@ -29,16 +29,17 @@
   <mat-card>
     Cleanup raw files
     <button mat-button class="outline" (click)="cleanup()">Cleanup</button>
-    Custom topic
+    <br />
+    Custom topic: &nbsp;
     <mat-form-field>
       <input
         class="login-name custom-input"
         matInput
-        placeholder="custom search"
+        placeholder="search text"
         type="text"
         [(ngModel)]="searchText"
       />
     </mat-form-field>
-     <button mat-button class="outline" (click)="goForIt()">Go for it</button>
+    &nbsp; <button mat-button class="outline" (click)="goForIt()">Go for it</button>
   </mat-card>
 </ng-template>

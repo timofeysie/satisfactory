@@ -1,0 +1,1 @@
+article:<goose3.article.Article object at 0x000002005BD71520>

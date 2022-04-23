@@ -32,12 +32,27 @@ export class TrendsListComponent {
       formattedTraffic: '',
       relatedQueries: [],
       image: {
-        newsUrl: '',
-        source: '',
-        imageUrl: '',
+        newsUrl: 'https://en.wikipedia.org/wiki/' + this.searchText,
+        source: 'Wikipedia',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/a/ab/Wikipedia-logo-pdc.pngg',
       },
-      articles: [],
-      shareUrl: '',
+      articles: [
+        {
+          image: {
+            newsUrl: 'https://en.wikipedia.org/wiki/' + this.searchText,
+            source: 'Wikipedia',
+            imageUrl:
+              'https://upload.wikimedia.org/wikipedia/commons/a/ab/Wikipedia-logo-pdc.png',
+          },
+          snippet: 'on Wikipedia',
+          source: 'Wikipedia',
+          timeAgo: '',
+          title: this.searchText,
+          url: 'https://en.wikipedia.org/wiki/' + this.searchText,
+        },
+      ],
+      shareUrl: 'https://en.wikipedia.org/wiki/' + this.searchText
     };
     this.seeTrend(custom);
   }

@@ -31,7 +31,7 @@ export class TrendsService {
     console.log('kickoffArticleSummary for', linkForSummary);
     return this.httpClient
       .post<any>('http://localhost:3333/api/bart', {
-        link: linkForSummary,
+        link: encodeURI(linkForSummary),
       })
       .pipe(
         catchError((error) => {
@@ -51,6 +51,7 @@ export class TrendsService {
   }
 
   downloadImages(linksForArticle: any) {
+    console.log('downloadImages', linksForArticle)
     return this.httpClient
       .post<any>('http://localhost:3333/api/gan', {
         links: linksForArticle,
@@ -72,17 +73,19 @@ export class TrendsService {
 
   uploadSelectedImage(selectedImage: string) {
     const path = 'http://localhost:3333/api/gan/' + selectedImage;
-    console.log('path', path);
+    console.log('uploadSelectedImage: path', path);
     return this.httpClient.get<any>(path);
   }
 
   retrieveArticleSummary() {
+    console.log('retrieveArticleSummary');
     return this.httpClient.get('http://localhost:3333/api/bart', {
       responseType: 'text',
     });
   }
 
   retrieveArticleSummaryById(id?: string) {
+    console.log('retrieveArticleSummaryById: id', id);
     const encodedId = encodeURIComponent(id);
     return this.httpClient.get('http://localhost:3333/api/bart/' + encodedId, {
       responseType: 'text',
@@ -90,6 +93,7 @@ export class TrendsService {
   }
 
   generateText(seed: string) {
+    console.log('generateText with seed:', seed);
     const encodedSeed = encodeURIComponent(seed);
     const url = 'http://localhost:3333/api/generate/' + encodedSeed;
     console.log('calling', url);
@@ -105,6 +109,7 @@ export class TrendsService {
   }
 
   kickoffGenerateImages(): any {
+    console.log('kickoffGenerateImages');
     return this.httpClient.patch(
       'http://localhost:3333/api/gan/something', {});
   }

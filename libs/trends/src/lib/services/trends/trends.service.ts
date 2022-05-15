@@ -17,6 +17,7 @@ export class TrendsService {
   }
 
   postTrendTopic(body: any): Observable<any> {
+    console.log('posted ~~~~~')
     return this.httpClient.post<any>('http://localhost:3333/api/trends/', body);
   }
 

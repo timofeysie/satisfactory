@@ -124,6 +124,7 @@ export class ProductsService {
                 url: 'https://www.aivsart.com',
                 snippet: metaDesc,
                 category: jsonFile['category'],
+                fileName: fileName,
               };
               articles.push(article);
             }

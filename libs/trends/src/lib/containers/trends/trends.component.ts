@@ -33,7 +33,7 @@ export class TrendsComponent implements OnInit {
   isGeneratedTextUpdating: boolean;
   selectTwo: boolean;
   topicForm = this.fb.group({
-    version: ['0.0.3'],
+    version: ['0.0.4'],
     date: [''],
     category: [''],
     country: [''],
@@ -140,7 +140,9 @@ export class TrendsComponent implements OnInit {
    * by BART are removed.
    */
   onRetrieveArticleSummary() {
-    const linkForSummary =  encodeURIComponent(this.topicForm.controls.linkForSummary.value+'.txt');
+    const linkForSummary = encodeURIComponent(
+      this.topicForm.controls.linkForSummary.value + '.txt'
+    );
     this.trendsService
       .retrieveArticleSummaryById(linkForSummary)
       .subscribe((result) => {
@@ -377,6 +379,11 @@ export class TrendsComponent implements OnInit {
     this.fillLinks();
     this.setAIorArtistPictureData();
     this.getRelatedQueries();
+    // This is pretty useless at the moment
+    // this.getGeneratedText();
+  }
+
+  onKickoffGenerateText(event: any) {
     this.getGeneratedText();
   }
 

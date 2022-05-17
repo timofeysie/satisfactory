@@ -4,10 +4,12 @@ The release dates should coincide with all the other apps for this project.
 
 ## Version 0.0.4
 
-Started May 15.
+Started May 15, 2022.
 
 ```txt
 add detail file name to generated list
+added a Generate GPT2 text button and removed automatic trigger
+created StoryService
 ```
 
 ## Version 0.0.3

@@ -32,6 +32,7 @@ export class PostCreationFormComponent {
   @Output() imageSelected = new EventEmitter<string>();
   @Output() generatedTextUpdated = new EventEmitter<boolean>();
   @Output() kickoffGenerateImages = new EventEmitter<any>();
+  @Output() kickoffGenerateText = new EventEmitter<any>();
   @Output() preFillDescription = new EventEmitter<any>();
   @Output() selectedCategory = new EventEmitter<any>();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
@@ -139,5 +140,9 @@ export class PostCreationFormComponent {
 
   kickoffGenerate() {
     this.kickoffGenerateImages.emit();
+  }
+
+  kickoffGeneratedTextUpdate() {
+    this.kickoffGenerateText.emit();
   }
 }

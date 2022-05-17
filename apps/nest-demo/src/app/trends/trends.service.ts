@@ -19,6 +19,7 @@ export class TrendsService {
       console.log(fileName,'writing', createTrendDto);
       file.write(JSON.stringify(createTrendDto));
       file.end();
+      
       return 'This action adds a new trend';
     } else {
       console.log('TrendsService.create: no pageTitle');

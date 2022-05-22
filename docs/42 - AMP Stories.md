@@ -7,9 +7,13 @@ title="Example AMP Story in Next.js"
 publisher="AMP Project"
 publisher-logo-src="https://amp.dev/favicons/coast-228x228.png"
 poster-portrait-src="https://amp.dev/static/samples/img/story_dog2_portrait.jpg"
-poster-square-src="https://amp.dev/static/samples/img/story_dog2_square.jpg"
+poster-square-src="0"
 poster-landscape-src="https://amp.dev/static/samples/img/story_dog2_landscape.jpg"
 ```
+
+Then there is the content for each page, such as this:
+
+<https://amp.dev/static/samples/img/story_dog2.jpg>
 
 ### Publisher content
 
@@ -197,13 +201,13 @@ The [Google Docs say](https://developers.google.com/search/docs/advanced/appeara
 
 Download the image and the properties show: 720 x 960.
 
-The different posters are:
+The different posters sizes are and the original are:
 
 ```txt
-story_dog2_portrait.jpg"
-story_dog2_square.jpg"
-story_dog2_landscape.jpg"
-tory_dog2.jpg"
+story_dog2_portrait.jpg  720 x 960
+story_dog2_square.jpg 720 x 720
+story_dog2_landscape.jpg 720 x 541
+story_dog2.jpg 720 x 1279
 ```
 
 They are all the same image, but in different aspects.  The dog image obviously came from a hi res original, probably from a digital camera.  Our images will be quite a bit smaller, and I'm not sure how this will affect things.
@@ -211,6 +215,38 @@ They are all the same image, but in different aspects.  The dog image obviously 
 But it appears like, as well as the thumbnails we have been meaning to create, we will need to create separate files for these aspects as well.  That's five images for each artwork people.  AWS is going to love that!
 
 To accomplish this, one way would be to use [ImageMagic](https://stackabuse.com/working-with-images-in-node-js-graphicsmagick-and-imagemagick/) which I have read about before.  It has a cli as well as an npm package that can be used from node which is where we will use it.
+
+The good news is the image dimensions will become available:
+
+```js
+{
+  Format: 'JPEG (Joint Photographic Experts Group JFIF format)',
+  format: 'JPEG',
+  Geometry: '213x133',
+  size: { width: 213, height: 133 },
+  Class: 'DirectClass',
+  Type: 'true color',
+  Depth: '8 bits-per-pixel component',
+  ...
+  Signature: 'ae5b5e492457ac667e9a4cb1e7b78b7e6459fbf342ea741857ee4e9e1092ad73',
+  Tainted: 'False',
+  path: 'sample_image.jpg'
+}
+```
+
+One we have that info, something like this will work to crop the image to the wanted size:
+
+```js
+const gm = require('gm');
+
+// Crop image to 100x100 at position 20, 20
+gm("sample_image.jpg")
+    .crop(100, 100, 20, 20)
+    .write('resized_img_crop.jpg', function (err, value) {
+        if(err) console.log(err);
+        console.log(value);
+    });
+```
 
 ## Ads
 

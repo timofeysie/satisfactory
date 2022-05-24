@@ -8,9 +8,11 @@ Started May 15, 2022.
 
 ```txt
 add detail file name to generated list
-added a Generate GPT2 text button and removed automatic trigger
+add a Generate GPT2 text button and removed automatic trigger
 created StoryService
-added apps/toonify/src/cartooned_img/ to gitignore
+add apps/toonify/src/cartooned_img/ to gitignore
+add image GET by id endpoint to return metadata for an image
+add image-preview container and sample call to the image GET endpoint
 ```
 
 ## Version 0.0.3

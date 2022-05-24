@@ -109,12 +109,18 @@
   it may not be needed, which would be the case here. -->
           <div
             class="common-image"
-            *ngIf="fullTopicForm.value.one.type === 'AI' || fullTopicForm.value.one.type === 'MASHUP'"
+            *ngIf="
+              fullTopicForm.value.one.type === 'AI' ||
+              fullTopicForm.value.one.type === 'MASHUP'
+            "
           >
-          <span
-            class="common-image"
-            [innerHTML]="fullTopicForm.value.one.commonImg"
-          ></span>
+            <span
+              class="common-image"
+              [innerHTML]="fullTopicForm.value.one.commonImg"
+            ></span>
+            <demo-app-image-preview
+              [imageFileName]="fullTopicForm.value.one?.imageChosen"
+            ></demo-app-image-preview>
           </div>
           <div
             *ngIf="fullTopicForm.value.one.type === 'ARTIST'"

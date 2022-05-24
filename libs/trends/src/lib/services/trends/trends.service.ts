@@ -17,7 +17,7 @@ export class TrendsService {
   }
 
   postTrendTopic(body: any): Observable<any> {
-    console.log('posted ~~~~~')
+    console.log('posted ~~~~~');
     return this.httpClient.post<any>('http://localhost:3333/api/trends/', body);
   }
 
@@ -52,7 +52,7 @@ export class TrendsService {
   }
 
   downloadImages(linksForArticle: any) {
-    console.log('downloadImages', linksForArticle)
+    console.log('downloadImages', linksForArticle);
     return this.httpClient
       .post<any>('http://localhost:3333/api/gan', {
         links: linksForArticle,
@@ -111,7 +111,12 @@ export class TrendsService {
 
   kickoffGenerateImages(): any {
     console.log('kickoffGenerateImages');
-    return this.httpClient.patch(
-      'http://localhost:3333/api/gan/something', {});
+    return this.httpClient.patch('http://localhost:3333/api/gan/something', {});
+  }
+
+  getImageMetadata(fileName: string) {
+    return this.httpClient.get('http://localhost:3333/api/image/' + fileName, {
+      responseType: 'text',
+    });
   }
 }

@@ -18,8 +18,8 @@ export class ImageController {
   }
 
   @Get(':id')
-  findOne(@Param('id') imagePath: string) {
-    return this.imageService.findOne(imagePath);
+  async findOne(@Param('id') imagePath: string) {
+    return await this.imageService.findOne(imagePath);
   }
 
   @Patch(':id')

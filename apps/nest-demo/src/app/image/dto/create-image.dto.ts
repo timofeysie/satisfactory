@@ -1,1 +1,3 @@
-export class CreateImageDto {}
+export class CreateImageDto {
+  imageName: string;
+}

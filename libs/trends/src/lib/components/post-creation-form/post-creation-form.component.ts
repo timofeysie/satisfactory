@@ -116,7 +116,19 @@ export class PostCreationFormComponent {
     });
   }
 
+  /**
+   * This action lets the user choose which image will be uploaded to S3 and
+   * attached to the json as a url to that location.
+   */
   onUploadImage() {
+    this.fileInput.nativeElement.click();
+  }
+
+  /**
+   * This is used to choose a source image to get meta data from and then let the user
+   * choose the different aspect images to be created which should be centered on the subject.
+   */
+  onChooseSourceImage() {
     this.fileInput.nativeElement.click();
   }
 

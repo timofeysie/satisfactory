@@ -119,8 +119,12 @@
               [innerHTML]="fullTopicForm.value.one.commonImg"
             ></span>
             <demo-app-image-preview
+              *ngIf="fullTopicForm.value.one?.imageChosen"
               [imageFileName]="fullTopicForm.value.one?.imageChosen"
             ></demo-app-image-preview>
+            <!-- <demo-app-image-preview
+              [imageFileName]="fullTopicForm.value.one?.imageChosen"
+            ></demo-app-image-preview> -->
           </div>
           <div
             *ngIf="fullTopicForm.value.one.type === 'ARTIST'"
@@ -154,7 +158,18 @@
               accept=".jpg, .png, .jpeg .gif"
               (change)="upload($event)"
             />
-            <button type="button" (click)="onUploadImage()" class="outline">
+            <button
+              type="button"
+              (click)="onChooseSourceImage()"
+              class="outline"
+            >
+              Choose source image
+            </button>
+            <button
+              type="button"
+              (click)="onUploadImage()"
+              class="separator-big margin-big outline"
+            >
               Choose generated image
             </button>
             <button

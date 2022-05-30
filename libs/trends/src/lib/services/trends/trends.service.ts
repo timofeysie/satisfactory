@@ -114,8 +114,24 @@ export class TrendsService {
     return this.httpClient.patch('http://localhost:3333/api/gan/something', {});
   }
 
+  /**
+   * 
+   * @param fileName Load the meta data for a file in the test_img directory.
+   * @returns 
+   */
   getImageMetadata(fileName: string) {
     return this.httpClient.get('http://localhost:3333/api/image/' + fileName, {
+      responseType: 'text',
+    });
+  }
+
+  /**
+   * Prepare cropped poster aspect images from the original.
+   * @param body 
+   * @returns 
+   */
+  postImageMetadata(body: any) {
+    return this.httpClient.post('http://localhost:3333/api/image/', body, {
       responseType: 'text',
     });
   }

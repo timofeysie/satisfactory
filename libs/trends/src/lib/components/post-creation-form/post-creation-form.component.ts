@@ -30,12 +30,15 @@ export class PostCreationFormComponent {
   @Output() retrieveArticleSummary = new EventEmitter<any>();
   @Output() chooseArticleSummary = new EventEmitter<any>();
   @Output() imageSelected = new EventEmitter<string>();
+  @Output() originalImageSelected = new EventEmitter<string>();
   @Output() generatedTextUpdated = new EventEmitter<boolean>();
   @Output() kickoffGenerateImages = new EventEmitter<any>();
   @Output() kickoffGenerateText = new EventEmitter<any>();
   @Output() preFillDescription = new EventEmitter<any>();
   @Output() selectedCategory = new EventEmitter<any>();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
+  @ViewChild('originalFileInput', { static: false })
+  originalFileInput: ElementRef;
   @ViewChild('summaryInput', { static: false }) summaryInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
@@ -129,13 +132,24 @@ export class PostCreationFormComponent {
    * choose the different aspect images to be created which should be centered on the subject.
    */
   onChooseSourceImage() {
-    this.fileInput.nativeElement.click();
+    this.originalFileInput.nativeElement.click();
   }
 
   upload(event) {
     if (event.target.files.length > 0) {
       const fileChosen = event.target.files[0]['name'];
       this.imageSelected.emit(fileChosen);
+    } else {
+      console.error('event.target.files array is empty');
+    }
+  }
+
+  sourceImageChosen(event) {
+    console.log('event', event);
+    if (event.target.files.length > 0) {
+      const fileChosen = event.target.files[0]['name'];
+      console.log('fileChose', fileChosen);
+      this.originalImageSelected.emit(fileChosen);
     } else {
       console.error('event.target.files array is empty');
     }

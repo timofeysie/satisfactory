@@ -22,32 +22,50 @@ export class ImagePreviewComponent implements OnInit {
 
   ngOnInit() {
     this._imageFileName.subscribe((fileName) => {
-      console.log('fileName', fileName);
       this.trendsService.getImageMetadata(fileName).subscribe((result) => {
-        console.log('result', result);
         this.metaData = result;
         // setup initial offsets
-        const body = this.preparePostBody(result, 0, 0);
-        // call new POST endpoint.
-        
+        const body = this.preparePostBody(fileName, 'portrait', JSON.parse(result), 0, 0);
+        this.trendsService.postImageMetadata(body).subscribe((result2) => {
+          console.log('post result', result2);
+        });
       });
     });
   }
 
   preparePostBody(
+    fileName: string,
+    aspect: string,
     _metaData: any,
     leftOffsetPre?: number,
     topOffsetPre?: number
   ) {
     const body = {
-      path: '',
-      fileName: 'xxx',
-      original: { width: 535, height: 921 },
+      path: 'apps/toonify/src/test_img/',
+      fileName: fileName,
+      original: { width: _metaData.width, height: _metaData.height },
+      aspect: aspect,
     };
-    body['portrait'] = this.getAspectRation(_metaData, 640, 0, 0);
-    body['landscape'] = this.getAspectRation(_metaData, 640, 0, 0);
-    body['square'] = this.getAspectRation(_metaData, 640, 0, 0);
-    console.log('body', body);
+    const height = this.getHeight(aspect);
+    body['new'] = this.getAspectRation(
+      _metaData,
+      height,
+      leftOffsetPre,
+      topOffsetPre
+    );
+    return body;
+  }
+
+  getHeight(aspect) {
+    let height;
+    if (aspect === 'portrait') {
+      height = 640;
+    } else if (aspect === 'landscape') {
+      height = 640;
+    } else if (aspect === 'square') {
+      height = 640;
+    }
+    return height;
   }
 
   /**

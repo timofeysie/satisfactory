@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import Sharp from 'sharp';
+import { faPortrait } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable()
 export class ImageService {
@@ -10,24 +11,31 @@ export class ImageService {
    * square 720 x 720
    * landscape 720 x 541
    * regular 720 x 1279
+   *
+   * payload:
+   *   path: "",
+   *   fileName: "xxx",
+   *   original: { width: 535, height: 921 },
+   *   portrait: { left: leftOffsetPre, top: topOffsetPre, width: widthPre, height: heightPre },
+   *   landscape: { left: leftOffsetPre, top: topOffsetPre, width: widthPre, height: heightPre },
+   *   square: {left: leftOffsetPre, top: topOffsetPre, width: widthPre, height: heightPre },
    */
-  create(createImageDto: CreateImageDto) {
-    const dir = 'apps/toonify/src/test_img/';
-    const imagePath = dir + encodeURI(createImageDto.imageName);
-    const saveImagePath = dir + 'new' + encodeURI(createImageDto.imageName);
+  create(createImageDto: any) {
+    console.log('ImageService.create', createImageDto);
+    const dir = createImageDto.path;
+    const imagePath = dir + createImageDto.fileName;
+    const saveImagePath =
+      dir + createImageDto.aspect + '-' + createImageDto.fileName;
     console.log('imagePath', imagePath);
     const image = Sharp(imagePath);
     image.metadata().then((metadata) => {
       console.log('meta', metadata);
-      const originalRatio = metadata.width / metadata.height;
-      const portraitHeight = 640;
-      const portraitWidth = Math.round(portraitHeight * originalRatio);
       Sharp(imagePath)
         .extract({
-          left: metadata.width / 4,
-          top: metadata.height / 4,
-          width: portraitWidth,
-          height: portraitHeight,
+          left: createImageDto.new.left,
+          top: createImageDto.new.top,
+          width: metadata.new.width,
+          height: metadata.new.height,
         })
         .toFile(saveImagePath, (err) => {
           console.log('done');

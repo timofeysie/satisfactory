@@ -158,6 +158,13 @@
               accept=".jpg, .png, .jpeg .gif"
               (change)="upload($event)"
             />
+            <input
+              #originalFileInput
+              type="file"
+              class="file-input"
+              accept=".jpg, .png, .jpeg .gif"
+              (change)="sourceImageChosen($event)"
+            />
             <button
               type="button"
               (click)="onChooseSourceImage()"

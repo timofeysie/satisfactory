@@ -297,6 +297,7 @@ export class TrendsComponent implements OnInit {
           this.topicForm.controls['one']['controls']?.imageChosen?.setValue(
             selectedImage
           );
+          // which model is used to generate the image
           const modelUser = this.getModelUser(selectedImage);
           // set the author
           this.topicForm.controls['one']['controls']?.author?.setValue(
@@ -315,6 +316,20 @@ export class TrendsComponent implements OnInit {
           );
         }
       });
+  }
+
+  /**
+   * Similar to the above, except we just set the image chosen without performing
+   * any of the actions.
+   * This only happens for image one because these are functions that will generate a
+   * set of posters for the entire post.
+   * @param selectedImage 
+   */
+  onOriginalImageSelected(selectedImage: string) {
+    this.topicForm.controls['one']['controls']?.imageChosen?.setValue(
+      selectedImage
+    );
+    this.imageChosen = selectedImage;
   }
 
   /**

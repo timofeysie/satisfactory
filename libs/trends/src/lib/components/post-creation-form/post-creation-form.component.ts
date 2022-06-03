@@ -145,7 +145,6 @@ export class PostCreationFormComponent {
   }
 
   sourceImageChosen(event) {
-    console.log('event', event);
     if (event.target.files.length > 0) {
       const fileChosen = event.target.files[0]['name'];
       console.log('fileChose', fileChosen);

@@ -24,8 +24,13 @@ export class ImageService {
     console.log('ImageService.create', createImageDto);
     const dir = createImageDto.path;
     const imagePath = dir + createImageDto.fileName;
-    const saveImagePath =
-      dir + createImageDto.aspect + '-' + createImageDto.fileName;
+    const imageNameAndExtension = this.removeFileExt(createImageDto.fileName);
+    const newName =
+      imageNameAndExtension.fileName +
+      '-' +
+      createImageDto.aspect +
+      imageNameAndExtension.extension; 
+    const saveImagePath = dir + newName;
     console.log('imagePath', imagePath);
     const image = Sharp(imagePath);
     image.metadata().then((metadata) => {
@@ -34,18 +39,29 @@ export class ImageService {
         .extract({
           left: createImageDto.new.left,
           top: createImageDto.new.top,
-          width: metadata.new.width,
-          height: metadata.new.height,
+          width: createImageDto.new.width,
+          height: createImageDto.new.height,
         })
         .toFile(saveImagePath, (err) => {
-          console.log('done');
+          console.log('done creating', newName);
           if (err) {
-            console.log('err', err);
+            console.log('err creating ' + newName, err);
           }
           // Extract a region of the input image, saving in the same format.
         });
     });
-    return 'This action adds a new image';
+    return newName;
+  }
+
+  removeFileExt(text: string) {
+    const dot = text.lastIndexOf('.');
+    const newText = text.substring(0, dot);
+    const ext = text.substring(dot, text.length);
+    const result = {
+      fileName: newText,
+      extension: ext
+    }
+    return result;
   }
 
   findAll() {

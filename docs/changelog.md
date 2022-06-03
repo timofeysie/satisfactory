@@ -13,6 +13,7 @@ created StoryService
 add apps/toonify/src/cartooned_img/ to gitignore
 add image GET by id endpoint to return metadata for an image
 add image-preview container and sample call to the image GET endpoint
+created aspect data for portrait and generic image cropping service
 ```
 
 ## Version 0.0.3

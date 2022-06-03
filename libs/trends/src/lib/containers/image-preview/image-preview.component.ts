@@ -13,6 +13,7 @@ export class ImagePreviewComponent implements OnInit {
   }
   private _imageFileName = new BehaviorSubject<string>('');
   metaData: any;
+  portraitData: any;
 
   constructor(private trendsService: TrendsService) {}
 
@@ -26,6 +27,7 @@ export class ImagePreviewComponent implements OnInit {
         this.metaData = result;
         // setup initial offsets
         const body = this.preparePostBody(fileName, 'portrait', JSON.parse(result), 0, 0);
+        this.portraitData = body;
         this.trendsService.postImageMetadata(body).subscribe((result2) => {
           console.log('post result', result2);
         });

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 import { TrendsService } from '../../services/trends/trends.service';
 
@@ -14,22 +15,40 @@ export class ImagePreviewComponent implements OnInit {
   private _imageFileName = new BehaviorSubject<string>('');
   metaData: any;
   portraitData: any;
+  portraitImg: SafeResourceUrl;
 
-  constructor(private trendsService: TrendsService) {}
+  constructor(
+    private trendsService: TrendsService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   get items() {
     return this._imageFileName.getValue();
   }
 
   ngOnInit() {
+    console.log('ngOnInit');
     this._imageFileName.subscribe((fileName) => {
-      this.trendsService.getImageMetadata(fileName).subscribe((result) => {
-        this.metaData = result;
+      console.log('fileName', fileName);
+      this.trendsService.getImageMetadata(fileName).subscribe((result1) => {
+        console.log('trendsService.getImageMetadata: result', result1);
+        this.metaData = result1;
         // setup initial offsets
-        const body = this.preparePostBody(fileName, 'portrait', JSON.parse(result), 0, 0);
-        this.portraitData = body;
-        this.trendsService.postImageMetadata(body).subscribe((result2) => {
-          console.log('post result', result2);
+        const body = this.preparePostBody(
+          fileName,
+          'portrait',
+          JSON.parse(result1),
+          0,
+          0
+        );
+        console.log('body', body);
+        this.trendsService.postImageMetadata(body).subscribe((newFileName) => {
+          body['newFileName'] = newFileName;
+          this.portraitData = body;
+          this.portraitImg = this.sanitizer.bypassSecurityTrustResourceUrl(
+            this.portraitData.newFileName
+          );
+          console.log('this.portraitData', this.portraitData);
         });
       });
     });
@@ -43,7 +62,7 @@ export class ImagePreviewComponent implements OnInit {
     topOffsetPre?: number
   ) {
     const body = {
-      path: 'apps/toonify/src/test_img/',
+      path: 'dist/apps/public/',
       fileName: fileName,
       original: { width: _metaData.width, height: _metaData.height },
       aspect: aspect,

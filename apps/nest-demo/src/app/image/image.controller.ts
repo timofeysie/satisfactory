@@ -9,6 +9,7 @@ export class ImageController {
 
   @Post()
   create(@Body() createImageDto: CreateImageDto) {
+    console.log('------------------ createImageDto', createImageDto);
     return this.imageService.create(createImageDto);
   }
 
@@ -19,6 +20,7 @@ export class ImageController {
 
   @Get(':id')
   async findOne(@Param('id') imagePath: string) {
+    console.log('GET', imagePath);
     return await this.imageService.findOne(imagePath);
   }
 

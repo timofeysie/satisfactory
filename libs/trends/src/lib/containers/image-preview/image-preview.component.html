@@ -1,4 +1,4 @@
-<p>Original file {{ imageFileName }}</p>
+<p>Original file={{portraitData?.portraitImg}}= {{ imageFileName }}</p>
 
 <mat-grid-list cols="2" rowHeight="2:1" *ngIf="metaData">
   <mat-grid-tile
@@ -9,12 +9,12 @@
   <mat-grid-tile>Landscape</mat-grid-tile>
   <mat-grid-tile
     ><div *ngIf="portraitData">
-      <div>Portrait</div>
+      <!-- <div>Portrait</div>
       <div>width: {{ portraitData.new.width }}</div>
       <div>left: {{ portraitData.new.left }}</div>
       <div>height: {{ portraitData.new.height }}</div>
-      <div>top: {{ portraitData.new.top }}</div>
-      <img src="{{ './../../../../../../' + portraitData.path + portraitData.fileName }}" />
+      <div>top: {{ portraitData.new.top }}</div> -->
+      <img src="{{ 'C:/Users/timof/repos/satisfactory/dist/apps/public/' + portraitImg }}" />
     </div>
   </mat-grid-tile>
   <mat-grid-tile>Square</mat-grid-tile>

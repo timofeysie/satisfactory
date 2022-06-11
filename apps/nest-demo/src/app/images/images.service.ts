@@ -20,7 +20,7 @@ export class ImagesService {
 
   async search(searchString: string): Promise<any> {
     const fullUrl = this.getInfo(searchString);
-    console.log('ImagesService.fullUrl', fullUrl);
+    console.log('ImagesService.search: fullUrl', fullUrl);
     return new Promise((resolve, reject) => {
       request(fullUrl, function (error, response, body) {
         if (error) {
@@ -35,7 +35,7 @@ export class ImagesService {
         for(const item of Object.keys(list)) {
           result.push(list[item].innerHTML.toString().trim());
         }
-        console.log('list', result.length);
+        console.log('ImagesService.search: list', result.length);
         resolve(result);
       });
     });

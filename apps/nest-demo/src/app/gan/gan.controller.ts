@@ -24,7 +24,7 @@ export class GanController {
   @Post()
   async downloadImage(@Body() linkWrapper: any) {
     const name = this.parsePath(linkWrapper.links);
-    const pathToImage = 'apps/toonify/src/test_img/' + name.filename;
+    const pathToImage = 'dist/apps/public/' + name.filename;
     const response = await this.httpService.axiosRef({
       url: linkWrapper.links,
       method: 'GET',

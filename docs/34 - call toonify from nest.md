@@ -94,7 +94,7 @@ FileNotFoundError: [Errno 2] No such file or directory: './apps/toonify/src/test
 
 There was a problem with the paths in test.py, and also that file name. Doing this and shortening the filename works:
 
-parser.add_argument('--input_dir', default = 'apps/toonify/src/test_img/')
+parser.add_argument('--input_dir', default = 'dist/apps/public/')
 
 python apps/toonify/src/test.py --style Hosoda --gpu 0
 
@@ -173,7 +173,7 @@ I then used a different approach to the https lib.
   async downloadImage(@Body() linkWrapper: any) {
     const name = this.parsePath(linkWrapper.links[0]);
     console.log('gan.controller: downloadImage', name);
-    const writer = fs.createWriteStream('apps/toonify/src/test_img/'+name.filename);
+    const writer = fs.createWriteStream('dist/apps/public/'+name.filename);
     const response = await this.httpService.axiosRef({
       url: linkWrapper.links[0],
       method: 'GET',

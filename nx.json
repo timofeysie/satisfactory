@@ -14,28 +14,17 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     },
     "prerender": {
       "builder": "@nguniversal/express-engine:prerender",
-      "output": [
-        "dist/apps/trendy/browser"
-      ],
+      "output": ["dist/apps/trendy/browser"],
       "options": {
         "browserTarget": "trendy:build",
         "serverTarget": "trendy:server",
         "guessRoutes": true,
-        "routes": [
-          "/",
-          "/home",
-          "/Mike%20Richards"
-        ]
+        "routes": ["/", "/home", "/Mike%20Richards"]
       }
     }
   },
@@ -44,40 +33,40 @@
       "tags": []
     },
     "customer-portal": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["shared-assets"]
     },
     "customer-portal-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "customer-portal"
-      ]
+      "implicitDependencies": ["customer-portal"]
     },
     "data-models": {
       "tags": []
     },
     "layout": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["shared-assets"]
     },
     "material": {
       "tags": []
     },
     "nest-demo": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["shared-assets"]
     },
     "products": {
       "tags": []
     },
     "trends": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["shared-assets"]
     },
     "trendy": {
       "tags": []
     },
     "trendy-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "trendy"
-      ]
+      "implicitDependencies": ["trendy"]
     },
     "trendy-ssr": {
       "tags": []
@@ -92,6 +81,9 @@
       "tags": []
     },
     "toonify": {
+      "tags": []
+    },
+    "shared-assets": {
       "tags": []
     }
   }

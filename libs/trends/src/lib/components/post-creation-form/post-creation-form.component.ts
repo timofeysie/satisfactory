@@ -150,7 +150,7 @@ export class PostCreationFormComponent {
       console.log('fileChose', fileChosen);
       this.originalImageSelected.emit(fileChosen);
     } else {
-      console.error('event.target.files array is empty');
+      console.error('sourceImageChosen: event.target.files array is empty');
     }
   }
 

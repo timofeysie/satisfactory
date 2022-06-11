@@ -75,12 +75,13 @@ export class BartService {
         });
         file.write(data.toString());
         file.end();
+        console.log('bart.service getArticleSummary: write(data)', data);
         resolve(data.toString());
       });
       process.stderr.on('data', reject);
     }).catch((err) => {
       const buf = Buffer.from(err);
-      console.log('bart.service getArticleSummary service err', buf.toString());
+      console.log('bart.service getArticleSummary service err:', buf.toString());
       return throwError(buf.toString());
     });
   }

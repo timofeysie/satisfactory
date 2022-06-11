@@ -15,7 +15,7 @@ import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({envFilePath: '.env'}),
+    ConfigModule.forRoot({ envFilePath: '.env' }),
     LoginModule,
     TrendsModule,
     ImagesModule,

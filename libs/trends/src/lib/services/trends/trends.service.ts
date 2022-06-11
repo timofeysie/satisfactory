@@ -120,6 +120,7 @@ export class TrendsService {
    * @returns 
    */
   getImageMetadata(fileName: string) {
+    console.log('getImageMetadata: fileName', fileName);
     return this.httpClient.get('http://localhost:3333/api/image/' + fileName, {
       responseType: 'text',
     });
@@ -131,6 +132,7 @@ export class TrendsService {
    * @returns 
    */
   postImageMetadata(body: any) {
+    console.log('postImageMetadata: body', body);
     return this.httpClient.post('http://localhost:3333/api/image/', body, {
       responseType: 'text',
     });

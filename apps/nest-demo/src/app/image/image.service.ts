@@ -21,6 +21,7 @@ export class ImageService {
    *   square: {left: leftOffsetPre, top: topOffsetPre, width: widthPre, height: heightPre },
    */
   create(createImageDto: any) {
+    console.log('===================')
     console.log('ImageService.create', createImageDto);
     const dir = createImageDto.path;
     const imagePath = dir + createImageDto.fileName;
@@ -31,10 +32,10 @@ export class ImageService {
       createImageDto.aspect +
       imageNameAndExtension.extension; 
     const saveImagePath = dir + newName;
-    console.log('imagePath', imagePath);
+    console.log('ImageService.create: imagePath', imagePath);
     const image = Sharp(imagePath);
     image.metadata().then((metadata) => {
-      console.log('meta', metadata);
+      console.log('ImageService.create: meta', metadata);
       Sharp(imagePath)
         .extract({
           left: createImageDto.new.left,
@@ -43,9 +44,9 @@ export class ImageService {
           height: createImageDto.new.height,
         })
         .toFile(saveImagePath, (err) => {
-          console.log('done creating', newName);
+          console.log('ImageService.create: done creating', newName);
           if (err) {
-            console.log('err creating ' + newName, err);
+            console.log('ImageService.create: err creating ' + newName, err);
           }
           // Extract a region of the input image, saving in the same format.
         });
@@ -70,15 +71,17 @@ export class ImageService {
 
   /**
    * Return the meta data for an image.
-   * @param imageName the file name for it's location in apps/toonify/src/test_img/
+   * @param imageName the file name for it's location indist/apps/public/
    */
   async findOne(imageName: string) {
-    const dir = 'apps/toonify/src/test_img/';
+    console.log('ImageService.findOne: imageName', imageName);
+    const dir = 'dist/apps/public/';
     const imagePath = dir + encodeURI(imageName);
+    console.log('ImageService.findOne: imagePath', imagePath);
     const image = Sharp(imagePath);
     return new Promise((resolve) => {
       image.metadata().then((metadata) => {
-        console.log('meta', metadata);
+        console.log('ImageService.findOne: meta', metadata);
         resolve(metadata);
       });
     });

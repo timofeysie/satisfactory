@@ -386,6 +386,7 @@ export class TrendsComponent implements OnInit {
       this.kickOffGetArticleSummary();
     }
     // download images
+    console.log('download images start');
     this.downloadImages();
     // set the page title
     this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
@@ -461,6 +462,7 @@ export class TrendsComponent implements OnInit {
     }
     if (one) urls.push(one);
     if (two) urls.push(two);
+    console.log('download urls', urls)
     for (let i = 0; i < urls.length; i++) {
       console.log('downloadImages', urls[i]);
       this.trendsService.downloadImages(urls[i]).subscribe();
@@ -483,10 +485,11 @@ export class TrendsComponent implements OnInit {
         start + dataSet.length,
         urlPage.length
       );
-
+        console.log('urlStart', urlStart);
       if (ext) {
         const end = urlStart.indexOf(ext);
         const urlFull = urlStart.substring(0, end + ext.length);
+        console.log('urlFull', urlFull);
         const woThumb = urlFull.replace('/thumb', '');
         return woThumb;
       }
@@ -510,6 +513,8 @@ export class TrendsComponent implements OnInit {
     const jpg = '.jpg';
     const png = '.png';
     const gif = '.gif';
+    const jpeg = '.jpeg';
+
     const firstDot = urlPage.indexOf('.');
     const afterFirstDot = urlPage.substring(firstDot + 1, urlPage.length);
     const secondDot = afterFirstDot.indexOf('.');
@@ -525,6 +530,7 @@ export class TrendsComponent implements OnInit {
       const pngPlace = afterFirstDot.toLowerCase().indexOf(png);
       const jpgPlace = afterFirstDot.toLowerCase().indexOf(jpg);
       const gifPlace = afterFirstDot.toLowerCase().indexOf(gif);
+      const jpegPlace = afterFirstDot.toLowerCase().indexOf(jpeg);
       if (pngPlace !== -1) {
         return png;
       }
@@ -534,6 +540,9 @@ export class TrendsComponent implements OnInit {
       if (gifPlace !== -1) {
         return gif;
       }
+      if (jpegPlace !== -1) {
+        return jpeg;
+      }
       if (afterSecondDot.includes(jpg)) {
         return jpg;
       }
@@ -542,6 +551,9 @@ export class TrendsComponent implements OnInit {
       }
       if (afterSecondDot.includes(gif)) {
         return gif;
+      }
+      if (afterSecondDot.includes(jpeg)) {
+        return jpeg;
       }
     }
   }

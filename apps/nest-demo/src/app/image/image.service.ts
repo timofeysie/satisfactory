@@ -24,7 +24,9 @@ export class ImageService {
     console.log('===================')
     console.log('ImageService.create', createImageDto);
     const dir = createImageDto.path;
-    const imagePath = dir + createImageDto.fileName;
+    const imagePath = dir + (createImageDto.fileName);
+    const imagePath2 = dir + decodeURIComponent(createImageDto.fileName);
+    console.log('imagePath2', imagePath2);
     const imageNameAndExtension = this.removeFileExt(createImageDto.fileName);
     const newName =
       imageNameAndExtension.fileName +
@@ -76,7 +78,7 @@ export class ImageService {
   async findOne(imageName: string) {
     console.log('ImageService.findOne: imageName', imageName);
     const dir = 'dist/apps/public/';
-    const imagePath = dir + encodeURI(imageName);
+    const imagePath = dir + (imageName);
     console.log('ImageService.findOne: imagePath', imagePath);
     const image = Sharp(imagePath);
     return new Promise((resolve) => {

@@ -1,6 +1,6 @@
-<p>Original file={{portraitData?.portraitImg}}= {{ imageFileName }}</p>
-
-<mat-grid-list cols="2" rowHeight="2:1" *ngIf="metaData">
+<p>Portrait {{portraitData}}</p>
+<img class="portrait-img" *ngIf="portraitImg" [src]="getSafeUrl()"/>
+<!-- <mat-grid-list cols="2" rowHeight="2:1" *ngIf="metaData">
   <mat-grid-tile
     ><div>Original</div>
     <div>width: {{ metaData.width }}</div>
@@ -9,13 +9,8 @@
   <mat-grid-tile>Landscape</mat-grid-tile>
   <mat-grid-tile
     ><div *ngIf="portraitData">
-      <!-- <div>Portrait</div>
-      <div>width: {{ portraitData.new.width }}</div>
-      <div>left: {{ portraitData.new.left }}</div>
-      <div>height: {{ portraitData.new.height }}</div>
-      <div>top: {{ portraitData.new.top }}</div> -->
-      <img src="{{ 'C:/Users/timof/repos/satisfactory/dist/apps/public/' + portraitImg }}" />
+      <img [innerHTML]="'C:/Users/timof/repos/satisfactory/dist/apps/public/' + portraitImg" />
     </div>
   </mat-grid-tile>
   <mat-grid-tile>Square</mat-grid-tile>
-</mat-grid-list>
+</mat-grid-list> -->

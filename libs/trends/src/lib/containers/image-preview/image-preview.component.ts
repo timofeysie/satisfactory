@@ -15,7 +15,7 @@ export class ImagePreviewComponent implements OnInit {
   private _imageFileName = new BehaviorSubject<string>('');
   metaData: any;
   portraitData: any;
-  portraitImg: SafeResourceUrl;
+  portraitImg: string;
 
   constructor(
     private trendsService: TrendsService,
@@ -43,15 +43,17 @@ export class ImagePreviewComponent implements OnInit {
         );
         console.log('body', body);
         this.trendsService.postImageMetadata(body).subscribe((newFileName) => {
-          body['newFileName'] = newFileName;
+          body['newFileName'] = decodeURI(newFileName);
           this.portraitData = body;
-          this.portraitImg = this.sanitizer.bypassSecurityTrustResourceUrl(
-            this.portraitData.newFileName
-          );
-          console.log('this.portraitData', this.portraitData);
+          this.portraitImg = 'http://localhost:3333/public/' + newFileName;
+          console.log('this.portraitImg', this.portraitImg);
         });
       });
     });
+  }
+
+  getSafeUrl() {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.portraitImg);
   }
 
   preparePostBody(

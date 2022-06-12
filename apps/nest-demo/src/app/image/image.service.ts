@@ -21,12 +21,9 @@ export class ImageService {
    *   square: {left: leftOffsetPre, top: topOffsetPre, width: widthPre, height: heightPre },
    */
   create(createImageDto: any) {
-    console.log('===================')
     console.log('ImageService.create', createImageDto);
     const dir = createImageDto.path;
     const imagePath = dir + (createImageDto.fileName);
-    const imagePath2 = dir + decodeURIComponent(createImageDto.fileName);
-    console.log('imagePath2', imagePath2);
     const imageNameAndExtension = this.removeFileExt(createImageDto.fileName);
     const newName =
       imageNameAndExtension.fileName +

@@ -20,12 +20,20 @@ export class TrendsLinksComponent implements OnInit {
   @Output() handleNewAPSearchTerm = new EventEmitter<string>();
   newNewsLink: string;
   newWikiSearchTerm: string;
+  wikiBaseUrl: string;
 
   ngOnInit() {
     const dashTitle = this.trendTitleSeen.split(' ').join('-');
     this.newNewsLink = 'https://apnews.com/hub/' + dashTitle;
     this.handleNewAPSearchTerm.emit(this.newNewsLink);
     this.newWikiSearchTerm = this.trendTitleSeen;
+    this.wikiBaseUrl = 'https://en.wikipedia.org';
+    if (this.topicForm.controls.country.value === 'KR') {
+      this.wikiBaseUrl = 'https://ko.wikipedia.org';
+      console.log('using KOREAN', this.wikiBaseUrl);
+    } else {
+      console.log('using ENGLISH', this.wikiBaseUrl);
+    }
   }
 
   onUpdatedWikiSearchTerm() {
@@ -40,8 +48,7 @@ export class TrendsLinksComponent implements OnInit {
   }
 
   onUpdatedNewsSearchTerm() {
-    this.newNewsLink =
-      this.topicForm.value.links.newsLink;
+    this.newNewsLink = this.topicForm.value.links.newsLink;
     this.handleNewAPSearchTerm.emit(this.newNewsLink);
   }
 

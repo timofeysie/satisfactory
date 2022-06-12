@@ -33,8 +33,9 @@ export class TrendsComponent implements OnInit {
   isGeneratedTextUpdating: boolean;
   selectTwo: boolean;
   topicForm = this.fb.group({
-    version: ['0.0.3'],
+    version: ['0.0.4'],
     date: [''],
+    category: [''],
     country: [''],
     pageTitle: [''],
     authors: [''],
@@ -50,9 +51,9 @@ export class TrendsComponent implements OnInit {
       newsLinkLabel: [''],
       useAPNewsLink: [''],
       addAPNewsContent: [''],
-      wikiLink: [''],
-      useWikiLink: ['true'],
-      addWikiLinkContent: [''],
+      wikiLink: [''], // these links are unused I believe
+      useWikiLink: ['true'], // they were intended to replace the linkUrl/label
+      addWikiLinkContent: [''], // in the main form, but not sure now
     }),
 
     // text for description generation
@@ -105,6 +106,8 @@ export class TrendsComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(TrendsActions.loadTrends({ payload: 'US' }));
+    this.countryListUsed = 'US';
+    this.setDateAndCountry();
     this.trends$ = this.store.pipe(select(trendsQuery.getTrends));
   }
 
@@ -137,7 +140,37 @@ export class TrendsComponent implements OnInit {
    * by BART are removed.
    */
   onRetrieveArticleSummary() {
-    const linkForSummary = this.topicForm.controls.linkForSummary.value;
+    const linkForSummary = encodeURIComponent(
+      this.topicForm.controls.linkForSummary.value + '.txt'
+    );
+    this.trendsService
+      .retrieveArticleSummaryById(linkForSummary)
+      .subscribe((result) => {
+        const fullResponse = JSON.parse(JSON.stringify(result));
+        let start = fullResponse.indexOf('" ');
+        let offset = 2;
+        if (start === -1) {
+          start = fullResponse.indexOf("summary_text': '");
+          offset = 17;
+        }
+        const text = fullResponse.substring(
+          start + offset,
+          fullResponse.length - 5
+        );
+        const text1 = text.split('�').join("'");
+        const text2 = text1.split(' .').join('.');
+        this.topicForm.controls.description.setValue(text2);
+      });
+  }
+
+  /**
+   * As a result of difficulties reading an array from a file and getting
+   * the json summary_text, we do it manually here.
+   * Special characters are converted and spaces before the period created
+   * by BART are removed.
+   */
+  onChooseArticleSummary(linkForSummary) {
+    console.log('onChooseArticleSummary: linkForSummary', linkForSummary);
     this.trendsService
       .retrieveArticleSummaryById(linkForSummary)
       .subscribe((result) => {
@@ -163,6 +196,7 @@ export class TrendsComponent implements OnInit {
   }
 
   onTrendSeen(trend: any) {
+    console.log('trend', trend);
     this.trendTitleSeen = trend.title.query;
     this.newWikiSearchTerm = this.trendTitleSeen;
     this.trendDetails = trend;
@@ -211,6 +245,11 @@ export class TrendsComponent implements OnInit {
     });
   }
 
+  onSelectedCategory(event) {
+    console.log('onSelectedCategory', event);
+    this.topicForm.controls.category.setValue(event);
+  }
+
   onSelectedCommonsImage(image: any) {
     if (this.selectTwo) {
       this.topicForm.controls.two['controls']?.commonImg?.setValue(image);
@@ -226,6 +265,13 @@ export class TrendsComponent implements OnInit {
   onHandleNewAPSearchTerm(newValue: string) {
     this.newAPSearchTerm = newValue;
     this.topicForm.controls.links['controls']?.newsLink?.setValue(newValue);
+  }
+
+  handleDownloadArticleAction(event: string) {
+    console.log('calling kickoffArticleSummary for', event);
+    this.trendsService.kickoffArticleSummary(event).subscribe((result) => {
+      console.log('result', result);
+    });
   }
 
   onSelectedImageType(selectType: boolean) {
@@ -251,6 +297,7 @@ export class TrendsComponent implements OnInit {
           this.topicForm.controls['one']['controls']?.imageChosen?.setValue(
             selectedImage
           );
+          // which model is used to generate the image
           const modelUser = this.getModelUser(selectedImage);
           // set the author
           this.topicForm.controls['one']['controls']?.author?.setValue(
@@ -269,6 +316,20 @@ export class TrendsComponent implements OnInit {
           );
         }
       });
+  }
+
+  /**
+   * Similar to the above, except we just set the image chosen without performing
+   * any of the actions.
+   * This only happens for image one because these are functions that will generate a
+   * set of posters for the entire post.
+   * @param selectedImage 
+   */
+  onOriginalImageSelected(selectedImage: string) {
+    this.topicForm.controls['one']['controls']?.imageChosen?.setValue(
+      selectedImage
+    );
+    this.imageChosen = selectedImage;
   }
 
   /**
@@ -325,6 +386,7 @@ export class TrendsComponent implements OnInit {
       this.kickOffGetArticleSummary();
     }
     // download images
+    console.log('download images start');
     this.downloadImages();
     // set the page title
     this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
@@ -333,6 +395,11 @@ export class TrendsComponent implements OnInit {
     this.fillLinks();
     this.setAIorArtistPictureData();
     this.getRelatedQueries();
+    // This is pretty useless at the moment
+    // this.getGeneratedText();
+  }
+
+  onKickoffGenerateText(event: any) {
     this.getGeneratedText();
   }
 
@@ -395,7 +462,9 @@ export class TrendsComponent implements OnInit {
     }
     if (one) urls.push(one);
     if (two) urls.push(two);
+    console.log('download urls', urls)
     for (let i = 0; i < urls.length; i++) {
+      console.log('downloadImages', urls[i]);
       this.trendsService.downloadImages(urls[i]).subscribe();
     }
   }
@@ -416,11 +485,14 @@ export class TrendsComponent implements OnInit {
         start + dataSet.length,
         urlPage.length
       );
-
-      const end = urlStart.indexOf(ext);
-      const urlFull = urlStart.substring(0, end + ext.length);
-      const woThumb = urlFull.replace('/thumb', '');
-      return woThumb;
+        console.log('urlStart', urlStart);
+      if (ext) {
+        const end = urlStart.indexOf(ext);
+        const urlFull = urlStart.substring(0, end + ext.length);
+        console.log('urlFull', urlFull);
+        const woThumb = urlFull.replace('/thumb', '');
+        return woThumb;
+      }
     }
   }
 
@@ -440,6 +512,9 @@ export class TrendsComponent implements OnInit {
   findExtension(urlPage) {
     const jpg = '.jpg';
     const png = '.png';
+    const gif = '.gif';
+    const jpeg = '.jpeg';
+
     const firstDot = urlPage.indexOf('.');
     const afterFirstDot = urlPage.substring(firstDot + 1, urlPage.length);
     const secondDot = afterFirstDot.indexOf('.');
@@ -454,11 +529,31 @@ export class TrendsComponent implements OnInit {
     } else {
       const pngPlace = afterFirstDot.toLowerCase().indexOf(png);
       const jpgPlace = afterFirstDot.toLowerCase().indexOf(jpg);
+      const gifPlace = afterFirstDot.toLowerCase().indexOf(gif);
+      const jpegPlace = afterFirstDot.toLowerCase().indexOf(jpeg);
       if (pngPlace !== -1) {
         return png;
       }
       if (jpgPlace !== -1) {
         return jpg;
+      }
+      if (gifPlace !== -1) {
+        return gif;
+      }
+      if (jpegPlace !== -1) {
+        return jpeg;
+      }
+      if (afterSecondDot.includes(jpg)) {
+        return jpg;
+      }
+      if (afterSecondDot.includes(png)) {
+        return png;
+      }
+      if (afterSecondDot.includes(gif)) {
+        return gif;
+      }
+      if (afterSecondDot.includes(jpeg)) {
+        return jpeg;
       }
     }
   }
@@ -522,10 +617,14 @@ export class TrendsComponent implements OnInit {
       this.topicForm.controls.links['controls']?.useAPNewsLink.value === true
     ) {
       this.topicForm.controls.links['controls'].newsLink.setValue(
-        'https://en.wikipedia.org/wiki/' + this.newAPSearchTerm
+        this.newAPSearchTerm
       );
+      let newsLabelExt = ' on AP News';
+      if (this.newAPSearchTerm.includes('wikipedia.org')) {
+        newsLabelExt = ' on Wikipedia';
+      }
       this.topicForm.controls.links['controls'].newsLinkLabel.setValue(
-        this.trendTitleSeen + ' on AP News'
+        this.trendTitleSeen + newsLabelExt
       );
     }
   }
@@ -682,6 +781,7 @@ export class TrendsComponent implements OnInit {
   updateCountry(category: any): void {
     this.store.dispatch(TrendsActions.loadTrends({ payload: category }));
     this.countryListUsed = category;
+    this.setDateAndCountry();
   }
 
   onUpdateSearchTerm(newSearchTerm: string) {

@@ -12,6 +12,7 @@ import {
   ControlContainer,
 } from '@angular/forms';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'demo-app-topic-form',
@@ -26,6 +27,7 @@ export class TopicFormComponent implements AfterViewInit {
   @Input() topicForm: FormGroup;
   @Input() trendTitleSeen: string;
   faTimes = faTimes;
+  faQuestion = faQuestion;
   ngAfterViewInit() {
     this.topicForm.controls.one['controls']?.title?.setValue(
       this.trendTitleSeen
@@ -42,22 +44,21 @@ export class TopicFormComponent implements AfterViewInit {
   /**
    * Set the oneOrTwo type and author.
    * If it's type MASHUP, then we set both one and two properties.
-   * @param selection AI, ARTIST, MASHUP 
+   * @param selection AI, ARTIST, MASHUP
    * @param oneOrTwo one or two
    */
   onTypeSelectionChange(selection, oneOrTwo) {
-
     console.log('selection', selection);
     if (oneOrTwo === 'one' && selection === 'MASHUP') {
       this.topicForm.controls['one']['controls']?.type?.setValue(selection);
       this.topicForm.controls['one']['controls']?.author?.setValue(selection);
       this.topicForm.controls?.two['controls']?.type?.setValue(selection);
-      this.topicForm.controls?.two['controls']?.author?.setValue(
-        selection
-      );
+      this.topicForm.controls?.two['controls']?.author?.setValue(selection);
     } else {
       this.topicForm.controls[oneOrTwo]['controls']?.type?.setValue(selection);
-      this.topicForm.controls[oneOrTwo]['controls']?.author?.setValue(selection);
+      this.topicForm.controls[oneOrTwo]['controls']?.author?.setValue(
+        selection
+      );
     }
   }
 
@@ -70,5 +71,6 @@ export class TopicFormComponent implements AfterViewInit {
     this.topicForm.controls[oneOrTwo]['controls']?.googleImg?.setValue(
       this.topicForm.value[oneOrTwo].googleImg
     );
+    console.log('topicForm.controls[oneOrTwo][controls]?.googleImg', this.topicForm.controls[oneOrTwo]['controls']?.googleImg)
   }
 }

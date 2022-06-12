@@ -17,18 +17,15 @@
     <div *ngIf="selectedProduct.one.s3">
       <img src="{{ selectedProduct.one.s3.Location }}" />
     </div>
-    <div class="landscape">
-      <pre>{{ selectedProduct.metaDescription }}</pre>
-      <pre>{{ replaceNewlines(selectedProduct.description) }}</pre>
-      <p>Keywords: {{ selectedProduct.keywords }}</p>
-      <a href="{{ selectedProduct.linkUrl }}">{{
-        selectedProduct.linkLabel
-      }}</a>
-    </div>
+
+    <!-- TODO: move repeat sections into dumb components -->
+    <demo-app-detail-links
+      [selectedProduct]="selectedProduct"
+    ></demo-app-detail-links>
   </div>
 </div>
 
-<div *ngIf="selectedProduct.one.aspect === 'portrait'" class="column">
+<div *ngIf="selectedProduct.one.aspect === 'portrait' && selectedProduct.one.type !== 'MASHUP'" class="column">
   <div class="row">
     <div *ngIf="selectedProduct.one.s3">
       <img src="{{ selectedProduct.one.s3.Location }}" />
@@ -44,25 +41,9 @@
       </div>
       <h2>by {{ selectedProduct.authors }}</h2>
 
-      <div class="landscape">
-        <pre>{{ selectedProduct.metaDescription }}</pre>
-        <pre>{{ replaceNewlines(selectedProduct.description) }}</pre>
-        <p>Keywords: {{ selectedProduct.keywords }}</p>
-        <a href="{{ selectedProduct.linkUrl }}">{{
-          selectedProduct.linkLabel
-        }}</a>
-        <a
-          *ngIf="selectedProduct.links.newsLink"
-          href="{{ selectedProduct.links.newsLink }}"
-        >
-          <ng-container
-            *ngIf="selectedProduct.links.newsLinkLabel; else defaultLabel"
-          >
-            {{ selectedProduct.links.newsLinkLabel }}
-          </ng-container>
-          <ng-template #defaultLabel> AP News link </ng-template>
-        </a>
-      </div>
+      <demo-app-detail-links
+        [selectedProduct]="selectedProduct"
+      ></demo-app-detail-links>
     </div>
   </div>
 </div>

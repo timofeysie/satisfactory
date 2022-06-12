@@ -1,6 +1,6 @@
 {
   "name": "demo-app",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "scripts": {
     "nx": "nx",
@@ -50,6 +50,7 @@
     "@nestjs/core": "^7.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/serve-static": "^2.2.2",
     "@ngrx/component-store": "^12.0.0",
     "@ngrx/effects": "^12.0.0",
     "@ngrx/entity": "^12.0.0",
@@ -70,6 +71,7 @@
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.2",
     "rxjs": "~6.6.0",
+    "sharp": "^0.30.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
@@ -90,7 +92,7 @@
     "@nrwl/jest": "12.3.3",
     "@nrwl/linter": "12.3.3",
     "@nrwl/nest": "12.5.8",
-    "@nrwl/next": "^13.8.3",
+    "@nrwl/next": "^13.9.6",
     "@nrwl/node": "12.5.8",
     "@nrwl/tao": "12.3.3",
     "@nrwl/workspace": "12.3.3",

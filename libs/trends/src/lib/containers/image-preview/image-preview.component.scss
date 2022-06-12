@@ -1,0 +1,38 @@
+.image_preview_container {
+  // height: 300px;
+}
+
+.image_container {
+  width: 100px;
+  background-size: 100%;
+}
+
+.container_height {
+  height: 100px;
+}
+
+.container_height_portrait {
+  height: 150px;
+}
+
+.container_height_landscape {
+  height: 85px;
+}
+
+.portrait_img {
+  width: 100%;
+  height: auto;
+  border: dashed;
+}
+
+.landscape_img {
+  width: 100%;
+  height: auto;
+  border: dashed;
+}
+
+.square_img {
+  width: 100%;
+  height: auto;
+  border: dashed;
+}

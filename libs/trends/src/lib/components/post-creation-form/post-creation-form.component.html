@@ -6,9 +6,10 @@
           <mat-label
             >title
             <span *ngIf="fullTopicForm.controls.pageTitle.value.length < 29"
-              >30 characters is recommended</span
+              >50 – 60 characters are recommended</span
             >
           </mat-label>
+          <div>{{ fullTopicForm.controls.pageTitle.value.length }}</div>
           <input matInput value="pageTitle" formControlName="pageTitle" />
         </mat-form-field>
         <mat-form-field class="column full-width-block" appearance="fill">
@@ -16,20 +17,61 @@
           <input matInput value="authors" formControlName="authors" />
         </mat-form-field>
       </div>
+      <!-- Wikipedia link-->
       <div class="keywords row">
         <mat-form-field class="column full-width-block" appearance="fill">
-          <mat-label>linkLabel</mat-label>
+          <mat-label>link label</mat-label>
           <input matInput value="linkLabel" formControlName="linkLabel" />
         </mat-form-field>
         <mat-form-field class="column full-width-block" appearance="fill">
-          <mat-label>linkUrl</mat-label>
+          <mat-label>link url</mat-label>
           <input matInput value="linkUrl" formControlName="linkUrl" />
         </mat-form-field>
       </div>
+
+      <!-- News link-->
+      <div
+        *ngIf="fullTopicForm.controls.links['controls']?.useAPNewsLink.value"
+      >
+        <div [formGroup]="fullTopicForm.get('links')" class="keywords row">
+          <mat-form-field class="column full-width-block" appearance="fill">
+            <mat-label>second link label</mat-label>
+            <input
+              matInput
+              value="newsLinkLabel"
+              formControlName="newsLinkLabel"
+            />
+          </mat-form-field>
+          <mat-form-field class="column full-width-block" appearance="fill">
+            <mat-label>second link url</mat-label>
+            <input matInput value="newsLink" formControlName="newsLink" />
+          </mat-form-field>
+        </div>
+      </div>
+
       <div class="keywords row">
         <mat-form-field class="column full-width-block" appearance="fill">
           <mat-label>keywords</mat-label>
           <input matInput value="keywords" formControlName="keywords" />
+        </mat-form-field>
+        <mat-form-field
+          appearance="none"
+          class="selector picture-post-card-top"
+        >
+          <mat-select
+            appearance="none"
+            #typeSelector
+            click="typeSelector.close()"
+            placeholder="Category"
+            formControlName="category"
+            (selectionChange)="onSelectedCategory($event.value)"
+          >
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.value"
+              >{{ category.viewValue }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </mat-card-content>
@@ -66,13 +108,24 @@
     types/images can be held in an array, and Elon said don't refactor something too early when 
   it may not be needed, which would be the case here. -->
           <div
-            class="common-image"
-            *ngIf="fullTopicForm.value.one.type === 'AI'"
-          ></div>
-          <span
-            class="common-image"
-            [innerHTML]="fullTopicForm.value.one.commonImg"
-          ></span>
+            class="common-image row"
+            *ngIf="
+              fullTopicForm.value.one.type === 'AI' ||
+              fullTopicForm.value.one.type === 'MASHUP'
+            "
+          >
+            <span
+              class="common-image"
+              [innerHTML]="fullTopicForm.value.one.commonImg"
+            ></span>
+            <demo-app-image-preview
+              *ngIf="fullTopicForm.value.one?.imageChosen"
+              [imageFileName]="fullTopicForm.value.one?.imageChosen"
+            ></demo-app-image-preview>
+            <!-- <demo-app-image-preview
+              [imageFileName]="fullTopicForm.value.one?.imageChosen"
+            ></demo-app-image-preview> -->
+          </div>
           <div
             *ngIf="fullTopicForm.value.one.type === 'ARTIST'"
             class="common-image"
@@ -102,13 +155,34 @@
               #fileInput
               type="file"
               class="file-input"
-              accept=".jpg, .png, .jpeg"
+              accept=".jpg, .png, .jpeg .gif"
               (change)="upload($event)"
             />
-            <button type="button" (click)="onUploadImage()" class="outline">
+            <input
+              #originalFileInput
+              type="file"
+              class="file-input"
+              accept=".jpg, .png, .jpeg .gif"
+              (change)="sourceImageChosen($event)"
+            />
+            <button
+              type="button"
+              (click)="onChooseSourceImage()"
+              class="outline"
+            >
+              Choose source image
+            </button>
+            <button
+              type="button"
+              (click)="onUploadImage()"
+              class="separator-big margin-big outline"
+            >
               Choose generated image
             </button>
-            <button class="separator-big margin-big outline" (click)="kickoffGenerate()">
+            <button
+              class="separator-big margin-big outline"
+              (click)="kickoffGenerate()"
+            >
               Kickoff image generation
             </button>
             <span class="separator margin-big">{{
@@ -194,15 +268,29 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
+          <!-- two = AI use two.commonImg -->
+          <!-- two = ARTIST use two.googleImg -->
+          <!-- two = MASHUP use two.commonImg -->
           <div
             class="common-image"
             *ngIf="fullTopicForm.value.two.type === 'AI'"
           >
             <span
               class="common-image"
-              [innerHTML]="fullTopicForm.value.one.commonImg"
+              [innerHTML]="fullTopicForm.value.two.commonImg"
             ></span>
           </div>
+          <div
+            class="common-image"
+            *ngIf="fullTopicForm.value.two.type === 'MASHUP'"
+          >
+            <span
+              class="common-image"
+              [innerHTML]="fullTopicForm.value.two.commonImg"
+            ></span>
+          </div>
+          <!-- The original design where an AI competes against and artist, the artist can
+            choose any image they want from Google as source material for their work. -->
           <div
             *ngIf="fullTopicForm.value.two.type === 'ARTIST'"
             class="common-image"
@@ -289,8 +377,33 @@
         <mat-label>description</mat-label>
         <textarea matInput value="description" formControlName="description">
         </textarea>
-        <button class="outline font-13" (click)="retrieveSummary()">
+        <button
+          type="button"
+          class="outline font-13"
+          (click)="retrieveSummary()"
+        >
           Use generated summary
+        </button>
+        <input
+          #summaryInput
+          type="file"
+          class="file-input"
+          accept=".txt"
+          (change)="chooseSummary($event)"
+        />
+        <button
+          type="button"
+          (click)="onChooseSummary()"
+          class="outline font-13 margin-12"
+        >
+          Choose generated summary
+        </button>
+        <button
+          type="button"
+          class="outline font-13 margin-12"
+          (click)="copyToMetaDescription()"
+        >
+          Copy to meta-description
         </button>
       </mat-form-field>
       <!-- main post meta-description -->
@@ -313,11 +426,26 @@
         <input matInput value="generatedText" formControlName="generatedText" />
       </mat-form-field>
       <div class="row">
-        <button type="button" class="outline font-13" (click)="onGeneratedTextUpdate()">
+        <button
+          type="button"
+          class="outline font-13"
+          (click)="onGeneratedTextUpdate()"
+        >
           Update
         </button>
-        <button type="button" class="outline font-13 margin-12" (click)="onPreFillDescription()">
+        <button
+          type="button"
+          class="outline font-13 margin-12"
+          (click)="onPreFillDescription()"
+        >
           Pre-fill description
+        </button>
+        <button
+          type="button"
+          class="outline font-13 margin-12"
+          (click)="kickoffGeneratedTextUpdate()"
+        >
+          Generate GPT2 text
         </button>
         <mat-spinner
           class="spinner"

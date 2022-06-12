@@ -1,0 +1,33 @@
+<div *ngIf="displayList">
+  <div *ngFor="let article of articles; let i = index">
+    <a
+      title="{{ article.title }}"
+      target="_blank"
+      (click)="onSelectedArticle(article, i)"
+    >
+      <div class="row">
+        <div class="row">
+          <img role="presentation" src="{{ article.image.imageUrl }}" />
+          <div class="item-title margin-12 no-left" multi-line-ellipsis="">
+            {{ article.snippet }}
+            <span class="item-subtitles margin-12" title="{{ article.title }}">
+              <span>{{ article.source }}</span> •
+              <span>{{ calcDateAgo(article.date) }}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+<div *ngIf="!displayList">
+  <span *ngFor="let article of articles; let i = index">
+    <a
+      title="{{ article.title }}"
+      target="_blank"
+      (click)="onSelectedArticle(article, i)"
+    >
+      <img role="presentation" src="{{ article.image.imageUrl }}" />
+    </a>
+  </span>
+</div>

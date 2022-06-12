@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="trendDetails?.articles.length > 0">
   <h5 class="tooltip">
     Trend details
     <span class="tooltiptext">Select an article to summarize</span>
@@ -16,6 +16,11 @@
         </div>
         <div [innerHTML]="decode(article.snippet)"></div>
       </div>
+      <fa-icon
+        class="download-icon"
+        [icon]="faCloudDownloadAlt"
+        (click)="onDownloadArticle(article.url)"
+      ></fa-icon>
       <mat-checkbox
         class="use-link"
         (change)="onUseLink($event, article.image?.newsUrl)"

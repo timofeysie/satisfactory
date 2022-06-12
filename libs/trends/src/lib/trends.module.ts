@@ -18,6 +18,8 @@ import { TrendsToolbarComponent } from './components/trends-toolbar/trends-toolb
 import { PostCreationFormComponent } from './components/post-creation-form/post-creation-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { ImagePreviewComponent } from './containers/image-preview/image-preview.component';
+import { SharedAssetsModule } from '@demo-app/shared-assets';
 
 @NgModule({
   imports: [
@@ -32,6 +34,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     EffectsModule.forFeature([TrendsEffects]),
     FontAwesomeModule,
     ClipboardModule,
+    SharedAssetsModule,
   ],
   declarations: [
     TrendsComponent,
@@ -42,6 +45,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     TopicFormComponent,
     TrendsToolbarComponent,
     PostCreationFormComponent,
+    ImagePreviewComponent,
   ],
 })
 export class TrendsModule {}

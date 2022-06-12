@@ -22,11 +22,24 @@
   <demo-app-trends-list-detail
     [trendDetails]="trendDetails"
     (handleUseLinkForSummary)="onHandleUseLinkForSummary($event)"
+    (handleDownloadArticle)="onHandleDownloadArticle($event)"
   ></demo-app-trends-list-detail>
 </div>
 <ng-template #utilities>
   <mat-card>
     Cleanup raw files
-    <button mat-button (click)="cleanup()">Cleanup</button>
+    <button mat-button class="outline" (click)="cleanup()">Cleanup</button>
+    <br />
+    Custom topic: &nbsp;
+    <mat-form-field>
+      <input
+        class="login-name custom-input"
+        matInput
+        placeholder="search text"
+        type="text"
+        [(ngModel)]="searchText"
+      />
+    </mat-form-field>
+    &nbsp; <button mat-button class="outline" (click)="goForIt()">Go for it</button>
   </mat-card>
 </ng-template>

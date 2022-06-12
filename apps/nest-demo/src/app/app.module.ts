@@ -11,10 +11,11 @@ import { BartModule } from './bart/bart.module';
 import { GanModule } from './gan/gan.module';
 import { ConfigModule } from '@nestjs/config';
 import { GenerateModule } from './generate/generate.module';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({envFilePath: '.env'}),
+    ConfigModule.forRoot({ envFilePath: '.env' }),
     LoginModule,
     TrendsModule,
     ImagesModule,
@@ -23,6 +24,7 @@ import { GenerateModule } from './generate/generate.module';
     BartModule,
     GanModule,
     GenerateModule,
+    ImageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

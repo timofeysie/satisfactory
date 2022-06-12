@@ -1,18 +1,25 @@
 <div formGroupName="links" class="links">
-  <mat-card>
-    <h5>Wikipedia link</h5>
+  <mat-card class="news-links">
+    <h5 class="tooltip">
+      Wikipedia link
+      <span class="tooltiptext"
+        >Edit the extension to create a link, ie: https://en.wikipedia.org/wiki/
+        + text in the field below and press 'update'.</span
+      >
+    </h5>
     <div class="search-link">
       <a
-        href="https://en.wikipedia.org/wiki/Portal:Current_events"
+        href="{{wikiBaseUrl + '/wiki/Portal:Current_events'}"
         target="_blank"
         >Search current events</a
       >
     </div>
     <div>
       <a
-        href="https://en.wikipedia.org/wiki/{{ newWikiSearchTerm }}"
+        class="news-link"
+        href="{{ wikiBaseUrl + '/wiki/' + newWikiSearchTerm }}"
         target="_blank"
-        >https://en.wikipedia.org/wiki/{{ newWikiSearchTerm }}</a
+        >{{ wikiBaseUrl + '/wiki/' + newWikiSearchTerm }}</a
       >
     </div>
     <div class="links">
@@ -23,17 +30,29 @@
         formControlName="wikiLink"
         placeholder="(find an article)"
       />
-      <button  class="outline font-13" type="submit" (click)="onUpdatedWikiSearchTerm()">
-        Update
-      </button>
     </div>
-    <mat-checkbox class="example-margin" formControlName="useWikiLink"
-       (change)="onSelectWikiSearchTerm($event)"
-       >use link</mat-checkbox
+    <mat-checkbox
+      class="example-margin"
+      formControlName="useWikiLink"
+      (change)="onSelectWikiSearchTerm($event)"
+      >use link</mat-checkbox
     >
+    <button
+      class="outline font-13 update-position"
+      type="submit"
+      (click)="onUpdatedWikiSearchTerm()"
+    >
+      Update
+    </button>
   </mat-card>
   <mat-card class="news-links">
-    <h5>News link</h5>
+    <h5 class="tooltip">
+      News link
+      <span class="tooltiptext"
+        >AP News is the preferred link, but add any full url link to be used in
+        the field below and press 'update'.</span
+      >
+    </h5>
     <div class="search-link">
       <a href="https://apnews.com/hub/trending-news" target="_blank"
         >Search trending AP news</a
@@ -50,13 +69,19 @@
         formControlName="newsLink"
         placeholder="(find an link)"
       />
-      <button class="outline font-13" type="submit" (click)="onUpdatedNewsSearchTerm()">
-        Update
-      </button>
     </div>
-    <mat-checkbox class="example-margin" formControlName="useAPNewsLink"
-    (change)="onSelectNewsSearchTerm($event)"
+    <mat-checkbox
+      class="example-margin"
+      formControlName="useAPNewsLink"
+      (change)="onSelectNewsSearchTerm($event)"
       >use link</mat-checkbox
     >
+    <button
+      class="outline font-13 update-position"
+      type="submit"
+      (click)="onUpdatedNewsSearchTerm()"
+    >
+      Update
+    </button>
   </mat-card>
 </div>

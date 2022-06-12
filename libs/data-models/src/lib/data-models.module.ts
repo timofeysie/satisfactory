@@ -5,6 +5,7 @@ export { User } from './user';
 export { Product } from './product';
 export { Trend } from './trend';
 export { Geo } from './geo';
+export { Selector } from './selector';
 
 @NgModule({
   imports: [CommonModule],

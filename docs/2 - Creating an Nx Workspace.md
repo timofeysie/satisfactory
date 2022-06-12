@@ -672,7 +672,7 @@ CREATE apps/customer-portal/src/index.html
 CREATE apps/customer-portal/src/main.ts
 CREATE apps/customer-portal/src/polyfills.ts
 CREATE apps/customer-portal/src/styles.scss
-CREATE apps/customer-portal/src/assets/.gitkeep
+CREATE dist/apps/public/.gitkeep
 CREATE apps/customer-portal/src/environments/environment.prod.ts
 CREATE apps/customer-portal/src/environments/environment.ts
 CREATE apps/customer-portal/src/app/app.module.ts

@@ -6,9 +6,8 @@
         (selectionChange)="onFilter($event.value)"
       >
         <mat-option *ngFor="let country of countries" [value]="country.value">{{
-        country.label
-      }}</mat-option>
-
+          country.label
+        }}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-nav-list>
@@ -29,9 +28,28 @@
       (exit)="onExit($event)"
     ></demo-app-product-detail>
   </mat-card>
-  <mat-card class="margin-top"
-    *ngIf="!selectedProduct && !editMode">
+  <mat-card
+    class="margin-top margin-left margin-bottom"
+    *ngIf="!selectedProduct && !editMode"
+  >
     <button class="outline" (click)="onGenerateList()">Generate list</button>
+    <button class="outline margin-left" (click)="onSaveList()">
+      Save list
+    </button>
+    <button class="outline margin-left" (click)="onLoadList()">
+      Load list
+    </button>
+    <button class="margin-left" (click)="onDisplayListChange(true)">
+      <fa-icon [icon]="faBorderAll"></fa-icon>
+    </button>
+    <button class="margin-left maring-bottom" (click)="onDisplayListChange(false)">
+      <fa-icon [icon]="faList"></fa-icon>
+    </button>
+    <demo-app-article-list
+      [articles]="articles"
+      [displayList]="displayList"
+      (handleSelectedArticle)="onHandleSelectedArticle($event)"
+    ></demo-app-article-list>
   </mat-card>
   <div class="form-container">
     <mat-card *ngIf="selectedProduct && editMode">

@@ -54,6 +54,22 @@ Use the following info from the server/db.json:
 
 After login, you should see the same JSON returned with the addition of a token property in the network tab.
 
+## Setup
+
+Clone the project and npm install the dependencies.
+
+### Directories needed
+
+These directories need to be created manually at the moment if they don't already exist.
+
+- ./apps/toonify/src/cartooned_img/test_img
+- ./apps/toonify/src/cartooned_img/gen_image
+- ./apps/toonify/src/cartooned_img/cartooned_img
+- ./apps/nest-demo/src/app/bart/summaries
+- ./apps/nest-demo/src/app/gan/bucket
+- ./articles/
+- ./posts
+
 ## Text Summary Tool
 
 To scrape the contents of an article, use the goose app:

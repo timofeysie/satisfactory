@@ -9,7 +9,7 @@ import torchvision.utils as vutils
 from network import Transformer
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--input_dir', default='apps/toonify/src/test_img/')
+parser.add_argument('--input_dir', default='dist/apps/public/')
 parser.add_argument('--load_size', default=450)
 parser.add_argument(
 	'--model_path', default='apps/toonify/src/pretrained_model/')

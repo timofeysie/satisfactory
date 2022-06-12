@@ -11,6 +11,7 @@ import {
   FormGroupDirective,
   ControlContainer,
 } from '@angular/forms';
+import { Selector } from '@demo-app/data-models';
 
 @Component({
   selector: 'demo-app-post-creation-form',
@@ -27,11 +28,18 @@ export class PostCreationFormComponent {
   @Input() generatedTextUpdating: boolean;
   @Output() selectedAspect = new EventEmitter<any>();
   @Output() retrieveArticleSummary = new EventEmitter<any>();
+  @Output() chooseArticleSummary = new EventEmitter<any>();
   @Output() imageSelected = new EventEmitter<string>();
+  @Output() originalImageSelected = new EventEmitter<string>();
   @Output() generatedTextUpdated = new EventEmitter<boolean>();
   @Output() kickoffGenerateImages = new EventEmitter<any>();
+  @Output() kickoffGenerateText = new EventEmitter<any>();
   @Output() preFillDescription = new EventEmitter<any>();
+  @Output() selectedCategory = new EventEmitter<any>();
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
+  @ViewChild('originalFileInput', { static: false })
+  originalFileInput: ElementRef;
+  @ViewChild('summaryInput', { static: false }) summaryInput: ElementRef;
   textLines: number;
   topicMetaDescriptionText = '';
   metaDescriptionText1 = '';
@@ -39,6 +47,29 @@ export class PostCreationFormComponent {
   topicMetaDescriptionCharacters: number;
   metaDescriptionCharacters1: number;
   metaDescriptionCharacters2: number;
+  selectedValue: string;
+  categories: Selector[] = [
+    {
+      value: 'sports',
+      viewValue: 'Sports',
+    },
+    {
+      value: 'Business',
+      viewValue: 'Business',
+    },
+    {
+      value: 'Politics',
+      viewValue: 'Politics',
+    },
+    {
+      value: 'Entertainment',
+      viewValue: 'Entertainment',
+    },
+    {
+      value: 'Tech',
+      viewValue: 'Tech',
+    },
+  ];
 
   onGeneratedTextUpdate() {
     this.generatedTextUpdated.emit(true);
@@ -50,6 +81,18 @@ export class PostCreationFormComponent {
 
   retrieveSummary() {
     this.retrieveArticleSummary.emit(true);
+  }
+
+  onChooseSummary() {
+    this.summaryInput.nativeElement.click();
+  }
+
+  copyToMetaDescription() {
+    this.topicMetaDescriptionText = this.fullTopicForm.controls.description.value;
+  }
+
+  onSelectedCategory(event) {
+    this.selectedCategory.emit(event);
   }
 
   calculateLines() {
@@ -76,8 +119,20 @@ export class PostCreationFormComponent {
     });
   }
 
+  /**
+   * This action lets the user choose which image will be uploaded to S3 and
+   * attached to the json as a url to that location.
+   */
   onUploadImage() {
     this.fileInput.nativeElement.click();
+  }
+
+  /**
+   * This is used to choose a source image to get meta data from and then let the user
+   * choose the different aspect images to be created which should be centered on the subject.
+   */
+  onChooseSourceImage() {
+    this.originalFileInput.nativeElement.click();
   }
 
   upload(event) {
@@ -89,7 +144,30 @@ export class PostCreationFormComponent {
     }
   }
 
+  sourceImageChosen(event) {
+    if (event.target.files.length > 0) {
+      const fileChosen = event.target.files[0]['name'];
+      console.log('fileChose', fileChosen);
+      this.originalImageSelected.emit(fileChosen);
+    } else {
+      console.error('sourceImageChosen: event.target.files array is empty');
+    }
+  }
+
+  chooseSummary(event) {
+    if (event.target.files.length > 0) {
+      const fileChosen = event.target.files[0]['name'];
+      this.chooseArticleSummary.emit(fileChosen);
+    } else {
+      console.error('event.target.files array is empty');
+    }
+  }
+
   kickoffGenerate() {
     this.kickoffGenerateImages.emit();
+  }
+
+  kickoffGeneratedTextUpdate() {
+    this.kickoffGenerateText.emit();
   }
 }

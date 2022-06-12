@@ -18,6 +18,7 @@
     padding: 0 6px;
     margin-top: 6px;
     margin-left: 6px;
+    margin-bottom: 6px;
 }
 
 button {
@@ -30,5 +31,21 @@ button:focus {
 }
 
 .margin-top {
-  margin-top: 24px;
+  margin-top: 18px;
+}
+
+.margin-left {
+  margin-left: 18px;
+}
+
+.margin-bottom {
+  margin-bottom: 18px;
+}
+
+.maring-bottom-12 {
+  margin-bottom: 12px;
+}
+
+fa-icon {
+  margin: 5px 3px 3px 3px;
 }

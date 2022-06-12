@@ -106,3 +106,7 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# project specific
+
+apps/toonify/src/cartooned_img/

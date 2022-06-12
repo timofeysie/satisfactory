@@ -1,9 +1,10 @@
 {
+  "category": "Sports",
   "version": "0.0.3",
   "date": "Mon Feb 07 2022 03:54:42 GMT+1100 (Australian Eastern Daylight Time)",
   "country": "AU",
   "pageTitle": "Rayan Morocco",
-  "authors": "<AI>, ",
+  "authors": "Hosoda",
   "keywords": "Rayan Morocco,Rayan,morocco well rescue,boy in well morocco,moroccan boy in well,Morocco",
   "description": "",
   "metaDescription": "",
@@ -11,7 +12,7 @@
   "linkLabel": "Rayan Morocco on Wikipedia",
   "linkForSummary": "https://www.aljazeera.com/news/2022/2/6/football-sports-world-reacts-moroccan-boy-rayan-death",
   "links": {
-    "newsLink": "https://en.wikipedia.org/wiki/https://apnews.com/article/africa-morocco-720876ed377fbee4c5d0566693c37278",
+    "newsLink": "https://apnews.com/article/africa-morocco-720876ed377fbee4c5d0566693c37278",
     "newsLinkLabel": "Rayan Morocco on AP News",
     "useAPNewsLink": true,
     "addAPNewsContent": "",

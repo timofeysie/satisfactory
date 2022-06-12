@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '@demo-app/data-models';
 import { ProductsService } from '../../services/products/products.service';
+import { faBorderAll, faList } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'demo-app-product-list',
@@ -10,10 +11,14 @@ import { ProductsService } from '../../services/products/products.service';
 export class ProductListComponent {
   @Input() products: Product[];
   @Output() filter = new EventEmitter<string>();
+  articles: any[];
   selectedProduct: any;
   selectedProductIndex: any;
   selectedProductName: string;
   editMode = false;
+  faBorderAll = faBorderAll;
+  faList = faList;
+  displayList = true;
   countries = [
     { value: 'US', label: 'US' },
     { value: 'AU', label: 'Australia' },
@@ -56,10 +61,26 @@ export class ProductListComponent {
       },
    */
   onGenerateList() {
-    console.log('ya~');
     this.productsService.generateProductList().subscribe((result) => {
       console.log('result', result);
-    })
+      this.articles = result;
+    });
+  }
+
+  onSaveList() {
+    console.log('onSaveList');
+    // this.productsService.generateProductList().subscribe((result) => {
+    //   console.log('result', result);
+    //   this.articles = result;
+    // });
+  }
+
+  onLoadList() {
+    console.log('onLoadList');
+    this.productsService.loadArticles().subscribe((result) => {
+      console.log('result', result);
+      this.articles = result;
+    });
   }
 
   onEditDetail() {
@@ -78,7 +99,19 @@ export class ProductListComponent {
       .getProducts(this.selectedProductName)
       .subscribe((result) => {
         this.selectedProduct = result;
+        document.body.scrollTop = 0;
+        window.scroll({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+        console.log('document.body.scrollTop = 0;');
       });
+  }
+
+  onHandleSelectedArticle(event: any) {
+    console.log('onHandleSelectedArticle: event', event);
+    this.onProductSelected(event.article, event.index);
   }
 
   onNavigateLeft(event) {
@@ -97,5 +130,9 @@ export class ProductListComponent {
     }
     const nextProduct = this.products[nextIndex];
     this.onProductSelected(nextProduct, nextIndex);
+  }
+
+  onDisplayListChange(event) {
+    this.displayList = !event;
   }
 }

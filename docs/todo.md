@@ -4,7 +4,7 @@
 
 ### Current
 
-- submit post status update
+done - submit post status update
 done? - trend details section becomes too small when the commons images are too many
 done? - the AP news search url when long pushes the type box off the screen
 - somehow document the rules for copying what content into what fields in the post creating code
@@ -23,14 +23,14 @@ But really, very quickly we should remove the one/two hardwired approach and jus
 
 #### Tundra
 
-NgRx post list
+done - NgRx post list
 Add $spacer variable for padding & margins
 
 #### SatisFactory
 
 done - add date (what format?)
 
-- add country
+done - add country
 done? - srcset and  image src names need underscores not spaces: "Belfast by one_300w.jpg"
 - Need to have an easily search for marker for "one" and "two".  Like "<one_ai>" and "<two_artist>".
 - Srcset needs to have separate widths for portrait and landscape.  Ie: does width 300, 600, 1800 also make sense for portrait?
@@ -55,7 +55,7 @@ done? - imageSrc needs full path like './../assets/pictures/Champions-League/UEF
 
 ### Data structure
 
-- images should be s3 links
+done - images should be s3 links
 - posts should have primary index (NgRx with entity adapter?)
 
 ### Backend Todo
@@ -65,18 +65,18 @@ done - save json for post
 - topicText and links need to be removed from the generated json
 - googleImage and commonsImage, commonImg are also not used
 - Picture titles need to include author: one: { title: 'Belfast 7by AI', ...
-- download image
-- save topicText for model creation: this will now be an array of links that need to be parsed on the backend due to post limits.
-- create route for post
+done - download image
+done - save topicText for model creation: this will now be an array of links that need to be parsed on the backend due to post limits.
+done - create route for post
 - show all sections of Google trends result, not just last day
 
 ### Pythons scrips Todo
 
-- lstm generate script
-- cartoonify image
-- copy images to dir
-- add description added to form
-- paraphrase news story
+done - lstm generate script
+done - cartoonify image
+done - copy images to dir
+what? - add description added to form
+done - paraphrase news story
 - background removal
 - combine images
 

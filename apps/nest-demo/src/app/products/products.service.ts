@@ -37,14 +37,29 @@ export class ProductsService {
   }
 
   getCategory(category: string) {
-    console.log('getCategory');
+    console.log('product.service: getCategory', category);
     return new Promise((resolve, reject) => {
       fs.readFile('./posts/' + category, 'utf-8', (err, file) => {
         if (err) {
           reject(err);
         }
-        resolve(JSON.parse(file));
+        if (file) {
+          console.log('ProductsService.getCategory: resolving', file);
+          resolve(JSON.parse(file));
+        } else {
+          console.log('ProductsService.getCategory: rejecting', err);
+          reject(err);
+        }
       });
+    });
+  }
+
+  loadList() {
+    console.log('ProductsService.loadList');
+    return new Promise((resolve, reject) => {
+      const fileContents = fs.readFileSync('./articles/articles.json', 'utf-8');
+      const jsonFile = JSON.parse(fileContents);
+      resolve(jsonFile);
     });
   }
 
@@ -57,6 +72,8 @@ export class ProductsService {
   }
 
   /*
+  * Generate a json response with a brief article of all posts.
+  *
     "author": "Paprika",
     "altText": "Lukashenko's moustache.jpg",
     "imageSrc": "",
@@ -76,7 +93,7 @@ export class ProductsService {
                 */
   generateList() {
     return new Promise((resolve, reject) => {
-      fs.readdir('./posts', (err, files) => {
+      fs.readdir('./posts', async (err, files) => {
         if (files) {
           const articles = [];
           for (const [index, file] of files.entries()) {
@@ -85,34 +102,51 @@ export class ProductsService {
               file.substring(file.lastIndexOf('.') + 1, file.length) || file;
             if (fileType === 'json') {
               console.log('filename', fileName);
-              fs.readFile('./posts/' + file, 'utf-8', (err, file) => {
-                if (!err) {
-                  const jsonFile = JSON.parse(file);
-                  const article = {
-                    title: jsonFile['pageTitle'],
-                    timeAgo: '10m ago',
-                    source: 'AIvsArt',
-                    image: {
-                      newsUrl:
-                        'https://www.aivsart.com/' + jsonFile['pageTitle'],
-                      source: jsonFile['one']['author'],
-                      imageUrl: jsonFile['s3']
-                        ? jsonFile['s3']['Location']
-                        : '',
-                    },
-                    url: 'https://www.aivsart.com',
-                    snippet: jsonFile['metaDescription'],
-                  };
-                  articles.push(article);
-                }
-              });
+              const fileContents = fs.readFileSync('./posts/' + file, 'utf-8');
+              const jsonFile = JSON.parse(fileContents);
+              let metaDesc = jsonFile['metaDescription'];
+              const descLen = metaDesc.length;
+              if (descLen > 156) {
+                metaDesc = metaDesc.substring(0, 152) + '...';
+              }
+              const article = {
+                title: jsonFile['pageTitle'],
+                timeAgo: '10m ago',
+                date: jsonFile['date'],
+                source: 'AIvsArt',
+                image: {
+                  newsUrl: 'https://www.aivsart.com/' + jsonFile['pageTitle'],
+                  source: jsonFile['one']['author'],
+                  imageUrl: jsonFile['one']['s3']
+                    ? jsonFile['one']['s3']['Location']
+                    : '',
+                },
+                url: 'https://www.aivsart.com',
+                snippet: metaDesc,
+                category: jsonFile['category'],
+                fileName: fileName,
+              };
+              articles.push(article);
             }
-            console.log('articles', articles.length);
           }
+          console.log('articles', articles.length);
+          this.saveFile(articles);
+          resolve(articles);
         } else {
           reject('ProductsService.findAll: no files ' + err.toString());
         }
       });
+    });
+  }
+
+  saveFile(articles: any) {
+    const jsonString = JSON.stringify(articles);
+    fs.writeFile('./articles/articles.json', jsonString, (err) => {
+      if (err) {
+        console.log('Error writing file', err);
+      } else {
+        console.log('Successfully wrote file');
+      }
     });
   }
 

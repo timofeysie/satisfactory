@@ -36,13 +36,10 @@ export class ImagePreviewComponent implements OnInit {
    * result in the particular aspect file asked for.
    */
   ngOnInit() {
-    console.log('ngOnInit');
     this._imageFileName.subscribe((fileName) => {
-      console.log('fileName', fileName);
       this.trendsService
         .getImageMetadata(fileName)
         .subscribe((sharpMetadata) => {
-          console.log('trendsService.getImageMetadata: result', sharpMetadata);
           this.metaData = sharpMetadata;
           // setup initial offsets
           this.setupPosters(fileName, sharpMetadata, 'portrait');
@@ -53,19 +50,18 @@ export class ImagePreviewComponent implements OnInit {
   }
 
   /**
-   * POST the prepared body payload for a particular aspect to generate the poster image. 
-   * @param fileName 
-   * @param sharpMetadata 
-   * @param aspect 
+   * POST the prepared body payload for a particular aspect to generate the poster image.
+   * @param fileName
+   * @param sharpMetadata
+   * @param aspect
    */
   setupPosters(fileName: string, sharpMetadata: any, aspect: string) {
     const body = this.preparePostBody(
       fileName,
       aspect,
-      JSON.parse(sharpMetadata),
-      0,
-      0
+      JSON.parse(sharpMetadata)
     );
+    // The zero values above will be replaced with centered crops after we know the new dimensions
     this.trendsService.postImageMetadata(body).subscribe((newFileName) => {
       this.setAspectData(newFileName, aspect, body);
     });
@@ -82,26 +78,23 @@ export class ImagePreviewComponent implements OnInit {
       this.portraitData = body;
       this.portraitData['newFileName'] = decodeURI(newFileName);
       this.portraitImg = 'http://localhost:3333/public/' + newFileName;
-      console.log('this.portraitImg', this.portraitImg);
     }
     if (aspect === 'landscape') {
       this.landscapeData = body;
       this.landscapeData['newFileName'] = decodeURI(newFileName);
       this.landscapeImg = 'http://localhost:3333/public/' + newFileName;
-      console.log('this.portraitImg', this.landscapeImg);
     }
     if (aspect === 'square') {
       this.squareData = body;
       this.squareData['newFileName'] = decodeURI(newFileName);
       this.squareImg = 'http://localhost:3333/public/' + newFileName;
-      console.log('this.portraitImg', this.squareImg);
     }
   }
 
   /**
    * Avoid the unsafe error.
-   * @param aspect 
-   * @returns 
+   * @param aspect
+   * @returns
    */
   getSafeUrl(aspect: string) {
     if (aspect === 'portrait') {
@@ -117,37 +110,59 @@ export class ImagePreviewComponent implements OnInit {
 
   /**
    * Determine the width and the height and calculate the aspect of the posters.
-   * @param fileName 
-   * @param aspect 
-   * @param _metaData 
-   * @param leftOffsetPre 
-   * @param topOffsetPre 
+   * @param fileName
+   * @param aspect
+   * @param _metaData
+   * @param leftOffsetPre
+   * @param topOffsetPre
    * @returns the payload body for the api/image POST
    */
-  preparePostBody(
-    fileName: string,
-    aspect: string,
-    _metaData: any,
-    leftOffsetPre?: number,
-    topOffsetPre?: number
-  ) {
+  preparePostBody(fileName: string, aspect: string, _metaData: any) {
     const body = {
       path: 'dist/apps/public/',
       fileName: fileName,
       original: { width: _metaData.width, height: _metaData.height },
       aspect: aspect,
     };
-    const height = this.getHeight(aspect, _metaData);
     const width = this.getWidth(aspect, _metaData);
-    body['new'] = this.getAspectRation(
+    const height = this.getHeight(aspect, _metaData);
+    const leftOffsetPre = this.getOffsetPre(
+      aspect,
+      width,
+      _metaData.width,
+      _metaData.length
+    );
+    const topOffsetPre = this.getOffsetPre(
+      aspect,
+      height,
+      _metaData.height,
+      _metaData.width
+    );
+    body['new'] = this.getAspectRatio(
       _metaData,
       height,
-      width,
       leftOffsetPre,
       topOffsetPre,
       aspect
     );
     return body;
+  }
+
+  getOffsetPre(
+    aspect: string,
+    length: number,
+    originalLength: number,
+    originalOtherLength: number
+  ) {
+    const spaceRemaining = originalLength - length;
+    let newLength = spaceRemaining / 2;
+    if (aspect === 'square' && originalOtherLength > originalLength) {
+      // this depends on the original dimensions.
+      // Whichever is longer should get the crop.
+      newLength = 0;
+    }
+    const rounded = Math.round(newLength);
+    return rounded;
   }
 
   /**
@@ -156,28 +171,26 @@ export class ImagePreviewComponent implements OnInit {
    * story_dog2_portrait.jpg  720 x 960
    * story_dog2_landscape.jpg 720 x 541
    * story_dog2_square.jpg 720 x 720
-   *
    * @param aspect
    * @param _metaData
-   * @returns
+   * @returns the height.
+   *   original: { width: 1086, height: 796 },
+   * aspect: 'portrait',
+   * new: { left: 20, top: 0, width: 720, height: 982 }
    */
   getHeight(aspect: string, _metaData: any) {
-    console.log('_metaData', _metaData);
-    const orginialHeight = _metaData.height;
-    let height;
+    const originalHeight = _metaData.height;
+    let height = originalHeight;
     if (aspect === 'portrait') {
-      height = orginialHeight;
-      if (orginialHeight > 960) {
+      if (originalHeight > 960) {
         height = 960;
       }
     } else if (aspect === 'landscape') {
-      height = orginialHeight;
-      if (orginialHeight > 541) {
+      if (originalHeight > 541) {
         height = 541;
       }
     } else if (aspect === 'square') {
-      height = orginialHeight;
-      if (orginialHeight > 720) {
+      if (originalHeight > 720) {
         height = 720;
       }
     }
@@ -189,52 +202,54 @@ export class ImagePreviewComponent implements OnInit {
    * story_dog2_portrait.jpg  720 x 960
    * story_dog2_landscape.jpg 720 x 541
    * story_dog2_square.jpg 720 x 720
-   * 
+   *
    * The width of portrait should be limited as the width are of the others.
-   * 
+   *
    * @param aspect
    * @param _metaData
    * @param height
-   * @returns
+   * @returns the width
    */
   getWidth(aspect: string, _metaData: any) {
-    const orginialWidth = _metaData.width;
+    const originalWidth = _metaData.width;
     let width;
     if (aspect === 'portrait') {
-      width = orginialWidth;
-      if (orginialWidth > 720) {
+      width = originalWidth;
+      if (originalWidth > 720) {
         width = 720;
       }
-    } 
+    } else {
+      width = originalWidth;
+    }
     return width;
   }
 
   /**
-   * Divide the original height by the original width
+   * Divide the original height by the original width for the portrait ratio.
+   * Divide the original width by the original height for the landscape ratio.
    * and then multiply this number by the new width to get the new height.
    * portrait height: 640
-   *
    * @param type
    * @param _metaData
    */
-  getAspectRation(
+  getAspectRatio(
     _metaData: any,
     newHeight: number,
-    width: number,
     leftOffsetPre: number,
     topOffsetPre: number,
     aspect
   ) {
-    const originalRatio = _metaData.width / _metaData.height;
-    console.log('originalRatio', originalRatio);
-    let newWidth = Math.round(newHeight * originalRatio);
-    const calculatedwHeight = Math.round(width * originalRatio);
+    let newWidth;
     if (aspect === 'square') {
       newWidth = newHeight;
     }
     if (aspect === 'portrait') {
-      newWidth = width;
-      newHeight = calculatedwHeight;
+      const ratio = _metaData.height / _metaData.width;
+      newWidth = Math.round(ratio * _metaData.height);
+    }
+    if (aspect === 'landscape') {
+      const ratio = _metaData.height / _metaData.width;
+      newWidth = Math.round(ratio * _metaData.height);
     }
     const results = {
       left: leftOffsetPre,

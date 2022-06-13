@@ -1,19 +1,49 @@
 <div *ngIf="metaData" class="image_preview_container">
-  <p *ngIf="metaData.original">
-    Original {{ metaData.original?.width }} x {{ metaData.original?.height }}
-  </p>
   <div *ngIf="portraitData" class="image_container container_height_portriat">
-    <span>Portrait {{portraitData.new?.width}}x{{portraitData.new?.height}}</span>
-    <img class="portrait_img" *ngIf="portraitImg" [src]="getSafeUrl('portrait')" />
+    <div class="col">
+      <span
+        >Portrait {{ portraitData.new?.width }}x{{
+          portraitData.new?.height
+        }}</span
+      >
+      <span
+        >Offset {{ portraitData.new?.left }}x{{ portraitData.new?.top }}</span
+      >
+    </div>
+    <img
+      class="portrait_img"
+      *ngIf="portraitImg"
+      [src]="getSafeUrl('portrait')"
+    />
   </div>
 
   <div *ngIf="landscapeData" class="image_container container_height_landscape">
-    <span>landscape {{landscapeData.new?.width}}x{{landscapeData.new?.height}}</span>
-    <img class="landscape_img" *ngIf="landscapeImg" [src]="getSafeUrl('landscape')" />
+    <div class="col">
+      <span
+        >landscape {{ landscapeData.new?.width }}x{{
+          landscapeData.new?.height
+        }}</span
+      >
+      <span
+        >Offset {{ landscapeData.new?.left }}x{{ landscapeData.new?.top }}</span
+      >
+      <img
+        class="landscape_img"
+        *ngIf="landscapeImg"
+        [src]="getSafeUrl('landscape')"
+      />
+    </div>
   </div>
 
   <div *ngIf="squareData" class="image_container container_height">
-    <span>square {{squareData.new?.width}}x{{squareData.new?.height}}</span>
-    <img class="square_img" *ngIf="squareImg" [src]="getSafeUrl('square')" />
+    <div class="col">
+      <span
+        >square {{ squareData.new?.width }}x{{ squareData.new?.height }}</span
+      >
+      <span
+        >Offset {{ squareData.new?.left }}x{{ squareData.new?.top }}</span
+      >
+      <img class="square_img" *ngIf="squareImg" [src]="getSafeUrl('square')" />
+    </div>
   </div>
 </div>

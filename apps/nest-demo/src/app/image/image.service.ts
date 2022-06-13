@@ -23,33 +23,34 @@ export class ImageService {
   create(createImageDto: any) {
     console.log('ImageService.create', createImageDto);
     const dir = createImageDto.path;
-    const imagePath = dir + (createImageDto.fileName);
+    const imagePath = dir + createImageDto.fileName;
     const imageNameAndExtension = this.removeFileExt(createImageDto.fileName);
     const newName =
       imageNameAndExtension.fileName +
       '-' +
       createImageDto.aspect +
-      imageNameAndExtension.extension; 
+      imageNameAndExtension.extension;
     const saveImagePath = dir + newName;
-    console.log('ImageService.create: imagePath', imagePath);
-    const image = Sharp(imagePath);
-    image.metadata().then((metadata) => {
-      console.log('ImageService.create: meta', metadata);
-      Sharp(imagePath)
-        .extract({
-          left: createImageDto.new.left,
-          top: createImageDto.new.top,
-          width: createImageDto.new.width,
-          height: createImageDto.new.height,
-        })
-        .toFile(saveImagePath, (err) => {
-          console.log('ImageService.create: done creating', newName);
-          if (err) {
-            console.log('ImageService.create: err creating ' + newName, err);
-          }
-          // Extract a region of the input image, saving in the same format.
-        });
-    });
+    Sharp(imagePath)
+      .extract({
+        left: createImageDto.new.left,
+        top: createImageDto.new.top,
+        width: createImageDto.new.width,
+        height: createImageDto.new.height,
+      })
+      .toFile(saveImagePath, (err) => {
+        if (err) {
+          console.log('ImageService.create: done creating', newName, createImageDto);
+          console.log(
+            'ImageService.create: err creating aspect ' +
+              createImageDto.aspect +
+              ' ' +
+              newName,
+            err
+          );
+        }
+        // Extract a region of the input image, saving in the same format.
+      });
     return newName;
   }
 
@@ -59,8 +60,8 @@ export class ImageService {
     const ext = text.substring(dot, text.length);
     const result = {
       fileName: newText,
-      extension: ext
-    }
+      extension: ext,
+    };
     return result;
   }
 
@@ -75,7 +76,7 @@ export class ImageService {
   async findOne(imageName: string) {
     console.log('ImageService.findOne: imageName', imageName);
     const dir = 'dist/apps/public/';
-    const imagePath = dir + (imageName);
+    const imagePath = dir + imageName;
     console.log('ImageService.findOne: imagePath', imagePath);
     const image = Sharp(imagePath);
     return new Promise((resolve) => {

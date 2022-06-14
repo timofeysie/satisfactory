@@ -19,12 +19,6 @@
   height: 130px;
 }
 
-.portrait_img {
-  width: 100%;
-  height: auto;
-  border: dashed;
-}
-
 .landscape_img {
   width: 100%;
   height: auto;
@@ -35,4 +29,17 @@
   width: 100%;
   height: auto;
   border: dashed;
+}
+
+.img_container {
+    display:block;
+    margin:auto;
+    width: 200px;
+    height: 200px;
+    overflow: auto;
+}
+
+.portrait_img {
+    transform: scale(2);
+    transform-origin: top left;
 }

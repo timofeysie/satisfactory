@@ -126,6 +126,7 @@ export class ImagePreviewComponent implements OnInit {
     };
     const width = this.getWidth(aspect, _metaData);
     const height = this.getHeight(aspect, _metaData);
+    console.log('--------------------------', aspect);
     const leftOffsetPre = this.getOffsetPre(
       aspect,
       width,
@@ -155,13 +156,14 @@ export class ImagePreviewComponent implements OnInit {
     originalOtherLength: number
   ) {
     const spaceRemaining = originalLength - length;
-    let newLength = spaceRemaining / 2;
+    const newLength = spaceRemaining / 2;
     if (aspect === 'square' && originalOtherLength > originalLength) {
       // this depends on the original dimensions.
       // Whichever is longer should get the crop.
-      newLength = 0;
+     //  newLength = 0;
     }
     const rounded = Math.round(newLength);
+    console.log('orig len: ' + originalLength + ' - ' + length + ' = ' + spaceRemaining + ' / 2 = ' + rounded);
     return rounded;
   }
 

@@ -33,11 +33,12 @@ export class GanController {
     const writer = fs.createWriteStream(pathToImage);
     response.data.pipe(writer);
 
+    // The was the automatic image generation kickoff of any images in the download dir.
     return new Promise((resolve, reject) => {
-      writer.on('finish', () => this.ganService.kickOffGan());
+      writer.on('finish', () => resolve({ msg: 'download complete ' + name.filename }));
       writer.on('error', () => {
-        console.log('gan.controller.downloadImage: error reject');
-        reject
+        console.log({err: 'gan.controller.downloadImage: error reject'});
+        reject('Error in writing downloaded file ' + name.filename);
       });
     });
   }

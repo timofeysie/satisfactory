@@ -386,7 +386,6 @@ export class TrendsComponent implements OnInit {
       this.kickOffGetArticleSummary();
     }
     // download images
-    console.log('download images start');
     this.downloadImages();
     // set the page title
     this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
@@ -464,8 +463,10 @@ export class TrendsComponent implements OnInit {
     if (two) urls.push(two);
     console.log('download urls', urls)
     for (let i = 0; i < urls.length; i++) {
-      console.log('downloadImages', urls[i]);
-      this.trendsService.downloadImages(urls[i]).subscribe();
+      console.log('Images to download', urls[i]);
+      this.trendsService.downloadImages(urls[i]).subscribe((result) => {
+        console.log('download file result', result);
+      });
     }
   }
 

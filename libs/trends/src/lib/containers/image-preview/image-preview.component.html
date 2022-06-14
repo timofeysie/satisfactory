@@ -10,11 +10,13 @@
         >Offset {{ portraitData.new?.left }}x{{ portraitData.new?.top }}</span
       >
     </div>
-    <img
-      class="portrait_img"
-      *ngIf="portraitImg"
-      [src]="getSafeUrl('portrait')"
-    />
+    <div class="img_container">
+      <img
+        class="portrait_img"
+        *ngIf="portraitImg"
+        [src]="getSafeUrl('portrait')"
+      />
+    </div>
   </div>
 
   <div *ngIf="landscapeData" class="image_container container_height_landscape">
@@ -40,9 +42,7 @@
       <span
         >square {{ squareData.new?.width }}x{{ squareData.new?.height }}</span
       >
-      <span
-        >Offset {{ squareData.new?.left }}x{{ squareData.new?.top }}</span
-      >
+      <span>Offset {{ squareData.new?.left }}x{{ squareData.new?.top }}</span>
       <img class="square_img" *ngIf="squareImg" [src]="getSafeUrl('square')" />
     </div>
   </div>

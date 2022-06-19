@@ -6,6 +6,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   FormGroup,
   FormGroupDirective,
@@ -70,6 +71,8 @@ export class PostCreationFormComponent {
       viewValue: 'Tech',
     },
   ];
+
+  constructor(private sanitizer: DomSanitizer) {}
 
   onGeneratedTextUpdate() {
     this.generatedTextUpdated.emit(true);
@@ -145,6 +148,7 @@ export class PostCreationFormComponent {
   }
 
   sourceImageChosen(event) {
+    console.log('1')
     if (event.target.files.length > 0) {
       const fileChosen = event.target.files[0]['name'];
       console.log('fileChose', fileChosen);
@@ -169,5 +173,14 @@ export class PostCreationFormComponent {
 
   kickoffGeneratedTextUpdate() {
     this.kickoffGenerateText.emit();
+  }
+
+  getSafeUrl() {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(
+      encodeURI(
+        'http://localhost:3333/public/' +
+          this.fullTopicForm.value.one?.imageChosen
+      )
+    );
   }
 }

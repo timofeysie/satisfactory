@@ -120,7 +120,7 @@ export class TrendsService {
    * @returns 
    */
   getImageMetadata(fileName: string) {
-    console.log('getImageMetadata: fileName', fileName);
+    console.log('5 getImageMetadata: fileName', fileName);
     return this.httpClient.get('http://localhost:3333/api/image/' + fileName, {
       responseType: 'text',
     });

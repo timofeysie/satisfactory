@@ -23,8 +23,16 @@ export class ImageService {
   create(createImageDto: any) {
     console.log('ImageService.create', createImageDto);
     const dir = createImageDto.path;
-    const imagePath = dir + createImageDto.fileName;
-    const imageNameAndExtension = this.removeFileExt(createImageDto.fileName);
+    let fileName = createImageDto.fileName;
+    if (this.isEncoded(fileName)) {
+      console.log('file encoded');
+    } else {
+      console.log('file un-encoded, encoding');
+      fileName = encodeURIComponent(fileName);
+      fileName = this.encodeUriAll(fileName);
+    }
+    const imagePath = dir + fileName;
+    const imageNameAndExtension = this.removeFileExt(fileName);
     const newName =
       imageNameAndExtension.fileName +
       '-' +
@@ -40,7 +48,11 @@ export class ImageService {
       })
       .toFile(saveImagePath, (err) => {
         if (err) {
-          console.log('ImageService.create: done creating', newName, createImageDto);
+          console.log(
+            'ImageService.create: done creating',
+            newName,
+            createImageDto
+          );
           console.log(
             'ImageService.create: err creating aspect ' +
               createImageDto.aspect +
@@ -75,8 +87,16 @@ export class ImageService {
    */
   async findOne(imageName: string) {
     console.log('ImageService.findOne: imageName', imageName);
+    let encodedFileName = imageName;
+    if (this.isEncoded(imageName)) {
+      console.log('file encoded');
+    } else {
+      console.log('file un-encoded, encoding');
+      encodedFileName = encodeURIComponent(imageName);
+      encodedFileName = this.encodeUriAll(encodedFileName);
+    }
     const dir = 'dist/apps/public/';
-    const imagePath = dir + imageName;
+    const imagePath = dir + encodedFileName;
     console.log('ImageService.findOne: imagePath', imagePath);
     const image = Sharp(imagePath);
     return new Promise((resolve) => {
@@ -85,6 +105,27 @@ export class ImageService {
         resolve(metadata);
       });
     });
+  }
+
+  /**
+   * Decode, compare to original. If it does differ, original is encoded. If it doesn't differ, original isn't encoded.
+   * @param imageName
+   */
+  isEncoded(imageName) {
+    const decodedImageName = decodeURI(imageName);
+    if (imageName === decodedImageName) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  encodeUriAll(value) {
+    return value.replace(
+      // eslint-disable-next-line no-useless-escape
+      /[\(\)]/g,
+      (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`
+    );
   }
 
   update(id: number, updateImageDto: UpdateImageDto) {

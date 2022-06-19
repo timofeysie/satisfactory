@@ -326,6 +326,7 @@ export class TrendsComponent implements OnInit {
    * @param selectedImage 
    */
   onOriginalImageSelected(selectedImage: string) {
+    console.log('2', selectedImage)
     this.topicForm.controls['one']['controls']?.imageChosen?.setValue(
       selectedImage
     );

@@ -32,14 +32,14 @@
 }
 
 .img_container {
-    display:block;
-    margin:auto;
-    width: 200px;
-    height: 200px;
-    overflow: auto;
+  display: block;
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  overflow: auto;
 }
 
 .portrait_img {
-    transform: scale(2);
-    transform-origin: top left;
+  transform: scale(2);
+  transform-origin: top left;
 }

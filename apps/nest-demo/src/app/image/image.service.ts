@@ -23,13 +23,13 @@ export class ImageService {
   create(createImageDto: any) {
     console.log('ImageService.create', createImageDto);
     const dir = createImageDto.path;
-    let fileName = createImageDto.fileName;
+    const fileName = createImageDto.fileName;
     if (this.isEncoded(fileName)) {
       console.log('file encoded');
     } else {
       console.log('file un-encoded, encoding');
-      fileName = encodeURIComponent(fileName);
-      fileName = this.encodeUriAll(fileName);
+      // fileName = encodeURIComponent(fileName);
+      // fileName = this.encodeUriAll(fileName);
     }
     const imagePath = dir + fileName;
     const imageNameAndExtension = this.removeFileExt(fileName);
@@ -87,13 +87,13 @@ export class ImageService {
    */
   async findOne(imageName: string) {
     console.log('ImageService.findOne: imageName', imageName);
-    let encodedFileName = imageName;
+    const encodedFileName = imageName;
     if (this.isEncoded(imageName)) {
       console.log('file encoded');
     } else {
-      console.log('file un-encoded, encoding');
-      encodedFileName = encodeURIComponent(imageName);
-      encodedFileName = this.encodeUriAll(encodedFileName);
+      console.log('file un-encoded');
+      //encodedFileName = encodeURIComponent(imageName);
+      //encodedFileName = this.encodeUriAll(encodedFileName);
     }
     const dir = 'dist/apps/public/';
     const imagePath = dir + encodedFileName;

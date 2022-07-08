@@ -24,6 +24,11 @@ export class ImagePreviewComponent implements OnInit {
   squareData: any;
   squareImg: string;
 
+  maxPortraitHeight = 960;
+  maxLandscapeHeight = 541;
+  maxDisplayPortraitHeight = 100;
+  maxDisplayLandscapeHeight = 100;
+
   constructor(
     private trendsService: TrendsService,
     private sanitizer: DomSanitizer
@@ -42,8 +47,8 @@ export class ImagePreviewComponent implements OnInit {
           this.metaData = sharpMetadata;
           // setup initial offsets
           this.setupPosters(fileName, sharpMetadata, 'portrait');
-         //  this.setupPosters(fileName, sharpMetadata, 'landscape');
-          // this.setupPosters(fileName, sharpMetadata, 'square');
+          this.setupPosters(fileName, sharpMetadata, 'landscape');
+          this.setupPosters(fileName, sharpMetadata, 'square');
         });
     });
   }
@@ -108,33 +113,95 @@ export class ImagePreviewComponent implements OnInit {
   }
 
   /**
-   * Determine the width and the height and calculate the aspect of the posters.
-   * @param fileName
-   * @param aspect
-   * @param _metaData
-   * @param leftOffsetPre
-   * @param topOffsetPre
-   * @returns the payload body for the api/image POST
+   * 
+   * Desired width or height, then calculate the new length.
+   * @param fileName 
+   * @param aspect 
+   * @param _metaData 
+   * @returns 
    */
-  preparePostBody(fileName: string, aspect: string, _metaData: any) {
-    const body = {
+  prepareImagePreview(fileName: string, aspect: string, _metaData: any) {
+    const result = {
+      type: 'preview',
       path: 'dist/apps/public/',
       fileName: fileName,
       original: { width: _metaData.width, height: _metaData.height },
       aspect: aspect,
     };
+    const widthHeight = this.getWidthAndHeight(aspect, _metaData);
+    const leftOffsetPre = this.getOffsetPre(
+      aspect,
+      widthHeight.width,
+      _metaData.width,
+      _metaData.length
+    );
+    const topOffsetPre = this.getOffsetPre(
+      aspect,
+      widthHeight.height,
+      _metaData.height,
+      _metaData.width
+    );
+    result['new'] = {
+      left: leftOffsetPre,
+      top: topOffsetPre,
+      width: widthHeight.width,
+      height: widthHeight.height,
+    };
+    return result;
+  }
+
+
+  /**
+   * Determine the width and the height and calculate the aspect of the posters.
+   * @param fileName
+   * @param aspect
+   * @param _metaData
+   * @returns the payload body for the api/image POST
+   */
+  preparePostBody(fileName: string, aspect: string, _metaData: any) {
+    const body = {
+      type: 'poster',
+      path: 'dist/apps/public/',
+      fileName: fileName,
+      original: { width: _metaData.width, height: _metaData.height },
+      aspect: aspect,
+    };
+    const widthHeight = this.getWidthAndHeight(aspect, _metaData);
+    const leftOffsetPre = this.getOffsetPre(
+      aspect,
+      widthHeight.width,
+      _metaData.width,
+      _metaData.length
+    );
+    const topOffsetPre = this.getOffsetPre(
+      aspect,
+      widthHeight.height,
+      _metaData.height,
+      _metaData.width
+    );
+    body['new'] = {
+      left: leftOffsetPre,
+      top: topOffsetPre,
+      width: widthHeight.width,
+      height: widthHeight.height,
+    };
+    return body;
+  }
+
+  /**
+   * Calculate the width and height for a particular aspect.
+   * @param aspect string portrait, landscape or square.
+   * @param _metaData image meta data of original image.
+   * @returns an object with width and height properties.
+   */
+  getWidthAndHeight(aspect: string, _metaData: any) {
+    // first get the desired with, either 720 or original width if it's smaller than that
+    // i.e. the longest width up to 720.
+    // calculate the new hight based on the aspect and the desired with
     let width;
     let height;
-    if (aspect === 'landscape') {
-      // first get the desired with, either 720 or original width if it's smaller than that
-      // i.e. the longest width up to 720.
-      width = this.getWidth(aspect, _metaData);
-      // calculate the new hight based on the aspect and the desired with
-      //height = this.getHeight(aspect, _metaData, width);
-      height = this.getRatioLength(_metaData, width, height, aspect);
-    }
-    if (aspect === 'portrait') {
-      // get desired width
+    if (aspect === 'landscape' || aspect === 'portrait') {
+      // get desired width and use that to calculate the height
       width = this.getWidth(aspect, _metaData);
       height = this.getRatioLength(_metaData, width, height, aspect);
     }
@@ -142,37 +209,19 @@ export class ImagePreviewComponent implements OnInit {
       height = this.getHeight(aspect, _metaData);
       width = this.getRatioLength(_metaData, width, height, aspect);
     }
-    const leftOffsetPre = this.getOffsetPre(
-      aspect,
-      width,
-      _metaData.width,
-      _metaData.length
-    );
-    const topOffsetPre = this.getOffsetPre(
-      aspect,
-      height,
-      _metaData.height,
-      _metaData.width
-    );
-    // need to pass both width and height here
-    body['new'] = {
-      left: leftOffsetPre,
-      top: topOffsetPre,
+    const result = {
       width: width,
       height: height,
     };
-    if (aspect === 'landscape') {
-      // ???
-    }
-    return body;
+    return result;
   }
 
   /**
-   * Calculate a new length from a desired length of an aspect ratio. 
-   * @param _metaData 
-   * @param width 
-   * @param height 
-   * @param aspect 
+   * Calculate a new length from a desired length of an aspect ratio.
+   * @param _metaData
+   * @param width
+   * @param height
+   * @param aspect
    * @returns height for portrait or width for landscape, smallest length for square.
    */
   getRatioLength(
@@ -181,7 +230,6 @@ export class ImagePreviewComponent implements OnInit {
     height: number,
     aspect: string
   ) {
-    let newWidth;
     let newHeight;
     if (aspect === 'square') {
       if (width < height) {
@@ -191,20 +239,14 @@ export class ImagePreviewComponent implements OnInit {
       }
     }
     if (aspect === 'portrait') {
-
-        const ratio = 4/3;
-        newHeight = Math.round(ratio * width);
-        return newHeight;
+      const ratio = 4 / 3;
+      newHeight = Math.round(ratio * width);
+      return newHeight;
     }
     if (aspect === 'landscape') {
-      // if width is greater than 720
-      if (width >= 720) {
-        return 720;
-      } else {
-        const ratio = 4/3;
-      newWidth = Math.round(ratio * height);
-      return newWidth;
-      }
+      const ratio = 3 / 4;
+      newHeight = Math.round(ratio * width);
+      return newHeight;
     }
   }
 
@@ -256,7 +298,6 @@ export class ImagePreviewComponent implements OnInit {
    * The landscape height should be calculated from the desired width
    * which would be the original width or 720 if its greater than that.
    *
-   *
    * Instagram portrait 1080 x 1350
    * story_dog2_portrait.jpg  720 x 960
    * story_dog2_landscape.jpg 720 x 541
@@ -268,19 +309,19 @@ export class ImagePreviewComponent implements OnInit {
    * aspect: 'portrait',
    * new: { left: 20, top: 0, width: 720, height: 982 }
    */
-  getHeight(aspect: string, _metaData: any, desiredWidth?: number) {
+  getHeight(aspect: string, _metaData: any) {
     const originalHeight = _metaData.height;
     let height = originalHeight;
     if (aspect === 'portrait') {
-      if (originalHeight > 960) {
-        height = 960;
+      if (originalHeight > this.maxPortraitHeight) {
+        height = this.maxPortraitHeight;
       } else {
         height = originalHeight;
       }
     } else if (aspect === 'landscape') {
       // height doesn't matter, as it will be calculated by the width
-      if (originalHeight > 541) {
-        height = 541;
+      if (originalHeight > this.maxLandscapeHeight) {
+        height = this.maxLandscapeHeight;
       } else {
         height = originalHeight;
       }
@@ -294,9 +335,6 @@ export class ImagePreviewComponent implements OnInit {
       } else {
         height = min;
       }
-    }
-    if (aspect === 'landscape') {
-      // again ???
     }
     return height;
   }
@@ -329,13 +367,12 @@ export class ImagePreviewComponent implements OnInit {
       width = originalWidth;
     }
     if (aspect === 'landscape') {
-      if (originalWidth > 541) {
-        width = 541;
+      if (originalWidth > this.maxLandscapeHeight) {
+        width = this.maxLandscapeHeight;
       } else {
         width = originalWidth;
       }
     }
     return width;
   }
-
 }

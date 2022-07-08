@@ -1,5 +1,6 @@
 .image_preview_container {
-  // height: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .image_container {
@@ -7,7 +8,7 @@
   background-size: 100%;
 }
 
-.container_height {
+.container_height_square {
   height: 100px;
 }
 

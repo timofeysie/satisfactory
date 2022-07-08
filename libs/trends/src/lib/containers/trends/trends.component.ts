@@ -759,6 +759,7 @@ export class TrendsComponent implements OnInit {
   getRelatedQueries() {
     this.trends$.subscribe((results) => {
       const queries = [this.trendTitleSeen];
+      if (results) {
       results.forEach((result) => {
         if (result.title.query === this.trendTitleSeen) {
           result.relatedQueries.forEach((item) => {
@@ -767,6 +768,7 @@ export class TrendsComponent implements OnInit {
           });
         }
       });
+    }
       this.topicForm.controls.keywords.setValue(queries.toString());
       this.trendTitleSeenBackup = this.trendTitleSeen;
       this.completePostMode = true;

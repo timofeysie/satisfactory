@@ -1,6 +1,16 @@
-# Demo App
+# Satis-factory
 
-This is a sample app created following the steps in [Workshop: Enterprise Angular applications with NgRx and Nx](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/2-creating-an-nx-workspace).
+This app was created following the steps in [Workshop: Enterprise Angular applications with NgRx and Nx](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/2-creating-an-nx-workspace).  During the process, I updated the workshop content to cover Angular 12.  After this the project went on hiatus as I moved onto React development full time.
+
+However, this is a useful app when run locally to construct posts for the [Ruffmello.com](https://ruffmello.com/) Preact site site hosted on Netlify.
+
+There are a lot of working parts that have to come together to accomplish creating a post and then export a list of posts.
+
+Generally speaking it looks at current Google search trends and allows you to select a trend to create a post around.
+
+There are various utilities to create links for content on AP News and WIkipedia.  It does a Wikimedia search for images related to the search trend and allows the user to select one or two images.  The initial purpose of the app was to create a kind of face-off between a real life artist and a machine learning GAN image.  These were posted on the site [AI vs Art](https://www.aivsart.com/) aka Tundra 64 which is hosted on Heroku.
+
+There is extensive documentation the records the development of all these features in the docs directory.  Given that the Javascript tech space moves on so quickly, it's all becomes legacy code very quickly.  Most likely some of the Nest.js code will live on in another project instead of continuing here.
 
 ## Workflow
 

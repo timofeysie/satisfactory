@@ -23,33 +23,47 @@ export class ImageService {
   create(createImageDto: any) {
     console.log('ImageService.create', createImageDto);
     const dir = createImageDto.path;
-    const imagePath = dir + (createImageDto.fileName);
-    const imageNameAndExtension = this.removeFileExt(createImageDto.fileName);
+    // eslint-disable-next-line prefer-const
+    let fileName = createImageDto.fileName;
+    if (this.isEncoded(fileName)) {
+      console.log('file encoded');
+    } else {
+      console.log('file un-encoded, encoding');
+      // fileName = encodeURIComponent(fileName);
+      // fileName = this.encodeUriAll(fileName);
+    }
+    const imagePath = dir + fileName;
+    const imageNameAndExtension = this.removeFileExt(fileName);
     const newName =
       imageNameAndExtension.fileName +
       '-' +
       createImageDto.aspect +
-      imageNameAndExtension.extension; 
+      imageNameAndExtension.extension;
     const saveImagePath = dir + newName;
-    console.log('ImageService.create: imagePath', imagePath);
-    const image = Sharp(imagePath);
-    image.metadata().then((metadata) => {
-      console.log('ImageService.create: meta', metadata);
-      Sharp(imagePath)
-        .extract({
-          left: createImageDto.new.left,
-          top: createImageDto.new.top,
-          width: createImageDto.new.width,
-          height: createImageDto.new.height,
-        })
-        .toFile(saveImagePath, (err) => {
-          console.log('ImageService.create: done creating', newName);
-          if (err) {
-            console.log('ImageService.create: err creating ' + newName, err);
-          }
-          // Extract a region of the input image, saving in the same format.
-        });
-    });
+    Sharp(imagePath)
+      .extract({
+        left: createImageDto.new.left,
+        top: createImageDto.new.top,
+        width: createImageDto.new.width,
+        height: createImageDto.new.height,
+      })
+      .toFile(saveImagePath, (err) => {
+        if (err) {
+          console.log(
+            'ImageService.create: done creating',
+            newName,
+            createImageDto
+          );
+          console.log(
+            'ImageService.create: err creating aspect ' +
+              createImageDto.aspect +
+              ' ' +
+              newName,
+            err
+          );
+        }
+        // Extract a region of the input image, saving in the same format.
+      });
     return newName;
   }
 
@@ -59,8 +73,8 @@ export class ImageService {
     const ext = text.substring(dot, text.length);
     const result = {
       fileName: newText,
-      extension: ext
-    }
+      extension: ext,
+    };
     return result;
   }
 
@@ -74,8 +88,17 @@ export class ImageService {
    */
   async findOne(imageName: string) {
     console.log('ImageService.findOne: imageName', imageName);
+    // eslint-disable-next-line prefer-const
+    let encodedFileName = imageName;
+    if (this.isEncoded(imageName)) {
+      console.log('file encoded');
+    } else {
+      console.log('file un-encoded');
+      // encodedFileName = encodeURIComponent(imageName);
+      // encodedFileName = this.encodeUriAll(encodedFileName);
+    }
     const dir = 'dist/apps/public/';
-    const imagePath = dir + (imageName);
+    const imagePath = dir + encodedFileName;
     console.log('ImageService.findOne: imagePath', imagePath);
     const image = Sharp(imagePath);
     return new Promise((resolve) => {
@@ -84,6 +107,27 @@ export class ImageService {
         resolve(metadata);
       });
     });
+  }
+
+  /**
+   * Decode, compare to original. If it does differ, original is encoded. If it doesn't differ, original isn't encoded.
+   * @param imageName
+   */
+  isEncoded(imageName) {
+    const decodedImageName = decodeURI(imageName);
+    if (imageName === decodedImageName) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  encodeUriAll(value) {
+    return value.replace(
+      // eslint-disable-next-line no-useless-escape
+      /[\(\)]/g,
+      (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`
+    );
   }
 
   update(id: number, updateImageDto: UpdateImageDto) {

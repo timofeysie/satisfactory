@@ -118,13 +118,15 @@
               class="common-image"
               [innerHTML]="fullTopicForm.value.one.commonImg"
             ></span>
+            <span *ngIf="fullTopicForm.value.one?.imageChosen"
+              class="original_image">
+              <img
+                [src]="getSafeUrl()"
+            /></span>
             <demo-app-image-preview
               *ngIf="fullTopicForm.value.one?.imageChosen"
               [imageFileName]="fullTopicForm.value.one?.imageChosen"
             ></demo-app-image-preview>
-            <!-- <demo-app-image-preview
-              [imageFileName]="fullTopicForm.value.one?.imageChosen"
-            ></demo-app-image-preview> -->
           </div>
           <div
             *ngIf="fullTopicForm.value.one.type === 'ARTIST'"

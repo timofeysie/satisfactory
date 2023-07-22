@@ -15,7 +15,7 @@ There is extensive documentation the records the development of all these featur
 ## Workflow
 
 ```txt
-nx serve nest-demo // start the nest server
+nx serve nest-demo // start the nest server (this should be done from a regular Windows prompt)
 npm run server // start the customer portal server
 nx serve customer-portal // serve the front end with trends
 nx serve trendy // original Tundra 64 app, now defunct

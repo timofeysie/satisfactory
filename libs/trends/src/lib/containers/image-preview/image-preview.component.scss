@@ -1,5 +1,6 @@
 .image_preview_container {
-  // height: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .image_container {
@@ -7,22 +8,16 @@
   background-size: 100%;
 }
 
-.container_height {
+.container_height_square {
   height: 100px;
 }
 
 .container_height_portrait {
-  height: 150px;
+  height: 180px;
 }
 
 .container_height_landscape {
-  height: 85px;
-}
-
-.portrait_img {
-  width: 100%;
-  height: auto;
-  border: dashed;
+  height: 130px;
 }
 
 .landscape_img {
@@ -35,4 +30,17 @@
   width: 100%;
   height: auto;
   border: dashed;
+}
+
+.img_container {
+  display: block;
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  overflow: auto;
+}
+
+.portrait_img {
+  transform: scale(2);
+  transform-origin: top left;
 }

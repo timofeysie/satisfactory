@@ -326,6 +326,7 @@ export class TrendsComponent implements OnInit {
    * @param selectedImage 
    */
   onOriginalImageSelected(selectedImage: string) {
+    console.log('2', selectedImage)
     this.topicForm.controls['one']['controls']?.imageChosen?.setValue(
       selectedImage
     );
@@ -386,7 +387,6 @@ export class TrendsComponent implements OnInit {
       this.kickOffGetArticleSummary();
     }
     // download images
-    console.log('download images start');
     this.downloadImages();
     // set the page title
     this.topicForm.controls.pageTitle.setValue(this.trendTitleSeen);
@@ -464,8 +464,10 @@ export class TrendsComponent implements OnInit {
     if (two) urls.push(two);
     console.log('download urls', urls)
     for (let i = 0; i < urls.length; i++) {
-      console.log('downloadImages', urls[i]);
-      this.trendsService.downloadImages(urls[i]).subscribe();
+      console.log('Images to download', urls[i]);
+      this.trendsService.downloadImages(urls[i]).subscribe((result) => {
+        console.log('download file result', result);
+      });
     }
   }
 
@@ -757,6 +759,7 @@ export class TrendsComponent implements OnInit {
   getRelatedQueries() {
     this.trends$.subscribe((results) => {
       const queries = [this.trendTitleSeen];
+      if (results) {
       results.forEach((result) => {
         if (result.title.query === this.trendTitleSeen) {
           result.relatedQueries.forEach((item) => {
@@ -765,6 +768,7 @@ export class TrendsComponent implements OnInit {
           });
         }
       });
+    }
       this.topicForm.controls.keywords.setValue(queries.toString());
       this.trendTitleSeenBackup = this.trendTitleSeen;
       this.completePostMode = true;

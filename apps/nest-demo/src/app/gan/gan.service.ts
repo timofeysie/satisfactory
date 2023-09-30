@@ -71,11 +71,20 @@ export class GanService {
     console.log('============== wh', wh)
     const bucketS3 = 'one-public-bucket';
     if (file.buffer) {
-      return await this.uploadS3(file.buffer, bucketS3, originalFileName);
-    } else return 'error';
+      const response: any = await this.uploadS3(file.buffer, bucketS3, originalFileName, wh);
+      console.log('response', response);
+      response.height = wh?.height;
+      response.width = wh?.width;
+      console.log('response with wh', response);
+      
+      return response;
+    } else {
+      console.log('no file.buffer', file);
+      return 'error';
+    }
   }
 
-  async uploadS3(file, bucket, name) {
+  async uploadS3(file, bucket, name, wh) {
     const s3 = this.getS3();
     const params = {
       Bucket: bucket,
@@ -89,6 +98,8 @@ export class GanService {
           Logger.error(err);
           reject(err.message);
         }
+        data.width = wh?.width;
+        data.height = wh?.height;
         console.log('gan.service: resolved', data);
         this.writeS3ResultFile(name, data);
         resolve(data);

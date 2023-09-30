@@ -73,7 +73,7 @@ These directories need to be created manually at the moment if they don't alread
 - ./dist/apps/public # images downloaded from wikimedia commons
 ```
 
-### AMP pmage rules
+### AMP image rules
 
 Max portrait height: 960px.
 Max landscape height: 541px.

@@ -42,8 +42,8 @@
       "Location": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Portrait-of-Duane_Keffe_D_Davis-the-man-accused-of-planning-the-death-of-Tupac.jpg",
       "Key": "Portrait-of-Duane_Keffe_D_Davis-the-man-accused-of-planning-the-death-of-Tupac.jpg",
       "Bucket": "one-public-bucket",
-      "width": "686",
-      "height": "951"
+      "width": 686,
+      "height": 951
     }
   },
   "originalTrend": {

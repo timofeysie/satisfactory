@@ -54,7 +54,7 @@ export class GanService {
   async getImageDimensions(imagePath: string): Promise<{ width: number; height: number }> {
     try {
       const metadata = await Sharp(imagePath).metadata();
-      console.log('====== metadata', metadata)
+      console.log('getImageDimensions metadata', metadata)
       return {
         width: metadata.width,
         height: metadata.height,
@@ -66,17 +66,11 @@ export class GanService {
   };
 
   async uploadImage(file, originalFileName) {
-    console.log('file', file)
+    console.log('uploadImage file', file)
     const wh = await this.getImageDimensions(file);
-    console.log('============== wh', wh)
     const bucketS3 = 'one-public-bucket';
     if (file.buffer) {
       const response: any = await this.uploadS3(file.buffer, bucketS3, originalFileName, wh);
-      console.log('response', response);
-      response.height = wh?.height;
-      response.width = wh?.width;
-      console.log('response with wh', response);
-      
       return response;
     } else {
       console.log('no file.buffer', file);

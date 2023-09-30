@@ -42,8 +42,8 @@
       "Location": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/portrait-of-Dianne_Feinstein_113th_Congress-max-height-960.jpg",
       "Key": "portrait-of-Dianne_Feinstein_113th_Congress-max-height-960.jpg",
       "Bucket": "one-public-bucket",
-      "width": "811",
-      "height": "950"
+      "width": 811,
+      "height": 950
     }
   },
   "originalTrend": {

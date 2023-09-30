@@ -1,1 +1,53 @@
-[{"title":"Duane Keffe D Davis accused in the of death of Tupac","timeAgo":"10m ago","date":"Sat Sep 30 2023 11:03:43 GMT+0900 (Korean Standard Time)","source":"AIvsArt","image":{"newsUrl":"https://ruffmello.com/illustrations/Duane Keffe D Davis accused in the of death of Tupac","source":"Davis-the-man-accused-of-planning-the-death-of-Tupac","imageUrl":"https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Portrait-of-Duane_Keffe_D_Davis-the-man-accused-of-planning-the-death-of-Tupac.jpg"},"url":"https://ruffmello.com","snippet":"A portrait in charcoal of Duane \"Keffe D\" Davis was indicted by a Nevada grand jury after being accused of planning the drive-by shooting death of Tupac...","category":"","fileName":"Duane-Keffe-D-Davis-accused-in-the-of-death-of-Tupac"},{"title":"Portrait of Dianne Feinstein at the 113th Congress","timeAgo":"10m ago","date":"Sat Sep 30 2023 02:24:08 GMT+0900 (Korean Standard Time)","source":"AIvsArt","image":{"newsUrl":"https://ruffmello.com/illustrations/Portrait of Dianne Feinstein at the 113th Congress","source":"Congress","imageUrl":"https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/portrait-of-Dianne_Feinstein_113th_Congress-max-height-960.jpg"},"url":"https://ruffmello.com","snippet":"A portrait of the California senator Dianne Feinstein passed away at the age of 90.","category":"","fileName":"portrait-of-Dianne_Feinstein_ at-the-113th_Congress"},{"title":"USC Trojans vs Colorado Buffaloes college football","timeAgo":"10m ago","date":"Sun Oct 01 2023 07:05:27 GMT+0900 (Korean Standard Time)","source":"AIvsArt","image":{"newsUrl":"https://ruffmello.com/illustrations/USC Trojans vs Colorado Buffaloes college football","source":"edge-detect-sobel","imageUrl":"https://one-public-bucket.s3.amazonaws.com/USC_vs._Colorado_edge-detect-sobel.jpg"},"url":"https://ruffmello.com","snippet":"A picture of the USC Trojans vs. Colorado Buffaloes college football game in Week 5 of the NCAA football season.","category":"","fileName":"USC-Trojans-vs-Colorado-Buffaloes-college-football"}]
+[
+  {
+    "title": "Duane Keffe D Davis accused in the of death of Tupac",
+    "timeAgo": "10m ago",
+    "date": "Sat Sep 30 2023 11:03:43 GMT+0900 (Korean Standard Time)",
+    "source": "AIvsArt",
+    "image": {
+      "newsUrl": "https://ruffmello.com/illustrations/Duane Keffe D Davis accused in the of death of Tupac",
+      "source": "Davis-the-man-accused-of-planning-the-death-of-Tupac",
+      "imageUrl": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/Portrait-of-Duane_Keffe_D_Davis-the-man-accused-of-planning-the-death-of-Tupac.jpg",
+      "width": 686,
+      "height": 951
+    },
+    "url": "https://ruffmello.com",
+    "snippet": "A portrait in charcoal of Duane \"Keffe D\" Davis was indicted by a Nevada grand jury after being accused of planning the drive-by shooting death of Tupac...",
+    "category": "",
+    "fileName": "Duane-Keffe-D-Davis-accused-in-the-of-death-of-Tupac"
+  },
+  {
+    "title": "Portrait of Dianne Feinstein at the 113th Congress",
+    "timeAgo": "10m ago",
+    "date": "Sat Sep 30 2023 02:24:08 GMT+0900 (Korean Standard Time)",
+    "source": "AIvsArt",
+    "image": {
+      "newsUrl": "https://ruffmello.com/illustrations/Portrait of Dianne Feinstein at the 113th Congress",
+      "source": "Congress",
+      "imageUrl": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/portrait-of-Dianne_Feinstein_113th_Congress-max-height-960.jpg",
+      "width": 811,
+      "height": 950
+    },
+    "url": "https://ruffmello.com",
+    "snippet": "A portrait of the California senator Dianne Feinstein passed away at the age of 90.",
+    "category": "",
+    "fileName": "portrait-of-Dianne_Feinstein_ at-the-113th_Congress"
+  },
+  {
+    "title": "USC Trojans vs Colorado Buffaloes college football",
+    "timeAgo": "10m ago",
+    "date": "Sun Oct 01 2023 07:05:27 GMT+0900 (Korean Standard Time)",
+    "source": "AIvsArt",
+    "image": {
+      "newsUrl": "https://ruffmello.com/illustrations/USC Trojans vs Colorado Buffaloes college football",
+      "source": "edge-detect-sobel",
+      "imageUrl": "https://one-public-bucket.s3.amazonaws.com/USC_vs._Colorado_edge-detect-sobel.jpg",
+      "width": 541,
+      "height": 359
+    },
+    "url": "https://ruffmello.com",
+    "snippet": "A picture of the USC Trojans vs. Colorado Buffaloes college football game in Week 5 of the NCAA football season.",
+    "category": "",
+    "fileName": "USC-Trojans-vs-Colorado-Buffaloes-college-football"
+  }
+]

@@ -4,6 +4,7 @@ import { UpdateGanDto } from './dto/update-gan.dto';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
 import https from 'https';
+import Sharp from 'sharp';
 
 @Injectable()
 export class GanService {
@@ -50,7 +51,24 @@ export class GanService {
     });
   };
 
+  async getImageDimensions(imagePath: string): Promise<{ width: number; height: number }> {
+    try {
+      const metadata = await Sharp(imagePath).metadata();
+      console.log('====== metadata', metadata)
+      return {
+        width: metadata.width,
+        height: metadata.height,
+      };
+    } catch (error) {
+      console.log('error', error);
+      throw new Error('Failed to get image dimensions');
+    }
+  };
+
   async uploadImage(file, originalFileName) {
+    console.log('file', file)
+    const wh = await this.getImageDimensions(file);
+    console.log('============== wh', wh)
     const bucketS3 = 'one-public-bucket';
     if (file.buffer) {
       return await this.uploadS3(file.buffer, bucketS3, originalFileName);

@@ -71,7 +71,7 @@
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.2",
     "rxjs": "~6.6.0",
-    "sharp": "^0.30.4",
+    "sharp": "^0.30.7",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
@@ -100,6 +100,7 @@
     "@nxtend/firebase": "^11.1.2",
     "@types/jest": "26.0.8",
     "@types/node": "14.14.33",
+    "@types/sharp": "^0.32.0",
     "@typescript-eslint/eslint-plugin": "4.19.0",
     "@typescript-eslint/parser": "4.19.0",
     "cypress": "^6.0.1",

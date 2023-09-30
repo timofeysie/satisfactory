@@ -62,6 +62,7 @@ Clone the project and npm install the dependencies.
 
 These directories need to be created manually at the moment if they don't already exist.
 
+```txt
 - ./apps/toonify/src/cartooned_img/test_img
 - ./apps/toonify/src/cartooned_img/gen_image
 - ./apps/toonify/src/cartooned_img/cartooned_img
@@ -69,6 +70,13 @@ These directories need to be created manually at the moment if they don't alread
 - ./apps/nest-demo/src/app/gan/bucket
 - ./articles/
 - ./posts
+- ./dist/apps/public # images downloaded from wikimedia commons
+```
+
+### AMP pmage rules
+
+Max portrait height: 960px.
+Max landscape height: 541px.
 
 ## Text Summary Tool
 

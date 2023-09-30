@@ -1,0 +1,9 @@
+{
+  "ETag": "\"07c1eefe1da61f6853fdc7839db39de3\"",
+  "ServerSideEncryption": "AES256",
+  "VersionId": "PtW.S2eUTVuA0UGHBTuLmi5IB63tOrjQ",
+  "Location": "https://one-public-bucket.s3.amazonaws.com/USC_vs._UCLA_Football_2012.jpg",
+  "key": "USC_vs._UCLA_Football_2012.jpg",
+  "Key": "USC_vs._UCLA_Football_2012.jpg",
+  "Bucket": "one-public-bucket"
+}

@@ -7,7 +7,7 @@ import * as fs from 'fs';
 @Injectable()
 export class TrendsService {
   async create(createTrendDto: any) {
-    console.log('TrendsService.create: createTrendDto', createTrendDto);
+    console.log('TrendsService.create: createTrendDto', createTrendDto.pageTitle);
     await this.getGeneratedFileName(createTrendDto);
     const fileName = createTrendDto.pageTitle?.split(' ').join('-');
     if (fileName) {
@@ -16,7 +16,7 @@ export class TrendsService {
         /* error handling */
         console.log('TrendsService.create: err 1', err);
       });
-      console.log(fileName,'writing', createTrendDto);
+      console.log(fileName,'writing', createTrendDto.length);
       file.write(JSON.stringify(createTrendDto));
       file.end();
       

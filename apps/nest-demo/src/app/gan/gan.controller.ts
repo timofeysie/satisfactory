@@ -66,6 +66,7 @@ export class GanController {
     const brackets = remove.split(')').join('%29');
     const filename = brackets;
     const pathToImage = 'apps/toonify/src/cartooned_img/' + filename;
+    console.log('pathToImage', pathToImage)
     return fs.readFile(pathToImage, (err, file) => {
       if (err) {
         console.log('gan.service.upload: err', err);

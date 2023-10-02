@@ -1,7 +1,7 @@
 {
   "version": "0.0.4",
   "date": "Sun Oct 01 2023 07:05:27 GMT+0900 (Korean Standard Time)",
-  "category": "",
+  "category": "sports",
   "country": "US",
   "pageTitle": "USC Trojans vs Colorado Buffaloes college football",
   "authors": "edge-detect-sobel",
@@ -9,12 +9,12 @@
   "description": "USC Trojans vs. Colorado Buffaloes college football game in Week 5 of the NCAA football season.",
   "metaDescription": "A picture of the USC Trojans vs. Colorado Buffaloes college football game in Week 5 of the NCAA football season.",
   "linkUrl": "https://en.wikipedia.org/wiki/USC_Trojans",
-  "linkLabel": "Colorado vs USC on Wikipedia",
+  "linkLabel": "USC_Trojans on Wikipedia",
   "linkForSummary": "",
   "generatedText": "",
   "links": {
     "newsLink": "https://en.wikipedia.org/wiki/Colorado_Buffaloes",
-    "newsLinkLabel": "Colorado vs USC on Wikipedia",
+    "newsLinkLabel": "Colorado Buffaloes on Wikipedia",
     "useAPNewsLink": true,
     "addAPNewsContent": "",
     "wikiLink": "USC_Trojans",

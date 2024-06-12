@@ -1,6 +1,16 @@
 # Demo App
 
-This is a sample app created following the steps in [Workshop: Enterprise Angular applications with NgRx and Nx](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/2-creating-an-nx-workspace).
+This is the monorepo for the Satisfactory Angular/Node/Python Deep Convolutional Generative Adversarial Network (DCGAN) media post full-stack application.
+
+The backend is written in NestJS which calls Python scripts to run Hugging Face Bidirectional and Auto-Regressive Transformers (BART) and other ML libraries.
+
+The end result is published under two different frontend apps at the moment.
+
+The current Preact NextJs Server Side Generative (SSG) frontend implementation in Accelerated Mobile Pages (AMP) for the best SEO experiences is deployed [here](www.ruffmello.com).  The repo for this app is [here](https://github.com/timofeysie/aegeus).
+
+And older Angular SSG site (loads a few seconds longer than the above) is deployed [here](www.aivsart.com).
+
+The backend only works locally.  It provides a list of up-to-date trending searches on Google, and allows the user to select a current trend, assemble associated news links and open license images to automatically create cartooned image illustrations for a news media post about this subject.  Text can be generated from GPT2 which isn't very good compared to current GPT models.
 
 ## Workflow
 
@@ -88,7 +98,9 @@ Add the article to summarize in the article.txt file and run it through the BART
 
 python apps\hugging-face\src\bart.py
 
-## Current versions
+## The Frontend app
+
+The frontend is an Angular app created following the steps in [Workshop: Enterprise Angular applications with NgRx and Nx](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/2-creating-an-nx-workspace).
 
 The first step of this project was updating the cli and libraries for the toolkit.
 

@@ -1,0 +1,74 @@
+{
+  "version": "0.0.4",
+  "date": "Wed Feb 14 2024 09:24:45 GMT+0900 (Korean Standard Time)",
+  "category": "",
+  "country": "US",
+  "pageTitle": "Crowd sets Waymo self-driving vehicle ablaze in San Francisco, here we go",
+  "authors": "<AI>, ",
+  "keywords": "waymo",
+  "description": "According to Reuters, people were celebrating China's Lunar New Year by setting off fireworks. A person jumped onto the hood of the Waymo vehicle and broke its windshield. Another person also jumped on the hood 30 seconds later as some in the crowd clapped in approval. A bystander said: 'There were 2 groups of people. Folks who encourage it - and others who were just shocked & started filming. No one stood up - I mean there wasn't anything you could do to stand up to dozens of people.",
+  "metaDescription": "Crowd sets Waymo self-driving vehicle ablaze in San Francisco meta",
+  "linkUrl": "https://en.wikipedia.org/wiki/waymo",
+  "linkLabel": "waymo on Wikipedia",
+  "linkForSummary": "",
+  "generatedText": "",
+  "links": {
+    "newsLink": "https://apnews.com/hub/waymo",
+    "newsLinkLabel": "waymo on AP News",
+    "useAPNewsLink": true,
+    "addAPNewsContent": "",
+    "wikiLink": "",
+    "useWikiLink": "true",
+    "addWikiLinkContent": ""
+  },
+  "topicText": "waymo\non Wikipedia\n",
+  "one": {
+    "title": "waymo",
+    "author": "AI",
+    "altText": "Waymo self-driving car side view.gk.jpg",
+    "imageSrc": "",
+    "imageChosen": "",
+    "srcset": "",
+    "description": "Crowd sets Waymo self-driving vehicle ablaze in San Francisco",
+    "metaDescription": "Crowd sets Waymo self-driving vehicle ablaze in San Francisco",
+    "tags": "waymo, Waymo self-driving car side view.gk",
+    "source": "https://commons.wikimedia.org/wiki/File:Waymo_self-driving_car_side_view.gk.jpg",
+    "aspect": "landscape",
+    "type": "AI",
+    "commonImg": "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Waymo_self-driving_car_side_view.gk.jpg/270px-Waymo_self-driving_car_side_view.gk.jpg\" data-src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Waymo_self-driving_car_side_view.gk.jpg/270px-Waymo_self-driving_car_side_view.gk.jpg\" alt=\"Waymo self-driving car side view.gk.jpg\" loading=\"lazy\" class=\"sd-image\" style=\"height: 100% !important; max-width: 5243px !important; max-height: 3497px;\">",
+    "googleImg": "",
+    "s3": {
+        "ETag": "38165eb6e1a762feb4d4716a11261dcc",
+        "Location": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/waymo-burning-540.jpg",
+        "Key": "waymo-burning-540.jpg",
+        "Bucket": "one-public-bucket",
+        "width": 540,
+        "height": 413
+      }
+  },
+  "originalTrend": {
+    "title": { "query": "waymo", "exploreLink": "" },
+    "formattedTraffic": "",
+    "relatedQueries": [],
+    "image": {
+      "newsUrl": "https://en.wikipedia.org/wiki/waymo",
+      "source": "Wikipedia",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Wikipedia-logo-pdc.pngg"
+    },
+    "articles": [
+      {
+        "image": {
+          "newsUrl": "https://en.wikipedia.org/wiki/waymo",
+          "source": "Wikipedia",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Wikipedia-logo-pdc.png"
+        },
+        "snippet": "on Wikipedia",
+        "source": "Wikipedia",
+        "timeAgo": "",
+        "title": "waymo",
+        "url": "https://en.wikipedia.org/wiki/waymo"
+      }
+    ],
+    "shareUrl": "https://en.wikipedia.org/wiki/waymo"
+  }
+}

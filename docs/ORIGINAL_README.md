@@ -1,8 +1,13 @@
 # The Trend Factory
 
-This app was created following the steps in [Workshop: Enterprise Angular applications with NgRx and Nx](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/2-creating-an-nx-workspace).  During the process, I updated the workshop content to cover Angular 12.  After this the project went on hiatus as I moved onto React development full time.
+This app is based on the [Enterprise Angular applications with NgRx and Nx](https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/2-creating-an-nx-workspace) by Duncan Hunter.  
 
-However, this is a useful app when run locally to construct posts for the [Ruffmello.com](https://ruffmello.com/) Preact site site hosted on Netlify.
+It is a post content creation platform to create images and content related to currently trending searches.
+
+The post images are created with using DCGAN (Deeply Convoluted Generative Adversarial Network) Machine Learning image generation.
+
+
+At the time I made myself responsible for updating the workshop contents to cover Angular 12.  When I moved onto React development full time it was still used locally to construct posts for the [Ruffmello.com](https://ruffmello.com/) Preact site site hosted on Netlify.
 
 There are a lot of working parts that have to come together to accomplish creating a post and then export a list of posts.
 

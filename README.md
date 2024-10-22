@@ -10,7 +10,7 @@ There are various utilities to create links for content on AP News and WIkipedia
 
 The name Tundra 64 is derived from the original Heroku deployment URL.  It is tied to the GitHub [evening-tundra-07464](https://github.com/timofeysie/evening-tundra-07464) repo which holds the source code for the site.
 
-![Tundra](docs\img\tundra64-grid.png)
+![Tundra](docs/img/tundra64-grid.png)
 
 The problem with the above site was that it was too slow for Search Engine Optimization (SEO) purposes.  Angular in general is not as performant for SEO, so I create a React project with the same capabilities, but that was also too slow and the pages were not able to be indexed by Google.  What did work was a Preact Server Side Generated (SSG) site based on Next.js.  It creates [Accelerated Mobile Pages (AMP)](https://amp.dev/) that perform well for SEO load in about a second.  To achieve the speed, AMP uses inline styles which means the them use for Tundra is much more difficult to achieve. This is currently only a technological demonstration, and the styles are very rudimentary compared to the Tundra site.
 
@@ -19,6 +19,22 @@ The problem with the above site was that it was too slow for Search Engine Optim
 There is extensive documentation the records the development of all these features in the docs directory.  Given that the Javascript tech space moves on so quickly, it's all becomes legacy code very quickly.  Most likely some of the Nest.js code will live on in another project instead of continuing here.
 
 Generally speaking it looks at current Google search trends and allows you to select a trend to create a post around.
+
+![trends](docs/img/trends.png)
+
+Then the user can choose an image from Wikimedia, setup Wikipedia and AP News links as well as links for other news story sources.
+
+![laura-demo](docs/img/laura-dem.png)
+
+Then the user can generate an image using the Toonify app which relies on a DCGAN pre-trained model.
+
+![laura-dem-post](docs/img/laura-dem-post.png)
+
+The user can then generate a list of posts which can be used for publishing the articles.
+
+![list-posts](docs/img/list.png)
+
+Note the above content is from more recent content which is not ML generated.
 
 ## Workflow
 

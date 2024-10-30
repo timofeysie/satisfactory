@@ -21,7 +21,7 @@ export class ImageService {
    *   square: {left: leftOffsetPre, top: topOffsetPre, width: widthPre, height: heightPre },
    */
   create(createImageDto: any) {
-    console.log('ImageService.create', createImageDto);
+    console.log('ImageService.create aspect', createImageDto.aspect);
     const dir = createImageDto.path;
     // eslint-disable-next-line prefer-const
     let fileName = createImageDto.fileName;
@@ -103,7 +103,7 @@ export class ImageService {
     const image = Sharp(imagePath);
     return new Promise((resolve) => {
       image.metadata().then((metadata) => {
-        console.log('ImageService.findOne: meta', metadata);
+        console.log('ImageService.findOne: meta', metadata.width, metadata.height);
         resolve(metadata);
       });
     });

@@ -11,6 +11,7 @@ import { TrendsListComponent } from '../trends-list/trends-list.component';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'demo-app-trends',
@@ -213,14 +214,13 @@ export class TrendsComponent implements OnInit {
   onHandleSubmitForm() {
     const formValue = this.topicForm.value;
     formValue['originalTrend'] = this.trendDetails;
-    console.log('formValue', formValue);
     this.trendsService.postTrendTopic(formValue).subscribe(
       (result) => {
-        console.log('Value Received ' + result);
+        console.log('Value Received', result);
         this.openSnackBar('form posted 1', 'close');
       },
       (err) => {
-        console.log('Error caught at Subscriber ' + err);
+        console.log('Error caught at Subscriber ', err);
         this.openSnackBar('form submitted', 'close');
       },
       () => console.log('Processing Complete.')
@@ -279,6 +279,25 @@ export class TrendsComponent implements OnInit {
     this.selectTwo = selectType;
   }
 
+  async getImageDimensions(imagePath: string): Promise<{ width: number; height: number }> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = imagePath;
+  
+      img.onload = () => {
+        const dimensions = {
+          width: img.width,
+          height: img.height,
+        };
+        resolve(dimensions);
+      };
+  
+      img.onerror = () => {
+        reject(new Error('Failed to load the image.'));
+      };
+    });
+  }
+
   /**
    * The user is shown a file chooser to select the generated image.
    * We also want to set the author <AI> as the type of model used.
@@ -287,7 +306,18 @@ export class TrendsComponent implements OnInit {
    *
    * @param selectedImage selected generated image
    */
-  onImageSelected(selectedImage: string) {
+  async onImageSelected(selectedImage: string) {
+    // here
+    try {
+      const imagePath = 'apps/toonify/src/cartooned_img/'+selectedImage;
+      console.log('imagePath', imagePath)
+      const dimensions = await this.getImageDimensions(imagePath);
+      console.log('Image Width:', dimensions.width);
+      console.log('Image Height:', dimensions.height);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    console.log('selectedImage', selectedImage);
     this.trendsService
       .uploadSelectedImage(selectedImage)
       .subscribe((result) => {

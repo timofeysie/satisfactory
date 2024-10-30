@@ -1,0 +1,11 @@
+{
+  "ETag": "\"1e41e7329e1e93cf95f257bf4b5e7a6f\"",
+  "ServerSideEncryption": "AES256",
+  "VersionId": "adXOSWOwZUoljB70y4PGbfXtk2u6tjER",
+  "Location": "https://one-public-bucket.s3.amazonaws.com/USC_vs._Colorado_edge-detect-sobel.jpg",
+  "key": "USC_vs._Colorado_edge-detect-sobel.jpg",
+  "Key": "USC_vs._Colorado_edge-detect-sobel.jpg",
+  "Bucket": "one-public-bucket",
+  "width": 541,
+  "height": 359
+}

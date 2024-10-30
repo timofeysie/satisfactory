@@ -1,0 +1,77 @@
+{
+  "version": "0.0.4",
+  "date": "Tue Nov 07 2023 11:45:02 GMT+0900 (Korean Standard Time)",
+  "category": "",
+  "country": "US",
+  "pageTitle": "Portrait of LP",
+  "authors": "TB Curchod",
+  "keywords": "LP",
+  "description": "A portrait of powerhouse musician and LGBTQ+ activist LP.  \"I don’t look the way I’m supposed to or act the way I’m supposed to — and I don’t want to” said in an interview on WTOP radio on Tuesday, November 7th in preparation for the show at The Anthem in Washington D.C. for the “Love Lines” tour, named after their new album that dropped in September.",
+  "metaDescription": "A portrait of musician and LGBTQ+ activist LP on the “Love Lines” tour named after their new album that dropped in September.",
+  "linkUrl": "https://en.wikipedia.org/wiki/LP_(singer)",
+  "linkLabel": "LP on Wikipedia",
+  "linkForSummary": "",
+  "generatedText": "",
+  "links": {
+    "newsLink": "https://apnews.com/article/148fe3ef9239409f91f3a6af47ad6e34",
+    "newsLinkLabel": "",
+    "useAPNewsLink": "",
+    "addAPNewsContent": "",
+    "wikiLink": "LP_(singer)",
+    "useWikiLink": "true",
+    "addWikiLinkContent": ""
+  },
+  "topicText": "\"I don’t look the way I’m supposed to or act the way I’m supposed to — and I don’t want to” powerhouse musician and LGBTQ+ activist LP said in an interview on WTOP radio on Tuesday, November 7th in preparation for the show at The Anthem in Washington D.C. for the “Love Lines” tour, named after their new album that dropped in September.\n",
+  "one": {
+    "title": "LP",
+    "author": "TB Curchod",
+    "altText": "",
+    "imageSrc": "",
+    "imageChosen": "LP_WTMD_LHCollins_sms_06062014.jpg",
+    "srcset": "./../assets/pictures/LP/LP_by_one_300w.jpg,\n./../assets/pictures/LP/LP_by_$author}_600w.jpg\n./../assets/pictures/LP/LP_by_one_1800w.jpg",
+    "description": "A portrait of powerhouse musician and LGBTQ+ activist LP.\nMedium:\tmulti coloured pencil, watercolour and crayon on paper\nDimensions: 213 mm × 289 mm\nLocation: Private collection of the artist\nPicture credit: TB Curchod",
+    "metaDescription": "A portrait of musician and LGBTQ+ activist LP based on a performance at WTMD's First Thursday series in Canton, Baltimore, Maryland, in 2014",
+    "tags": "",
+    "source": "",
+    "aspect": "Portrait",
+    "type": "ARTIST",
+    "commonImg": "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/LP_WTMD_LHCollins_sms_06062014.jpg/147px-LP_WTMD_LHCollins_sms_06062014.jpg\" data-src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/LP_WTMD_LHCollins_sms_06062014.jpg/147px-LP_WTMD_LHCollins_sms_06062014.jpg\" alt=\"LP WTMD LHCollins sms 06062014.jpg\" loading=\"lazy\" class=\"sd-image\" style=\"height: 100% !important; max-width: 400px !important; max-height: 491px;\">",
+    "googleImg": "",
+    "s3": {
+        "ETag": "a364bb240574ecbfefb5d9dfda2cfb2d",
+        "Location": "https://one-public-bucket.s3.ap-southeast-2.amazonaws.com/portrait-of-lp-960.jpg",
+        "Key": "portrait-of-lp-960.jpg",
+        "Bucket": "one-public-bucket",
+        "width": 681,
+        "height": 960
+      }
+  },
+  "originalTrend": {
+    "title": {
+      "query": "LP",
+      "exploreLink": "/trends/explore?q=LP&date=now+7-d&geo=US"
+    },
+    "formattedTraffic": "100K+",
+    "relatedQueries": [],
+    "image": {
+      "newsUrl": "https://wtop.com/entertainment/2023/11/powerhouse-musician-and-lgbtq-activist-lp-joins-wtop-before-rocking-the-anthem-in-dc/",
+      "source": "WTOP",
+      "imageUrl": "https://t3.gstatic.com/images?q=tbn:ANd9GcTiHKhNMunZxndqXWPzxP6Houg_78fNwc3-lNmK-F61sSzG3qsq_9EnqayeKajQ8uZAhQAUfCrM"
+    },
+    "articles": [
+      {
+        "title": "Powerhouse musician and LGBTQ+ activist LP joins WTOP before ...",
+        "timeAgo": "17h ago",
+        "source": "WTOP",
+        "image": {
+          "newsUrl": "https://wtop.com/entertainment/2023/11/powerhouse-musician-and-lgbtq-activist-lp-joins-wtop-before-rocking-the-anthem-in-dc/",
+          "source": "WTOP",
+          "imageUrl": "https://t3.gstatic.com/images?q=tbn:ANd9GcTiHKhNMunZxndqXWPzxP6Houg_78fNwc3-lNmK-F61sSzG3qsq_9EnqayeKajQ8uZAhQAUfCrM"
+        },
+        "url": "https://wtop.com/entertainment/2023/11/powerhouse-musician-and-lgbtq-activist-lp-joins-wtop-before-rocking-the-anthem-in-dc/",
+        "snippet": "On Tuesday, LP rocks The Anthem in D.C. for the “Love Lines” tour, named after their new album that dropped in September."
+      }
+    ],
+    "shareUrl": "https://trends.google.com/trends/trendingsearches/daily?geo=US&tt=LP#LP"
+  }
+}

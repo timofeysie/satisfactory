@@ -44,7 +44,7 @@ export class ProductsService {
           reject(err);
         }
         if (file) {
-          console.log('ProductsService.getCategory: resolving', file);
+          console.log('ProductsService.getCategory: resolving');
           resolve(JSON.parse(file));
         } else {
           console.log('ProductsService.getCategory: rejecting', err);
@@ -115,13 +115,15 @@ export class ProductsService {
                 date: jsonFile['date'],
                 source: 'AIvsArt',
                 image: {
-                  newsUrl: 'https://www.aivsart.com/' + jsonFile['pageTitle'],
+                  newsUrl: 'https://ruffmello.com/illustrations/' + jsonFile['pageTitle'],
                   source: jsonFile['one']['author'],
                   imageUrl: jsonFile['one']['s3']
                     ? jsonFile['one']['s3']['Location']
                     : '',
+                  width: jsonFile['one']['s3']['width'],
+                  height: jsonFile['one']['s3']['height'],
                 },
-                url: 'https://www.aivsart.com',
+                url: 'https://ruffmello.com',
                 snippet: metaDesc,
                 category: jsonFile['category'],
                 fileName: fileName,

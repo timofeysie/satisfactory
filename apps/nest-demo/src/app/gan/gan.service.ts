@@ -25,12 +25,19 @@ export class GanService {
     );
   }
 
-  kickOffGan(): void {
+  async kickOffGan(): Promise<void> {
     console.log('gan.service.kickOffGan: start all');
-    this.startProcess('Hosoda');
-    this.startProcess('Hayao');
-    this.startProcess('Paprika');
-    this.startProcess('Shinkai');
+    try {
+      await Promise.all([
+        this.startProcess('Hosoda'),
+        this.startProcess('Hayao'),
+        this.startProcess('Paprika'),
+        this.startProcess('Shinkai')
+      ]);
+    } catch (error) {
+      console.error('gan.service.kickOffGan error:', error);
+      throw error;
+    }
   }
 
   startProcess = async (model: string) => {
@@ -46,7 +53,10 @@ export class GanService {
         console.log('gan.service.startProcess: resolved', data.toString());
         resolve(data.toString());
       });
-      process.stderr.on('data', reject);
+      process.stderr.on('data', (data) => {
+        console.error('gan.service.startProcess error:', data.toString());
+        reject(new Error(data.toString()));
+      });
     });
   };
 

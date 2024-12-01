@@ -120,8 +120,8 @@ export class ProductsService {
                   imageUrl: jsonFile['one']['s3']
                     ? jsonFile['one']['s3']['Location']
                     : '',
-                  width: jsonFile['one']['s3']['width'],
-                  height: jsonFile['one']['s3']['height'],
+                  width: jsonFile['one']['s3']?.width,
+                  height: jsonFile['one']['s3']?.height,
                 },
                 url: 'https://ruffmello.com',
                 snippet: metaDesc,

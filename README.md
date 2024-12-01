@@ -116,9 +116,6 @@ Max landscape height: 541px.
 
 See the [Original README](docs/ORIGINAL_README.md) for more details on setup and the way the project was originally constructed.
 
-<<<<<<< HEAD
-## Original Nx Readme
-=======
 To scrape the contents of an article, use the goose app:
 
 python apps\hugging-face\src\goose.py
@@ -620,7 +617,6 @@ Replace the file system picture from the New Nx Lib with State folder at gitbook
 Propose putting the unit test and e2e sections at the bottom of their respective steps instead of in unused files.
 
 ## Original DemoApp Readme
->>>>>>> develop
 
 This project was generated using [Nx](https://nx.dev).
 

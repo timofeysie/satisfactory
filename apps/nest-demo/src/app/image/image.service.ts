@@ -97,7 +97,7 @@ export class ImageService {
       // encodedFileName = encodeURIComponent(imageName);
       // encodedFileName = this.encodeUriAll(encodedFileName);
     }
-    const dir = 'dist/apps/public/';
+    const dir = 'dist/apps/toonify/src/cartooned_img/';
     const imagePath = dir + encodedFileName;
     console.log('ImageService.findOne: imagePath', imagePath);
     const image = Sharp(imagePath);

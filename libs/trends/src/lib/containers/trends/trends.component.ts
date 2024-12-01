@@ -34,7 +34,7 @@ export class TrendsComponent implements OnInit {
   isGeneratedTextUpdating: boolean;
   selectTwo: boolean;
   topicForm = this.fb.group({
-    version: ['0.0.4'],
+    version: ['0.0.5'],
     date: [''],
     category: [''],
     country: [''],

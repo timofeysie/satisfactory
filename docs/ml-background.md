@@ -25,6 +25,10 @@ I was part of the the shift from LSTM to RNN to Transformers like GPT for NLP pr
 I used LSTM on Papaerspace at the beginning of this project to train a model for each Google trend I wanted to produce content for.
 This process led to output more poetic than accurate, and with only about 6000 lines of text for training, that was probably the reason.
 
+Eventually Papaerspace deprecated the service I was using to upload the text for model training, but I didn't feel like the amount of content I could scrape was enough to make it worthwile.  It would also mean there would be a cost for each post.
+
+Later I moved on to just using pretrained models with BART which I believe is in the current implementation.
+
 ## Transformers
 
 Transformers were inspired by the encoder-decoder architecture found in RNNs. However, Instead of using recurrence, the Transformer model is completely based on the Attention mechanism.
